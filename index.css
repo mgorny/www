@@ -1,0 +1,56 @@
+html
+{
+	color: #ddd;
+	background: #444;
+
+	padding: 0 2em;
+}
+
+h1
+{
+	font-size: 5em;
+
+	font-family: serif;
+}
+
+h1 small
+{
+	font-size: 100%;
+
+	color: #aaa;
+}
+
+h1 small small
+{
+	color: #777;
+}
+
+section
+{
+	border: .1em solid #aaa;
+}
+
+h2
+{
+	font-size: 100%;
+	border-bottom: .1em solid #aaa;
+
+	margin-top: 0;
+}
+
+section > *
+{
+	padding: 0 1em;
+}
+
+code .prompt
+{
+	color: #2d2;
+}
+
+code em
+{
+	font-style: normal;
+
+	color: #fff;
+}
