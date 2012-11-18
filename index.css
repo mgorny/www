@@ -28,24 +28,78 @@ h1 small small
 section
 {
 	border: .1em solid #aaa;
+
+	margin: .5em 0;
+	float: left;
+	clear: both;
 }
 
-h2
-{
-	font-size: 100%;
-	border-bottom: .1em solid #aaa;
-
-	margin-top: 0;
-}
+section:nth-of-type(2) { margin-left: 1em; }
+section:nth-of-type(3) { margin-left: 2em; }
+section:nth-of-type(4) { margin-left: 3em; }
+section:nth-of-type(5) { margin-left: 4em; }
+section:nth-of-type(6) { margin-left: 5em; }
+section:nth-of-type(n+7) { margin-left: 6em; }
 
 section > *
 {
 	padding: 0 1em;
 }
 
-code .prompt
+h2
 {
-	color: #2d2;
+	display: inline;
+
+	font-size: 100%;
+	border-bottom: .1em solid #aaa;
+	border-right: .1em solid #aaa;
+	border-bottom-right-radius: .6em;
+
+	margin-top: 0;
+	padding: 0 2em;
+}
+
+dd ol
+{
+	list-style: none;
+
+	padding: 0;
+
+	counter-reset: codelines;
+}
+
+dd ol > li:before
+{
+	counter-increment: codelines;
+	content: counter(codelines, decimal-leading-zero);
+
+	font-family: monospace;
+
+	margin-right: 1em;
+	padding-right: .2em;
+	border-right: .1em solid #aaa;
+}
+
+dd ul
+{
+	display: inline;
+
+	padding: 0;
+}
+
+dd ul > li
+{
+	display: inline;
+}
+
+dd ul > li > ul:before
+{
+	content: '[';
+}
+
+dd ul > li > ul:after
+{
+	content: '];';
 }
 
 code em
@@ -53,4 +107,88 @@ code em
 	font-style: normal;
 
 	color: #fff;
+}
+
+code small
+{
+	font-size: 100%;
+
+	color: #2d2;
+}
+
+dl
+{
+	counter-reset: item;
+}
+
+dt:before
+{
+	counter-increment: item;
+	content: counter(item) '. ';
+}
+
+dt.other:before
+{
+	content: '\221E. ';
+}
+
+dd
+{
+	margin-bottom: 1em;
+}
+
+a
+{
+	color: #dd2;
+
+	border-bottom: .1em dashed #dd2;
+}
+
+a:focus
+{
+	color: #2dd;
+
+	border-top: .1em dotted #2dd;
+	border-bottom: .1em dotted #2dd;
+}
+
+a:hover
+{
+	color: #ff6;
+
+	border-bottom: .1em solid #ee6;
+}
+
+a:focus:hover
+{
+	color: #6ff;
+
+	border-top: .1em solid #6ff;
+	border-bottom-color: #6ff;
+}
+
+a:active
+{
+	color: #d22;
+
+	border-top-color: #d22;
+	border-bottom-color: #d22;
+}
+
+a:active:hover
+{
+	color: #f66;
+
+	border-top-color: #f66;
+	border-bottom-color: #f66;
+}
+
+a:visited:before
+{
+	content: '(';
+}
+
+a:visited:after
+{
+	content: ')';
 }
