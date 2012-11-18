@@ -197,16 +197,22 @@ a[rel='external']:visited:after
 	content: ')';
 }
 
-section
+@media screen
 {
-	max-height: 1.25em;
+	@media not handheld
+	{
+		section
+		{
+			max-height: 1.25em;
 
-	overflow: hidden;
+			overflow: hidden;
 
-	transition: all 1.5s ease-in-out 0;
-}
+			transition: all 1.5s ease-in-out 0;
+		}
 
-section:target
-{
-	max-height: 30em;
+		section:target
+		{
+			max-height: 30em;
+		}
+	}
 }
