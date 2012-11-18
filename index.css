@@ -29,6 +29,8 @@ section
 {
 	border: .1em solid #aaa;
 
+	min-width: 50%;
+
 	margin: .5em 0;
 	float: left;
 	clear: both;
