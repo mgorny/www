@@ -29,8 +29,13 @@ h1
 
 a
 {
-	color: #ee8;
+	color: #118;
 	text-decoration: none;
+}
+
+a:visited
+{
+	color: #ee8;
 }
 
 a:focus
