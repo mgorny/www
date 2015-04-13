@@ -1,0 +1,55 @@
+html
+{
+	background: #000;
+
+	font-family: monospace;
+}
+
+body
+{
+	background: #111;
+	color: #888;
+
+	margin: 0 auto;
+	padding: 1em;
+
+	max-width: 80ch;
+}
+
+h1, h2
+{
+	color: #eee;
+	font-size: 100%;
+}
+
+h1
+{
+	text-align: center;
+}
+
+a
+{
+	color: #ee8;
+	text-decoration: none;
+}
+
+a:focus
+{
+	color: #111;
+	background: #ee8;
+}
+
+a:hover
+{
+	text-decoration: underline;
+}
+
+p
+{
+	margin-left: 3ch;
+}
+
+pre
+{
+	margin-left: 1ch;
+}
