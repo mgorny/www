@@ -69,12 +69,12 @@ a:hover
 
 p
 {
-	margin-left: 3ch;
+	margin: 1em 3ch;
 }
 
 pre
 {
-	margin-left: 1ch;
+	margin: 1em 1ch;
 }
 
 body::before, body::after, a:focus::after
