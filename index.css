@@ -2,14 +2,14 @@
 
 html
 {
-	background: #000;
+	background: #080808;
 
 	font-family: monospace;
 }
 
 body
 {
-	background: #111;
+	background: #000;
 	color: #888;
 
 	margin: 0 auto;
@@ -42,7 +42,7 @@ em
 a
 {
 	display: inline-block;
-	color: #118;
+	color: #44a;
 	text-decoration: none;
 }
 
@@ -53,8 +53,8 @@ a:visited
 
 a:focus
 {
-	color: #111;
-	background: #118;
+	color: #000;
+	background: #44a;
 }
 
 a:focus::first-letter
@@ -119,6 +119,8 @@ a:focus::after
 	width: 70ch;
 
 	content: attr(href);
+	overflow: hidden;
+	white-space: nowrap;
 
 	z-index: 1;
 }
