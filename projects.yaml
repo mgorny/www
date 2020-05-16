@@ -37,3 +37,12 @@ desc:
   Precise listing of binding QA policies in Gentoo, along with rationale
   whenever available.  Replaces and clarifies data previously found
   on the Wiki project pages and devmanual.
+---
+name: pyproject2setup.py
+date: 2019-12-21
+tags: python
+github: mgorny/pyproject2setuppy
+desc:
+  A simple (~200 lines of code) wrapper to run pyproject.toml-based
+  projects (using flit or poetry build systems) via setuptools,
+  without having to go through the dependency hell.
