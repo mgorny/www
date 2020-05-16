@@ -1,19 +1,17 @@
 function updateVisibleProjects()
 {
-	var htmlTags = document.querySelectorAll('.tag');
+	var htmlTags = Array.from(document.querySelectorAll('.tag'));
 	var tags = new Set();
-	for (var i = 0; i < htmlTags.length; i++)
+	htmlTags.forEach(htmlTag =>
 	{
-		var htmlTag = htmlTags[i];
 		var text = htmlTag.childNodes[0];
 		if (text.nodeValue == '[X]')
 			tags.add(htmlTag.id.substr(4));
-	}
+	});
 
-	var htmlProjects = document.querySelectorAll('div');
-	for (var i = 0; i < htmlProjects.length; i++)
+	var htmlProjects = Array.from(document.querySelectorAll('div'))
+	htmlProjects.forEach(htmlProject =>
 	{
-		var htmlProject = htmlProjects[i];
 		var htmlTag = htmlProject.querySelector('.tags');
 		var projectTags = htmlTag.innerHTML.trim().split(' ');
 
@@ -21,7 +19,7 @@ function updateVisibleProjects()
 			htmlProject.style.display = 'block';
 		else
 			htmlProject.style.display = 'none';
-	}
+	});
 }
 
 function toggleTagFilter(tag)
@@ -38,37 +36,54 @@ function toggleTagFilter(tag)
 
 function onLoad()
 {
-	var htmlProjects = document.querySelectorAll('div');
-	var tags = new Set();
+	var htmlProjects = Array.from(document.querySelectorAll('div'));
+	var tags = [];
 
-	for (var i = 0; i < htmlProjects.length; i++)
+	htmlProjects.forEach(htmlProject =>
 	{
-		var htmlProject = htmlProjects[i];
 		var htmlTag = htmlProject.querySelector('.tags');
 		var projectTags = htmlTag.innerHTML.trim().split(' ');
-		projectTags.forEach(x => tags.add(x));
-	}
+		projectTags.forEach(x => tags.push(x));
+	});
 
 	var filterPElem = document.createElement('p');
 	filterPElem.className = 'filters';
 	filterPElem.append(document.createTextNode('filter:'));
 	htmlProjects[0].insertAdjacentElement('beforebegin', filterPElem);
 
-	tags = Array.from(tags).sort();
-	for (i = 0; i < tags.length; i++)
+	var uniqueTags = new Set(tags);
+	var countedTags = new Array();
+	uniqueTags.forEach(tag =>
 	{
-		var tag = tags[i];
+		countedTags.push([tags.filter(x => x == tag).length, tag]);
+	});
+
+	countedTags.sort((lhs, rhs) =>
+	{
+		if (lhs[0] > rhs[0])
+			return -1;
+		if (lhs[0] < rhs[0])
+			return 1;
+		if (lhs[1] < rhs[1])
+			return -1;
+		if (lhs[1] > rhs[1])
+			return 1;
+		return 0;
+	}).forEach(tagPair =>
+	{
+		var tagCount = tagPair[0];
+		var tag = tagPair[1];
 		var tagLink = document.createElement('a');
 		var checkBox = document.createElement('em');
 		checkBox.append(document.createTextNode('[ ]'))
 		checkBox.className = 'tag';
 		checkBox.id = 'tag-' + tag;
 		tagLink.append(checkBox);
-		tagLink.append(document.createTextNode(' ' + tag));
+		tagLink.append(document.createTextNode(' ' + tag + ' (' + tagCount + ')'));
 		tagLink.href = 'javascript:toggleTagFilter("' + tag + '")'
 		filterPElem.append(document.createTextNode(' '));
 		filterPElem.append(tagLink);
-	}
+	});
 }
 
 document.addEventListener('DOMContentLoaded', onLoad);
