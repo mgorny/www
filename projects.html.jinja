@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+	<head>
+		<meta charset='UTF-8'/>
+		<title>~mgorny/projects</title>
+		<link rel='stylesheet' type='text/css' href='index.css' />
+		<script src="projects.js"></script>
+	</head>
+	<body>
+		<h1>~mgorny/projects</h1>
+
+		<p>
+			Most of my work is focused around small do-one-thing-well
+			projects.  This page aims to list at least the most useful
+			of them.  The projects are ordered by initial commit date.
+			This is still a work-in-progress, missing many older
+			projects.
+		</p>
+
+		{% for p in projects %}
+		<div>
+			<h2>
+				{{ p.name }} <sup>[{{ p.date.strftime('%Y-%m') }}]</sup>
+			</h2>
+			
+			<p>tags:
+				<em class="tags">
+					{{ p.tags }}
+				</em>
+			</p>
+
+			{% if p.www %}
+			<p>www:
+				{% for url in p.www.split() %}
+				<a rel="external"
+					href="{{ url }}">{{ url }}</a>
+				{% endfor %}
+			</p>
+			{% endif %}
+
+			{% if p.github %}
+			<p>github:
+				{% for gh in p.github.split() %}
+				<a rel="external"
+					href="https://github.com/{{ gh }}">{{ gh }}</a>
+				{% endfor %}
+			</p>
+			{% endif %}
+
+			{% if p.gitgo %}
+			<p>git.gentoo.org:
+				{% for repo in p.gitgo.split() %}
+				<a rel="external"
+					href="https://gitweb.gentoo.org/{{ repo }}">{{ repo }}</a>
+				{% endfor %}
+			</p>
+			{% endif %}
+
+			<p>
+				{{ p.desc }}
+			</p>
+		</div>
+		{% endfor %}
+	</body>
+</html>
+

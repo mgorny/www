@@ -124,3 +124,16 @@ a:focus::after
 
 	z-index: 1;
 }
+
+.filters a {
+	color: #888;
+}
+
+.filters a em {
+	color: #888;
+	font-weight: bold;
+}
+
+sup::before {
+	content: '^';
+}

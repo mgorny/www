@@ -1,0 +1,39 @@
+---
+name: goose (gander)
+date: 2020-05-10
+tags: django gentoo metric python
+github: mgorny/gander mgorny/goose
+desc:
+  A privacy-first anonymous metric collection system for Gentoo.
+  Focused on reporting installed packages and other data related
+  to package management.  Consists of Django-based server (goose)
+  and Python submission client (gander).
+---
+name: nattka
+date: 2020-03-19
+tags: gentoo keywording pkgcore python
+github: mgorny/nattka
+desc:
+  Multi-purpose arch team helper.  Provides a sanity-check process that
+  is running on Gentoo Infra in order to verify dependencies
+  of keywording and stabilization requests, as well as client-side
+  tooling to apply keywords, commit them and resolve the bugs.
+---
+name: python-guide
+date: 2020-02-19
+tags: doc gentoo python sphinx
+github: mgorny/python-guide
+www: https://dev.gentoo.org/~mgorny/python-guide/
+desc:
+  Topic-oriented documentation for writing ebuilds for packages written
+  in Python.  Built on top of real-life examples.  Written using Sphinx.
+---
+name: policy-guide
+date: 2020-01-08
+tags: doc gentoo qa sphinx
+gitgo: proj/policy-guide.git
+www: https://projects.gentoo.org/qa/policy-guide/
+desc:
+  Precise listing of binding QA policies in Gentoo, along with rationale
+  whenever available.  Replaces and clarifies data previously found
+  on the Wiki project pages and devmanual.
