@@ -4,8 +4,17 @@ import argparse
 import os.path
 import sys
 
+from docutils.core import publish_parts
+
 import jinja2
 import yaml
+
+
+def wrap_projects(projects):
+    for p in projects:
+        p['desc_html'] = publish_parts(p['desc'],
+                                       writer_name='html5')['body']
+        yield p
 
 
 def main(argv):
@@ -25,10 +34,10 @@ def main(argv):
     t = jenv.get_template('projects.html.jinja')
 
     if args.output == '-':
-        print(t.render(projects=projects))
+        print(t.render(projects=wrap_projects(projects)))
     else:
         with open(args.output, 'w') as f:
-            print(t.render(projects=projects), file=f)
+            print(t.render(projects=wrap_projects(projects)), file=f)
 
     return 0
 
