@@ -49,7 +49,6 @@ function onLoad()
 	var filterPElem = document.createElement('p');
 	filterPElem.className = 'filters';
 	filterPElem.append(document.createTextNode('filter:'));
-	htmlProjects[0].insertAdjacentElement('beforebegin', filterPElem);
 
 	var uniqueTags = new Set(tags);
 	var countedTags = new Array();
@@ -79,11 +78,16 @@ function onLoad()
 		checkBox.className = 'tag';
 		checkBox.id = 'tag-' + tag;
 		tagLink.append(checkBox);
-		tagLink.append(document.createTextNode(' ' + tag + ' (' + tagCount + ')'));
+		tagLink.append(document.createTextNode(' ' + tag));
+		var supCount = document.createElement('sup');
+		supCount.append(document.createTextNode(tagCount));
+		tagLink.append(supCount);
 		tagLink.href = 'javascript:toggleTagFilter("' + tag + '")'
 		filterPElem.append(document.createTextNode(' '));
 		filterPElem.append(tagLink);
 	});
+
+	htmlProjects[0].insertAdjacentElement('beforebegin', filterPElem);
 }
 
 document.addEventListener('DOMContentLoaded', onLoad);
