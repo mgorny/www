@@ -3,11 +3,13 @@ name: goose (gander)
 date: 2020-05-10
 tags: django gentoo metric python
 github: mgorny/gander mgorny/goose
-desc:
+desc: |
   A privacy-first anonymous metric collection system for Gentoo.
-  Focused on reporting installed packages and other data related
-  to package management.  Consists of Django-based server (goose)
+  Focused on reporting installed packages and other data related
+  to package management.  Consists of Django_-based server (goose)
   and Python submission client (gander).
+
+  .. _Django: https://www.djangoproject.com/
 ---
 name: nattka
 date: 2020-03-19
@@ -16,7 +18,7 @@ github: mgorny/nattka
 desc:
   Multi-purpose arch team helper.  Provides a sanity-check process that
   is running on Gentoo Infra in order to verify dependencies
-  of keywording and stabilization requests, as well as client-side
+  on keywording and stabilization requests, as well as client-side
   tooling to apply keywords, commit them and resolve the bugs.
 ---
 name: python-guide
@@ -24,25 +26,39 @@ date: 2020-02-19
 tags: doc gentoo python sphinx
 github: mgorny/python-guide
 www: https://dev.gentoo.org/~mgorny/python-guide/
-desc:
+desc: |
   Topic-oriented documentation for writing ebuilds for packages written
-  in Python.  Built on top of real-life examples.  Written using Sphinx.
+  in Python.  Built on top of real-life examples.  Written using
+  Sphinx_.
+
+  .. _Sphinx: https://www.sphinx-doc.org/
 ---
 name: policy-guide
 date: 2020-01-08
 tags: doc gentoo qa sphinx
 gitgo: proj/policy-guide.git
 www: https://projects.gentoo.org/qa/policy-guide/
-desc:
+desc: |
   Precise listing of binding QA policies in Gentoo, along with rationale
   whenever available.  Replaces and clarifies data previously found
-  on the Wiki project pages and devmanual.
+  across `project wiki pages`_ and devmanual_.  Additionally, it serves
+  as a proof-of-concept for porting Gentoo documentation to Sphinx_.
+
+  .. _project wiki pages: https://wiki.gentoo.org/wiki/Project:Gentoo
+  .. _devmanual: https://devmanual.gentoo.org/
+  .. _Sphinx: https://www.sphinx-doc.org/
 ---
 name: pyproject2setup.py
 date: 2019-12-21
 tags: python
 github: mgorny/pyproject2setuppy
-desc:
+desc: |
   A simple (~200 lines of code) wrapper to run pyproject.toml-based
-  projects (using flit or poetry build systems) via setuptools,
-  without having to go through the dependency hell.
+  (`PEP 518`_) projects (using flit_ or poetry_ build systems)
+  via setuptools_, without having to go through yet another dependency
+  hell.
+
+  .. _PEP 518: https://www.python.org/dev/peps/pep-0518/
+  .. _flit: https://github.com/takluyver/flit/
+  .. _poetry: https://python-poetry.org/
+  .. _setuptools: https://github.com/pypa/setuptools/
