@@ -1,5 +1,6 @@
 PYTHON ?= python3
 GPG ?= gpg
+RSYNC ?= rsync
 
 ALL = \
 	index.html \
@@ -24,4 +25,4 @@ projects.html: projects.yaml projects.html.jinja projects2html.py
 	$(PYTHON) projects2html.py $< -o $@
 
 upload: sign $(ALL)
-	scp $(ALL) dev.gentoo.org:public_html/
+	$(RSYNC) $(ALL) dev.gentoo.org:public_html/
