@@ -125,15 +125,18 @@ a:focus::after
 	z-index: 1;
 }
 
-.filters a {
+.filters a
+{
 	color: #888;
 }
 
-.filters a em {
+.filters a em
+{
 	color: #888;
 	font-weight: bold;
 }
 
-sup::before {
+sup::before
+{
 	content: '^';
 }
