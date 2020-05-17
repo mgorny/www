@@ -186,7 +186,7 @@ desc: |
 ---
 name: Repository mirrors & CI
 date: 2015-05-15
-tags: bash gentoo infra package-management python
+tags: bash gentoo infra package-management python qa
 github: mgorny/repo-mirror-ci mgorny/pkgcheck2html
 desc: |
   A Gentoo project serving a twofold goal.  Firstly, it provides
@@ -203,7 +203,7 @@ desc: |
 ---
 name: Containerization in Portage
 date: 2013-08-17
-tags: gentoo package-management python
+tags: gentoo package-management python qa
 gitgo: proj/portage.git
 desc: |
   Support of containerizing package builds in Portage_ via use of Linux

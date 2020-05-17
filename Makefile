@@ -4,6 +4,7 @@ GPG ?= gpg
 ALL = \
 	index.html \
 	index.css \
+	index.js \
 	projects.html \
 	projects.js \
 	projects.yaml

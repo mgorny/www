@@ -93,22 +93,25 @@ body::before
 {
 	top: 0;
 
-	width: 80ch;
+	max-width: 80ch;
 
 	content: '~mgorny (' counter(page) '/' counter(pages) ') ';
 	text-align: right;
 }
 
-body::after
+@media only screen
 {
-	bottom: 0;
-	right: 1ch;
+	body::after
+	{
+		bottom: 0;
+		right: 1ch;
 
-	width: 79ch;
+		max-width: 79ch;
 
-	content: 'OK                                                                     [------]';
+		content: 'OK                                                                     [------]';
 
-	z-index: 0;
+		z-index: 0;
+	}
 }
 
 a:focus::after
