@@ -11,6 +11,23 @@ desc: |
 
   .. _Django: https://www.djangoproject.com/
 ---
+name: "GSoC 2020: FUSE-based sandbox and new binpkg format"
+date: 2020-05-04
+role: mentor
+tags: gentoo mentor package-management
+desc: |
+  Mentoring two students with Portage_-related projects.  One of them
+  is writing a FUSE_-based Gentoo sandbox_ replacement, a tool
+  to restrict build process' access to the filesystem, for GSoC_ 2020.
+  The other one is implementing a new binary package format as described
+  in `GLEP 78`_, as a university project.
+
+  .. _FUSE: https://github.com/libfuse/libfuse/
+  .. _sandbox: https://wiki.gentoo.org/wiki/Project:Sandbox
+  .. _Portage: https://wiki.gentoo.org/wiki/Project:Portage
+  .. _GSoC: https://summerofcode.withgoogle.com/
+  .. _GLEP 78: https://www.gentoo.org/glep/glep-0078.html
+---
 name: nattka
 date: 2020-03-19
 tags: gentoo keywording pkgcore python
@@ -34,6 +51,7 @@ desc: |
   .. _Sphinx: https://www.sphinx-doc.org/
 ---
 name: policy-guide
+role: initial author
 date: 2020-01-08
 tags: doc gentoo qa sphinx
 gitgo: proj/policy-guide.git
@@ -62,3 +80,148 @@ desc: |
   .. _flit: https://github.com/takluyver/flit/
   .. _poetry: https://python-poetry.org/
   .. _setuptools: https://github.com/pypa/setuptools/
+---
+name: Split distfile mirror directory structure
+date: 2019-10-03
+tags: infra python spec
+desc: |
+  A project for moving distribution files on Gentoo mirrors from
+  a single flat directory to a more efficient tree of subdirectories.
+  Covers the specification (`GLEP 75`_), Portage_ implementation
+  and infra tasks regarding the transition.  The key concept is using
+  a hash of filename to split files into even buckets while preserving
+  the ability to identify the correct bucket from filename.
+
+  .. _GLEP 75: https://gentoo.org/glep/glep-0075.html
+  .. _Portage: https://wiki.gentoo.org/wiki/Project:Portage
+---
+name: Securing the Gentoo keyserver
+date: 2019-07-03
+tags: infra openpgp
+www: https://www.gentoo.org/news/2019/07/03/sks-key-poisoning.html
+desc: |
+  In response to `key poisoning attacks on SKS`_, I have disabled key
+  exchange with SKS network and established a new secure pipeline
+  to upload keys to Gentoo keyserver.  This permitted Gentoo to continue
+  operating under the web-of-trust model while remaining resilient
+  to the attacks.
+
+  .. _key poisoning attacks on SKS:
+     https://gist.github.com/rjhansen/67ab921ffb4084c865b3618d6955275f
+---
+name: "GSoC 2019: NetBSD KNF in clang-format"
+date: 2019-06-01
+role: mentor
+tags: c++ llvm mentor netbsd
+github: llvm/llvm-project
+www: https://blog.netbsd.org/tnf/entry/gsoc_2019_report_adding_netbsd1
+desc: |
+  Mentoring a student working on extending clang-format_ into supporting
+  NetBSD_ coding style.
+
+  .. _clang-format: https://clang.llvm.org/docs/ClangFormat.html
+  .. _NetBSD: https://netbsd.org/
+---
+name: GURU
+role: initiator
+date: 2019-04-07
+tags: gentoo package-management social
+gitgo: repo/proj/guru.git
+desc: |
+  A user-maintained ebuild repository for new packages following
+  the spirit of the Sunrise_ project.  Based on the concept that all
+  interested contributors can commit but changes need to be reviewed
+  by their more experienced colleagues before being deployed to user
+  systems.
+
+  .. _Sunrise: https://wiki.gentoo.org/wiki/Sunrise
+---
+name: Gentoo Authority Keys
+date: 2019-02-19
+tags: gentoo infra openpgp spec
+github: mgorny/gentoo-authority-key
+desc: |
+  A system providing OpenPGP key validity information for keys used
+  by Gentoo developers and Infrastructure services.  Specified
+  in `GLEP 79`_, uses automatically created (and revoked) signatures
+  on developer keys in a web-of-trust compliant manner.
+
+  .. _GLEP 79: https://www.gentoo.org/glep/glep-0079.html
+---
+name: Porting LLDB to NetBSD
+date: 2019-01-01
+tags: c++ llvm netbsd
+github: llvm/llvm-project
+desc: |
+  Updating and completing the NetBSD_ support in the LLDB_ debugger
+  that was initially implemented by Kamil Rytarowski.  This also
+  involves fixes to various other LLVM projects, as well as maintaining
+  the buildbot CI instance.
+
+  .. _NetBSD: https://netbsd.org/
+  .. _LLDB: https://lldb.llvm.org/
+---
+name: Gentoo OpenPGP policy update
+date: 2018-07-02
+tags: gentoo openpgp spec
+desc: |
+  Updated the OpenPGP practices outlined in `GLEP 63`_ to follow more
+  modern recommendations and improve security.  This includes using
+  explicit signing and encryption subkeys, setting expiration dates
+  and storing the primary key securely offline.
+
+  .. _GLEP 63: https://www.gentoo.org/glep/glep-0063.html
+---
+name: gemato
+date: 2017-10-22
+tags: infra openpgp python spec
+github: mgorny/gemato
+desc: |
+  A tool to verify the authenticity of a directory tree using a single
+  OpenPGP signature and recursive digest files (Manifests).
+  The reference implementation of `GLEP 74`_, primarily used to verify
+  rsync checkouts of the Gentoo ebuild repository.
+
+  .. _GLEP 74: https://www.gentoo.org/glep/glep-0074.html
+---
+name: Repository mirrors & CI
+date: 2015-05-15
+tags: bash gentoo infra package-management python
+github: mgorny/repo-mirror-ci mgorny/pkgcheck2html
+desc: |
+  A Gentoo project serving a twofold goal.  Firstly, it provides
+  `mirrors of ebuild repositories`_ listed on the official `repository
+  list`_ with pregenerated caches, suitable for efficient and secure
+  system updates via git_.  Secondly, it enables a CI pipeline
+  using pkgcheck_ linting tool for the Gentoo repository and its GitHub
+  pull requests.
+
+  .. _mirrors of ebuild repositories: https://github.com/gentoo-mirror/
+  .. _repository list: https://repos.gentoo.org/
+  .. _git: https://git-scm.com/
+  .. _pkgcheck: https://github.com/pkgcore/pkgcheck/
+---
+name: Containerization in Portage
+date: 2013-08-17
+tags: gentoo package-management python
+gitgo: proj/portage.git
+desc: |
+  Support of containerizing package builds in Portage_ via use of Linux
+  kernel namespaces.  Initially it was used to prevent built programs
+  from unexpectedly accessing the Internet and local network services.
+  Afterwards, it was extended to cover isolation of mounts, processes
+  (with reliable killing of leftovers) and predictable hostname setting.
+
+  .. _Portage: https://wiki.gentoo.org/wiki/Project:Portage
+---
+name: python-r1 eclass suite
+date: 2012-10-14
+tags: bash gentoo package-management
+gitgo: repo/gentoo.git
+desc: |
+  A new eclass suite to build and install Python packages.  Combined
+  good ideas from other eclasses with a few innovations.  The latter
+  include separate eclasses for different purposes (build-time dep,
+  single-impl and multi-impl install) and variables for explicit
+  metadata building with generator functions for more complex needs.
+  So far this remains the state-of-the-art example for eclass API.

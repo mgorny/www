@@ -26,6 +26,7 @@
 		<div>
 			<h2>
 				{{ p.name }} <sup>[{{ p.date.strftime('%Y-%m') }}]</sup>
+				{% if p.role %}<em>({{ p.role }})</em>{% endif %}
 			</h2>
 			
 			<p>tags:
