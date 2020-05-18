@@ -73,7 +73,8 @@ em {
 a {
   display: inline-block;
   color: @a-fg;
-  text-decoration: none;
+  text-decoration: underline transparent;
+  transition: text-decoration .3s ease;
 
   &:visited {
     color: @a-visited-fg;
@@ -100,7 +101,7 @@ a {
   }
 
   &:hover {
-    text-decoration: underline;
+    text-decoration: underline currentcolor;
   }
 }
 
@@ -145,4 +146,8 @@ pre {
 
 sup::before {
   content: '^';
+}
+
+div {
+  transition: max-height .5s ease-in-out, opacity .5s ease-in-out;
 }

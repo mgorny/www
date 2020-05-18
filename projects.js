@@ -16,9 +16,15 @@ function updateVisibleProjects()
 		var projectTags = htmlTag.innerHTML.trim().split(' ');
 
 		if (tags.size == 0 || projectTags.filter(x => tags.has(x)).length > 0)
-			htmlProject.style.display = 'block';
+		{
+			htmlProject.style.maxHeight = htmlProject.scrollHeight + 'px';
+			htmlProject.style.opacity = '100%';
+		}
 		else
-			htmlProject.style.display = 'none';
+		{
+			htmlProject.style.maxHeight = '0'
+			htmlProject.style.opacity = '0';
+		}
 	});
 }
 
@@ -44,6 +50,9 @@ function onLoad()
 		var htmlTag = htmlProject.querySelector('.tags');
 		var projectTags = htmlTag.innerHTML.trim().split(' ');
 		projectTags.forEach(x => tags.push(x));
+
+		htmlProject.style.maxHeight = htmlProject.scrollHeight + 'px';
+		htmlProject.style.overflow = 'hidden';
 	});
 
 	var filterPElem = document.createElement('p');
