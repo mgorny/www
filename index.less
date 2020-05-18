@@ -132,6 +132,10 @@ pre {
     color: @text-fg;
     background: @inner-bg;
 
+    &::after {
+      content: 'Checkbox, value on';
+    }
+
     em::before, em::after {
       color: @inner-bg;
       background: @a-fg;
