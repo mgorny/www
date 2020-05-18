@@ -5,7 +5,7 @@ function updateVisibleProjects()
 	htmlTags.forEach(htmlTag =>
 	{
 		var text = htmlTag.childNodes[0];
-		if (text.nodeValue == '[X]')
+		if (text.nodeValue == 'X')
 			tags.add(htmlTag.id.substr(4));
 	});
 
@@ -26,10 +26,10 @@ function toggleTagFilter(tag)
 {
 	var tagBox = document.getElementById('tag-' + tag);
 	var text = tagBox.childNodes[0];
-	if (text.nodeValue == '[ ]')
-		text.nodeValue = '[X]'
+	if (text.nodeValue == ' ')
+		text.nodeValue = 'X'
 	else
-		text.nodeValue = '[ ]'
+		text.nodeValue = ' '
 
 	updateVisibleProjects();
 }
@@ -74,7 +74,7 @@ function onLoad()
 		var tag = tagPair[1];
 		var tagLink = document.createElement('a');
 		var checkBox = document.createElement('em');
-		checkBox.append(document.createTextNode('[ ]'))
+		checkBox.append(document.createTextNode(' '))
 		checkBox.className = 'tag';
 		checkBox.id = 'tag-' + tag;
 		tagLink.append(checkBox);

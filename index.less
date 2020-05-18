@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+@outer-bg: #080808;
+@inner-bg: #000;
+@text-fg: #bbb;
+@h1-fg: #eee;
+@em-fg: #0cc;
+@a-fg: #99d;
+@a-visited-fg: #ee8;
+@a-first-letter-bg: @text-fg;
+
+@page-width: 80ch;
+
+html {
+  background: @outer-bg;
+  font-family: monospace;
+}
+
+.bar-common {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  color: @inner-bg;
+  background: @text-fg;
+}
+
+body {
+  background: @inner-bg;
+  color: @text-fg;
+  margin: 0 auto;
+  padding: 1ch 0;
+  max-width: @page-width;
+
+  &::before {
+    &:extend(.bar-common);
+    top: 0;
+    max-width: @page-width;
+    content: "~mgorny (" counter(page) "/" counter(pages) ") ";
+    text-align: right;
+  }
+
+  &::after {
+    &:extend(.bar-common);
+
+    @media only screen {
+      bottom: 0;
+      right: 1ch;
+      max-width: @page-width - 1ch;
+      content: 'OK                                                                     [------]';
+      z-index: 0;
+    }
+  }
+}
+
+h1, h2 {
+  font-weight: normal;
+  font-size: 100%;
+}
+
+h1 {
+  color: @h1-fg;
+  font-weight: bold;
+  text-align: center;
+}
+
+em {
+  font-weight: normal;
+  font-style: normal;
+  color: @em-fg;
+}
+
+a {
+  display: inline-block;
+  color: @a-fg;
+  text-decoration: none;
+
+  &:visited {
+    color: @a-visited-fg;
+  }
+
+  &:focus {
+    color: @inner-bg;
+    background: @a-fg;
+
+    &::after {
+      &:extend(.bar-common);
+      bottom: 0;
+      right: 10ch;
+      width: @page-width - 10ch;
+      content: attr(href);
+      overflow: hidden;
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    &::first-letter {
+      background: @a-first-letter-bg;
+    }
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+p {
+  margin: 1em 3ch;
+}
+
+pre {
+  margin: 1em 1ch;
+}
+
+.filters a {
+  color: @text-fg;
+
+  em {
+    color: @a-fg;
+    font-weight: bold;
+
+    &::before {
+        content: '[';
+    }
+
+    &::after {
+        content: ']';
+    }
+  }
+
+  &:focus {
+    color: @text-fg;
+    background: @inner-bg;
+
+    em::before, em::after {
+      color: @inner-bg;
+      background: @a-fg;
+    }
+  }
+}
+
+sup::before {
+  content: '^';
+}

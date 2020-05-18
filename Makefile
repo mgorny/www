@@ -1,6 +1,7 @@
 PYTHON ?= python3
 GPG ?= gpg
 RSYNC ?= rsync
+LESSC ?= lessc
 
 ALL = \
 	index.html \
@@ -10,7 +11,7 @@ ALL = \
 	projects.js \
 	projects.yaml
 
-all: sign projects.html
+all: sign $(ALL)
 
 verify:
 	$(GPG) --verify index.html
@@ -20,6 +21,9 @@ force-sign:
 
 sign:
 	$(GPG) --verify index.html || $(PYTHON) sign.py
+
+index.css: index.less
+	$(LESSC) $< $@
 
 projects.html: projects.yaml projects.html.jinja projects2html.py
 	$(PYTHON) projects2html.py $< -o $@
