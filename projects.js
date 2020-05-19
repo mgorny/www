@@ -61,9 +61,12 @@ function onLoad()
 
 	var uniqueTags = new Set(tags);
 	var countedTags = new Array();
+	var maxCount = 0;
 	uniqueTags.forEach(tag =>
 	{
-		countedTags.push([tags.filter(x => x == tag).length, tag]);
+		var tagCount = tags.filter(x => x == tag).length;
+		countedTags.push([tagCount, tag]);
+		maxCount = Math.max(maxCount, tagCount);
 	});
 
 	countedTags.sort((lhs, rhs) =>
@@ -82,6 +85,8 @@ function onLoad()
 		var tagCount = tagPair[0];
 		var tag = tagPair[1];
 		var tagLink = document.createElement('a');
+		tagLink.className = 'tag-pop' + Math.ceil(
+			5 * tagCount / maxCount);
 		var checkBox = document.createElement('em');
 		checkBox.append(document.createTextNode(' '))
 		checkBox.className = 'tag';

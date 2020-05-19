@@ -116,6 +116,22 @@ pre {
 .filters a {
   color: @text-fg;
 
+  &.tag-pop5 {
+    color: lighten(@text-fg, 20%);
+  }
+
+  &.tag-pop4 {
+    color: lighten(@text-fg, 10%);
+  }
+
+  &.tag-pop2 {
+    color: darken(@text-fg, 10%);
+  }
+
+  &.tag-pop1 {
+    color: darken(@text-fg, 20%);
+  }
+
   em {
     color: @a-fg;
     font-weight: bold;
@@ -130,9 +146,6 @@ pre {
   }
 
   &:focus {
-    color: @text-fg;
-    background: @inner-bg;
-
     &::after {
       content: 'Checkbox, value on';
     }
