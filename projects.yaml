@@ -136,6 +136,20 @@ desc: |
 
   .. _Sunrise: https://wiki.gentoo.org/wiki/Sunrise
 ---
+name: pram
+role: rewrite
+date: 2019-03-18
+tags: bash gentoo git
+github: mgorny/pram
+desc: |
+  A rewrite of `Gentoo::App::Pram`_ in pure bash.  A trivial tool
+  to fetch a GitHub pull request (or a generic patch) and apply it
+  on top of a git repository.  Includes a few conveniences: editing
+  the patch before merging, adding tags to close the pull request
+  or bugs, verifying and adding signoffs.
+
+  .. _Gentoo::App::Pram: https://github.com/monsieurp/Gentoo-App-Pram
+---
 name: Gentoo Authority Keys
 date: 2019-02-19
 tags: gentoo infra openpgp spec
@@ -201,6 +215,16 @@ desc: |
   .. _git: https://git-scm.com/
   .. _pkgcheck: https://github.com/pkgcore/pkgcheck/
 ---
+name: cpuid2cpuflags
+date: 2015-01-23
+tags: c gentoo
+github: mgorny/cpuid2cpuflags
+desc: |
+  A tool to query CPU instruction sets via CPUID (or HWCAPs) and output
+  respective CPU_FLAGS_* for Gentoo builds.  Originally written
+  as Python parser of ``/proc/cpuinfo`` for x86, afterwards rewritten
+  in C to use low-level queries and extended to ARM and PowerPC.
+---
 name: Containerization in Portage
 date: 2013-08-17
 tags: gentoo package-management python qa
@@ -224,6 +248,16 @@ desc: |
   login in other Gentoo applications and serve as Gentoo's SSO.
   However, OpenID became obsolete before it was deployed.
 ---
+name: gpyutils
+date: 2012-12-06
+tags: gentoo package-management python
+github: mgorny/gpyutils
+desc: |
+  A set of various utilities to help with Python package maintenance
+  in Gentoo.  Provides tools to print and mangle ``PYTHON_COMPAT``,
+  find packages needing porting to new Python versions and plot (via
+  Graphviz) dependency graphs between them.
+---
 name: python-r1 eclass suite
 date: 2012-10-14
 tags: bash gentoo package-management
@@ -235,3 +269,46 @@ desc: |
   single-impl and multi-impl install) and variables for explicit
   metadata building with generator functions for more complex needs.
   So far this remains the state-of-the-art example for eclass API.
+---
+name: libh2o suite
+date: 2012-03-03
+tags: c
+github: mgorny/libh2o mgorny/libh2oxx mgorny/pyh2o mgorny/h2o-gtk
+desc: |
+  University project.  An optimized C library for water and steam
+  properties using IF97 tables.  Includes C++ and Python bindings,
+  and a GTK+ app to query and plot them.
+---
+name: pshs
+date: 2011-11-08
+tags: c server
+github: mgorny/pshs
+desc: |
+  A tiny CLI server to quickly share files over HTTP.  Supports random
+  port choice, IP address detection, automated UPnP port forwarding,
+  URL QRcode generation and TLS with self-signed certificate generated
+  at runtime.
+---
+name: eclean-kernel
+date: 2011-10-23
+tags: python
+github: mgorny/eclean-kernel
+desc: |
+  A CLI tool to find and remove old kernels from the system.  Supports
+  both old-school /boot layout and bootloader spec (gummiboot /
+  systemd-boot).  Can remove old kernels based on version, mtime or just
+  clean up stray modules and auxiliary files.
+---
+name: "GSoC 2011: gentoopm"
+date: 2011-06-29
+tags: package-management python
+github: mgorny/gentoopm
+desc: |
+  A Python package providing an objective wrapper API to the three
+  Gentoo package managers: Paludis, PkgCore and Portage.  Originally
+  used to implement GSoC 2011 project of PMS Test Suite.  Later used
+  in other projects as a more Pythonic API than these directly provided
+  by the package managers themselves.  Nowadays effectively defunct
+  as Paludis is no longer developed, and PkgCore is much faster than
+  Portage while remaining reasonably compatible, rendering fallback
+  to Portage API unnecessary.
