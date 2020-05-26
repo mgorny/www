@@ -30,7 +30,7 @@ desc: |
 ---
 name: nattka
 date: 2020-03-19
-tags: gentoo keywording pkgcore python
+tags: gentoo git keywording pkgcore python
 github: mgorny/nattka
 desc:
   Multi-purpose arch team helper.  Provides a sanity-check process that
@@ -65,6 +65,23 @@ desc: |
   .. _project wiki pages: https://wiki.gentoo.org/wiki/Project:Gentoo
   .. _devmanual: https://devmanual.gentoo.org/
   .. _Sphinx: https://www.sphinx-doc.org/
+---
+name: Gentoo Distribution Kernel
+date: 2020-01-04
+tags: gentoo package-management
+gitgo: repo/gentoo.git
+desc: |
+  Created the framework for building kernels via packages, and added
+  initial Distribution Kernel packages.  This provides an alternative
+  to the historical way of packaging kernel sources and building them
+  manually, and aligns Gentoo with other distributions (including its
+  derivatives).  DK provides the ability to build from source or use
+  a prebuilt binary package, to use generic or user-supplied
+  configuration.  It features initramfs support (via Dracut_)
+  and a binary-package friendly support for different install layouts
+  via pluggable ``installkernel`` script.
+
+  .. _Dracut: https://dracut.wiki.kernel.org
 ---
 name: pyproject2setup.py
 date: 2019-12-21
@@ -200,7 +217,7 @@ desc: |
 ---
 name: Repository mirrors & CI
 date: 2015-05-15
-tags: bash gentoo infra package-management python qa
+tags: bash gentoo git infra package-management python qa
 github: mgorny/repo-mirror-ci mgorny/pkgcheck2html
 desc: |
   A Gentoo project serving a twofold goal.  Firstly, it provides
@@ -225,6 +242,15 @@ desc: |
   as Python parser of ``/proc/cpuinfo`` for x86, afterwards rewritten
   in C to use low-level queries and extended to ARM and PowerPC.
 ---
+name: eselect-opengl redesign
+date: 2014-12-08
+tags: bash gentoo
+desc: |
+  Redesign of the tool used to switch between OpenGL implementation
+  providers in Gentoo.  The new design switched libraries
+  via controlling LD search paths and unconditionally used reference
+  headers, while the old one relied on writing symlinks to ``/usr``.
+---
 name: Containerization in Portage
 date: 2013-08-17
 tags: gentoo package-management python qa
@@ -247,6 +273,17 @@ desc: |
   LDAP with an OpenID server.  It included a plan to provide OpenID
   login in other Gentoo applications and serve as Gentoo's SSO.
   However, OpenID became obsolete before it was deployed.
+---
+name: gx86-multilib
+date: 2013-02-01
+tags: gentoo package-management
+gitgo: repo/gentoo.git
+desc: |
+  A new approach to supporting multilib in Gentoo.  Replaced prebuilt
+  ``emul-linux-x86-*`` packages with eclass-based approach that enabled
+  building selected packages from source, for any number of ABIs
+  on every multilib architecture.  Won against the competing
+  portage-multilib project.
 ---
 name: gpyutils
 date: 2012-12-06
@@ -312,3 +349,25 @@ desc: |
   as Paludis is no longer developed, and PkgCore is much faster than
   Portage while remaining reasonably compatible, rendering fallback
   to Portage API unnecessary.
+---
+name: gentoo.git
+role: co-developer
+date: 2010-10-01
+tags: gentoo llvm package-management
+gitgo: repo/gentoo.git
+desc: |
+  Activity as a package maintainer and eclass developer.  Besides sundry
+  smaller packages of individual interest, maintaining LLVM_ and XFCE_,
+  and co-maintaining a large part of the Python ecosystem.  Actively
+  participating in QA work.
+
+  .. _LLVM: https://llvm.org/
+  .. _XFCE: https://www.xfce.org/
+---
+name: uam
+date: 2009-02-14
+tags: bash
+github: mgorny/uam
+desc: |
+  A removable drive automounter in pure shell, using udev rules without
+  additional daemons (such as udisks).
