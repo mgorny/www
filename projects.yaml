@@ -126,6 +126,18 @@ desc: |
   .. _key poisoning attacks on SKS:
      https://gist.github.com/rjhansen/67ab921ffb4084c865b3618d6955275f
 ---
+name: votrify
+date: 2019-06-15
+tags: openpgp python
+github: mgorny/votrify
+desc: |
+  A tool to confirm results of pseudonymous elections.  Every voter
+  confirms that he received the same copy of the master ballot, that his
+  (possibly empty) vote was included in it and that he gets the same
+  counting results as announced, then uploads a cryptographically signed
+  confirmation.  Everyone can verify uploaded confirmations to confirm
+  the results and that no votes were excluded or planted.
+---
 name: "GSoC 2019: NetBSD KNF in clang-format"
 date: 2019-06-01
 role: mentor
