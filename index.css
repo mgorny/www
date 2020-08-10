@@ -1,0 +1,128 @@
+@charset "UTF-8";
+html {
+  background: #080808;
+  font-family: monospace;
+}
+.bar-common,
+body::before,
+body::after,
+a:focus::after {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  color: #000;
+  background: #bbb;
+}
+body {
+  background: #000;
+  color: #bbb;
+  margin: 0 auto;
+  padding: 1ch 0;
+  max-width: 80ch;
+}
+body::before {
+  top: 0;
+  max-width: 80ch;
+  content: "~mgorny (" counter(page) "/" counter(pages) ") ";
+  text-align: right;
+}
+@media only screen {
+  body::after {
+    bottom: 0;
+    right: 1ch;
+    max-width: 79ch;
+    content: 'OK                                                                     [------]';
+    z-index: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+h1,
+h2 {
+  font-weight: normal;
+  font-size: 100%;
+}
+h1 {
+  color: #eee;
+  font-weight: bold;
+  text-align: center;
+}
+em {
+  font-weight: normal;
+  font-style: normal;
+  color: #0cc;
+}
+a {
+  display: inline-block;
+  color: #99d;
+  text-decoration: underline transparent;
+  transition: text-decoration 0.3s ease;
+}
+a:visited {
+  color: #ee8;
+}
+a:focus {
+  color: #000;
+  background: #99d;
+}
+a:focus::after {
+  bottom: 0;
+  right: 10ch;
+  width: 70ch;
+  content: attr(href);
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 1;
+}
+a:focus::first-letter {
+  background: #bbb;
+}
+a:hover {
+  text-decoration: underline currentcolor;
+}
+p {
+  margin: 1em 3ch;
+}
+pre {
+  margin: 1em 1ch;
+}
+.filters a {
+  color: #bbb;
+}
+.filters a.tag-pop5 {
+  color: #eeeeee;
+}
+.filters a.tag-pop4 {
+  color: #d4d4d4;
+}
+.filters a.tag-pop2 {
+  color: #a2a2a2;
+}
+.filters a.tag-pop1 {
+  color: #888888;
+}
+.filters a em {
+  color: #99d;
+  font-weight: bold;
+}
+.filters a em::before {
+  content: '[';
+}
+.filters a em::after {
+  content: ']';
+}
+.filters a:focus::after {
+  content: 'Checkbox, value on';
+}
+.filters a:focus em::before,
+.filters a:focus em::after {
+  color: #000;
+  background: #99d;
+}
+sup::before {
+  content: '^';
+}
+div {
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
