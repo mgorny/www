@@ -1,7 +1,18 @@
 @charset "UTF-8";
+@font-face {
+  font-family: 'DejaVu Sans Mono';
+  src: local('DejaVu Sans Mono'), local('DejaVuSansMono'), url('DejaVuSansMono.woff2') format('woff2'), url('DejaVuSansMono.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
 html {
   background: #080808;
-  font-family: monospace;
+}
+html,
+pre {
+  font-family: 'DejaVu Sans Mono', 'Cascadia Mono', monospace;
+  font-size: 14pt;
 }
 .bar-common,
 body::before,
