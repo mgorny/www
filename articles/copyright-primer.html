@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<title>A copyright primer (not only) for Gentoo developers</title>
+<meta name="author" content="Michał Górny" />
+<meta name="dcterms.date" content="2020-08-24" />
+<meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/4.0/" />
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+<style type="text/css">
+
+/* Minimal style sheet for the HTML output of Docutils.                    */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*                                                                         */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+
+/* This CSS2.1_ stylesheet defines rules for Docutils elements without    */
+/* HTML equivalent. It is required to make the document semantic visible. */
+/*                                                                        */
+/* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
+/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
+
+/* alignment of text and inline objects inside block objects*/
+.align-left   { text-align: left; }
+.align-right  { text-align: right; }
+.align-center { clear: both; text-align: center; }
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
+
+/* titles */
+h1.title, p.subtitle {
+  text-align: center;
+}
+p.topic-title,
+p.sidebar-title,
+p.rubric,
+p.admonition-title,
+p.system-message-title {
+  font-weight: bold;
+}
+h1 + p.subtitle,
+h1 + p.section-subtitle {
+  font-size: 1.6em;
+}
+h2 + p.section-subtitle { font-size: 1.28em; }
+p.subtitle,
+p.section-subtitle,
+p.sidebar-subtitle {
+  font-weight: bold;
+  margin-top: -0.5em;
+}
+p.sidebar-title,
+p.rubric {
+  font-size: larger;
+}
+p.rubric { color: maroon; }
+a.toc-backref {
+  color: black;
+  text-decoration: none; }
+
+/* Warnings, Errors */
+div.caution p.admonition-title,
+div.attention p.admonition-title,
+div.danger p.admonition-title,
+div.error p.admonition-title,
+div.warning p.admonition-title,
+div.system-messages h1,
+div.error,
+span.problematic,
+p.system-message-title {
+  color: red;
+}
+
+/* inline literals */
+span.docutils.literal {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+/* do not wraph at hyphens and similar: */
+.literal > span.pre { white-space: nowrap; }
+
+/* Lists */
+
+/* compact and simple lists: no margin between items */
+.simple  li, .compact li,
+.simple  ul, .compact ul,
+.simple  ol, .compact ol,
+.simple > li p, .compact > li p,
+dl.simple > dd, dl.compact > dd {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Table of Contents */
+div.topic.contents { margin: 0.5em 0; }
+div.topic.contents ul {
+  list-style-type: none;
+  padding-left: 1.5em;
+}
+
+/* Enumerated Lists */
+ol.arabic     { list-style: decimal }
+ol.loweralpha { list-style: lower-alpha }
+ol.upperalpha { list-style: upper-alpha }
+ol.lowerroman { list-style: lower-roman }
+ol.upperroman { list-style: upper-roman }
+
+dt span.classifier { font-style: italic }
+dt span.classifier:before {
+  font-style: normal;
+  margin: 0.5em;
+  content: ":";
+}
+
+/* Field Lists and drivatives */
+/* bold field name, content starts on the same line */
+dl.field-list > dt,
+dl.option-list > dt,
+dl.docinfo > dt,
+dl.footnote > dt,
+dl.citation > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+/* Offset for field content (corresponds to the --field-name-limit option) */
+dl.field-list > dd,
+dl.option-list > dd,
+dl.docinfo > dd {
+  margin-left:  9em; /* ca. 14 chars in the test examples */
+}
+/* start field-body on a new line after long field names */
+dl.field-list > dd > *:first-child,
+dl.option-list > dd > *:first-child
+{
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+}
+/* field names followed by a colon */
+dl.field-list > dt:after,
+dl.docinfo > dt:after {
+  content: ":";
+}
+
+/* Bibliographic Fields (docinfo) */
+pre.address { font: inherit; }
+dd.authors > p { margin: 0; }
+
+/* Option Lists */
+dl.option-list { margin-left: 1.5em; }
+dl.option-list > dt { font-weight: normal; }
+span.option { white-space: nowrap; }
+
+/* Footnotes and Citations  */
+dl.footnote.superscript > dd {margin-left: 1em; }
+dl.footnote.brackets > dd {margin-left: 2em; }
+dl > dt.label { font-weight: normal; }
+a.footnote-reference.brackets:before,
+dt.label > span.brackets:before { content: "["; }
+a.footnote-reference.brackets:after,
+dt.label > span.brackets:after { content: "]"; }
+a.footnote-reference.superscript,
+dl.footnote.superscript > dt.label {
+  vertical-align: super;
+  font-size: smaller;
+}
+dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref > a { font-style: italic; }
+
+/* Line Blocks */
+div.line-block { display: block; }
+div.line-block div.line-block {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 40px;
+}
+
+/* Figures, Images, and Tables */
+.figure.align-left,
+figure.align-left,
+img.align-left,
+object.align-left,
+table.align-left {
+  margin-right: auto;
+}
+.figure.align-center,
+figure.align-center,
+img.align-center,
+object.align-center,
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.figure.align-right,
+figure.align-right,
+img.align-right,
+object.align-right,
+table.align-right {
+  margin-left: auto;
+}
+.figure.align-center, .figure.align-right,
+figure.align-center, figure.align-right,
+img.align-center, img.align-right,
+object.align-center, object.align-right {
+  display: block;
+}
+/* reset inner alignment in figures and tables */
+.figure.align-left, .figure.align-right,
+figure.align-left, figure.align-right,
+table.align-left, table.align-center, table.align-right {
+  text-align: inherit;
+}
+
+/* Admonitions and System Messages */
+div.admonition,
+div.system-message,
+div.sidebar,
+aside.sidebar {
+  margin: 1em 1.5em;
+  border: medium outset;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+/* Sidebar */
+div.sidebar,
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  float: right;
+  clear: right;
+}
+
+/* Text Blocks */
+blockquote,
+div.topic,
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+}
+pre.code .ln { color: gray; } /* line numbers */
+
+/* Tables */
+table { border-collapse: collapse; }
+td, th {
+  border-style: solid;
+  border-color: silver;
+  padding: 0 1ex;
+  border-width: thin;
+}
+td > p:first-child, th > p:first-child { margin-top: 0; }
+td > p, th > p { margin-bottom: 0; }
+
+table > caption {
+  text-align: left;
+  margin-bottom: 0.25em
+}
+
+table.borderless td, table.borderless th {
+  border: 0;
+  padding: 0;
+  padding-right: 0.5em /* separate table cells */
+}
+
+/* Document Header and Footer */
+/* div.header,				      */
+/* header { border-bottom: 1px solid black; } */
+/* div.footer,				      */
+/* footer { border-top: 1px solid black; }    */
+
+/* new HTML5 block elements: set display for older browsers */
+header, section, footer, aside, nav, main, article, figure {
+  display: block;
+}
+
+</style>
+<style type="text/css">
+
+/* CSS31_ style sheet for the output of Docutils HTML writers.             */
+/* Rules for easy reading and pre-defined style variants.		   */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*    	     	      	     	 					   */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+
+
+/* Document Structure */
+/* ****************** */
+
+/* "page layout" */
+body {
+  margin: 0;
+  background-color: #dbdbdb;
+}
+div.document,
+main {
+  line-height:1.3;
+  counter-reset: table;
+  /* counter-reset: figure; */
+  /* avoid long lines --> better reading */
+  /* OTOH: lines should not be too short because of missing hyphenation, */
+  max-width: 50em;
+  padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
+  margin: auto;
+  background-color: white;
+}
+
+/* Sections */
+
+/* Transitions */
+
+hr.docutils {
+  width: 80%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  clear: both;
+}
+
+/* Paragraphs */
+/* ========== */
+
+/* vertical space (parskip) */
+p, ol, ul, dl,
+div.line-block,
+div.topic,
+table {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+p:first-child { margin-top: 0; }
+/* (:last-child is new in CSS 3) */
+p:last-child  { margin-bottom: 0; }
+
+h1, h2, h3, h4, h5, h6,
+dl > dd {
+  margin-bottom: 0.5em;
+}
+
+/* Lists */
+/* ===== */
+
+/* Definition Lists */
+
+/* lists nested in definition lists */
+/* (:only-child is new in CSS 3) */
+dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
+
+/* Description Lists */
+/* styled like in most dictionaries, encyclopedias etc. */
+dl.description > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+
+/* Field Lists */
+
+/* example for custom field-name width */
+dl.field-list.narrow > dd {
+  margin-left: 5em;
+}
+/* run-in: start field-body on same line after long field names */
+dl.field-list.run-in > dd p {
+  display: block;
+}
+
+/* Bibliographic Fields */
+
+/* generally, bibliographic fields use special definition list dl.docinfo */
+/* but dedication and abstract are placed into "topic" divs */
+div.abstract p.topic-title {
+  text-align: center;
+}
+div.dedication {
+  margin: 2em 5em;
+  text-align: center;
+  font-style: italic;
+}
+div.dedication p.topic-title {
+  font-style: normal;
+}
+
+/* Citations */
+dl.citation dt.label {
+  font-weight: bold;
+}
+span.fn-backref {
+  font-weight: normal;
+}
+
+/* Text Blocks */
+/* =========== */
+
+/* Literal Blocks */
+
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  font-family: monospace;
+}
+
+/* Block Quotes */
+
+blockquote > table,
+div.topic > table {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+blockquote p.attribution,
+div.topic p.attribution {
+  text-align: right;
+  margin-left: 20%;
+}
+
+/* Tables */
+/* ====== */
+
+/* th { vertical-align: bottom; } */
+
+table tr { text-align: left; }
+
+/* "booktabs" style (no vertical lines) */
+table.booktabs {
+  border: 0;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.booktabs * {
+  border: 0;
+}
+table.booktabs th {
+  border-bottom: thin solid;
+}
+
+/* numbered tables (counter defined in div.document) */
+table.numbered > caption:before {
+  counter-increment: table;
+  content: "Table " counter(table) ": ";
+  font-weight: bold;
+}
+
+/* Explicit Markup Blocks */
+/* ====================== */
+
+/* Footnotes and Citations */
+/* ----------------------- */
+
+/* line on the left */
+dl.footnote {
+  padding-left: 1ex;
+  border-left: solid;
+  border-left-width: thin;
+}
+
+/* Directives */
+/* ---------- */
+
+/* Body Elements */
+/* ~~~~~~~~~~~~~ */
+
+/* Images and Figures */
+
+/* let content flow to the side of aligned images and figures */
+.figure.align-left,
+figure.align-left,
+img.align-left,
+object.align-left {
+  display: block;
+  clear: left;
+  float: left;
+  margin-right: 1em;
+}
+.figure.align-right,
+figure.align-right,
+img.align-right,
+object.align-right {
+  display: block;
+  clear: right;
+  float: right;
+  margin-left: 1em;
+}
+/* Stop floating sidebars, images and figures at section level 1,2,3 */
+h1, h2, h3 { clear: both; }
+
+/* Sidebar */
+
+/* Move right. In a layout with fixed margins, */
+/* it can be moved into the margin.   	       */
+div.sidebar,
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  margin-left: 1em;
+  margin-right: -2%;
+  background-color: #ffffee;
+}
+
+/* Code */
+
+pre.code { padding: 0.7ex }
+pre.code, code { background-color: #eeeeee }
+pre.code .ln { color: gray; } /* line numbers */
+/* basic highlighting: for a complete scheme, see */
+/* http://docutils.sourceforge.net/sandbox/stylesheets/ */
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+/* Math */
+/* styled separately (see math.css for math-output=HTML) */
+
+/* Epigraph           */
+/* Highlights         */
+/* Pull-Quote         */
+/* Compound Paragraph */
+/* Container          */
+
+/* can be styled in a custom stylesheet */
+
+/* Document Header and Footer */
+
+footer, header,
+div.footer, div.header {
+  font-size: smaller;
+  clear: both;
+  padding: 0.5em 2%;
+  background-color: #ebebee;
+  border: none;
+}
+
+/* Inline Markup */
+/* ============= */
+
+/* Emphasis           */
+/*   em               */
+/* Strong Emphasis    */
+/*   strong	      */
+/* Interpreted Text   */
+/*   span.interpreted */
+/* Title Reference    */
+/*   cite	      */
+
+/* Inline Literals                                          */
+/* possible values: normal, nowrap, pre, pre-wrap, pre-line */
+/*   span.docutils.literal { white-space: pre-wrap; }       */
+
+/* Hyperlink References */
+a { text-decoration: none; }
+
+/* External Targets       */
+/*   span.target.external */
+/* Internal Targets  	  */
+/*   span.target.internal */
+/* Footnote References    */
+/*   a.footnote-reference */
+/* Citation References    */
+/*   a.citation-reference */
+
+</style>
+</head>
+<body>
+<div class="document" id="a-copyright-primer-not-only-for-gentoo-developers">
+<h1 class="title">A copyright primer (not only) for Gentoo developers</h1>
+<dl class="docinfo simple">
+<dt class="author">Author</dt>
+<dd class="author"><p>Michał Górny</p></dd>
+<dt class="date">Date</dt>
+<dd class="date">2020-08-24</dd>
+<dt class="version">Version</dt>
+<dd class="version">0.1</dd>
+<dt class="copyright">Copyright</dt>
+<dd class="copyright"><a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">https://creativecommons.org/licenses/by/4.0/</a></dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This article is still a work-in-progress.  The subject matter
+is a very tough one, and mistakes are possible.  I have been focusing
+on verifying what I know based on the U.S. copyright law.  Everything
+still needs to be verified for other jurisdictions, and proofread
+by someone with more experience and knowledge.</p>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#preface" id="id25">Preface</a></p>
+<ul>
+<li><p><a class="reference internal" href="#disclaimer" id="id26">Disclaimer</a></p></li>
+<li><p><a class="reference internal" href="#purpose-of-this-guide" id="id27">Purpose of this guide</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#basics" id="id28">Basics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#copyright-law-and-its-scope" id="id29">Copyright law and its scope</a></p></li>
+<li><p><a class="reference internal" href="#other-ip-laws" id="id30">Other IP laws</a></p></li>
+<li><p><a class="reference internal" href="#original-and-derivative-work-or-what-is-copyrighted" id="id31">Original and derivative work, or what is copyrighted</a></p></li>
+<li><p><a class="reference internal" href="#what-is-not-covered-by-copyright" id="id32">What is not covered by copyright</a></p></li>
+<li><p><a class="reference internal" href="#more-on-copyright" id="id33">More on copyright</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#licenses" id="id34">Licenses</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview-of-license-types" id="id35">Overview of license types</a></p></li>
+<li><p><a class="reference internal" href="#all-rights-reserved" id="id36">All rights reserved</a></p></li>
+<li><p><a class="reference internal" href="#free-software" id="id37">Free software</a></p></li>
+<li><p><a class="reference internal" href="#proprietary-software" id="id38">Proprietary software</a></p></li>
+<li><p><a class="reference internal" href="#permissive-licenses" id="id39">Permissive licenses</a></p></li>
+<li><p><a class="reference internal" href="#public-domain-and-public-domain-alike-licenses" id="id40">Public domain and public domain-alike licenses</a></p></li>
+<li><p><a class="reference internal" href="#copyleft-licenses" id="id41">Copyleft licenses</a></p></li>
+<li><p><a class="reference internal" href="#quick-index-of-popular-licenses" id="id42">Quick index of popular licenses</a></p>
+<ul>
+<li><p><a class="reference internal" href="#copyleft-license-list" id="id43">Copyleft license list</a></p></li>
+<li><p><a class="reference internal" href="#permissive-license-list" id="id44">Permissive license list</a></p></li>
+<li><p><a class="reference internal" href="#public-domain-alike-license-list" id="id45">Public domain-alike license list</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#more-on-licenses" id="id46">More on licenses</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#copyright-in-upstream-free-software-projects" id="id47">Copyright in (upstream) Free Software projects</a></p>
+<ul>
+<li><p><a class="reference internal" href="#choosing-a-license" id="id48">Choosing a license</a></p></li>
+<li><p><a class="reference internal" href="#copyright-ownership" id="id49">Copyright ownership</a></p></li>
+<li><p><a class="reference internal" href="#copyright-notices" id="id50">Copyright notices</a></p></li>
+<li><p><a class="reference internal" href="#contributor-license-agreements-fla-and-dco" id="id51">Contributor License Agreements, FLA and DCO</a></p></li>
+<li><p><a class="reference internal" href="#license-compatibility" id="id52">License compatibility</a></p></li>
+<li><p><a class="reference internal" href="#dual-licensing" id="id53">Dual-licensing</a></p></li>
+<li><p><a class="reference internal" href="#relicensing" id="id54">Relicensing</a></p></li>
+<li><p><a class="reference internal" href="#integrating-third-party-code-into-your-project" id="id55">Integrating third party code into your project</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#copyright-from-packager-s-perspective" id="id56">Copyright from packager's perspective</a></p>
+<ul>
+<li><p><a class="reference internal" href="#which-licenses-to-include-in-package-metadata" id="id57">Which licenses to include in package metadata?</a></p></li>
+<li><p><a class="reference internal" href="#determining-the-license" id="id58">Determining the license</a></p></li>
+<li><p><a class="reference internal" href="#redistribution-restrictions" id="id59">Redistribution restrictions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#references" id="id60">References</a></p></li>
+</ul>
+</div>
+<div class="section" id="preface">
+<h1><a class="toc-backref" href="#id25">Preface</a></h1>
+<div class="section" id="disclaimer">
+<h2><a class="toc-backref" href="#id26">Disclaimer</a></h2>
+<p>I am not a lawyer.  The information presented here is based on various
+(hopefully trustworthy) sources.  While I have put my best effort
+to keep this correct, it is entirely possible that some of it may
+be incorrect, outdated or simply do not apply in a specific
+jurisdiction.  Use at your own risk, and if in doubt, consult a lawyer.</p>
+</div>
+<div class="section" id="purpose-of-this-guide">
+<h2><a class="toc-backref" href="#id27">Purpose of this guide</a></h2>
+<p>The purpose of this guide is to provide a single source of copyright
+information that could be helpful to people like me — software
+developers and packagers.  Unlike many other guides that can be found
+online, this one does not focus on a single jurisdiction.  Instead,
+I have chosen to attempt to provide a broader view that is important
+to international projects like Gentoo, whose authors and users can
+be spread all across the world.</p>
+<p>I have deliberately decided to focus on the wording of the laws
+and the spirit of licenses.  I do realize that in many cases it is
+doubtful whether something is actually enforceable.  Nevertheless,
+I do not believe we should be encouraging violating copyright just
+because we are unlikely to be (successfully) sued.</p>
+<p>This guide should be by no means considered complete or final.  I plan
+to update it as I find or receive new information.  If you find
+a mistake, an outdated information or simply think something should
+be extended, please do not hesitate to contact me.</p>
+</div>
+</div>
+<div class="section" id="basics">
+<h1><a class="toc-backref" href="#id28">Basics</a></h1>
+<div class="section" id="copyright-law-and-its-scope">
+<h2><a class="toc-backref" href="#id29">Copyright law and its scope</a></h2>
+<p>The purpose of <em>copyright law</em> is to protect creative work.  It is
+important to understand that copyright covers only work that was
+actually created and recorded, and to the scope of its actual text,
+implementation, representation.  It does not cover ideas or concepts.
+<a class="footnote-reference brackets" href="#copyright-basics" id="id1">1</a></p>
+<p>To explain this better, let's suppose you came up with a great program
+called Frobnicate.  Once you start writing the code, it becomes
+protected by copyright.  This means that if somebody copied <em>your code</em>
+without permission, that would constitute a copyright violation.
+However, the copyright law does not prohibit others from independently
+writing an equivalent program, as long as that person does not actually
+copy your code.</p>
+<p>Of course, once somebody starts to reimplement something, and especially
+if the number of possible implementations is limited, we get into muddy
+waters.  How do you prove that something was reimplemented independently
+and not just copied and modified?  Some projects are using a technique
+called clean room design to achieve that.  The work is then done by two
+disjoint teams.  One team has access to the original implementation,
+and uses it to write a textual specification of how it works without
+including any potentially copyrighted material.  The other team writes
+code from the specification without actually looking at the original
+program.  <a class="footnote-reference brackets" href="#clean-room" id="id2">2</a></p>
+<p>There is no such a thing as a global copyright law.  Every country has
+its own laws, and cross-country agreements are made to cover protection
+of work abroad.  Nevertheless, there are some global standards set
+by international conventions, most notably the Berne Convention.
+<a class="footnote-reference brackets" href="#berne" id="id3">3</a></p>
+<p>Copyright applies to creative work from the moment of its recording.
+While at least some countries provide a means of registering copyright,
+the registration is not necessary for it to apply.  It is important
+to understand that copyright applies even if the author does not include
+a copyright notice or the work is published pseudonymously.</p>
+</div>
+<div class="section" id="other-ip-laws">
+<h2><a class="toc-backref" href="#id30">Other IP laws</a></h2>
+<p>Besides copyright law, I would like to shortly discuss two other laws
+that could be of relevance when dealing with intellectual property:
+patents and trademarks.  Both are outside the scope of this guide
+but they can nevertheless impact the developer's work.</p>
+<p><em>Patent law</em> focuses on protecting new and creative inventions.  Unlike
+copyright law, it does not focus on the actual implementation but
+on the idea itself.  You could say that it complements copyright.  While
+the latter can prevent others from copying (plagiarising) your work,
+patents can prevent others from reimplementing the same idea.
+<a class="footnote-reference brackets" href="#patent" id="id4">4</a></p>
+<p>Patent law does not apply to inventions automatically.  Instead, one has
+to explicitly apply for one, and do it separately for every jurisdiction
+where the patent is meant to apply.  Patents are meant to be granted
+only for new and original inventions.</p>
+<p>The exact range of patentable ideas differ from country to country.
+For our purposes, the most important part are software patents.  They
+are often considered harmful by the open source community, preventing
+development of free alternatives to proprietary software.  For example,
+MPEG Layer III (mp3) encoding software was affected by patents until
+their expiration in 2017.  At the moment of writing, patents on computer
+software are permitted e.g. in United States but not in the European
+Union.  <a class="footnote-reference brackets" href="#software-patents-in-eu" id="id5">5</a></p>
+<p>One particularly gruesome aspect of the patent law are so-called
+patent trolls.  These are entities that focus on obtaining and using
+patents that they do not intent on creatively using them in their own
+products but only to enforce them on other companies.  <a class="footnote-reference brackets" href="#patent-troll" id="id6">6</a></p>
+<p>One interesting example of this is the Eolas patent.  The company
+has patented what used to be known as browser plugins (e.g. the Flash
+plugin).  This patent has affected all major browser vendors, including
+authors of open-source web browsers, resulting in a large number
+of lawsuits and a few creative mitigations.  <a class="footnote-reference brackets" href="#eolas" id="id7">7</a></p>
+<p><em>Trademark law</em> focuses on protecting product brands.  The idea is that
+if you market your product under a specific brand, others can not use
+the same (or confusingly similar) brand for their products in the same
+area of business.  The goal is twofold: on one hand to prevent your
+competitors from taking advantage of your reputation, and on the other
+to prevent them from damaging it through their product.</p>
+<p>Trademarks generally start being protected automatically once they
+become recognizable enough.  However, they can also be registered
+to grant them stronger protection.  It is a common practice to mark
+unregistered trademarks via the ™ symbol, and registered via the ®
+symbol.</p>
+<p>Trademarks are important to open source projects as well as businesses.
+The Gentoo name and logo are registered trademarks in order to protect
+them from being used to create another Linux distribution with the same
+name and creating confusion as to which is which.</p>
+</div>
+<div class="section" id="original-and-derivative-work-or-what-is-copyrighted">
+<h2><a class="toc-backref" href="#id31">Original and derivative work, or what is copyrighted</a></h2>
+<p>In order to understand some of the further concepts in this article,
+it is necessary to introduce two important terms: <em>original work</em>
+and <em>derivative work</em>.</p>
+<p><em>Original work</em> means a new creative work that has been created
+independently of any other existing work.  Notably, this means that
+the author(s) (or other copyright holders) hold the sole copyright
+to this work.</p>
+<p><em>Derivative work</em> is a work that is derived from existing work(s),
+either original or derivative.  In a derivative work, new copyright
+applies only to the original work of its author.  However,
+the copyrights of its underlying works still apply to the respective
+parts of the work.</p>
+<p>In some cases, the derivative work will merely be a <em>compilation</em>
+of existing data, without any new original data.  However,
+if the task of combining the data carries the notion of creativity, then
+the new copyright of derivative work will apply to this creative
+compilation.  Otherwise, the derivative work will not carry any new
+value, it will not be copyrightable beyond its original parts.</p>
+<p>It is important to note that the author of derivative work must be
+permitted to incorporate the underlying works in it.  Otherwise,
+the derivative work may constitute copyright infringement
+and the original part of it may not be covered be copyright protection.
+<a class="footnote-reference brackets" href="#copyright-derivative" id="id8">8</a></p>
+<p>Let's say you've written some entirely new function in a programming
+language.  Provided enough creativity, the code of this function
+constitutes an original work.  Now, if someone updates the code of this
+function, the resulting function is a derivative work of your function,
+and adds the copyright of the person modifying it.  A source code unit
+is a derivative work of all the code inside it.  A compiled object file
+is a derivative work of the source code (and possibly of the act of
+compiling, if it is not purely mechanical), an executable
+is a derivative of object files (and the act of linking), a package
+is a derivative of all the files within it (and the act of packaging).
+This example shows how individual copyrights on program parts build up
+the copyright of the whole program.</p>
+</div>
+<div class="section" id="what-is-not-covered-by-copyright">
+<h2><a class="toc-backref" href="#id32">What is not covered by copyright</a></h2>
+<p>Not everything is covered by copyright.  The work that is not
+copyrighted is generally called to be in <em>public domain</em>.  The exact
+rules to what constitutes public domain vary from country to country
+but I will attempt to cover a few common groups.</p>
+<p>Firstly, copyright does not protect works that <em>do not constitute enough
+originality</em>.  Everyday sentences, drawings, titles, slogans are clearly
+not copyrightable.  The exact line between what is copyrightable
+and what is not can be very thin and depend on interpretation.  Some
+argue that e.g. configuration files or plain data files (including e.g.
+systemd units) are not copyrightable.</p>
+<p>Secondly, public domain includes works that the copyright has <em>expired</em>
+for.  The exact rules for expiration vary across the globe, and may
+depend on the category of works, time of publication, whether it was
+published pseudonymously.  The copyright length is counted either
+from author's death or from publication date.  Wikipedia includes
+a compiled list (and a map) of copyright lengths in different countries.
+<a class="footnote-reference brackets" href="#copyright-lengths" id="id9">9</a></p>
+<p>It is important to emphasize two facts here: that in international
+projects such as Gentoo it is important to account for the longest
+possible copyright length, and that copyright expiration does not extend
+to derivative works.  While we can safely assume that Homer's Iliad is
+not copyrighted in original, its modern translation is covered
+by the translator's copyright.</p>
+<p>Thirdly, specific works can be excluded from being covered by copyright
+by the applicable law.  For example, the works of the United States
+government are normally not protected by copyright in the US.
+<a class="footnote-reference brackets" href="#copyright-us-gov" id="id10">10</a></p>
+<p>Fourthly, there are cases of authors voluntarily withdrawing their
+exclusive rights and publishing their works as public domain.  This
+concept is arguable under some jurisdictions, and I will discuss this
+problem in greater detail in the section on licenses.</p>
+<p>The works in public domain can be freely used, reproduced, modified,
+etc. without limitations.  They can also be used to create derivative
+works.  However, the derivative works of public domain materials may
+be protected by copyright if they include original content of their
+author.</p>
+</div>
+<div class="section" id="more-on-copyright">
+<h2><a class="toc-backref" href="#id33">More on copyright</a></h2>
+<p>More information on the copyrigh in the United States can be found
+in <a class="reference external" href="https://www.copyright.gov/circs/">circulars issued by the U.S. Copyright Office</a>.</p>
+</div>
+</div>
+<div class="section" id="licenses">
+<h1><a class="toc-backref" href="#id34">Licenses</a></h1>
+<div class="section" id="overview-of-license-types">
+<h2><a class="toc-backref" href="#id35">Overview of license types</a></h2>
+<p>In the most broad sense, <em>license</em> explains the rights and restrictions
+granted by the copyright owner.  Some copyright holders use custom
+license texts, while others resort to well-known public licenses.
+License notices range from one-sentence right grants, through varied
+length licenses to End User License Agreements written in the form
+of a legal contract.</p>
+<p>For our purposes, let's split licenses into a few groups, roughly
+presented in the following diagram.</p>
+<img alt="Visual representation of license types, explained below." class="align-center" src="copyright-primer/licenses.svg" style="width: 1004px; height: 401px;" />
+<p>At the central point of the diagram, <a class="reference internal" href="#all-rights-reserved">all rights reserved</a> is found.
+It represents the default rights granted by the copyright law,
+i.e. the case when no specific license is provided.  From there, we can
+either go in the direction of more restrictive proprietary licenses,
+or less restrictive licenses.  The former route has no further features,
+so let's focus on the latter.</p>
+<p>If we go in the way of less restrictive licenses, we eventually leave
+the area of <a class="reference internal" href="#proprietary-software">proprietary software</a> and find ourselves in <a class="reference internal" href="#free-software">free
+software</a> licenses.  These are the licenses that grant
+us the elementary freedoms that I will explain shortly.</p>
+<p>At this point, the path forks and we have two options.  If we turn left,
+we go into <a class="reference internal" href="#copyleft-licenses">copyleft licenses</a> that not only grant users freedoms but
+also require derivative works to preserve these freedoms.  If we turn
+right, we go into <a class="reference internal" href="#permissive-licenses">permissive licenses</a> that do not have
+the aforementioned restriction.</p>
+<p>I will now explain all the license groups in detail.</p>
+</div>
+<div class="section" id="all-rights-reserved">
+<h2><a class="toc-backref" href="#id36">All rights reserved</a></h2>
+<p>This is a term historically used in copyright notices.  While today it
+is no longer necessary to use it, it is sometimes used as an indication
+that the package is copyrighted and the copyright holder does not grant
+you any additional rights beyond these implied by the copyright law
+(and did not add any additional restrictions).</p>
+<p>The exact extent of laws granted depends on the jurisdiction
+and the type of work.  In general, you can use (run, read, view)
+any work that you have obtained lawfully (e.g. by buying it or fetching
+from an official website).  Usually, you can also modify it for your
+private use.</p>
+<p>You are not allowed to redistribute the program or make derivative works
+from it.  Even if the program is freely redistributed via a website,
+it is exclusive copyright owner's right to do that.  This is especially
+problematic for packaging because if the original source disappears
+(upstream removes old version, stops distributing the software, goes
+bankrupt), it becomes no longer possible to install the package on new
+systems.</p>
+</div>
+<div class="section" id="free-software">
+<h2><a class="toc-backref" href="#id37">Free software</a></h2>
+<p><em>Free software</em> is software that respects the user's freedom.  The GNU
+project explains it through four essential freedoms:</p>
+<blockquote>
+<ul class="simple">
+<li><p>The freedom to run the program as you wish, for any purpose
+(freedom 0).</p></li>
+<li><p>The freedom to study how the program works, and change it so it
+does your computing as you wish (freedom 1).  Access to the source
+code is a precondition for this.</p></li>
+<li><p>The freedom to redistribute copies so you can help others (freedom
+2).</p></li>
+<li><p>The freedom to distribute copies of your modified versions to
+others (freedom 3).  By doing this you can give the whole
+community a chance to benefit from your changes.  Access to
+the source code is a precondition for this.  <a class="footnote-reference brackets" href="#gnu-free-software" id="id11">11</a></p></li>
+</ul>
+</blockquote>
+<p>Essentially, software that grants these freedoms without limitations
+is called free software.</p>
+<p>It is essential to note that this is not about cost.  It is entirely
+valid to sell free software — as long as the buyer obtains the license
+to modify and redistribute it (possibly for free!)</p>
+</div>
+<div class="section" id="proprietary-software">
+<h2><a class="toc-backref" href="#id38">Proprietary software</a></h2>
+<p><em>Proprietary software</em> is software that is not free software.  This
+includes the all-rights-reserved software, as well as less restrictive
+licenses (as long as they don't grant all four freedoms) and more
+restrictive licenses.</p>
+<p>One particular case of proprietary license is a <em>free distribution</em>
+license that permits redistributing the original packages.  This makes
+it possible to mirror sources and continue using the package once
+upstream stops providing the download.  However, these licenses do not
+provide all four freedoms.</p>
+<p>Common limitations of proprietary licenses are:</p>
+<ul class="simple">
+<li><p>restricting the right to use for commercial purposes,</p></li>
+<li><p>adding so-called do-no-harm clauses that limit usage (even if this
+seems superficial or unharmful),</p></li>
+<li><p>restricting commercial redistribution,</p></li>
+<li><p>restricting redistribution of modified copies.</p></li>
+</ul>
+<p>A special case of proprietary licenses are End User License Agreements.
+These are written in contract form, and require explicit agreement
+to their terms before installing (or using) the software.</p>
+</div>
+<div class="section" id="permissive-licenses">
+<h2><a class="toc-backref" href="#id39">Permissive licenses</a></h2>
+<p><em>Permissive licenses</em> is the term used to distinguish free software
+licenses that are not copyleft.  They are permissive in the sense that
+they permit the relevant code (or more generally work) to be reused
+in non-free derivative works.</p>
+<p>In other words, if you take, say, a BSD-licensed code snippet
+and include it in your program, you can afterwards make it proprietary
+and choose not to release the source code, as long as you include
+an appropriate copyright notice.  You can also freely modify the code
+without having to share your modifications.</p>
+<p>This feature makes permissive licenses preferable to commercial
+companies working with open source.  They make it possible to easily
+reuse open source projects in their commercial code, or to create
+commercial versions parallel to open source projects.</p>
+<p>A major advantage of a few common permissive licenses is that they are
+trivial, and therefore easy to understand for a regular programmer.
+These include the BSD licenses (<a class="reference external" href="https://opensource.org/licenses/BSD-2-Clause">2-clause BSD</a> and <a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause">3-clause BSD</a>
+being the most common), <a class="reference external" href="https://opensource.org/licenses/MIT">MIT</a>, <a class="reference external" href="https://opensource.org/licenses/ISC">ISC</a> and so on.  These licenses focus
+on granting you the necessary freedoms, with minimum requirements that
+generally boil down to attribution.</p>
+<p>Another common permissive license is <a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a>.  This one's a big
+longer and more complex but it has the additional feature of granting
+you patent license for all the contributed code.</p>
+<p>For non-software works, a common example of permissive licenses
+are Creative Commons Attribution licenses (<a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>).</p>
+</div>
+<div class="section" id="public-domain-and-public-domain-alike-licenses">
+<h2><a class="toc-backref" href="#id40">Public domain and public domain-alike licenses</a></h2>
+<p>As explained above, <em>public domain</em> means works that are not covered
+by copyright.  In this section, I would like to focus on authors
+expressly dedicating their work to public domain.  This means that you
+can use the software in any way with no restrictions, and notably
+without the need to attribute the original author.</p>
+<p>However, in some jurisdictions (particularly in the EU) the copyright
+law does not permit waiving all the rights granted by copyright.
+Arguably, this might make public domain dedications void.  For this
+reason, it is recommended to use a public domain-alike license instead.
+An example of such a license is Creative Commons Zero (<a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>) license
+that explicitly waives as many rights as possible within the applicable
+law.  <a class="footnote-reference brackets" href="#cc-zero" id="id12">12</a></p>
+<p>Another similar license is called <a class="reference external" href="https://unlicense.org/">Unlicense</a>.  It takes a mixed approach
+of dedicating the software into public domain first, and adding
+a fallback license for jurisdictions where the former is not recognized.</p>
+</div>
+<div class="section" id="copyleft-licenses">
+<h2><a class="toc-backref" href="#id41">Copyleft licenses</a></h2>
+<p><em>Copyleft licenses</em> are free software licenses that not only grant
+freedoms but also require them to be preserved in (some kinds of)
+derivative works.  The copyleft can either be weak or strong.  A <em>weak
+copyleft</em> requires any modifications to the code in question to be
+released under matching license.  A <em>strong copyleft</em> requires anything
+using the code in question to use such a license.</p>
+<p>Let's take an example.  You have written a library implementing some
+algorithm, and I am writing a proprietary program using this library.
+Now let's suppose that I found a way to optimize the algorithm
+to perform twice as fast.  Now, if you used a permissive license then
+I could keep the improved algorithm proprietary, and sell my product
+as faster than my competition.  However, if you used a weak copyleft
+license then I would have to publish my changes, and you could merge
+them back making the competition as fast as my program.</p>
+<p>At least that's the theory.  In reality, I might as well decide
+to contribute back to permissively licensed project.  Or I might have
+ignored the copylefted project and implemented the algorithm myself
+to avoid having to contribute back.</p>
+<p>Strong copyleft goes even further.  Let's suppose I found a creative use
+of your library and want to implement a program.  If the library is
+not covered by strong copyleft, I am permitted to create a proprietary
+program and make money from the creative use of your algorithm.
+However, if you used strong copyleft, I would have to publish my program
+as free software as well.</p>
+<p>Let's cover a few basic examples of copyleft software licenses.</p>
+<p>Mozilla Public License 2.0 (<a class="reference external" href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a>) is a weak copyleft license.  It
+is limited to file scope.  This means that if a file includes MPL
+2-licensed code, the whole file must be released under this license,
+including your modifications to the code (if any).  However, the rest of
+your project can use any license, including proprietary licenses.
+<a class="footnote-reference brackets" href="#mpl2" id="id13">13</a></p>
+<p>GNU Lesser General Public License (<a class="reference external" href="https://www.gnu.org/licenses/lgpl-3.0.en.html">LGPL 3.0</a>) is weak copyleft
+as well.  It is limited to library scope.  If you wish to use
+a LGPL-licensed library, then you must redistribute the library under
+the same (or stronger) license, along with your potential modifications.
+Furthermore, if you choose to link the library statically, the license
+requires you to provide the user with a means of relinking your program
+with a different version of the library.  The official GNU FAQ indicates
+that this does not require releasing the source code, and instead it is
+sufficient to provide the rest of your program in compiled object form.</p>
+<p>GNU General Public License (<a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPL 3.0</a>) is a strong copyleft license.
+It extends to the whole executable, including dynamically linked
+libraries.  If you wish to use a static or shared GPL library in your
+program, your program must be redistributed as GPL as well.</p>
+<p>GNU Affero GPL (<a class="reference external" href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3.0</a>) updates the previous license to suit
+network-oriented world better.  Plain GPL serves it purpose only for
+software that is actually meant to be redistributed.  If you build
+proprietary software that runs on web servers, you normally do not
+distribute program sources and binaries.  AGPL accounts for this.
+If your network application is using any AGPL code or libraries,
+the application itself needs to use AGPL too and you are required
+to permit users interacting with your application to download its code.
+<a class="footnote-reference brackets" href="#gpl-faq" id="id14">14</a></p>
+<p>The primary reason for using copyleft licenses is to prevent improved
+versions of free software becoming proprietary.  On one hand, this is
+important to users who might have invested their effort and money
+to the particular piece of software and do not wish to discover that
+the free software version has been discontinued in favor of something
+proprietary.  On the other hand, this is important to software
+developers who do not wish their software to be forked and turned into
+proprietary competition.</p>
+<p>There is some controversy over GPL licenses.  It is argued that dynamic
+linking to a library may not be sufficient to call a program its
+derivative work, and therefore enforce GPL on it.  Furthermore, it is
+possible to use a thin (L)GPL wrapper with linking exception
+to workaround GPL limitations, as nVidia proprietary drivers do (to link
+proprietary code to a GPL kernel).  <a class="footnote-reference brackets" href="#gpl-link" id="id15">15</a></p>
+<p>Grsecurity is one example where GPL failed.  The project's sources
+are licensed GPL-2 because they're built on the Linux kernel.  However,
+the company is charging for access (which is acceptable per the GPL)
+and punishing the users for redistributing the sources (which is
+the users' right according to GPL) by terminating the access to updates.
+Bruce Perens indicated that this additional term is in violation
+of the GPL.  However, to the best of my information this has not been
+actually tested in court.  <a class="footnote-reference brackets" href="#grsec" id="id16">16</a></p>
+<p>Another major controversy has been caused by Oracle's switch of Berkeley
+DB license to dual-licensing between commercial license and AGPL.  This
+meant that all applications linking (even indirectly) to Berkeley DB now
+not only have to use AGPL but also all network-oriented apps are
+required to publish their sources under AGPL.  Many users felt that this
+change was made purely to trick unknowing users into purchasing
+the commercial license.  <a class="footnote-reference brackets" href="#bdb-agpl" id="id17">17</a></p>
+</div>
+<div class="section" id="quick-index-of-popular-licenses">
+<h2><a class="toc-backref" href="#id42">Quick index of popular licenses</a></h2>
+<div class="section" id="copyleft-license-list">
+<h3><a class="toc-backref" href="#id43">Copyleft license list</a></h3>
+<p>Weak copyleft for software:</p>
+<ul class="simple">
+<li><p>Mozilla Public License 2.0: <a class="reference external" href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a></p></li>
+<li><p>GNU Lesser General Public License: <a class="reference external" href="https://www.gnu.org/licenses/lgpl-3.0.en.html">LGPL 3.0</a>, <a class="reference external" href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html">LGPL 2.1</a></p></li>
+</ul>
+<p>Strong copyleft for software:</p>
+<ul class="simple">
+<li><p>GNU General Public License: <a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPL 3.0</a>, <a class="reference external" href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GPL 2.0</a></p></li>
+<li><p>GNU Affero General Public License: <a class="reference external" href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3.0</a></p></li>
+</ul>
+<p>Documentation:</p>
+<ul class="simple">
+<li><p>GNU Free Documentation License: <a class="reference external" href="https://www.gnu.org/licenses/fdl-1.3.html">FDL 1.3</a></p></li>
+<li><p>Creative Commons Attribution-ShareAlike <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p></li>
+</ul>
+<p>Other works:</p>
+<ul class="simple">
+<li><p>GNU General Public License: <a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPL 3.0</a>, <a class="reference external" href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GPL 2.0</a></p></li>
+<li><p>Creative Commons Attribution-ShareAlike <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p></li>
+</ul>
+</div>
+<div class="section" id="permissive-license-list">
+<h3><a class="toc-backref" href="#id44">Permissive license list</a></h3>
+<p>Software:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a></p></li>
+<li><p>BSD: <a class="reference external" href="https://opensource.org/licenses/BSD-2-Clause">2-clause BSD</a>, <a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause">3-clause BSD</a></p></li>
+<li><p><a class="reference external" href="https://opensource.org/licenses/ISC">ISC</a></p></li>
+<li><p><a class="reference external" href="https://opensource.org/licenses/MIT">MIT</a></p></li>
+</ul>
+<p>Documentation &amp; other works:</p>
+<ul class="simple">
+<li><p>Creative Commons Attribution <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p></li>
+</ul>
+</div>
+<div class="section" id="public-domain-alike-license-list">
+<h3><a class="toc-backref" href="#id45">Public domain-alike license list</a></h3>
+<p>All kinds of works:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a></p></li>
+<li><p><a class="reference external" href="https://unlicense.org/">Unlicense</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="more-on-licenses">
+<h2><a class="toc-backref" href="#id46">More on licenses</a></h2>
+<p>A comprehensive list of licenses with comments, including information
+on GPL compatibility and Free Software status can be found on <cite>GNU
+project's Various Licenses and Comments about Them</cite> page.</p>
+<p>A list of licenses approved as Open Source along with their texts
+can be found on <cite>Open Source Initiative's Licenses &amp; Standards</cite> page.</p>
+<p>Simple explanations of terms of various licenses can be found
+on the <a class="reference external" href="https://tldrlegal.com/">TLDRLegal</a> site.</p>
+<p>A tabular comparison of various licenses can be found on <a class="reference external" href="https://en.wikipedia.org/wiki/Comparison_of_free_and_open-source_software_licences">Wikipedia's
+Comparison of free and open-source software licences</a>.</p>
+<p>Sites that focus on helping to choose a license include <a class="reference external" href="http://oss-watch.ac.uk/apps/licdiff/">OSS Watch
+Licence Differentiator</a> and GitHub's <a class="reference external" href="https://choosealicense.com/">Choose a License</a>.</p>
+</div>
+</div>
+<div class="section" id="copyright-in-upstream-free-software-projects">
+<h1><a class="toc-backref" href="#id47">Copyright in (upstream) Free Software projects</a></h1>
+<div class="section" id="choosing-a-license">
+<h2><a class="toc-backref" href="#id48">Choosing a license</a></h2>
+<p>Let's say you're starting a new project and want to consciously choose
+a license that fits you.  Let's assume that you're not bound to use
+any specific dependency yet, and there are no preconditions limiting
+your choice.</p>
+<p>For a start, ask yourself the following three questions:</p>
+<ol class="arabic simple">
+<li><p>Do I want to protect my work from becoming a proprietary product?</p></li>
+<li><p>Do I want to be attributed whenever my work is used?</p></li>
+<li><p>Do I want to keep rights to my work at all?</p></li>
+</ol>
+<p>If you answered ‘yes’ to the first question, then you're looking for
+a copyleft license.  If you answered ‘no’ to the first question
+but ‘yes’ to at least one of the two remaining questions, permissive
+license would work for you.  Finally, if you answered ‘no’ to all
+of them, then a public domain-alike license would work for you.</p>
+<p>Whichever option you choose, there's an additional question to ask:
+do you want to ensure that yourself and your users are granted any
+patent rights that might affect your code?</p>
+<p>If you choose a copyleft license, then there are a few options.</p>
+<p>If you only want your own code to remain free but do not mind using it
+within non-free software, then <a class="reference external" href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a> or <a class="reference external" href="https://www.gnu.org/licenses/lgpl-3.0.en.html">LGPL 3.0</a> would work for
+you.  The main difference between these two is that LGPL additional
+requires that the proprietary software permits your users to easily
+replace your code with another version (e.g. by swapping a shared
+library or relinking the program).</p>
+<p>If you want to entirely prohibit building non-free software on top
+of your code, then you're looking for a strong copyleft license.
+For software that is traditionally distributed and run on user systems,
+<a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPL 3.0</a> is your choice.  For webapps and server software that can
+interact with users without being installed on their systems, <a class="reference external" href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL
+3.0</a> is better.</p>
+<p>MPL and third versions of GNU licenses all include patent grant
+and retaliation clauses.  Older versions of GNU licenses do not.</p>
+<p>A common practice for using GNU licenses is to permit your users to
+follow the terms of newer versions of the same license as well.  If you
+choose do that, you must explicitly note so, e.g. in copyright notices.</p>
+<p>If you choose a permissive license, then there's a whole lot to choose
+from.  A recommended license with patent grants is <a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a>.
+If you don't want patent grants, a few popular options are <a class="reference external" href="https://opensource.org/licenses/MIT">MIT</a>, <a class="reference external" href="https://opensource.org/licenses/ISC">ISC</a>,
+<a class="reference external" href="https://opensource.org/licenses/BSD-2-Clause">2-clause BSD</a>, <a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause">3-clause BSD</a>.</p>
+<p>Finally, if you choose a public domain-alike license, then common
+options are <a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a> and <a class="reference external" href="https://unlicense.org/">Unlicense</a>.  These licenses <em>do not</em> include patent
+clauses.</p>
+</div>
+<div class="section" id="copyright-ownership">
+<h2><a class="toc-backref" href="#id49">Copyright ownership</a></h2>
+<p>Normally, copyright to a specific work belongs to its author.
+An exception to this are <em>works made for hire</em>.  If the work is done
+by an employee within the scope of employment, the copyright belongs
+to the employer.</p>
+<p>Initially, the copyright to your project will be solely yours.  However,
+as it becomes more popular and more people start contributing patches,
+various parts of it will hold many different copyrights.  For large
+projects such as Gentoo, it is entirely normal to have thousands
+of copyright holders.</p>
+<p>Once the copyright is split between many entities, some of your
+exclusive rights are limited.  This can in particular affect
+<a class="reference internal" href="#relicensing">relicensing</a> but also e.g. issuing commercial licenses.  However, it
+should be noted here that copyright ownership is entirely independent
+to the governance of the project.</p>
+<p>It is entirely normal that the original author may continue leading
+the project even if other people now hold copyright to most of the code.
+Of course, many projects actually do switch to a more community-oriented
+governance model.  The project members generally can't take over
+a project based on their copyright but they are within their right
+to fork the project if they're unhappy with its governance.</p>
+<p>Some projects recommend or require <em>copyright transfers</em> from their
+contributors.  If you sign a copyright transfer, then the subject
+of the transfer obtains copyright to the work in question.  This
+practice makes it possible to keep all (or most of) copyright
+to a project developed by a large number of contributors in single
+hands.</p>
+</div>
+<div class="section" id="copyright-notices">
+<h2><a class="toc-backref" href="#id50">Copyright notices</a></h2>
+<p>The modern copyright law does not require works to carry prominent
+copyright notices anymore.  Nevertheless, it is a good idea to do so.
+Firstly, it makes it clear who holds copyright to the work (or parts
+of it), when the copyright was applied (and therefore when it does
+expire) and what rights are granted to your users.  Secondly, if it ever
+comes to pursue copyright violations, lack of copyright notices can
+be used to claim ‘innocent infringement’.</p>
+<p>A typical copyright notice appears on top of the source file,
+and consists of the word ‘copyright’ and/or the copyright sign ©,
+followed by applicable years, followed by copyright owner.  It is
+followed by an indication of license.  Some licenses (in particular
+the GNU licenses) provide an explicit recommendation on how
+the copyright notice should look like.</p>
+<p>Ideally, projects keep track of all people who contributed non-trivial
+changes.  The copyright notices are added for all copyright owners,
+along with the dates of the first and their most recent contributions.
+This makes it easy for anyone interested to determine the copyright
+status of every file and to contact the copyright owners if necessary.</p>
+<p>In some cases, tracking exact copyright ownership is considered
+infeasible, and simplified copyright notices are used.  The Gentoo
+copyright policy considers it sufficient to list the main copyright
+holder, and use a single date span for all listed contributors.
+Furthermore, it provides even simpler form of using ‘Gentoo Authors’
+along with a VCS or an AUTHORS file.  <a class="footnote-reference brackets" href="#glep76" id="id19">18</a></p>
+<p>To repeat: copyright notices are not required by law and there are
+no formal requirements of how they need to look like.  Nevertheless,
+including a detailed copyright notices is doing your users (and possibly
+yourself, in the future) a service.</p>
+</div>
+<div class="section" id="contributor-license-agreements-fla-and-dco">
+<h2><a class="toc-backref" href="#id51">Contributor License Agreements, FLA and DCO</a></h2>
+<p>While for small projects it is generally acceptable to accept
+contributions without any further ado, large projects often find
+themselves in need of stronger legal assurances.</p>
+<p>A <em>Contributor License Agreement</em> is a contract between the project
+and the contributor.  The exact extend of different CLAs differ
+but in general they contain either a copyright assignment or copyright
+grant, a patent grant, and a confirmation that the contributor has
+the legal rights to grant all of that.</p>
+<p>The CLA needs to be signed before the project in question accepts
+any contributions.  In the act of signing, the contributor is generally
+required to provide some personal data and contact information.  Some
+therefore consider CLAs to be invading contributor's privacy.  <a class="footnote-reference brackets" href="#cla" id="id20">19</a></p>
+<p>The Fiduciary License Agreement (<a class="reference external" href="https://fsfe.org/activities/fla/fla.en.html">FLA</a>) is a specific variant of CLA that
+is recommended to be used in Free Software.  FLA includes a copyright
+assignment clause but it also prevents the new copyright owner from
+making the software proprietary, at least within the extent of third
+party contributions.</p>
+<p>An alternative to CLAs is the Developer Certificate of Origin (<a class="reference external" href="https://developercertificate.org/">DCO</a>).
+It does not include copyright transfer, and instead assumes that all
+copyright will be held by contributors.  It merely confirms that
+the contributor has the right to submit it under project's license.
+DCO is generally signed by adding a <span class="docutils literal"><span class="pre">Signed-off-by</span></span> note to the commit
+message.  Therefore, unlike CLAs the signed certifications are part
+of the repository rather than kept separately.</p>
+</div>
+<div class="section" id="license-compatibility">
+<h2><a class="toc-backref" href="#id52">License compatibility</a></h2>
+<p><em>License compatibility</em> is an utility concept to establish if two
+licenses can be combined to create a new work.  License compatibility
+is often unidirectional, i.e. work under license X can become part
+of a larger work under license Y but not the other way around.</p>
+<p>Generally, an output license is compatible with the input license
+if it does not grant user any additional rights over the rights
+over the input license, and does not remove any restrictions the input
+license had.  While this may seem complex, it is pretty obvious if you
+look at it this way: you can't grant your users any rights that
+the original author did not grant them.</p>
+<p>In some cases, licenses themselves provide <em>upgrade clauses</em>.  These
+explicitly permit the user to use some other license for the work
+in question.  For example, LGPL 3.0 permits upgrading to GPL 3.0,
+and GPL 3.0 permits upgrading to AGPL 3.0.</p>
+<p>David A. Wheeler has prepared a neat ‘license slide’ explaining how
+commonly used licensed can be combined.  I have created a <em>license
+compatibility graph</em> based on it, making it in SVG and updating
+for MPL 2.0.</p>
+<img alt="License compatibility graph, explained below." class="align-center" src="copyright-primer/compatibility.svg" style="width: 995px; height: 395px;" />
+<p>This graph is not a replacement for studying license terms but it can
+give a quick answer whether having license X on input, we can get
+license Y on output.  If you can find a path from the input license
+to the output license, then the answer is yes.  If you have two licenses
+on input, the one further alongside the path is your output license.</p>
+<p>Public domain-alike licenses are our starting point.  Since they grant
+user all the rights (or remove copyright entirely), the output can
+be any other license.</p>
+<p>They are followed by MIT/ISC/2-clause BSD group.  They all are roughly
+the same, giving the user all freedoms but requiring attribution.
+The work using these licenses can be used with all the licenses
+following them.</p>
+<p>The next position is the 3-clause BSD license.  It adds a clause
+prohibiting using the author's name to promote derived work.  All
+the remaining licenses can integrate 3-clause BSD code.</p>
+<p>The last permissive license on the list is Apache 2.0 license.  It adds
+significantly more clauses.  It accepts everything listed before
+on input but on output it's limited to LGPL 3.0 (i.e. no older), MPL 2.0
+and their successors on the list.</p>
+<p>The second column includes weak copyleft licenses.  In the middle
+there's LGPL-2.1+ that allows using LGPL 2.1 or LGPL 3.0.  All three
+of these options can use 3-clause BSD code and the third version can
+also use Apache 2.0 code.  LGPL licenses include an upgrade clause that
+permit using the same or newer GPL license on output (i.e. LGPL 2.1
+permits GPL 2.0 or GPL 3.0, LGPL 3.0 permits GPL 3.0).</p>
+<p>The weak copyleft column also includes MPL 2.0 license.  It accepts
+all permissive licenses on input.  The compatibility with GPL licenses
+is handled specially by the license.  It permits using other copyleft
+licenses (LGPL, GPL…) on output as long as the MPL-ed source files
+remain available under the original license.  If they're modified,
+the file needs to become dual-licensed.</p>
+<p>The third column covers strong copyleft licenses.  Again, in the middle
+there's GPL-2.0+ that permits using GPL 2.0 or GPL 3.0.  Each version
+permits using code using a matching or older LGPL major version,
+and through it all permissive licenses.</p>
+<p>The fourth column is dedicated to AGPL 3.0, the strong copyleft license
+with network restrictions.  It has only one version, and it accepts
+GPL 3.0 on input (and through it all the weaker licenses).  No other
+license is acceptable on output.  <a class="footnote-reference brackets" href="#license-slide" id="id21">20</a> <a class="footnote-reference brackets" href="#esr-licensing" id="id22">21</a></p>
+<p>Let's take a few examples now.  Let's say that you have a MIT-licensed
+project and you'd like to add some ISC code in.  That's fine since both
+licenses are roughly equivalent, the result can either be MIT or ISC.
+Now let's say you want to add Apache 2.0 to the mix.  This is fine since
+there's a path from both of them to Apache 2.0, and the result becomes
+Apache 2.0.</p>
+<p>Now you'd like to add GPL 2.0 code to Apache 2.0 — but you can't do that
+because there's no path that could be reached from both these licenses.
+However, if it was GPL 2.0+, then you could use GPL 3.0 that
+is the first license that can be reached both from Apache 2.0
+and from GPL 2.0+.</p>
+</div>
+<div class="section" id="dual-licensing">
+<h2><a class="toc-backref" href="#id53">Dual-licensing</a></h2>
+<p><em>Dual-licensing</em> (or more generally, multi-licensing) means releasing
+the software under two or more different licenses.  The users can choose
+the license that suits them better in given circumstances.</p>
+<p>In Free Software, dual-licensing is sometimes used to achieve better
+<a class="reference internal" href="#license-compatibility">license compatibility</a>.  For example, Rust and many Rust packages are
+dual-licensed using <a class="reference external" href="https://opensource.org/licenses/MIT">MIT</a> and <a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a> licenses.  This is because
+Apache license provides patent protection but it is not GPL-compatible.
+Users needing GPL compatibility can rely on MIT license instead.
+<a class="footnote-reference brackets" href="#rust-faq" id="id23">22</a></p>
+<p>Dual-licensing is often used to combine copyleft and commercial
+licensing.  Users are permitted to use a particular project as Free
+Software but if they need to use it in proprietary application they can
+buy a commercial license instead.</p>
+<p>A specific kind of multi-licensing is to permit use of newer versions
+of the same license.  For example, when using the GNU licenses it is
+common to let user choose to use a newer version of the same license
+(e.g. GPL version 2 or later).</p>
+</div>
+<div class="section" id="relicensing">
+<h2><a class="toc-backref" href="#id54">Relicensing</a></h2>
+<p><em>Relicensing</em> means changing the license that the project is released
+under.  Usually relicensing is done from a particular version
+of the project forward.  In some cases, it is also possible to apply
+a new license to older versions.  However, in both cases it should
+be noted that the code already released under the previous terms will
+remain available under that terms, i.e. it is not possible to
+retroactively ban the old license.</p>
+<p>Relicensing going forward is always possible if <a class="reference internal" href="#license-compatibility">license compatibility</a>
+permits it.  For example, a project using <a class="reference external" href="https://opensource.org/licenses/MIT">MIT</a> license can be relicensed
+into <a class="reference external" href="https://opensource.org/licenses/BSD-2-Clause">2-clause BSD</a> at any point.  Commits prior to this point will
+be always both under the old license (which already permitted upgrade to
+<a class="reference external" href="https://opensource.org/licenses/BSD-2-Clause">2-clause BSD</a> for users) and the new license.  However, commits after
+the relicense will no longer be available under the <a class="reference external" href="https://opensource.org/licenses/MIT">MIT</a> license.
+Someone deciding to fork the project and continue releasing it as <a class="reference external" href="https://opensource.org/licenses/MIT">MIT</a>
+will not be able to backport changes from the new versions.</p>
+<p>If the new license is incompatible with the old one, relicensing is only
+possible if all copyright holders agree to it.  If you're the sole
+author or all copyright has been transferred to you, that's no problem.
+However, in a typical community project relicensing involves getting
+permission from a lot of people, some of whom might be really hard to
+reach (or even have passed away).  In practice, it is probably
+sufficient to get the approval from the major contributors (i.e. people
+holding copyright on significant portions of code).  Nevertheless, it is
+a major undertaking and not one to be taken lightly.</p>
+<p>A possible interim arrangement is <a class="reference internal" href="#dual-licensing">dual-licensing</a> under the old and new
+licenses.  The idea is that while old code remains under the old
+license, the new code is dual-licensed for the old and the new licenses.
+While this does not resolve the problem immediately, it avoids
+accumulating more problematic code and makes it possible to proceed
+with relicensing in the future, once either all necessary relicensing
+agreements are collected or the non-covered code is removed
+from the project.  This approach was taken by the LLVM project in order
+to switch to a derivative of <a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a> license.  <a class="footnote-reference brackets" href="#llvm-relicense" id="id24">23</a></p>
+</div>
+<div class="section" id="integrating-third-party-code-into-your-project">
+<h2><a class="toc-backref" href="#id55">Integrating third party code into your project</a></h2>
+<p>It is rather unlikely (and undesirable) for your project to be based
+entirely on original code.  Instead, you will at the very least link
+it to some libraries.  In some cases, you may need to incorporate some
+existing code directly into sources.</p>
+<p>How to do it without violating copyright?  The answer depends on a few
+factors, most notably the license of incorporated work, the license
+of your program and the method of incorporating it.</p>
+<p>Public domain (and public domain-alike) code is very easy
+to incorporate.  In both cases, you are granted all the rights to modify
+and redistribute the code, with no limitations or prerequisites,
+not even to attribute the original author.  You can simply copy the code
+into your program and forget that you've ever done so.  Of course, it is
+probably worthwhile to include some attribution note, at least so that
+you know where the code came from.</p>
+<p>Permissive licenses are also quite friendly.  If you wish to link
+dynamically to a permissively licensed library, there's no problem.
+If you wish to bundle this shared library along with your program, you
+generally need to include its license and attribution but no more than
+that.  However, if you want to link it statically into your program
+or copy code from it, then things become a little more complex.</p>
+<p>Firstly, you need to verify the <a class="reference internal" href="#license-compatibility">license compatibility</a>.  If your
+license is less restrictive than the included code, you will need
+to release the whole program under the more restrictive license.
+However, you are free to keep the original license for your parts
+of the source code and just indicate that the combined executable
+is licensed differently.</p>
+<p>Secondly, you must pay attention to specific license terms,
+in particular attribute the authors of the work you've used in the way
+specified by them.  In some cases, it is sufficient to preserve original
+copyright notices when copying code.  Other licenses require including
+appropriate copyright information along with binary packages
+(e.g. in README) or displaying them inside the program
+(e.g. in the ‘about’ dialog).</p>
+<p>Permissive licenses are compatible with creating proprietary software
+too (since you don't grant more rights than the original).  As long
+as you follow the requirements on attribution, you can include
+permissively licensed code in your proprietary products.  You can also
+modify it as you see fit without having to disclose your modifications.</p>
+<p>Copyleft licenses are not that friendly.</p>
+<p>Weak copyleft licenses permit both dynamic and static linking to any
+software.  However, if you link to a modified version of a library, you
+are required to disclose your modifications and release them under
+a compatible license.  LGPL additionally requires you to provide users
+with means to easily replace the library you linked with a different
+version.</p>
+<p>Including copyleft code directly in your program is more demanding.
+The same rules apply to dynamic and static linking of strong copyleft
+libraries.  License compatibility requires that your whole program
+is released under a compatible license, and copyleft licenses are not
+compatible with proprietary licenses, so you effectively can't introduce
+GPL-ed code in proprietary software.</p>
+<p>License incompatibility can also be a problem in free software.
+MPL 2.0, a pretty recent license accounts for that explicitly by
+permitting dual-licensing of a larger work.  In some cases
+(e.g. integrating GPL-2.0 into GPL-3.0 project), your only option will
+be to try <a class="reference internal" href="#relicensing">relicensing</a> your project.</p>
+</div>
+</div>
+<div class="section" id="copyright-from-packager-s-perspective">
+<h1><a class="toc-backref" href="#id56">Copyright from packager's perspective</a></h1>
+<div class="section" id="which-licenses-to-include-in-package-metadata">
+<h2><a class="toc-backref" href="#id57">Which licenses to include in package metadata?</a></h2>
+<p>When building software packages for the distribution, two kinds
+of licenses apply: licenses for files installed by the package,
+and license for files used to build it.  The first one is especially
+important to users who are going to install the software (possibly
+from a binary package) and use it, the second one for users who
+are going to build it.</p>
+<p>In Gentoo, the ebuild's <span class="docutils literal">LICENSE</span> variable covers only the former.
+It serves three important purposes:</p>
+<ol class="arabic simple">
+<li><p>It integrates with package manager's <span class="docutils literal">ACCEPT_LICENSE</span> mechanism
+to let users decide what licenses and license groups are acceptable
+for them, and prevent them from inadvertently installing proprietary
+packages.  It is also used to cover the explicit need for EULA
+approval.</p></li>
+<li><p>It provides programmers helpful tips on what licenses are used
+by packages.  This can be used e.g. to initially select libraries
+to use in your package.</p></li>
+<li><p>It integrates with Quality Assurance tooling.  It historically helped
+us find missing <a class="reference internal" href="#redistribution-restrictions">redistribution restrictions</a> or license violations.</p></li>
+</ol>
+<p>Technically, every file installed by the package could have a different
+license.  To cover for that, we would have to keep complete file list
+and license indication for every file on this list.  However, Gentoo's
+design makes it really hard to even come up with complete list of files
+potentially installed by the package, with all the possible conditions.
+Instead, we use a single variable that is supposed to contain a <em>union</em>
+of all licenses of the installed files.</p>
+<p>For example, if package frobnicate installs LGPL-ed libfrobnicate
+and GPL-ed program frobnicate, you would specify <span class="docutils literal"><span class="pre">LGPL-3+</span> <span class="pre">GPL-3+</span></span>.
+This means that some of the files have LGPL-3+ license, and some have
+GPL-3+.  If tools were installed conditionally to a USE flag, then
+GPL-3+ in the list would also become conditional.</p>
+<p>The point is that you should at least mentally look at the list
+of installed files, and establish the license of every one of them
+(see: <a class="reference internal" href="#determining-the-license">determining the license</a>).  Then deduplicate the resulting list
+and copy it into the ebuild.</p>
+<p>The latter kind, licenses used purely at build time are not recorded
+in ebuild metadata.  Nevertheless, they can affect <a class="reference internal" href="#redistribution-restrictions">redistribution
+restrictions</a> or even prevent some users from building the package.
+If the latter is the case (e.g. use of build scripts is forbidden under
+some circumstances), the package must not be included in Gentoo.</p>
+</div>
+<div class="section" id="determining-the-license">
+<h2><a class="toc-backref" href="#id58">Determining the license</a></h2>
+<p>The license of every output file is generally derived from the license
+of its inputs, including source files and possibly linked libraries
+(in case of strong copyleft).  In determining the licenses of source
+files, it is recommended to consult the following:</p>
+<ol class="arabic simple">
+<li><p>Copyright notices inside files themselves.</p></li>
+<li><p>Accompanying documentation, including README files.</p></li>
+<li><p><span class="docutils literal">COPYING</span> and <span class="docutils literal">LICENSE</span> files inside the package.</p></li>
+</ol>
+<p>Copyright notices provide the most precise information on licensing.
+They explicitly define the scope (i.e. file or part of file), as well
+as precisely define the license.  For example, the GPL notices generally
+indicate whether newer versions of GPL are acceptable.</p>
+<p>Documentation may also provide more precise information through being
+free form, and therefore permitting the developer to explain
+the licensing situation in detail.  Of course, not every developer does
+that, so copyright notices are better.</p>
+<p>Finally, if no other information is available, it is reasonable
+to assume that the <span class="docutils literal">COPYING</span> or <span class="docutils literal">LICENSE</span> file included
+in the package implies its license.</p>
+<p>Please note that in some cases the licensing information may be
+incomplete or contradictory.  If in doubt, please ask upstream for
+confirmation.  If you have reasons to suspect that the package is
+violating a license, please do not include it until you clear things
+with upstream.</p>
+<p>When combining different files into a single executable there is some
+degree to which licenses can be ‘subsumed’ per <a class="reference internal" href="#license-compatibility">license compatibility</a>.
+For example, if you have a GPL-3+ executable that includes MIT-licensed
+code in one of the source files, you can reasonably assume that upstream
+is correct in calling the package GPL-3+.</p>
+<p>There could be also cases when upstream licenses the combined executable
+differently from <em>all</em> source files.  For example, when linking
+to a GPL-2+ shared library, the upstream may decide to keep all its own
+sources under permissive licenses but must license the final executable
+as one of the compatible GPL variants.</p>
+</div>
+<div class="section" id="redistribution-restrictions">
+<h2><a class="toc-backref" href="#id59">Redistribution restrictions</a></h2>
+<p>When packaging software, it is important to look at the redistribution
+rights granted to you by the license.  While free software grants you
+all of them (by definition), proprietary licenses may not.</p>
+<p>Firstly, you need to check whether the license grants free right
+to redistribute the original upstream archives.  This will be usually
+the right to redistribute in source form, unless you are dealing with
+prebuilt upstream binaries.</p>
+<p>In Gentoo, all source archives are automatically mirrored to increase
+reliability and offload upstream sites.  If you are not permitted
+to redistribute <em>unmodified</em> upstream archives, you need to disable
+mirroring explicitly.  This is done via <span class="docutils literal">RESTRICT=mirror</span>.</p>
+<p>If redistributing <em>modified</em> sources is not permitted, this is generally
+not a problem since we usually use patches to modify them.  However,
+if you ever decide to repackage something or use software that is
+a modified version of some other software, you should check the license.
+If redistributing modified sources is not permitted, you must not
+package that.</p>
+<p>Please note that when dealing with packages prohibiting redistribution,
+it is usually necessary to download them from original/authorized sites.
+As explained in the <a class="reference internal" href="#all-rights-reserved">all rights reserved</a> section, this may be
+a precondition for the right to use the software.  Using third party
+mirrors that may have violated the copyright in the first place
+is a risk for your users.</p>
+<p>Secondly, a few upstreams go as far as to prohibit automated downloads
+of their source packages.  However, more often they just block anything
+that's not an interactive browser session.  In Gentoo, if that is
+the case you need to disable automatic fetching via <span class="docutils literal">RESTRICT=fetch</span>.</p>
+<p>A special case of this are packages that require accepting the license
+(EULA) before download.  In Gentoo, we generally assume that
+if the license is in <span class="docutils literal">&#64;EULA</span> group and therefore user has to manually
+approve it to install the package, and if upstream does not explicitly
+forbid automated downloads, it is fine to fetch it via the package
+manager.</p>
+<p>Thirdly, you need to check whether you are permitted to redistribute
+binary packages built from the source.  Usually, this will be worded
+as permission to redistribute in binary form, with or without
+modifications.</p>
+<p>If the package prohibits binary redistribution completely, you should
+indicate that via <span class="docutils literal">RESTRICT=bindist</span>.  If it prohibits redistribution
+<em>with modifications</em>, then the problem is harder.  Technically you could
+leave it enabled if you do not apply any modifications but you need
+to be especially careful to disable bindist once the package is patched.
+Generally, it is safer to restrict it unconditionally then.</p>
+<p>In some packages, the redistribution limitations do not apply
+unconditionally, especially if they are caused by patents or trademarks
+rather than the license itself.  In these cases, it is customary to add
+a <span class="docutils literal">bindist</span> USE flag, and apply changes necessary to permit binary
+redistribution when it is enabled (e.g. by disabling problematic
+features).</p>
+</div>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id60">References</a></h1>
+<dl class="footnote brackets">
+<dt class="label" id="copyright-basics"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>U.S. Copyright Office, Circular 1: Copyright
+Basics
+(<a class="reference external" href="https://www.copyright.gov/circs/circ01.pdf">https://www.copyright.gov/circs/circ01.pdf</a>)</p>
+</dd>
+<dt class="label" id="clean-room"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Wikipedia: Clean room design
+(<a class="reference external" href="https://en.wikipedia.org/wiki/Clean_room_design">https://en.wikipedia.org/wiki/Clean_room_design</a>)</p>
+</dd>
+<dt class="label" id="berne"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Summary of the Berne Convention for the Protection
+of Literary and Artistic Works (1886)
+(<a class="reference external" href="https://www.wipo.int/treaties/en/ip/berne/summary_berne.html">https://www.wipo.int/treaties/en/ip/berne/summary_berne.html</a>)</p>
+</dd>
+<dt class="label" id="patent"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>United States Patent and Trademark Office:
+General information concerning patents
+(<a class="reference external" href="https://www.uspto.gov/patents-getting-started/general-information-concerning-patents">https://www.uspto.gov/patents-getting-started/general-information-concerning-patents</a>)</p>
+</dd>
+<dt class="label" id="software-patents-in-eu"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>fsfe: Software Patents in Europe
+(<a class="reference external" href="https://fsfe.org/activities/swpat/">https://fsfe.org/activities/swpat/</a>)</p>
+</dd>
+<dt class="label" id="patent-troll"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>Wikipedia: Patent troll
+(<a class="reference external" href="https://en.wikipedia.org/wiki/Patent_troll">https://en.wikipedia.org/wiki/Patent_troll</a>)</p>
+</dd>
+<dt class="label" id="eolas"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>Wikipedia: Eolas → Patents
+(<a class="reference external" href="https://en.wikipedia.org/wiki/Eolas#Patents">https://en.wikipedia.org/wiki/Eolas#Patents</a>)</p>
+</dd>
+<dt class="label" id="copyright-derivative"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p>U.S. Copyright Office, Circular 14: Copyright
+Registration for Derivative Works
+(<a class="reference external" href="https://www.copyright.gov/circs/circ14.pdf">https://www.copyright.gov/circs/circ14.pdf</a>)</p>
+</dd>
+<dt class="label" id="copyright-lengths"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
+<dd><p>Wikipedia: List of countries' copyright lengths
+(<a class="reference external" href="https://en.wikipedia.org/wiki/List_of_countries%27_copyright_lengths">https://en.wikipedia.org/wiki/List_of_countries%27_copyright_lengths</a>)</p>
+</dd>
+<dt class="label" id="copyright-us-gov"><span class="brackets"><a class="fn-backref" href="#id10">10</a></span></dt>
+<dd><p>Copyright Law of the United States, Chapter 1,
+Section 105: Subject matter of copyright: United States Government
+works
+(<a class="reference external" href="https://www.copyright.gov/title17/92chap1.html#105">https://www.copyright.gov/title17/92chap1.html#105</a>)</p>
+</dd>
+<dt class="label" id="gnu-free-software"><span class="brackets"><a class="fn-backref" href="#id11">11</a></span></dt>
+<dd><p>GNU Project: What is free software?
+(<a class="reference external" href="https://www.gnu.org/philosophy/free-sw.html.en">https://www.gnu.org/philosophy/free-sw.html.en</a>)</p>
+</dd>
+<dt class="label" id="cc-zero"><span class="brackets"><a class="fn-backref" href="#id12">12</a></span></dt>
+<dd><p>Creative Commons: CC0
+(<a class="reference external" href="https://creativecommons.org/share-your-work/public-domain/cc0/">https://creativecommons.org/share-your-work/public-domain/cc0/</a>)</p>
+</dd>
+<dt class="label" id="mpl2"><span class="brackets"><a class="fn-backref" href="#id13">13</a></span></dt>
+<dd><p>MPL 2.0 FAQ
+(<a class="reference external" href="https://www.mozilla.org/en-US/MPL/2.0/FAQ/">https://www.mozilla.org/en-US/MPL/2.0/FAQ/</a>)</p>
+</dd>
+<dt class="label" id="gpl-faq"><span class="brackets"><a class="fn-backref" href="#id14">14</a></span></dt>
+<dd><p>GNU Project: Frequently Asked Questions about
+the GNU Licenses
+(<a class="reference external" href="https://www.gnu.org/licenses/gpl-faq.en.html">https://www.gnu.org/licenses/gpl-faq.en.html</a>)</p>
+</dd>
+<dt class="label" id="gpl-link"><span class="brackets"><a class="fn-backref" href="#id15">15</a></span></dt>
+<dd><p>Software Engineering Stack Exchange: How does the GPL
+static vs. dynamic linking rule apply to interpreted languages?
+Answer by vartec
+(<a class="reference external" href="https://softwareengineering.stackexchange.com/questions/167773/how-does-the-gpl-static-vs-dynamic-linking-rule-apply-to-interpreted-languages/167781#167781">https://softwareengineering.stackexchange.com/questions/167773/how-does-the-gpl-static-vs-dynamic-linking-rule-apply-to-interpreted-languages/167781#167781</a>)</p>
+</dd>
+<dt class="label" id="grsec"><span class="brackets"><a class="fn-backref" href="#id16">16</a></span></dt>
+<dd><p>Bruce Perens, Warning: Grsecurity: Potential contributory
+infringement and breach of contract risk for customers
+(<a class="reference external" href="https://perens.com/2017/06/28/warning-grsecurity-potential-contributory-infringement-risk-for-customers/">https://perens.com/2017/06/28/warning-grsecurity-potential-contributory-infringement-risk-for-customers/</a>),
+The Register: Grsecurity maker finally coughs up $300k to foot
+open-source pioneer Bruce Perens' legal bill in row over GPL
+(<a class="reference external" href="https://www.theregister.com/2020/03/27/grsecurity_bruce_perens_gpl_settlement/">https://www.theregister.com/2020/03/27/grsecurity_bruce_perens_gpl_settlement/</a>)</p>
+</dd>
+<dt class="label" id="bdb-agpl"><span class="brackets"><a class="fn-backref" href="#id17">17</a></span></dt>
+<dd><p>InfoWorld: Oracle switches Berkeley DB license
+(<a class="reference external" href="https://www.infoworld.com/article/2611450/oracle-switches-berkeley-db-license.html">https://www.infoworld.com/article/2611450/oracle-switches-berkeley-db-license.html</a>)</p>
+</dd>
+<dt class="label" id="glep76"><span class="brackets"><a class="fn-backref" href="#id19">18</a></span></dt>
+<dd><p>GLEP 76: Copyright Policy
+(<a class="reference external" href="https://www.gentoo.org/glep/glep-0076.html">https://www.gentoo.org/glep/glep-0076.html</a>)</p>
+</dd>
+<dt class="label" id="cla"><span class="brackets"><a class="fn-backref" href="#id20">19</a></span></dt>
+<dd><p>OSS Watch: Contributor Licence Agreements
+(<a class="reference external" href="http://oss-watch.ac.uk/resources/cla">http://oss-watch.ac.uk/resources/cla</a>)</p>
+</dd>
+<dt class="label" id="license-slide"><span class="brackets"><a class="fn-backref" href="#id21">20</a></span></dt>
+<dd><p>David A. Wheeler, The Free-Libre / Open Source
+Software (FLOSS) License Slide
+(<a class="reference external" href="https://dwheeler.com/essays/floss-license-slide.html">https://dwheeler.com/essays/floss-license-slide.html</a>)</p>
+</dd>
+<dt class="label" id="esr-licensing"><span class="brackets"><a class="fn-backref" href="#id22">21</a></span></dt>
+<dd><p>Eric Steven Raymond, Catherine Olanich Raymond:
+Licensing HOWTO, version 0.8 DRAFT
+(<a class="reference external" href="http://www.catb.org/~esr/Licensing-HOWTO.html">http://www.catb.org/~esr/Licensing-HOWTO.html</a>)</p>
+</dd>
+<dt class="label" id="rust-faq"><span class="brackets"><a class="fn-backref" href="#id23">22</a></span></dt>
+<dd><p>The Rust Programming Language: Frequently Asked Questions
+(<a class="reference external" href="https://prev.rust-lang.org/en-US/faq.html#why-a-dual-mit-asl2-license">https://prev.rust-lang.org/en-US/faq.html#why-a-dual-mit-asl2-license</a>)</p>
+</dd>
+<dt class="label" id="llvm-relicense"><span class="brackets"><a class="fn-backref" href="#id24">23</a></span></dt>
+<dd><p>LLVM Developer Policy: Relicensing
+(<a class="reference external" href="https://llvm.org/docs/DeveloperPolicy.html#relicensing">https://llvm.org/docs/DeveloperPolicy.html#relicensing</a>)</p>
+</dd>
+</dl>
+</div>
+</div>
+</body>
+</html>

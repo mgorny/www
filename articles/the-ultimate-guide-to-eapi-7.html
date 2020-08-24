@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<title>The ultimate guide to EAPI 7</title>
+<meta name="author" content="Michał Górny" />
+<meta name="dcterms.date" content="2018-05-03" />
+<meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+<style type="text/css">
+
+/* Minimal style sheet for the HTML output of Docutils.                    */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*                                                                         */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+
+/* This CSS2.1_ stylesheet defines rules for Docutils elements without    */
+/* HTML equivalent. It is required to make the document semantic visible. */
+/*                                                                        */
+/* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
+/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
+
+/* alignment of text and inline objects inside block objects*/
+.align-left   { text-align: left; }
+.align-right  { text-align: right; }
+.align-center { clear: both; text-align: center; }
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
+
+/* titles */
+h1.title, p.subtitle {
+  text-align: center;
+}
+p.topic-title,
+p.sidebar-title,
+p.rubric,
+p.admonition-title,
+p.system-message-title {
+  font-weight: bold;
+}
+h1 + p.subtitle,
+h1 + p.section-subtitle {
+  font-size: 1.6em;
+}
+h2 + p.section-subtitle { font-size: 1.28em; }
+p.subtitle,
+p.section-subtitle,
+p.sidebar-subtitle {
+  font-weight: bold;
+  margin-top: -0.5em;
+}
+p.sidebar-title,
+p.rubric {
+  font-size: larger;
+}
+p.rubric { color: maroon; }
+a.toc-backref {
+  color: black;
+  text-decoration: none; }
+
+/* Warnings, Errors */
+div.caution p.admonition-title,
+div.attention p.admonition-title,
+div.danger p.admonition-title,
+div.error p.admonition-title,
+div.warning p.admonition-title,
+div.system-messages h1,
+div.error,
+span.problematic,
+p.system-message-title {
+  color: red;
+}
+
+/* inline literals */
+span.docutils.literal {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+/* do not wraph at hyphens and similar: */
+.literal > span.pre { white-space: nowrap; }
+
+/* Lists */
+
+/* compact and simple lists: no margin between items */
+.simple  li, .compact li,
+.simple  ul, .compact ul,
+.simple  ol, .compact ol,
+.simple > li p, .compact > li p,
+dl.simple > dd, dl.compact > dd {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Table of Contents */
+div.topic.contents { margin: 0.5em 0; }
+div.topic.contents ul {
+  list-style-type: none;
+  padding-left: 1.5em;
+}
+
+/* Enumerated Lists */
+ol.arabic     { list-style: decimal }
+ol.loweralpha { list-style: lower-alpha }
+ol.upperalpha { list-style: upper-alpha }
+ol.lowerroman { list-style: lower-roman }
+ol.upperroman { list-style: upper-roman }
+
+dt span.classifier { font-style: italic }
+dt span.classifier:before {
+  font-style: normal;
+  margin: 0.5em;
+  content: ":";
+}
+
+/* Field Lists and drivatives */
+/* bold field name, content starts on the same line */
+dl.field-list > dt,
+dl.option-list > dt,
+dl.docinfo > dt,
+dl.footnote > dt,
+dl.citation > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+/* Offset for field content (corresponds to the --field-name-limit option) */
+dl.field-list > dd,
+dl.option-list > dd,
+dl.docinfo > dd {
+  margin-left:  9em; /* ca. 14 chars in the test examples */
+}
+/* start field-body on a new line after long field names */
+dl.field-list > dd > *:first-child,
+dl.option-list > dd > *:first-child
+{
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+}
+/* field names followed by a colon */
+dl.field-list > dt:after,
+dl.docinfo > dt:after {
+  content: ":";
+}
+
+/* Bibliographic Fields (docinfo) */
+pre.address { font: inherit; }
+dd.authors > p { margin: 0; }
+
+/* Option Lists */
+dl.option-list { margin-left: 1.5em; }
+dl.option-list > dt { font-weight: normal; }
+span.option { white-space: nowrap; }
+
+/* Footnotes and Citations  */
+dl.footnote.superscript > dd {margin-left: 1em; }
+dl.footnote.brackets > dd {margin-left: 2em; }
+dl > dt.label { font-weight: normal; }
+a.footnote-reference.brackets:before,
+dt.label > span.brackets:before { content: "["; }
+a.footnote-reference.brackets:after,
+dt.label > span.brackets:after { content: "]"; }
+a.footnote-reference.superscript,
+dl.footnote.superscript > dt.label {
+  vertical-align: super;
+  font-size: smaller;
+}
+dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref > a { font-style: italic; }
+
+/* Line Blocks */
+div.line-block { display: block; }
+div.line-block div.line-block {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 40px;
+}
+
+/* Figures, Images, and Tables */
+.figure.align-left,
+figure.align-left,
+img.align-left,
+object.align-left,
+table.align-left {
+  margin-right: auto;
+}
+.figure.align-center,
+figure.align-center,
+img.align-center,
+object.align-center,
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.figure.align-right,
+figure.align-right,
+img.align-right,
+object.align-right,
+table.align-right {
+  margin-left: auto;
+}
+.figure.align-center, .figure.align-right,
+figure.align-center, figure.align-right,
+img.align-center, img.align-right,
+object.align-center, object.align-right {
+  display: block;
+}
+/* reset inner alignment in figures and tables */
+.figure.align-left, .figure.align-right,
+figure.align-left, figure.align-right,
+table.align-left, table.align-center, table.align-right {
+  text-align: inherit;
+}
+
+/* Admonitions and System Messages */
+div.admonition,
+div.system-message,
+div.sidebar,
+aside.sidebar {
+  margin: 1em 1.5em;
+  border: medium outset;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+/* Sidebar */
+div.sidebar,
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  float: right;
+  clear: right;
+}
+
+/* Text Blocks */
+blockquote,
+div.topic,
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+}
+pre.code .ln { color: gray; } /* line numbers */
+
+/* Tables */
+table { border-collapse: collapse; }
+td, th {
+  border-style: solid;
+  border-color: silver;
+  padding: 0 1ex;
+  border-width: thin;
+}
+td > p:first-child, th > p:first-child { margin-top: 0; }
+td > p, th > p { margin-bottom: 0; }
+
+table > caption {
+  text-align: left;
+  margin-bottom: 0.25em
+}
+
+table.borderless td, table.borderless th {
+  border: 0;
+  padding: 0;
+  padding-right: 0.5em /* separate table cells */
+}
+
+/* Document Header and Footer */
+/* div.header,				      */
+/* header { border-bottom: 1px solid black; } */
+/* div.footer,				      */
+/* footer { border-top: 1px solid black; }    */
+
+/* new HTML5 block elements: set display for older browsers */
+header, section, footer, aside, nav, main, article, figure {
+  display: block;
+}
+
+</style>
+<style type="text/css">
+
+/* CSS31_ style sheet for the output of Docutils HTML writers.             */
+/* Rules for easy reading and pre-defined style variants.		   */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*    	     	      	     	 					   */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+
+
+/* Document Structure */
+/* ****************** */
+
+/* "page layout" */
+body {
+  margin: 0;
+  background-color: #dbdbdb;
+}
+div.document,
+main {
+  line-height:1.3;
+  counter-reset: table;
+  /* counter-reset: figure; */
+  /* avoid long lines --> better reading */
+  /* OTOH: lines should not be too short because of missing hyphenation, */
+  max-width: 50em;
+  padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
+  margin: auto;
+  background-color: white;
+}
+
+/* Sections */
+
+/* Transitions */
+
+hr.docutils {
+  width: 80%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  clear: both;
+}
+
+/* Paragraphs */
+/* ========== */
+
+/* vertical space (parskip) */
+p, ol, ul, dl,
+div.line-block,
+div.topic,
+table {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+p:first-child { margin-top: 0; }
+/* (:last-child is new in CSS 3) */
+p:last-child  { margin-bottom: 0; }
+
+h1, h2, h3, h4, h5, h6,
+dl > dd {
+  margin-bottom: 0.5em;
+}
+
+/* Lists */
+/* ===== */
+
+/* Definition Lists */
+
+/* lists nested in definition lists */
+/* (:only-child is new in CSS 3) */
+dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
+
+/* Description Lists */
+/* styled like in most dictionaries, encyclopedias etc. */
+dl.description > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+
+/* Field Lists */
+
+/* example for custom field-name width */
+dl.field-list.narrow > dd {
+  margin-left: 5em;
+}
+/* run-in: start field-body on same line after long field names */
+dl.field-list.run-in > dd p {
+  display: block;
+}
+
+/* Bibliographic Fields */
+
+/* generally, bibliographic fields use special definition list dl.docinfo */
+/* but dedication and abstract are placed into "topic" divs */
+div.abstract p.topic-title {
+  text-align: center;
+}
+div.dedication {
+  margin: 2em 5em;
+  text-align: center;
+  font-style: italic;
+}
+div.dedication p.topic-title {
+  font-style: normal;
+}
+
+/* Citations */
+dl.citation dt.label {
+  font-weight: bold;
+}
+span.fn-backref {
+  font-weight: normal;
+}
+
+/* Text Blocks */
+/* =========== */
+
+/* Literal Blocks */
+
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  font-family: monospace;
+}
+
+/* Block Quotes */
+
+blockquote > table,
+div.topic > table {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+blockquote p.attribution,
+div.topic p.attribution {
+  text-align: right;
+  margin-left: 20%;
+}
+
+/* Tables */
+/* ====== */
+
+/* th { vertical-align: bottom; } */
+
+table tr { text-align: left; }
+
+/* "booktabs" style (no vertical lines) */
+table.booktabs {
+  border: 0;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.booktabs * {
+  border: 0;
+}
+table.booktabs th {
+  border-bottom: thin solid;
+}
+
+/* numbered tables (counter defined in div.document) */
+table.numbered > caption:before {
+  counter-increment: table;
+  content: "Table " counter(table) ": ";
+  font-weight: bold;
+}
+
+/* Explicit Markup Blocks */
+/* ====================== */
+
+/* Footnotes and Citations */
+/* ----------------------- */
+
+/* line on the left */
+dl.footnote {
+  padding-left: 1ex;
+  border-left: solid;
+  border-left-width: thin;
+}
+
+/* Directives */
+/* ---------- */
+
+/* Body Elements */
+/* ~~~~~~~~~~~~~ */
+
+/* Images and Figures */
+
+/* let content flow to the side of aligned images and figures */
+.figure.align-left,
+figure.align-left,
+img.align-left,
+object.align-left {
+  display: block;
+  clear: left;
+  float: left;
+  margin-right: 1em;
+}
+.figure.align-right,
+figure.align-right,
+img.align-right,
+object.align-right {
+  display: block;
+  clear: right;
+  float: right;
+  margin-left: 1em;
+}
+/* Stop floating sidebars, images and figures at section level 1,2,3 */
+h1, h2, h3 { clear: both; }
+
+/* Sidebar */
+
+/* Move right. In a layout with fixed margins, */
+/* it can be moved into the margin.   	       */
+div.sidebar,
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  margin-left: 1em;
+  margin-right: -2%;
+  background-color: #ffffee;
+}
+
+/* Code */
+
+pre.code { padding: 0.7ex }
+pre.code, code { background-color: #eeeeee }
+pre.code .ln { color: gray; } /* line numbers */
+/* basic highlighting: for a complete scheme, see */
+/* http://docutils.sourceforge.net/sandbox/stylesheets/ */
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+/* Math */
+/* styled separately (see math.css for math-output=HTML) */
+
+/* Epigraph           */
+/* Highlights         */
+/* Pull-Quote         */
+/* Compound Paragraph */
+/* Container          */
+
+/* can be styled in a custom stylesheet */
+
+/* Document Header and Footer */
+
+footer, header,
+div.footer, div.header {
+  font-size: smaller;
+  clear: both;
+  padding: 0.5em 2%;
+  background-color: #ebebee;
+  border: none;
+}
+
+/* Inline Markup */
+/* ============= */
+
+/* Emphasis           */
+/*   em               */
+/* Strong Emphasis    */
+/*   strong	      */
+/* Interpreted Text   */
+/*   span.interpreted */
+/* Title Reference    */
+/*   cite	      */
+
+/* Inline Literals                                          */
+/* possible values: normal, nowrap, pre, pre-wrap, pre-line */
+/*   span.docutils.literal { white-space: pre-wrap; }       */
+
+/* Hyperlink References */
+a { text-decoration: none; }
+
+/* External Targets       */
+/*   span.target.external */
+/* Internal Targets  	  */
+/*   span.target.internal */
+/* Footnote References    */
+/*   a.footnote-reference */
+/* Citation References    */
+/*   a.citation-reference */
+
+</style>
+</head>
+<body>
+<div class="document" id="the-ultimate-guide-to-eapi-7">
+<h1 class="title">The ultimate guide to EAPI 7</h1>
+<dl class="docinfo simple">
+<dt class="author">Author</dt>
+<dd class="author"><p>Michał Górny</p></dd>
+<dt class="date">Date</dt>
+<dd class="date">2018-05-03</dd>
+<dt class="version">Version</dt>
+<dd class="version">1.0</dd>
+<dt class="copyright">Copyright</dt>
+<dd class="copyright"><a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</a></dd>
+</dl>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#preamble" id="id7">Preamble</a></p></li>
+<li><p><a class="reference internal" href="#banned-commands-and-removed-variables" id="id8">Banned commands and removed variables</a></p>
+<ul>
+<li><p><a class="reference internal" href="#dohtml-is-banned" id="id9">dohtml is banned</a></p></li>
+<li><p><a class="reference internal" href="#dolib-and-libopts-are-banned" id="id10">dolib and libopts are banned</a></p></li>
+<li><p><a class="reference internal" href="#portdir-and-eclassdir-are-removed" id="id11">PORTDIR and ECLASSDIR are removed</a></p></li>
+<li><p><a class="reference internal" href="#desttree-and-insdesttree-are-gone" id="id12">DESTTREE and INSDESTTREE are gone</a></p></li>
+<li><p><a class="reference internal" href="#related-eclass-changes" id="id13">Related eclass changes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#improved-cross-compilation-support" id="id14">Improved cross-compilation support</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id15">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#build-time-dependencies-split-into-depend-and-bdepend" id="id16">Build-time dependencies split into DEPEND and BDEPEND</a></p></li>
+<li><p><a class="reference internal" href="#sysroot-and-esysroot-variables-for-depend" id="id17">SYSROOT and ESYSROOT variables (for DEPEND)</a></p></li>
+<li><p><a class="reference internal" href="#broot-variable-for-bdepend" id="id18">BROOT variable (for BDEPEND)</a></p></li>
+<li><p><a class="reference internal" href="#new-configure-parameters-in-econf" id="id19">New ./configure parameters in econf</a></p></li>
+<li><p><a class="reference internal" href="#new-options-to-has-version-and-best-version" id="id20">New options to has_version and best_version</a></p></li>
+<li><p><a class="reference internal" href="#summary" id="id21">Summary</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#version-manipulation-and-comparison-commands" id="id22">Version manipulation and comparison commands</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id23">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#version-strings-for-manipulation" id="id24">Version strings (for manipulation)</a></p></li>
+<li><p><a class="reference internal" href="#obtaining-version-substring-ver-cut" id="id25">Obtaining version substring (ver_cut)</a></p></li>
+<li><p><a class="reference internal" href="#replacing-version-separators-ver-rs" id="id26">Replacing version separators (ver_rs)</a></p></li>
+<li><p><a class="reference internal" href="#version-comparison-ver-test" id="id27">Version comparison (ver_test)</a></p></li>
+<li><p><a class="reference internal" href="#replacing-versionator-eclass-uses" id="id28">Replacing versionator.eclass uses</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#other-new-features-and-commands" id="id29">Other new features and commands</a></p>
+<ul>
+<li><p><a class="reference internal" href="#eqawarn-to-print-warnings-for-developers" id="id30">eqawarn to print warnings for developers</a></p></li>
+<li><p><a class="reference internal" href="#environment-variable-filtering-env-unset" id="id31">Environment variable filtering (ENV_UNSET)</a></p></li>
+<li><p><a class="reference internal" href="#controllable-stripping-dostrip" id="id32">Controllable stripping (dostrip)</a></p></li>
+<li><p><a class="reference internal" href="#gnu-patch-2-7-compatibility" id="id33">GNU patch 2.7 compatibility</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#other-behavior-changes" id="id34">Other behavior changes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#d-ed-root-eroot-no-longer-have-a-trailing-slash" id="id35">D, ED, ROOT, EROOT no longer have a trailing slash</a></p></li>
+<li><p><a class="reference internal" href="#output-commands-no-longer-pollute-stdout" id="id36">Output commands no longer pollute stdout</a></p></li>
+<li><p><a class="reference internal" href="#die-and-assert-can-be-used-in-a-subshell" id="id37">die and assert can be used in a subshell</a></p></li>
+<li><p><a class="reference internal" href="#nonfatal-implemented-both-as-function-and-external-command" id="id38">nonfatal implemented both as function and external command</a></p></li>
+<li><p><a class="reference internal" href="#domo-install-path-corrected" id="id39">domo install path corrected</a></p></li>
+<li><p><a class="reference internal" href="#empty-dependency-groups-no-longer-satisfy-dependencies" id="id40">Empty dependency groups no longer satisfy dependencies</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#profile-changes" id="id41">Profile changes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#directories-in-profiles-supported-not-for-gentoo" id="id42">Directories in profiles supported (not for ::gentoo!)</a></p></li>
+<li><p><a class="reference internal" href="#package-provided-is-gone-for-good" id="id43">package.provided is gone for good</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#rejected-and-postponed-features" id="id44">Rejected and postponed features</a></p>
+<ul>
+<li><p><a class="reference internal" href="#minimal-bash-version-at-4-3" id="id45">Minimal bash version at 4.3</a></p></li>
+<li><p><a class="reference internal" href="#sandbox-path-removal-functions" id="id46">Sandbox path removal functions</a></p></li>
+<li><p><a class="reference internal" href="#runtime-switchable-use-flags" id="id47">Runtime-switchable USE flags</a></p></li>
+<li><p><a class="reference internal" href="#binding-any-of-dependency-groups" id="id48">||= — binding any-of dependency groups</a></p></li>
+<li><p><a class="reference internal" href="#automatic-required-use-enforcing" id="id49">Automatic REQUIRED_USE enforcing</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#cheat-sheet-index" id="id50">Cheat sheet / index</a></p></li>
+<li><p><a class="reference internal" href="#references" id="id51">References</a></p></li>
+</ul>
+</div>
+<div class="section" id="preamble">
+<h1><a class="toc-backref" href="#id7">Preamble</a></h1>
+<p>Back when EAPI 6 was approved and ready for deployment, I have written
+a blog post entitled the Ultimate Guide to EAPI 6 <a class="footnote-reference brackets" href="#eapi6-guide" id="id1">1</a>.
+Now that EAPI 7 is ready, it is time to publish a similar guide to it.</p>
+<p>Of all EAPIs approved so far, EAPI 7 brings the largest number
+of changes.  It follows the path established by EAPI 6.  It focuses
+on integrating features that are either commonly used or that can not
+be properly implemented in eclasses, and removing those that are either
+deemed unnecessary or too complex to support.  However,
+the circumstances of its creation are entirely different.</p>
+<p>EAPI 6 was more like a minor release.  It was formed around
+the time when Portage development has been practically stalled.
+It aimed to collect some old requests into an EAPI that would be easy to
+implement by people with little knowledge of Portage codebase.
+Therefore, the majority of features oscillated around bash parts of the
+package manager.</p>
+<p>EAPI 7 is closer to a proper major release.  It included some explicit
+planning ahead of specification, and the specification has been mostly
+completed even before the implementation work started.  We did not
+initially skip features that were hard to implement, even though
+the hardest of them were eventually postponed.</p>
+<p>I will attempt to explain all the changes in EAPI 7 in this guide,
+including the rationale and ebuild code examples.</p>
+</div>
+<div class="section" id="banned-commands-and-removed-variables">
+<h1><a class="toc-backref" href="#id8">Banned commands and removed variables</a></h1>
+<div class="section" id="dohtml-is-banned">
+<span id="dohtml"></span><h2><a class="toc-backref" href="#id9">dohtml is banned</a></h2>
+<p>The <span class="docutils literal">dohtml</span> function has been deprecated in EAPI 6 already, so it
+should come as no surprise that EAPI 7 finally bans it.  The rationale
+remains the same: it was overcomplex, confusing and frequently asked for
+specification updates.</p>
+<p>The replacement is <span class="docutils literal">dodoc <span class="pre">-r</span></span>, combined with <span class="docutils literal">docinto</span> whenever
+necessary.  However, I should point out that there is no technical
+reason to force <span class="docutils literal">html</span> subdirectory for HTML files.  Packages with
+a single HTML file or no non-HTML docs (sic!) can install them straight
+to docdir.  Packages that have multiple HTML document trees can use
+subdirectories named after what they contain.</p>
+<pre class="code bash literal-block"><code>src_install<span class="operator">()</span> <span class="operator">{</span>
+    <span class="comment single"># BAD: dohtml is banned
+</span>    dohtml -A txt -r foo/.
+
+    <span class="comment single"># GOOD
+</span>    docinto html
+    dodoc -r foo/.
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="dolib-and-libopts-are-banned">
+<span id="libopts"></span><span id="dolib"></span><h2><a class="toc-backref" href="#id10">dolib and libopts are banned</a></h2>
+<p>EAPI 6 defined three <span class="docutils literal">dolib*</span> functions: <span class="docutils literal">dolib.a</span>, <span class="docutils literal">dolib.so</span>
+and plain <span class="docutils literal">dolib</span>.  By looking at the three names, you may come
+to the wrong conclusion that <span class="docutils literal">dolib</span> somehow wraps them both — but it
+does not.  Turns out, it is just an alias for <span class="docutils literal">dolib.a</span>, combined
+with support for <span class="docutils literal">libopts</span>.</p>
+<p>Looking at the current state of Gentoo, developers prefer <span class="docutils literal">dolib.a</span>
+and <span class="docutils literal">dolib.so</span> with appropriately 4 and 5 times more calls of those
+commands than of <span class="docutils literal">dolib</span>.  Furthermore, apparently many
+of the <span class="docutils literal">dolib</span> calls are wrongly used to install shared libraries.
+The remaining uses are either static libraries or other non-library
+files (for which <span class="docutils literal">dolib.a</span> seemed inappropriate, I guess).
+<span class="docutils literal">libopts</span> is not used at all.</p>
+<p>In its basic form, <span class="docutils literal">dolib</span> is redundant to <span class="docutils literal">dolib.a</span>, and confusing
+to developers who assume it can also install shared libraries.
+Technically, the <span class="docutils literal">libopts</span> variant makes it possible to use <span class="docutils literal">dolib</span>
+beyond what the two other helpers provide — however, there has been
+no use case for that so far and it is unlikely there ever will be.
+Even then, it can be fully satisfied with <span class="docutils literal">get_libdir</span> combined
+with <span class="docutils literal">doins</span>, so there is no reason to keep yet another helper.</p>
+<p>Therefore, EAPI 7 bans <span class="docutils literal">dolib</span> and <span class="docutils literal">libopts</span>. The two remaining
+functions are replacements:</p>
+<ul class="simple">
+<li><p><span class="docutils literal">dolib.so</span> to install shared libraries, their symlinks and any other
+file that needs to be installed into libdir as <span class="docutils literal">+x</span>, and</p></li>
+<li><p><span class="docutils literal">dolib.a</span> to install static libraries and any other regular file
+to libdir.</p></li>
+</ul>
+<pre class="code bash literal-block"><code>src_install<span class="operator">()</span> <span class="operator">{</span>
+    <span class="comment single"># BAD: dolib is banned
+</span>    dolib libfoo.a foo.o
+    <span class="comment single"># TWICE BAD: dolib was not meant to install shared libraries
+</span>    dolib libfoo.so libfoo.so.1
+
+    <span class="comment single"># GOOD: dolib.a installs files -x
+</span>    dolib.a libfoo.a foo.o
+    <span class="comment single"># GOOD: dolib.so install files +x
+</span>    dolib.so libfoo.so libfoo.so.1
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="portdir-and-eclassdir-are-removed">
+<span id="portdir"></span><span id="eclassdir"></span><h2><a class="toc-backref" href="#id11">PORTDIR and ECLASSDIR are removed</a></h2>
+<p>EAPI 6 has defined three variables that specifically referenced
+locations inside the ebuild repository:</p>
+<ol class="arabic simple">
+<li><p><span class="docutils literal">PORTDIR</span> — top directory of the repository,</p></li>
+<li><p><span class="docutils literal">ECLASSDIR</span> — its <span class="docutils literal">eclass</span> subdirectory,</p></li>
+<li><p><span class="docutils literal">FILESDIR</span> — the <span class="docutils literal">files</span> subdirectory of the current package.</p></li>
+</ol>
+<p>After a very long struggle, we were able to eliminate the uses
+of the first two, and eventually remove them in EAPI 7.  The third one
+was left but it can be easily implemented using a temporary directory
+without having access to the actual repository.  Portage was modified
+to use such a shadow directory.</p>
+<p>The rationale is that the <span class="docutils literal">PORTDIR</span> and <span class="docutils literal">ECLASSDIR</span> variables were
+pretty much fundamentally wrong design, and bypassed the package manager
+in accessing the repository.  As a result, they were frequently abused,
+e.g. to access <span class="docutils literal">files</span> subdirectory of another package or store data
+in <span class="docutils literal">ECLASSDIR</span>.</p>
+<p>Those variables dated back to the concept of a single repository
+with overlays.  The PMS attempted to fit that old concept into
+the new multi-repo world.  This created a weird hybrid in which
+both variables referenced an opaque concept of ‘master repository’.
+While it worked most of the time, it was an odd fit — as it did not
+necessarily reference the repository containing the ebuild or eclass
+in question but — with some luck — the Gentoo repository, being
+the final master and the source of abuse.</p>
+<p>Furthermore, they also undesirably made ebuilds rely on very specific
+format and contents of the repository.  Partial checkouts, full Manifest
+coverage (with protection from using unverified files), more optimal
+ebuild storage — <span class="docutils literal">PORTDIR</span> stood in the way of it all.</p>
+<p>As for replacements, there are none.  If whatever you needed doing
+requires direct repository access, you were doing it wrong.  That said,
+providing a way to access licenses was considered at a point.  However,
+nobody has come up with a really good use case for it and it was
+abandoned as unnecessary.</p>
+</div>
+<div class="section" id="desttree-and-insdesttree-are-gone">
+<span id="insdesttree"></span><span id="desttree"></span><h2><a class="toc-backref" href="#id12">DESTTREE and INSDESTTREE are gone</a></h2>
+<p>Those two were pretty much implementation details that inadvertently
+made it to the variable list.  <span class="docutils literal">DESTTREE</span> used to specify the <span class="docutils literal">into</span>
+install prefix, while <span class="docutils literal">INSDESTTREE</span> the <span class="docutils literal">insinto</span> directory.
+Historically, there were others like them but they have been
+retroactively removed in the past.  Now we remove the two remaining
+variables after replacing all their uses.</p>
+<p>If you want to set the paths, call <span class="docutils literal">into</span> and <span class="docutils literal">insinto</span> directly.
+If you need to limit their scope, put them in a subshell.</p>
+<p>Getting the currently set path is unsupported.  If you're trying to
+avoid repeating the same path multiple times, use a helper variable.
+Or just repeat it for improved readability.</p>
+<pre class="code bash literal-block"><code><span class="comment single"># BAD: uses INSDESTTREE
+</span>dofoo<span class="operator">()</span> <span class="operator">{</span>
+    <span class="name builtin">local</span> <span class="name variable">INSDESTTREE</span><span class="operator">=</span>/usr/share/foo
+    doins <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="punctuation">&#64;</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>
+<span class="operator">}</span>
+
+<span class="comment single"># GOOD: uses subshell
+</span>dofoo<span class="operator">()</span> <span class="operator">{</span>
+    <span class="operator">(</span>
+        insinto /usr/share/foo
+        doins <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="punctuation">&#64;</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>
+    <span class="operator">)</span>
+<span class="operator">}</span>
+
+src_install<span class="operator">()</span> <span class="operator">{</span>
+    insinto /usr/share/foo
+    doins foo
+
+    <span class="comment single"># BAD: uses INSDESTTREE
+</span>    dosym foo <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">INSDESTTREE</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>/bar
+    <span class="comment single"># GOOD: uses full path
+</span>    dosym foo /usr/share/foo/bar
+<span class="operator">}</span>
+
+<span class="comment single"># GOOD: uses helper var
+</span>src_install<span class="operator">()</span> <span class="operator">{</span>
+    <span class="name builtin">local</span> <span class="name variable">mypath</span><span class="operator">=</span>/usr/share/foo
+
+    insinto <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">mypath</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>
+    doins foo
+
+    dosym foo <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">mypath</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>/bar
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="related-eclass-changes">
+<span id="vcs-clean-eclass"></span><span id="preserve-libs-eclass"></span><span id="ltprune-eclass"></span><span id="eutils-eclass"></span><span id="estack-eclass"></span><span id="epatch-eclass"></span><span id="eapi7-ver-eclass"></span><span id="desktop-eclass"></span><h2><a class="toc-backref" href="#id13">Related eclass changes</a></h2>
+<p>As usual, I encourage developers to remove and ban obsolete APIs
+of their eclasses at EAPI upgrade point.  This is the best way
+of cleaning up stale stuff with minimal risk of breakage.</p>
+<p>In EAPI 7, a few obsolete eclasses are banned:</p>
+<ul class="simple">
+<li><p><span class="docutils literal"><span class="pre">eapi7-ver.eclass</span></span> — all functions included in EAPI 7</p></li>
+<li><p><span class="docutils literal">epatch.eclass</span> — replaced by EAPI 6 <span class="docutils literal">eapply</span> function</p></li>
+<li><p><span class="docutils literal">ltprune.eclass</span> — obsoleted in favor of inline pruning
+(<span class="docutils literal">find <span class="pre">&quot;${D}&quot;</span> <span class="pre">-name</span> <span class="pre">'*.la'</span> <span class="pre">-delete</span> || die</span>)</p></li>
+<li><p><span class="docutils literal">versionator.eclass</span> — replaced by EAPI 7 version functions
+(see also: <a class="reference internal" href="#replacing-versionator-eclass-uses">replacing versionator.eclass uses</a>)</p></li>
+</ul>
+<p>Additionally, <span class="docutils literal">eutils.eclass</span> stops implicitly providing the functions
+that were split out of it.  If you need one of the following functions,
+you need to explicitly inherit the eclass providing them:</p>
+<ul class="simple">
+<li><p><span class="docutils literal">desktop.eclass</span> — <span class="docutils literal">make_desktop_entry</span>, <span class="docutils literal">make_session_desktop</span>,
+<span class="docutils literal">domenu</span>, <span class="docutils literal">doicon</span> and their <span class="docutils literal">new*</span> variants</p></li>
+<li><p><span class="docutils literal">epatch.eclass</span> — <span class="docutils literal">epatch</span> (banned)</p></li>
+<li><p><span class="docutils literal">estack.eclass</span> — <span class="docutils literal">estack*</span>, <span class="docutils literal">evar*</span>, <span class="docutils literal">eshopts*</span>, <span class="docutils literal">eumask*</span></p></li>
+<li><p><span class="docutils literal">ltprune.eclass</span> — <span class="docutils literal">prune_libtool_files</span> (banned)</p></li>
+<li><p><span class="docutils literal"><span class="pre">preserve-libs.eclass</span></span> — <span class="docutils literal">preserve_old_lib</span></p></li>
+<li><p><span class="docutils literal"><span class="pre">vcs-clean.eclass</span></span> — <span class="docutils literal">e*_clean</span></p></li>
+</ul>
+<p>Additionally, the implicit inherits of <span class="docutils literal">multilib.eclass</span>
+and <span class="docutils literal"><span class="pre">toolchain-funcs.eclass</span></span> are removed.  Once you inherit
+the correct split eclasses, please recheck whether you still need
+<span class="docutils literal">eutils</span>.</p>
+</div>
+</div>
+<div class="section" id="improved-cross-compilation-support">
+<h1><a class="toc-backref" href="#id14">Improved cross-compilation support</a></h1>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id15">Introduction</a></h2>
+<p>Developers doing cross-compilation on Gentoo have requested a split
+of build-time dependencies for quite some time already.  There has been
+even an experimental <span class="docutils literal"><span class="pre">5-hdepend</span></span> EAPI at some point but all
+the efforts were pretty much haphazard.</p>
+<p>For EAPI 7, we finally managed to get the few relevant developers
+to focus and establish a real plan on supporting cross-compilation.
+Like Prefix, it is optional by design.  The behavior for package
+managers not interested in the topic is clearly defined, and regular
+developers can continue writing ebuilds without much regard
+to the problem.  The developers wishing to support cross can now
+modify the ebuilds without risking incompatibility between different
+package managers.</p>
+<p>The first step in designing this part of the specification was to
+finally settle on consistent and unambiguous terminology.  To achieve
+that, we decided to use the autotools triplet names.  This includes
+the following three triplets:</p>
+<ol class="arabic simple">
+<li><p><span class="docutils literal">CBUILD</span> — the system used to build packages, i.e. the one running
+the cross-compiler.  This triplet is used to build executables that
+are run during the build.  When not cross-compiling, <span class="docutils literal">CBUILD</span> is
+equal to <span class="docutils literal">CHOST</span>.</p></li>
+<li><p><span class="docutils literal">CHOST</span> — the system that will be running the installed package.
+There is no guarantee that executables built for this triplet
+will run on the build machine.</p></li>
+<li><p><span class="docutils literal">CTARGET</span> — only used when building some cross-toolchain tools,
+specifies the system for which the cross-toolchain is going to build.
+We can ignore it for the purpose of PMS.</p></li>
+</ol>
+<p>Now that we have clear terms, I can proceed with explaining the changes.</p>
+</div>
+<div class="section" id="build-time-dependencies-split-into-depend-and-bdepend">
+<span id="depend"></span><span id="bdepend"></span><h2><a class="toc-backref" href="#id16">Build-time dependencies split into DEPEND and BDEPEND</a></h2>
+<p>For the purposes of cross-compilation, it is useful to split build-time
+dependencies into two groups:</p>
+<ol class="arabic simple">
+<li><p>Dependencies that need to be run during the build, and therefore
+must run on the system used to build packages (<span class="docutils literal">CBUILD</span>). Those
+include toolchain, build system tooling (autotools, CMake), various
+language interpreters (Perl, Python), preprocessors (SWIG) and other
+tools (e.g. pkg-config).  Those are placed in <span class="docutils literal">BDEPEND</span> now.</p></li>
+<li><p>Dependencies that need to be compiled for the real system,
+and present for the toolchain to work.  Those mostly include
+libraries since the link editor needs to link to them.  Those
+remain as <span class="docutils literal">DEPEND</span>.</p></li>
+</ol>
+<p>Without the split, a strict package manager would have to build all
+packages twice.  With the split, we can save time and reduce the size
+of cross-compiled system.</p>
+<p>While the necessity of splitting dependencies was clearly agreed on,
+there was lot of discussion on how to name the new variables.  Amongst
+all possible variants, <span class="docutils literal">BDEPEND</span>/<span class="docutils literal">DEPEND</span> were chosen for two
+reasons. Firstly, to avoid ambiguity in name (B goes for CBUILD,
+while H could be confused between CHOST/host).  Secondly, because most
+of the existing packages in <span class="docutils literal">DEPEND</span> fit into the second group,
+so leaving them in place follows the principle of smallest change
+necessary.</p>
+<pre class="code bash literal-block"><code><span class="comment single"># CBUILD build-time dependencies
+</span><span class="name variable">BDEPEND</span><span class="operator">=</span><span class="literal string double">&quot;
+    virtual/pkgconfig&quot;</span>
+<span class="comment single"># CHOST build-time dependencies (e.g. libraries)
+</span><span class="name variable">DEPEND</span><span class="operator">=</span><span class="literal string double">&quot;
+    dev-libs/libfoo:=&quot;</span>
+<span class="comment single"># Runtime dependencies
+</span><span class="name variable">RDEPEND</span><span class="operator">=</span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">DEPEND</span><span class="literal string interpol">}</span><span class="literal string double">
+    app-misc/frobnicate&quot;</span></code></pre>
+</div>
+<div class="section" id="sysroot-and-esysroot-variables-for-depend">
+<span id="esysroot"></span><span id="sysroot"></span><h2><a class="toc-backref" href="#id17">SYSROOT and ESYSROOT variables (for DEPEND)</a></h2>
+<p>The concept of sysroot was pretty well-known among cross-compiler
+users, and to some degree deployed as a user-defined environment
+variable.  Starting with EAPI 7, sysroots are cleanly defined
+and supported officially.</p>
+<p>According to the EAPI 7 definition, <span class="docutils literal">SYSROOT</span> is the location where
+<span class="docutils literal">DEPEND</span>-class packages are installed.  Like <span class="docutils literal">ROOT</span>, it comes with
+no embedded <span class="docutils literal">EPREFIX</span> and has an <span class="docutils literal">ESYSROOT</span> variant with prefix
+appended.  When <span class="docutils literal">SYSROOT</span> is different from <span class="docutils literal">ROOT</span>, pure build time
+dependencies (<span class="docutils literal">DEPEND</span>) are installed to <span class="docutils literal">SYSROOT</span>, allowing users
+to save space on the filesystem running the actual target.</p>
+<p>It was unclear whether <span class="docutils literal">SYSROOT</span> should embed the offset prefix
+or not, and whether a different value of <span class="docutils literal">EPREFIX</span> should be allowed
+for <span class="docutils literal">SYSROOT</span>.  Eventually, we concluded that using the same
+<span class="docutils literal">EPREFIX</span> is necessary for interoperability.  For example,
+if a library specified as a build-time dependency hardcodes a path
+to a file that is used at runtime, the path must match in both roots,
+and therefore its prefix has to match.</p>
+<p>The split into two variables intends to allow using <span class="docutils literal">SYSROOT</span> with
+paths that have <span class="docutils literal">EPREFIX</span> included already (e.g. paths obtained
+from various external tools).  Model matching <span class="docutils literal">ROOT</span>/<span class="docutils literal">EROOT</span> also
+reduces the risk of confusion.</p>
+<pre class="code bash literal-block"><code>src_configure<span class="operator">()</span> <span class="operator">{</span>
+    <span class="comment single"># HACK: add include path missing upstream
+</span>    <span class="name builtin">local</span> -x <span class="name variable">CPPFLAGS</span><span class="operator">=</span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">CPPFLAGS</span><span class="literal string interpol">}</span><span class="literal string double"> -I</span><span class="literal string interpol">${</span><span class="name variable">ESYSROOT</span><span class="literal string interpol">}</span><span class="literal string double">/usr/include/foo&quot;</span>
+
+    <span class="comment single"># variant getting prefixed path from an eclass
+</span>    <span class="name builtin">local</span> -x <span class="name variable">CPPFLAGS</span><span class="operator">=</span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">CPPFLAGS</span><span class="literal string interpol">}</span><span class="literal string double"> -I</span><span class="literal string interpol">${</span><span class="name variable">SYSROOT</span><span class="literal string interpol">}</span><span class="keyword">$(</span>get_foo_path<span class="keyword">)</span><span class="literal string double">/foo-1.0&quot;</span>
+
+    default
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="broot-variable-for-bdepend">
+<span id="broot"></span><h2><a class="toc-backref" href="#id18">BROOT variable (for BDEPEND)</a></h2>
+<p>Since we have explicit path variables for <span class="docutils literal">DEPEND</span> and <span class="docutils literal">RDEPEND</span>,
+it only seemed reasonable to include one for <span class="docutils literal">BDEPEND</span> as well
+(<span class="docutils literal">PDEPEND</span> is irrelevant since it is not guaranteed to be installed
+before ebuild finishes).  The <span class="docutils literal">BROOT</span> (build-root) variable serves
+that exact purpose.  Unlike the other two variables, it is the full path
+including any prefix (which may be different than <span class="docutils literal">EPREFIX</span>).</p>
+<p>The rationale for this is that there are valid cases for cross-
+compilation with different prefixes.  An example is building packages
+for a Gentoo Prefix on Android — we certainly do not want to be required
+to use a Prefix system with a matching prefix to do that.</p>
+<p>We have decided not to split this path into a separate ‘base path’
+and prefix since there does not seem to be any specific need for that.
+After all, the path is derived from the original build tool path which
+were <span class="docutils literal">/</span> or <span class="docutils literal">${EPREFIX}</span>, depending on the EAPI in use.  In this
+case, we are allowing a separate prefix and the choice of name between
+<span class="docutils literal">BROOT</span> and <span class="docutils literal">BPREFIX</span> was purely arbitrary.</p>
+<pre class="code bash literal-block"><code>src_configure<span class="operator">()</span> <span class="operator">{</span>
+    <span class="comment single"># Call qmake from BDEPEND
+</span>    <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">BROOT</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>/usr/<span class="keyword">$(</span>get_libdir<span class="keyword">)</span>/qt5/bin/qmake . <span class="operator">||</span> die
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="new-configure-parameters-in-econf">
+<span id="econf"></span><h2><a class="toc-backref" href="#id19">New ./configure parameters in econf</a></h2>
+<p>To help with implementing the new logic, two sets of parameters
+for configure scripts (via <span class="docutils literal">econf</span>) were considered: <span class="docutils literal"><span class="pre">--build</span></span>
+and <span class="docutils literal"><span class="pre">--target</span></span> options for cross-triplets, and <span class="docutils literal"><span class="pre">--with-sysroot</span></span>
+for sysroot.</p>
+<p>The <span class="docutils literal"><span class="pre">--build</span></span> and <span class="docutils literal"><span class="pre">--target</span></span> are used to pass <span class="docutils literal">CBUILD</span>
+and <span class="docutils literal">CTARGET</span> respectively to the configure scripts.  Their presence
+(or rather, values disjoint from <span class="docutils literal"><span class="pre">--host</span></span>) enable the cross-compilation logic in configure.  Both of them were added retroactively
+to all EAPIs, as being passed whenever the respective variable is not
+empty.  This is because they were implemented this way in all three
+package managers for a long time — in Portage since at least 2005, in
+the other two since their inception.</p>
+<p>The <span class="docutils literal"><span class="pre">--with-sysroot</span></span> option is specific to projects using libtool,
+and overrides the sysroot used by libtool (obtained from the compiler).
+It is passed in EAPI 7 if <span class="docutils literal">./configure <span class="pre">--help</span></span> indicats that such
+an option is present (i.e. like all the other optional flags).</p>
+</div>
+<div class="section" id="new-options-to-has-version-and-best-version">
+<span id="has-version"></span><span id="best-version"></span><h2><a class="toc-backref" href="#id20">New options to has_version and best_version</a></h2>
+<p>As part of the new dependency type and location logic, the options
+to <span class="docutils literal">has_version</span> and <span class="docutils literal">best_version</span> needed to be updated.  EAPI 5
+has already provided a <span class="docutils literal"><span class="pre">--host-root</span></span> option that caused the query to
+apply to ‘host root’ instead of <span class="docutils literal">ROOT</span>.  However, we found that name
+confusing and eventually decided to replace it with another layout.</p>
+<p>As of EAPI 7, both of those functions optionally take a single short
+option <span class="docutils literal"><span class="pre">-b</span></span>, <span class="docutils literal"><span class="pre">-d</span></span> or <span class="docutils literal"><span class="pre">-r</span></span> that cause it to apply to the locations
+of <span class="docutils literal">BDEPEND</span>, <span class="docutils literal">DEPEND</span> and <span class="docutils literal">RDEPEND</span> appropriately.  The default
+is <span class="docutils literal"><span class="pre">-r</span></span>.  Since those commands scan packages, the dependency type
+names seemed most appropriate and unambiguous.</p>
+<pre class="code bash literal-block"><code>src_configure<span class="operator">()</span> <span class="operator">{</span>
+    <span class="comment single"># HACK: missing split tinfo awareness upstream
+</span>    has_version -d <span class="literal string single">'sys-libs/ncurses[tinfo]'</span> <span class="operator">&amp;&amp;</span>
+        <span class="name builtin">local</span> -x <span class="name variable">LIBS</span><span class="operator">=</span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">LIBS</span><span class="literal string interpol">}</span><span class="literal string double"> -ltinfo&quot;</span>
+
+    default
+<span class="operator">}</span>
+
+pkg_postinst<span class="operator">()</span> <span class="operator">{</span>
+    <span class="keyword">if</span> ! has_version -r <span class="literal string single">'app-misc/frobnicate'</span><span class="punctuation">;</span> <span class="keyword">then</span>
+        elog <span class="literal string double">&quot;You may want to install app-misc/frobnicate.&quot;</span>
+    <span class="keyword">fi</span>
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="summary">
+<h2><a class="toc-backref" href="#id21">Summary</a></h2>
+<p>Finally, to help developers cope with all the logic, we have included
+a neat table that summarizes all the relevant interfaces for different
+dependency types.  It is included below for completeness.</p>
+<blockquote>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr><th class="head"><p>Dependency type</p></th>
+<th class="head"><p>BDEPEND</p></th>
+<th class="head"><p>DEPEND</p></th>
+<th class="head"><p>RDEPEND, PDEPEND</p></th>
+</tr>
+</thead>
+<tbody>
+<tr><td><p>Binary compatible with</p></td>
+<td><p>CBUILD</p></td>
+<td><p>CHOST</p></td>
+<td><p>CHOST</p></td>
+</tr>
+<tr><td><p>Base unprefixed path</p></td>
+<td><p><span class="docutils literal">/</span></p></td>
+<td><p>SYSROOT</p></td>
+<td><p>ROOT</p></td>
+</tr>
+<tr><td><p>Relevant offset-prefix</p></td>
+<td><p>BROOT</p></td>
+<td><p>EPREFIX</p></td>
+<td><p>EPREFIX</p></td>
+</tr>
+<tr><td><p>Path combined with prefix</p></td>
+<td><p>BROOT</p></td>
+<td><p>ESYSROOT</p></td>
+<td><p>EROOT</p></td>
+</tr>
+<tr><td><p>PM query command option</p></td>
+<td><p><span class="docutils literal"><span class="pre">-b</span></span></p></td>
+<td><p><span class="docutils literal"><span class="pre">-d</span></span></p></td>
+<td><p><span class="docutils literal"><span class="pre">-r</span></span></p></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+</div>
+<div class="section" id="version-manipulation-and-comparison-commands">
+<h1><a class="toc-backref" href="#id22">Version manipulation and comparison commands</a></h1>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id23">Introduction</a></h2>
+<p>One of the goals for EAPI 7 was to integrate commonly used commands
+for version manipulation and comparison.  Those functions used
+to be provided by <span class="docutils literal">versionator.eclass</span>.  However, this eclass used
+to provide 15 different functions and that would be a lot for a new
+EAPI.  Moreover, many of the functions were redundant, some of them used
+very rarely and all of them were suboptimal.  Therefore, we decided
+to work on a new concept instead.</p>
+<p>We have established how various functions are used, and prepared a new
+EAPI consisting of three functions that can wholly replace almost all
+the real uses of <span class="docutils literal">versionator.eclass</span>.  Those are:</p>
+<ul class="simple">
+<li><p><span class="docutils literal">ver_cut</span> to obtain substrings of a version string</p></li>
+<li><p><span class="docutils literal">ver_rs</span> to replace separators in a version string</p></li>
+<li><p><span class="docutils literal">ver_test</span> to compare two versions</p></li>
+</ul>
+<p>The first two functions work using a new, flexible version syntax
+that can be used to operate on Gentoo versions as well as on upstream
+versions.  The third provides fully PMS-compliant version comparison
+routines with a friendly usage resembling the shell <span class="docutils literal">test</span> builtin.</p>
+<p>To provide some real-life testing, <span class="docutils literal"><span class="pre">eapi7-ver.eclass</span></span> was written
+providing the reference implementation for previous EAPIs.</p>
+</div>
+<div class="section" id="version-strings-for-manipulation">
+<h2><a class="toc-backref" href="#id24">Version strings (for manipulation)</a></h2>
+<p>The <span class="docutils literal">ver_cut</span> and <span class="docutils literal">ver_rs</span> functions use simplified version rules
+that are better suited for various manipulations than the standard rules
+used for ebuild versions.  For the purpose of manipulation, the version
+is split into series of version components delimited by (possible empty)
+version separators.</p>
+<p>The split is explained nicely by the <span class="docutils literal"><span class="pre">eapi7-ver.eclass</span></span> documentation:</p>
+<blockquote>
+<p>A version component can either consist purely of digits (<span class="docutils literal"><span class="pre">[0-9]+</span></span>)
+or purely of uppercase and lowercase letters (<span class="docutils literal"><span class="pre">[A-Za-z]+</span></span>).
+A version separator is either a string of any other characters
+(<span class="docutils literal"><span class="pre">[^A-Za-z0-9]+</span></span>), or it occurs at the transition between a sequence
+of letters and a sequence of digits, or vice versa.  In the latter
+case, the version separator is an empty string.</p>
+<p>The version is processed left-to-right, and each successive component
+is assigned numbers starting with 1.  The components are either split
+on version separators or on boundaries between digits and letters
+(in which case the separator between the components is empty).
+Version separators are assigned numbers starting with 1 (for
+the separator between 1st and 2nd components).  As a special case,
+if the version string starts with a separator, it is assigned index 0.</p>
+</blockquote>
+<p>Examples:</p>
+<blockquote>
+<table>
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 3%" />
+<col style="width: 6%" />
+<col style="width: 3%" />
+<col style="width: 6%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 16%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+</colgroup>
+<thead>
+<tr><th class="head"><p>Type</p></th>
+<th class="head"><p>s</p></th>
+<th class="head"><p>c</p></th>
+<th class="head"><p>s</p></th>
+<th class="head"><p>c</p></th>
+<th class="head"><p>s</p></th>
+<th class="head"><p>c</p></th>
+<th class="head"><p>s</p></th>
+<th class="head"><p>c</p></th>
+<th class="head"><p>s</p></th>
+<th class="head"><p>c</p></th>
+</tr>
+<tr><th class="head"><p>Index</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr><td><p><span class="docutils literal">1.2.3</span></p></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>.</p></td>
+<td><p>2</p></td>
+<td><p>.</p></td>
+<td><p>3</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr><td><p><span class="docutils literal">1.2b_alpha4</span></p></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>.</p></td>
+<td><p>2</p></td>
+<td></td>
+<td><p>b</p></td>
+<td><p>_</p></td>
+<td><p>alpha</p></td>
+<td></td>
+<td><p>4</p></td>
+</tr>
+<tr><td><p><span class="docutils literal">2Ab9s</span></p></td>
+<td></td>
+<td><p>2</p></td>
+<td></td>
+<td><p>Ab</p></td>
+<td></td>
+<td><p>9</p></td>
+<td></td>
+<td><p>s</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr><td><p><span class="docutils literal">A.4.</span></p></td>
+<td></td>
+<td><p>A</p></td>
+<td><p>.</p></td>
+<td><p>4</p></td>
+<td><p>.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr><td><p><span class="docutils literal">.11.</span></p></td>
+<td><p>.</p></td>
+<td><p>11</p></td>
+<td><p>.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+<div class="section" id="obtaining-version-substring-ver-cut">
+<span id="ver-cut"></span><h2><a class="toc-backref" href="#id25">Obtaining version substring (ver_cut)</a></h2>
+<p>Usage: <span class="docutils literal">ver_cut &lt;range&gt; [&lt;version&gt;]</span></p>
+<p>The <span class="docutils literal">ver_cut</span> function is provided to obtain a substring
+of the original version string.  It is somewhat inspired
+by the coreutils <span class="docutils literal">cut</span> utility.  It takes the range to cut
+(<span class="docutils literal"><span class="pre">&lt;start&gt;[-[&lt;end&gt;]]</span></span>) and optionally a version to use (defaulting
+to <span class="docutils literal">PV</span> when unspecified), and returns the appropriate portion
+of version components and the separators between them.</p>
+<p>The function accepts ranges going past the version string.  If it spans
+before the first version component (i.e. starts at zero), it includes
+the separator zero.  If it spans past the last component, it includes
+the trailing separator.  If it does not include any existing components,
+it outputs an empty string.</p>
+<p>Examples (<span class="docutils literal">_</span> is used for alignment, it is not part of the output):</p>
+<blockquote>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 20%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr><th class="head"><p>Range</p></th>
+<th class="head"><p><span class="docutils literal">1.2.3</span></p></th>
+<th class="head"><p><span class="docutils literal">2Ab9s</span></p></th>
+<th class="head"><p><span class="docutils literal">A.4.</span></p></th>
+<th class="head"><p><span class="docutils literal">.11.2.</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr><td><p>0</p></td>
+<td><p><span class="docutils literal">_____</span></p></td>
+<td><p><span class="docutils literal">_____</span></p></td>
+<td><p><span class="docutils literal">____</span></p></td>
+<td><p><span class="docutils literal">______</span></p></td>
+</tr>
+<tr><td><p>0-1</p></td>
+<td><p><span class="docutils literal">1____</span></p></td>
+<td><p><span class="docutils literal">2____</span></p></td>
+<td><p><span class="docutils literal">A___</span></p></td>
+<td><p><span class="docutils literal">.11___</span></p></td>
+</tr>
+<tr><td><p>1</p></td>
+<td><p><span class="docutils literal">1____</span></p></td>
+<td><p><span class="docutils literal">2____</span></p></td>
+<td><p><span class="docutils literal">A___</span></p></td>
+<td><p><span class="docutils literal">_11___</span></p></td>
+</tr>
+<tr><td><p>1-</p></td>
+<td><p><span class="docutils literal">1.2.3</span></p></td>
+<td><p><span class="docutils literal">2Ab9s</span></p></td>
+<td><p><span class="docutils literal">A.4.</span></p></td>
+<td><p><span class="docutils literal">_11.2.</span></p></td>
+</tr>
+<tr><td><p>1-2</p></td>
+<td><p><span class="docutils literal">1.2__</span></p></td>
+<td><p><span class="docutils literal">2Ab__</span></p></td>
+<td><p><span class="docutils literal">A.4_</span></p></td>
+<td><p><span class="docutils literal">_11.2_</span></p></td>
+</tr>
+<tr><td><p>1-3</p></td>
+<td><p><span class="docutils literal">1.2.3</span></p></td>
+<td><p><span class="docutils literal">2Ab9_</span></p></td>
+<td><p><span class="docutils literal">A.4.</span></p></td>
+<td><p><span class="docutils literal">_11.2.</span></p></td>
+</tr>
+<tr><td><p>2</p></td>
+<td><p><span class="docutils literal">__2__</span></p></td>
+<td><p><span class="docutils literal">_Ab__</span></p></td>
+<td><p><span class="docutils literal">__4_</span></p></td>
+<td><p><span class="docutils literal">____2_</span></p></td>
+</tr>
+<tr><td><p>2-3</p></td>
+<td><p><span class="docutils literal">__2.3</span></p></td>
+<td><p><span class="docutils literal">_Ab9_</span></p></td>
+<td><p><span class="docutils literal">_4._</span></p></td>
+<td><p><span class="docutils literal">__2.__</span></p></td>
+</tr>
+<tr><td><p>3-</p></td>
+<td><p><span class="docutils literal">____3</span></p></td>
+<td><p><span class="docutils literal">___9_</span></p></td>
+<td><p><span class="docutils literal">____</span></p></td>
+<td><p><span class="docutils literal">______</span></p></td>
+</tr>
+<tr><td><p>4-</p></td>
+<td><p><span class="docutils literal">_____</span></p></td>
+<td><p><span class="docutils literal">____s</span></p></td>
+<td><p><span class="docutils literal">____</span></p></td>
+<td><p><span class="docutils literal">______</span></p></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<pre class="code bash literal-block"><code><span class="comment single"># e.g.   https://example.com/foo/download/1.2/foo-1.2.3.tar.gz
+</span><span class="name variable">SRC_URI</span><span class="operator">=</span><span class="literal string double">&quot;https://example.com/foo/download/</span><span class="keyword">$(</span>ver_cut <span class="literal number">1</span>-2<span class="keyword">)</span><span class="literal string double">/</span><span class="literal string interpol">${</span><span class="name variable">P</span><span class="literal string interpol">}</span><span class="literal string double">.tar.gz&quot;</span></code></pre>
+</div>
+<div class="section" id="replacing-version-separators-ver-rs">
+<span id="ver-rs"></span><h2><a class="toc-backref" href="#id26">Replacing version separators (ver_rs)</a></h2>
+<p>Usage: <span class="docutils literal">ver_rs &lt;range&gt; &lt;repl&gt; [&lt;range&gt; <span class="pre">&lt;repl&gt;...]</span> [&lt;version&gt;]</span></p>
+<p>The <span class="docutils literal">ver_rs</span> function is provided to perform a separator replacement
+in the version string.  It takes one or more range-replacement pairs,
+optionally followed by a version to use (again, defaulting to <span class="docutils literal">PV</span>),
+and outputs the version after performing the specified replacements.</p>
+<p>Parameters are processed left to right, and each separator (even empty!)
+matching indexes specified in the range is replaced with a copy
+of replacement.  Note that this function replaces zeroth or trailing
+version separator only if it non-empty, i.e. it does not prepend
+or append a version separator.</p>
+<p>The replacement string can be empty to strip the version separators.
+When multiple ranges are used, the indexes do not change between
+replacements (i.e. stripping a version separator does not combine
+components until the function returns).</p>
+<p>Examples (replacement being <span class="docutils literal">#</span>, spaces added only for alignment,
+they do not represent parts of version string):</p>
+<blockquote>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 20%" />
+<col style="width: 27%" />
+<col style="width: 18%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr><th class="head"><p>Range</p></th>
+<th class="head"><p><span class="docutils literal">1.2.3</span></p></th>
+<th class="head"><p><span class="docutils literal">2 Ab 9 s</span></p></th>
+<th class="head"><p><span class="docutils literal">A.4.</span></p></th>
+<th class="head"><p><span class="docutils literal">.11.2.</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr><td><p>0</p></td>
+<td><p><span class="docutils literal">1.2.3</span></p></td>
+<td><p><span class="docutils literal">2 Ab 9 s</span></p></td>
+<td><p><span class="docutils literal">A.4.</span></p></td>
+<td><p><span class="docutils literal">#11.2.</span></p></td>
+</tr>
+<tr><td><p>0-1</p></td>
+<td><p><span class="docutils literal">1#2.3</span></p></td>
+<td><p><span class="docutils literal">2#Ab 9 s</span></p></td>
+<td><p><span class="docutils literal">A#4.</span></p></td>
+<td><p><span class="docutils literal">#11#2.</span></p></td>
+</tr>
+<tr><td><p>1</p></td>
+<td><p><span class="docutils literal">1#2.3</span></p></td>
+<td><p><span class="docutils literal">2#Ab 9 s</span></p></td>
+<td><p><span class="docutils literal">A#4.</span></p></td>
+<td><p><span class="docutils literal">.11#2.</span></p></td>
+</tr>
+<tr><td><p>1-</p></td>
+<td><p><span class="docutils literal">1#2#3</span></p></td>
+<td><p><span class="docutils literal">2#Ab#9#s</span></p></td>
+<td><p><span class="docutils literal">A#4#</span></p></td>
+<td><p><span class="docutils literal">.11#2#</span></p></td>
+</tr>
+<tr><td><p>1-2</p></td>
+<td><p><span class="docutils literal">1#2#3</span></p></td>
+<td><p><span class="docutils literal">2#Ab#9 s</span></p></td>
+<td><p><span class="docutils literal">A#4#</span></p></td>
+<td><p><span class="docutils literal">.11#2#</span></p></td>
+</tr>
+<tr><td><p>2</p></td>
+<td><p><span class="docutils literal">1.2#3</span></p></td>
+<td><p><span class="docutils literal">2 Ab#9 s</span></p></td>
+<td><p><span class="docutils literal">A.4#</span></p></td>
+<td><p><span class="docutils literal">.11.2#</span></p></td>
+</tr>
+<tr><td><p>2-3</p></td>
+<td><p><span class="docutils literal">1.2#3</span></p></td>
+<td><p><span class="docutils literal">2 Ab#9#s</span></p></td>
+<td><p><span class="docutils literal">A.4#</span></p></td>
+<td><p><span class="docutils literal">.11.2#</span></p></td>
+</tr>
+<tr><td><p>3</p></td>
+<td><p><span class="docutils literal">1.2.3</span></p></td>
+<td><p><span class="docutils literal">2 Ab 9#s</span></p></td>
+<td><p><span class="docutils literal">A.4.</span></p></td>
+<td><p><span class="docutils literal">.11.2.</span></p></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<pre class="code bash literal-block"><code><span class="comment single"># 1.2.3 -&gt; 1.2-3
+</span><span class="name variable">MY_P</span><span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">PN</span><span class="literal string interpol">}</span>-<span class="keyword">$(</span>ver_rs <span class="literal number">2</span> -<span class="keyword">)</span></code></pre>
+</div>
+<div class="section" id="version-comparison-ver-test">
+<span id="ver-test"></span><h2><a class="toc-backref" href="#id27">Version comparison (ver_test)</a></h2>
+<p>Usage: <span class="docutils literal">ver_test [&lt;v1&gt;] &lt;op&gt; &lt;v2&gt;</span></p>
+<p>Finally, the <span class="docutils literal">ver_test</span> function tests two versions for the relation
+specified as operator between them.  The first version is optional,
+and defaults to <span class="docutils literal">PVR</span>.  If it is not specified, the operator shifts
+to first position.</p>
+<p>The following operators (inspired by shell) are supported:</p>
+<ul class="simple">
+<li><p><span class="docutils literal"><span class="pre">-gt</span></span> — <em>v1</em> is greater than <em>v2</em></p></li>
+<li><p><span class="docutils literal"><span class="pre">-ge</span></span> — <em>v1</em> is greater than or equal to <em>v2</em></p></li>
+<li><p><span class="docutils literal"><span class="pre">-eq</span></span> — <em>v1</em> is equal to <em>v2</em></p></li>
+<li><p><span class="docutils literal"><span class="pre">-ne</span></span> — <em>v1</em> is not equal to <em>v2</em></p></li>
+<li><p><span class="docutils literal"><span class="pre">-le</span></span> — <em>v1</em> is less than or equal to <em>v2</em></p></li>
+<li><p><span class="docutils literal"><span class="pre">-lt</span></span> — <em>v1</em> is less than <em>v2</em></p></li>
+</ul>
+<p>We have decided to use the ‘verbose’ operator names instead of literal
+<span class="docutils literal">&lt;</span> and <span class="docutils literal">&gt;</span> as the latter would require being explicitly escaped
+in bash.</p>
+<p>Example:</p>
+<pre class="code bash literal-block"><code>pkg_postinst<span class="operator">()</span> <span class="operator">{</span>
+    <span class="name builtin">local</span> v
+    <span class="keyword">for</span> v in <span class="literal string interpol">${</span><span class="name variable">REPLACING_VERSIONS</span><span class="literal string interpol">}</span><span class="punctuation">;</span> <span class="keyword">do</span>
+        <span class="keyword">if</span> ver_test <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">v</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span> -lt <span class="literal number">1</span>.3<span class="punctuation">;</span> <span class="keyword">then</span>
+            elog <span class="literal string double">&quot;Some verbose upgrade message for &lt;1.3 users&quot;</span>
+        <span class="keyword">fi</span>
+    <span class="keyword">done</span>
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="replacing-versionator-eclass-uses">
+<span id="versionator-eclass"></span><h2><a class="toc-backref" href="#id28">Replacing versionator.eclass uses</a></h2>
+<p>As mentioned before, the new three commands provide replacements
+for most of the <span class="docutils literal">versionator.eclass</span> functions.  The table below
+lists possible replacements for all of them, ordered by approximate
+frequency of use (based on grep done on 2018-02-18).</p>
+<p>Please note that some of those replacements are hacky.  Usually, you
+won't be doing direct replacements of <span class="docutils literal">versionator.eclass</span> functions,
+and rather considering how to solve the problem best with the new
+functions.</p>
+<blockquote>
+<table>
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 6%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr><th class="head"><p>Function</p></th>
+<th class="head"><p>Uses</p></th>
+<th class="head"><p>Possible replacement</p></th>
+</tr>
+</thead>
+<tbody>
+<tr><td><p><span class="docutils literal">get_version_component_range</span></p></td>
+<td><p>398</p></td>
+<td><p><span class="docutils literal">ver_cut ...</span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">replace_version_separator RANGE</span></p></td>
+<td><p>123</p></td>
+<td><p><span class="docutils literal">ver_rs ...</span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">replace_all_version_separators</span></p></td>
+<td><p>62</p></td>
+<td><p><span class="docutils literal">ver_rs 1- ...</span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">get_major_version</span></p></td>
+<td><p>57</p></td>
+<td><p><span class="docutils literal">ver_cut 1</span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">version_is_at_least</span></p></td>
+<td><p>56</p></td>
+<td><p><span class="docutils literal">ver_test ... <span class="pre">-ge</span> ...</span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">delete_all_version_separators</span></p></td>
+<td><p>24</p></td>
+<td><p><span class="docutils literal">ver_rs 1- ''</span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">delete_version_separator</span></p></td>
+<td><p>12</p></td>
+<td><p><span class="docutils literal">ver_rs ... ''</span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">get_version_components</span></p></td>
+<td><p>8</p></td>
+<td><p><span class="docutils literal">ver_rs 1- ' '</span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">get_version_component_count</span></p></td>
+<td><p>7</p></td>
+<td><p>length of above as array</p></td>
+</tr>
+<tr><td><p><span class="docutils literal">version_format_string</span></p></td>
+<td><p>6</p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr><td><p><span class="docutils literal">version_compare</span></p></td>
+<td><p>4</p></td>
+<td><p><span class="docutils literal">ver_test ...</span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">get_last_version_component_index</span></p></td>
+<td><p>4</p></td>
+<td><p>like array length above - 1</p></td>
+</tr>
+<tr><td><p><span class="docutils literal">delete_version_separator CHAR</span></p></td>
+<td><p>4</p></td>
+<td><p><span class="docutils literal"><span class="pre">${PV//.../}</span></span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">get_all_version_components</span></p></td>
+<td><p>3</p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr><td><p><span class="docutils literal">get_after_major_version</span></p></td>
+<td><p>3</p></td>
+<td><p><span class="docutils literal">ver_cut 2-</span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">replace_version_separator CHAR</span></p></td>
+<td><p>3</p></td>
+<td><p><span class="docutils literal"><span class="pre">${PV//.../...}</span></span></p></td>
+</tr>
+<tr><td><p><span class="docutils literal">version_sort</span></p></td>
+<td><p>1</p></td>
+<td><p>(none)</p></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+</div>
+<div class="section" id="other-new-features-and-commands">
+<h1><a class="toc-backref" href="#id29">Other new features and commands</a></h1>
+<div class="section" id="eqawarn-to-print-warnings-for-developers">
+<span id="eqawarn"></span><h2><a class="toc-backref" href="#id30">eqawarn to print warnings for developers</a></h2>
+<p>Usage: <span class="docutils literal">eqawarn &lt;message&gt;</span></p>
+<p>After years of being a Portage-specific extension with fallback
+implementation in <span class="docutils literal">eutils.eclass</span>, EAPI 7 finally brings <span class="docutils literal">eqawarn</span>.
+This an additional variant of output function that is specifically
+aimed at ebuild developers, and may not be shown to regular users
+(depending on package manager configuration).</p>
+<p>The main use case is providing warnings about incorrect eclass use,
+or deprecated eclass functions.  However, most of the Gentoo developers
+know that already — all that really needs to be said, you no longer
+have to <span class="docutils literal">inherit eutils</span> for that.</p>
+<pre class="code bash literal-block"><code>dodeprecated<span class="operator">()</span> <span class="operator">{</span>
+    eqawarn <span class="literal string double">&quot;Oh no, dodeprecated function is deprecated!&quot;</span>
+    <span class="comment single"># ...
+</span><span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="environment-variable-filtering-env-unset">
+<span id="env-unset"></span><h2><a class="toc-backref" href="#id31">Environment variable filtering (ENV_UNSET)</a></h2>
+<p>The next useful feature brought by EAPI 7 is environment variable
+unsetting, or <span class="docutils literal">ENV_UNSET</span> profile variable.  As the name suggests,
+it is used to prevent variables from leaking from the calling
+environment.  All variables listed there will be explicitly unset
+before the ebuild is sourced.</p>
+<p>The main use case is preventing the calling environment from breaking
+the package build process.  The PMS used to explicitly list a number
+of problematic variables to be filtered already.  However, this list
+is outdated for some time already, and does not include e.g. <span class="docutils literal">XDG_*</span>
+path variables which affect the build of many packages.  Instead of
+constantly pursuing the correct variable list in the PMS, we have
+decided to let profiles specify them.</p>
+<p>There was a lot of debate whether the behavior should be a blacklist
+or a whitelist.  However, the latter has seen a lot of opposition due to
+requiring more work to pursue all the variables that user is actually
+allowed to set.  Therefore, we have decided to implement blacklist
+for the time being.</p>
+<pre class="code bash literal-block"><code><span class="comment single"># Unset XDG_* directories to prevent them from breaking stuff
+</span><span class="name variable">ENV_UNSET</span><span class="operator">=</span><span class="literal string double">&quot;XDG_DATA_HOME XDG_CONFIG_HOME XDG_DATA_DIRS
+    XDG_CONFIG_DIRS XDG_CACHE_HOME XDG_RUNTIME_DIR&quot;</span></code></pre>
+</div>
+<div class="section" id="controllable-stripping-dostrip">
+<span id="dostrip"></span><h2><a class="toc-backref" href="#id32">Controllable stripping (dostrip)</a></h2>
+<p>Usage: <span class="docutils literal">dostrip <span class="pre">[-x]</span> <span class="pre">&lt;path&gt;...</span></span></p>
+<p>The previous EAPIs used to provide only a single switch to disable
+stripping in the whole package (via <span class="docutils literal">RESTRICT=strip</span>).  While this
+solved the problem, we have some packages where stripping is only
+problematic for one or two files, and disabling it for the whole package
+is undesirable.  For this reason, EAPI 7 brings support for controllable
+stripping.</p>
+<p>The concept was closely based on controllable compression.  By default,
+stripping is enabled for all files and <span class="docutils literal">dostrip <span class="pre">-x</span></span> can be used
+to disable stripping per-path.  Alternatively, when <span class="docutils literal">RESTRICT=strip</span>
+is used, <span class="docutils literal">dostrip</span> can be used to select files to strip.</p>
+<pre class="code bash literal-block"><code>src_install<span class="operator">()</span> <span class="operator">{</span>
+    default
+
+    <span class="comment single"># you shall not strip!
+</span>    dostrip -x /usr/<span class="keyword">$(</span>get_libdir<span class="keyword">)</span>/very_important.o
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="gnu-patch-2-7-compatibility">
+<span id="patch"></span><span id="eapply-user"></span><span id="eapply"></span><h2><a class="toc-backref" href="#id33">GNU patch 2.7 compatibility</a></h2>
+<p>EAPI 7 requires the provided <span class="docutils literal">patch</span> command to be compatible
+with GNU patch 2.7 or newer.  The most important change, after the NEWS
+file:</p>
+<blockquote>
+<ul class="simple">
+<li><p>Support for most features of the &quot;diff --git&quot; format, including
+renames and copies, permission changes, and symlink diffs.  Binary
+diffs are not supported yet; patch will complain and skip them.</p></li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div class="section" id="other-behavior-changes">
+<h1><a class="toc-backref" href="#id34">Other behavior changes</a></h1>
+<div class="section" id="d-ed-root-eroot-no-longer-have-a-trailing-slash">
+<span id="eroot"></span><span id="root"></span><span id="ed"></span><span id="d"></span><h2><a class="toc-backref" href="#id35">D, ED, ROOT, EROOT no longer have a trailing slash</a></h2>
+<p>The previous EAPIs specified that the four path variables: <span class="docutils literal">D</span>,
+<span class="docutils literal">ED</span>, <span class="docutils literal">ROOT</span> and <span class="docutils literal">EROOT</span> always end with a trailing slash.
+The rationale behind that was that the two latter variables frequently
+pointed at the filesystem root (<span class="docutils literal">/</span>), and therefore ebuilds had to
+take care not to append a second slash to it.  To allow handling this
+consistently for different values of <span class="docutils literal">ROOT</span>, the specification made
+all variables always end with a slash.</p>
+<p>While this reasoning makes sense, the behavior has been found unnatural
+by many developers.  In the end, it created more double slashes than
+it avoided.  Therefore, we decided to reverse that in EAPI 7 and now
+all path variables are consistently guaranteed not to end with trailing
+slash.  Hopefully, this will be less confusing in the end. This has two
+implications.</p>
+<p>Firstly, you always need to append the slash between path variables
+and the actual path (but not the variable and prefix!):</p>
+<pre class="code bash literal-block"><code>src_install<span class="operator">()</span> <span class="operator">{</span>
+    <span class="comment single"># BAD: EAPI 6 form
+</span>    touch <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">ED</span><span class="literal string interpol">}</span><span class="literal string double">usr/share/foo&quot;</span> <span class="operator">||</span> die
+    <span class="comment single"># GOOD: EAPI 7 form
+</span>    touch <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">ED</span><span class="literal string interpol">}</span><span class="literal string double">/usr/share/foo&quot;</span> <span class="operator">||</span> die
+    <span class="comment single"># GOOD: portable cross-EAPI form
+</span>    touch <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">ED</span><span class="punctuation">%/</span><span class="literal string interpol">}</span><span class="literal string double">/usr/share/foo&quot;</span> <span class="operator">||</span> die
+
+    <span class="comment single"># BAD: double slash here!
+</span>    touch <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">D</span><span class="literal string interpol">}</span><span class="literal string double">/</span><span class="literal string interpol">${</span><span class="name variable">EPREFIX</span><span class="literal string interpol">}</span><span class="literal string double">/usr/share/foo&quot;</span> <span class="operator">||</span> die
+    <span class="comment single"># GOOD: variant with explicit EPREFIX (for some reason)
+</span>    touch <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">D</span><span class="literal string interpol">}${</span><span class="name variable">EPREFIX</span><span class="literal string interpol">}</span><span class="literal string double">/usr/share/foo&quot;</span> <span class="operator">||</span> die
+
+    <span class="comment single"># GOOD: path returned by the tool starts with a slash
+</span>    touch <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">D</span><span class="literal string interpol">}</span><span class="keyword">$(</span>mytool --get-some-path<span class="keyword">)</span><span class="literal string double">/foo&quot;</span> <span class="operator">||</span> die
+<span class="operator">}</span></code></pre>
+<p>Secondly, if a path references the root directory, it will be <em>empty</em>.
+Yes, we know this is a little confusing.  However, it is rather rare
+and it is consistent with how <span class="docutils literal">EPREFIX</span> (or <span class="docutils literal">BROOT</span> now) works.</p>
+<pre class="code bash literal-block"><code>pkg_postinst<span class="operator">()</span> <span class="operator">{</span>
+    <span class="comment single"># check whether we are installing to the host system
+</span>
+    <span class="comment single"># BAD: EAPI 6 form
+</span>    <span class="keyword">if</span> <span class="operator">[[</span> <span class="literal string interpol">${</span><span class="name variable">ROOT</span><span class="literal string interpol">}</span> <span class="operator">==</span> / <span class="operator">]]</span><span class="punctuation">;</span> <span class="keyword">then</span>
+        <span class="comment single"># ...
+</span>    <span class="keyword">fi</span>
+
+    <span class="comment single"># GOOD: EAPI 7 form
+</span>    <span class="keyword">if</span> <span class="operator">[[</span> -z <span class="literal string interpol">${</span><span class="name variable">ROOT</span><span class="literal string interpol">}</span> <span class="operator">]]</span><span class="punctuation">;</span> <span class="keyword">then</span>
+        <span class="comment single"># ...
+</span>    <span class="keyword">fi</span>
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="output-commands-no-longer-pollute-stdout">
+<span id="eend"></span><span id="ebegin"></span><span id="elog"></span><span id="einfo"></span><h2><a class="toc-backref" href="#id36">Output commands no longer pollute stdout</a></h2>
+<p>The output channel for commands <span class="docutils literal">einfo</span>, <span class="docutils literal">elog</span>, etc. was undefined
+in previous EAPIs.  As a result, the messages were frequently output
+into stdout.  While this normally is not a problem, it limits
+the ability of using them in eclass functions that might be called
+via command substitution.  With the newly-added <span class="docutils literal">eqawarn</span> this problem
+becomes even more likely.</p>
+<p>Starting with EAPI 7, those commands are guaranteed not to output
+to stdout.  Therefore, their output will not be caught by command
+substitution and you can use them safely e.g. to report deprecation
+warnings:</p>
+<pre class="code bash literal-block"><code><span class="comment single"># my.eclass
+</span>get_foo<span class="operator">()</span> <span class="operator">{</span>
+    <span class="keyword">if</span> ! has <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">EAPI</span><span class="keyword">:-</span><span class="name variable">0</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span> <span class="literal number">0</span> <span class="literal number">1</span> <span class="literal number">2</span> <span class="literal number">3</span> <span class="literal number">4</span> <span class="literal number">5</span> <span class="literal number">6</span><span class="punctuation">;</span> <span class="keyword">then</span>
+        eqawarn <span class="literal string double">&quot;get_foo() is deprecated in EAPI 7!&quot;</span>
+    <span class="keyword">fi</span>
+
+    <span class="name builtin">echo</span> /usr/share/foo
+<span class="operator">}</span>
+
+<span class="comment single"># my-1.ebuild
+</span>src_install<span class="operator">()</span> <span class="operator">{</span>
+    insinto <span class="literal string double">&quot;</span><span class="keyword">$(</span>get_foo<span class="keyword">)</span><span class="literal string double">&quot;</span>
+    doins test.foo
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="die-and-assert-can-be-used-in-a-subshell">
+<span id="assert"></span><span id="die"></span><h2><a class="toc-backref" href="#id37">die and assert can be used in a subshell</a></h2>
+<p>EAPI 7 brings two important improvements to how the <span class="docutils literal">die</span> machinery
+works.  The first of them is lifting the restriction that said that
+<span class="docutils literal">die</span> must not be used in a subshell.</p>
+<p>This restriction was added historically due to the implementation
+not being able to handle <span class="docutils literal">die</span> from a subprocess correctly
+(i.e. implicitly terminate the parent process).  However, over time such
+an implementation became a necessity.  EAPI 4 already specified that
+most of the ebuild helpers die on their own, at the same time specifying
+that they must be implemented as external commands.  So the rationale
+is simple: if the package manager must provide a logic for its external
+commands to <span class="docutils literal">die</span> reliably, there is no reason not to provide it
+for subshells in bash code.</p>
+<pre class="code bash literal-block"><code><span class="comment single"># EAPI 6 version
+</span>dofoo<span class="operator">()</span> <span class="operator">{</span>
+    <span class="operator">(</span>
+        insinto /usr/share/foo
+        <span class="comment single"># unclear if strictly necessary
+</span>        nonfatal doins <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="punctuation">&#64;</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>
+    <span class="operator">)</span> <span class="operator">||</span> die -h <span class="literal string double">&quot;dofoo failed&quot;</span>
+<span class="operator">}</span>
+
+<span class="comment single"># EAPI 7 version
+</span>dofoo<span class="operator">()</span> <span class="operator">{</span>
+    <span class="operator">(</span>
+        insinto /usr/share/foo
+        doins <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="punctuation">&#64;</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>
+    <span class="operator">)</span>
+<span class="operator">}</span>
+
+<span class="comment single"># EAPI 6 version
+</span>get_foo<span class="operator">()</span> <span class="operator">{</span>
+    <span class="keyword">if</span> foo_works<span class="punctuation">;</span> <span class="keyword">then</span>
+        real_get_foo
+    <span class="keyword">else</span>
+        <span class="comment single"># I can't die!
+</span>        <span class="keyword">return</span> <span class="literal number">1</span>
+    <span class="keyword">fi</span>
+<span class="operator">}</span>
+
+src_configure<span class="operator">()</span> <span class="operator">{</span>
+    <span class="name builtin">local</span> foo
+    <span class="name variable">foo</span><span class="operator">=</span><span class="keyword">$(</span>get_foo<span class="keyword">)</span> <span class="operator">||</span> die
+<span class="operator">}</span>
+
+<span class="comment single"># EAPI 7 version
+</span>get_foo<span class="operator">()</span> <span class="operator">{</span>
+    <span class="keyword">if</span> foo_works<span class="punctuation">;</span> <span class="keyword">then</span>
+        real_get_foo
+    <span class="keyword">else</span>
+        die <span class="literal string double">&quot;foo does not work!&quot;</span>
+    <span class="keyword">fi</span>
+<span class="operator">}</span>
+
+src_configure<span class="operator">()</span> <span class="operator">{</span>
+    <span class="name builtin">local</span> <span class="name variable">foo</span><span class="operator">=</span><span class="keyword">$(</span>get_foo<span class="keyword">)</span>
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="nonfatal-implemented-both-as-function-and-external-command">
+<span id="nonfatal"></span><h2><a class="toc-backref" href="#id38">nonfatal implemented both as function and external command</a></h2>
+<p>The second change is specifying how <span class="docutils literal">nonfatal</span> should be implemented.
+In previous EAPIs, it was unspecified and the package managers
+frequently implemented is a pure shell function.  Starting with EAPI 7,
+it is implemented <em>both</em> as a function and an external command, making
+it possible to use it safely in both contexts.</p>
+<p>The implementation as a shell function makes it possible to call other
+shell functions via <span class="docutils literal">nonfatal</span>, which is especially important since
+<span class="docutils literal">die</span> started to support respecting it in EAPI 5.  The implementation
+as an external command makes it possible to call it e.g. via <span class="docutils literal">find</span>
+or <span class="docutils literal">xargs</span> in more natural way.</p>
+<pre class="code bash literal-block"><code>try_other_tests<span class="operator">()</span> <span class="operator">{</span>
+    emake -j1 check-1
+    emake check-2
+<span class="operator">}</span>
+
+src_test<span class="operator">()</span> <span class="operator">{</span>
+    <span class="comment single"># Works in EAPI 4 and newer
+</span>    <span class="keyword">if</span> ! nonfatal emake check<span class="punctuation">;</span> <span class="keyword">then</span>
+        eerror <span class="literal string double">&quot;Tests failed, please attach blah blah blah.&quot;</span>
+        die <span class="literal string double">&quot;Tests failed&quot;</span>
+    <span class="keyword">fi</span>
+
+    <span class="comment single"># Requires EAPI 7: try_other_tests is a shell function
+</span>    <span class="keyword">if</span> ! nonfatal try_other_tests<span class="punctuation">;</span> <span class="keyword">then</span>
+        eerror <span class="literal string double">&quot;Other tests failed, please attach blah blah blah.&quot;</span>
+        die <span class="literal string double">&quot;Other tests failed&quot;</span>
+    <span class="keyword">fi</span>
+<span class="operator">}</span>
+
+src_install<span class="operator">()</span> <span class="operator">{</span>
+    insinto /usr/share/mytext
+
+    <span class="comment single"># Works in EAPI 4 and newer
+</span>    <span class="keyword">if</span> ! nonfatal find -name <span class="literal string single">'*.txt'</span> -exec doins <span class="operator">{}</span> +<span class="punctuation">;</span> <span class="keyword">then</span>
+        die <span class="literal string double">&quot;Installing text files failed for some reason!&quot;</span>
+    <span class="keyword">fi</span>
+
+    <span class="comment single"># Requires EAPI 7: nonfatal called via subprocess
+</span>    <span class="keyword">if</span> ! find -name <span class="literal string single">'*.txt'</span> -exec nonfatal doins <span class="operator">{}</span> +<span class="punctuation">;</span> <span class="keyword">then</span>
+        die <span class="literal string double">&quot;Installing text files failed for some reason!&quot;</span>
+    <span class="keyword">fi</span>
+<span class="operator">}</span></code></pre>
+</div>
+<div class="section" id="domo-install-path-corrected">
+<span id="domo"></span><h2><a class="toc-backref" href="#id39">domo install path corrected</a></h2>
+<p>In earlier EAPIs, the <span class="docutils literal">domo</span> function (used to install localizations)
+respected the install prefix set by <span class="docutils literal">into</span>.  This was inconsistent
+with similar functions such as <span class="docutils literal">dodoc</span>, <span class="docutils literal">doinfo</span> and <span class="docutils literal">doman</span>
+which installed data files to <span class="docutils literal">/usr/share</span> independently of the prefix
+set.  EAPI 7 modifies <span class="docutils literal">domo</span> to stop respecting the prefix and also
+use <span class="docutils literal">/usr/share</span> unconditionally.</p>
+</div>
+<div class="section" id="empty-dependency-groups-no-longer-satisfy-dependencies">
+<span id="id4"></span><span id="id3"></span><h2><a class="toc-backref" href="#id40">Empty dependency groups no longer satisfy dependencies</a></h2>
+<p>Originally, PMS specified that empty dependency groups of any type count
+as being matched (i.e. satisfy the dependency).  This behavior was found
+contrary to the rules of boolean algebra, and likely to hide problems
+such as generated parts of dependencies no longer listing any packages.
+To address this, two changes were applied.</p>
+<p>Firstly, the specification has been changed retroactively to require
+at least one child element for every type of explicit dependency group.
+Explicit empty groups (e.g. <span class="docutils literal">|| ( )</span>) never served any purpose,
+and were not reliably accepted by the different package managers.
+Therefore, they are banned now.</p>
+<p>Secondly, the behavior of implicitly formed empty groups (that can occur
+when they nest USE-conditional groups whose conditions do not match)
+has been modified to match the rules of boolean algebra in EAPI 7.
+An empty group has zero matching items, and should behave the same
+as a non-empty group with zero matching items.  Therefore, an empty
+any-of (<span class="docutils literal">||</span>) or exactly-one-of (<span class="docutils literal">^^</span>) group no longer satisfies
+dependencies while an empty at-most-one-of (<span class="docutils literal"><span class="pre">??</span></span>) group does.</p>
+<pre class="code bash literal-block"><code><span class="comment single"># This will trigger an error if gen_deps outputs empty string
+</span><span class="name variable">DEPEND</span><span class="operator">=</span><span class="literal string double">&quot;|| ( </span><span class="keyword">$(</span>gen_deps<span class="keyword">)</span><span class="literal string double"> )&quot;</span>
+
+<span class="comment single"># EAPI 6: this is satisfied w/ USE=&quot;-a -b&quot;
+# EAPI 7: requires a+foo OR b+bar
+</span><span class="name variable">REQUIRED_USE</span><span class="operator">=</span><span class="literal string double">&quot;|| ( a? ( foo ) b? ( bar ) )&quot;</span>
+
+<span class="comment single"># EAPI 6: this is satisfied w/ USE=&quot;-a -b&quot;
+# EAPI 7: requires a+foo XOR b+bar
+</span><span class="name variable">REQUIRED_USE</span><span class="operator">=</span><span class="literal string double">&quot;^^ ( a? ( foo ) b? ( bar ) )&quot;</span></code></pre>
+</div>
+</div>
+<div class="section" id="profile-changes">
+<h1><a class="toc-backref" href="#id41">Profile changes</a></h1>
+<div class="section" id="directories-in-profiles-supported-not-for-gentoo">
+<span id="use-mask"></span><span id="use-force"></span><span id="package-use-mask"></span><span id="package-use-force"></span><span id="package-use"></span><span id="package-mask"></span><h2><a class="toc-backref" href="#id42">Directories in profiles supported (not for ::gentoo!)</a></h2>
+<p>EAPI 7 allows a number of files in the <span class="docutils literal">profiles</span> subtree to
+be replaced by directories, in Portage style.  This includes
+the top-level <span class="docutils literal">package.mask</span> file and the following files in every
+profile:</p>
+<ul class="simple">
+<li><p><span class="docutils literal">package.mask</span></p></li>
+<li><p><span class="docutils literal">package.use</span></p></li>
+<li><p><span class="docutils literal">package.use.force</span></p></li>
+<li><p><span class="docutils literal">package.use.mask</span></p></li>
+<li><p><span class="docutils literal">package.use.stable.force</span></p></li>
+<li><p><span class="docutils literal">package.use.stable.mask</span></p></li>
+<li><p><span class="docutils literal">use.force</span></p></li>
+<li><p><span class="docutils literal">use.mask</span></p></li>
+<li><p><span class="docutils literal">use.stable.force</span></p></li>
+<li><p><span class="docutils literal">use.stable.mask</span></p></li>
+</ul>
+<p>If any of those files is replaced by a directory, the package manager
+will concenate all non-dot files in that directory and use their
+contents instead of the original file.</p>
+<p>This has been approved with the specific note that it will be banned
+from the Gentoo repository by policy, where profiles will continue
+using regular files for the time being.  In other words, it's intended
+as convenience for Gentoo forks (which amend Gentoo profiles) and other
+third-party repositories.</p>
+</div>
+<div class="section" id="package-provided-is-gone-for-good">
+<span id="package-provided"></span><h2><a class="toc-backref" href="#id43">package.provided is gone for good</a></h2>
+<p>Finally, PMS bans the <span class="docutils literal">package.provided</span> file from profiles in EAPI 7.
+This file could have been used to ‘pretend’ that some packages were
+installed while actually not using the relevant ebuilds.  This was
+a horrible hack that did not support slots or USE flags correctly,
+and it was only used by a few uncommon profiles, for obsolete reasons.</p>
+<p>Eventually, all uses were removed and the file is now banned.
+The replacement for it is to use modern virtual packages.</p>
+</div>
+</div>
+<div class="section" id="rejected-and-postponed-features">
+<h1><a class="toc-backref" href="#id44">Rejected and postponed features</a></h1>
+<div class="section" id="minimal-bash-version-at-4-3">
+<h2><a class="toc-backref" href="#id45">Minimal bash version at 4.3</a></h2>
+<p>One of the suggestions for EAPI 7 was to require bash-4.3.  However,
+this was rejected as it was determined that it does not add any ‘killer
+features’ that could benefit ebuilds.</p>
+</div>
+<div class="section" id="sandbox-path-removal-functions">
+<h2><a class="toc-backref" href="#id46">Sandbox path removal functions</a></h2>
+<p>The initial version of EAPI 7 draft included four functions to remove
+paths added by <span class="docutils literal">add*</span> Sandbox functions.  This feature has been
+initially accepted and implemented in Portage.  However, it was
+eventually removed and postponed into a future EAPI in order to improve
+the interface — in particular, replace the 4 (or 8, with the changes)
+commands to manipulate paths with a single <span class="docutils literal">esandbox</span> helper.</p>
+</div>
+<div class="section" id="runtime-switchable-use-flags">
+<h2><a class="toc-backref" href="#id47">Runtime-switchable USE flags</a></h2>
+<p>This request dates back to 2012.  It was codified into GLEP 62
+<a class="footnote-reference brackets" href="#glep62" id="id5">2</a>, and included in the EAPI 6 feature list.  It aimed
+to provide a better solution for expressing optional pure runtime
+dependencies.  That is, dependencies that do not need to be present
+at build time but allow the package to expose additional features when
+installed afterwards.</p>
+<p>Using regular USE flags for those dependencies would force users to
+needlessly rebuild the whole package in order to enable or disable such
+a dependency.  For this reason, the common practice is to print those
+dependencies as postinst message and expect users to install them
+manually.  The idea was to add a special class of USE flags whose state
+could be switched in-place without having to rebuild the package
+in question.</p>
+<p>Sadly, this feature was deferred once again due to lack
+of implementation for Portage.</p>
+</div>
+<div class="section" id="binding-any-of-dependency-groups">
+<h2><a class="toc-backref" href="#id48">||= — binding any-of dependency groups</a></h2>
+<p>The initial proposals date back to 2013.  This also is a feature that
+was postponed from EAPI 6.  The problem being solved is that the <span class="docutils literal">||</span>
+any-of dependency groups work correctly only for pure build-time or pure
+runtime dependencies.  If the package binds to one of the ‘providers’
+in <span class="docutils literal">||</span> (e.g. links to the library) and the user uninstalls it
+in favor of another one, the package becomes broken.</p>
+<p>This problem has resulted e.g. in introducing binary USE flags to switch
+between providers that block each other, e.g. in case of OpenSSL vs
+LibreSSL, FFmpeg vs libav.  The <span class="docutils literal">||=</span> operator meant to solve
+the problem by ‘binding’ the package to the current provider.  The idea
+was inspired by the <span class="docutils literal">:=</span> slot operator; switching between different
+allowed providers would require rebuilds of the package.</p>
+<p>This feature was also deferred due to lack of implementation
+for Portage.</p>
+</div>
+<div class="section" id="automatic-required-use-enforcing">
+<h2><a class="toc-backref" href="#id49">Automatic REQUIRED_USE enforcing</a></h2>
+<p>This idea is pretty recent, and it has been described in GLEP 73
+<a class="footnote-reference brackets" href="#glep73" id="id6">3</a>.  It meant to solve some of the problems reported
+for <span class="docutils literal">REQUIRED_USE</span> constraints.  Most notably, that their widespread
+use frequently requires manual resolution and clutters configuration
+files with changes that may only be required temporarily.  This results
+in some of the developers avoiding <span class="docutils literal">REQUIRED_USE</span>, and some having
+to use ugly hacks (such as split of practically equivalent flags
+into <span class="docutils literal">PYTHON_TARGETS</span> and <span class="docutils literal">PYTHON_SINGLE_TARGET</span>).</p>
+<p>The solution proposed was to clearly define the algorithmic meaning
+of REQUIRED_USE and allow the package manager to automatically adjust
+USE flags in order to resolve the conflicts.  For example,
+if the package in question did not support using multiple Python
+interpreters, the package manager would automatically choose one
+of the enabled implementations.</p>
+<p>This feature was rejected by the Council.  It also had no implementation
+in Portage.</p>
+</div>
+</div>
+<div class="section" id="cheat-sheet-index">
+<h1><a class="toc-backref" href="#id50">Cheat sheet / index</a></h1>
+<p>The table following lists all the changes in a grep-for form that could
+be used as a reference when upgrading ebuilds from EAPI 6 to EAPI 7.</p>
+<blockquote>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr><th class="head"><p>Search term</p></th>
+<th class="head"><p>Change</p></th>
+</tr>
+</thead>
+<tbody>
+<tr><td colspan="2"><p>EAPI commands / functions</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#assert">assert</a></p></td>
+<td><p>now legal in subshell</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#best-version">best_version</a></p></td>
+<td><p>-b, -d, -r for different dependency types</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#die">die</a></p></td>
+<td><p>now legal in subshell</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#dohtml">dohtml</a></p></td>
+<td><p>removed; replacement: <span class="docutils literal">dodoc <span class="pre">-r</span></span>, <span class="docutils literal">docinto</span></p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#dolib">dolib</a></p></td>
+<td><p>removed; replacement: <span class="docutils literal">dolib.a</span>, <span class="docutils literal">dolib.so</span></p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#domo">domo</a></p></td>
+<td><p>no longer respects <span class="docutils literal">into</span>, always uses /usr</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#dostrip">dostrip</a></p></td>
+<td><p>new command; controls stripping per file</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#eapply">eapply</a></p></td>
+<td><p>GNU patch 2.7 guaranteed, git patches supported</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#eapply-user">eapply_user</a></p></td>
+<td><p>GNU patch 2.7 guaranteed, git patches supported</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#ebegin">ebegin</a></p></td>
+<td><p>no longer outputs to stdout</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#econf">econf</a></p></td>
+<td><p>passes --build, --target, --with-sysroot</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#eend">eend</a></p></td>
+<td><p>no longer outputs to stdout</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#einfo">einfo</a></p></td>
+<td><p>no longer outputs to stdout</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#elog">elog</a></p></td>
+<td><p>no longer outputs to stdout</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#eqawarn">eqawarn</a></p></td>
+<td><p>new command; prints QA warning for devs</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#has-version">has_version</a></p></td>
+<td><p>-b, -d, -r for different dependency types</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#libopts">libopts</a></p></td>
+<td><p>removed; replacement: <span class="docutils literal">doins</span> w/ <span class="docutils literal">get_libdir</span></p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#nonfatal">nonfatal</a></p></td>
+<td><p>implemented both as external helper and function</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#ver-cut">ver_cut</a></p></td>
+<td><p>new command; cuts components from version string</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#ver-rs">ver_rs</a></p></td>
+<td><p>new command; replaces separators in version str</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#ver-test">ver_test</a></p></td>
+<td><p>new command; compares two versions</p></td>
+</tr>
+<tr><td colspan="2"><p>Eclass functions</p></td>
+</tr>
+<tr><td><p>doicon</p></td>
+<td><p>provided by <a class="reference internal" href="#desktop-eclass">desktop.eclass</a></p></td>
+</tr>
+<tr><td><p>domenu</p></td>
+<td><p>provided by <a class="reference internal" href="#desktop-eclass">desktop.eclass</a></p></td>
+</tr>
+<tr><td><p>ecvs_clean</p></td>
+<td><p>provided by <a class="reference internal" href="#vcs-clean-eclass">vcs-clean.eclass</a></p></td>
+</tr>
+<tr><td><p>egit_clean</p></td>
+<td><p>provided by <a class="reference internal" href="#vcs-clean-eclass">vcs-clean.eclass</a></p></td>
+</tr>
+<tr><td><p>epatch</p></td>
+<td><p>banned; see <a class="reference internal" href="#epatch-eclass">epatch.eclass</a></p></td>
+</tr>
+<tr><td><p>eshopts_*</p></td>
+<td><p>provided by <a class="reference internal" href="#estack-eclass">estack.eclass</a></p></td>
+</tr>
+<tr><td><p>estack_*</p></td>
+<td><p>provided by <a class="reference internal" href="#estack-eclass">estack.eclass</a></p></td>
+</tr>
+<tr><td><p>esvn_clean</p></td>
+<td><p>provided by <a class="reference internal" href="#vcs-clean-eclass">vcs-clean.eclass</a></p></td>
+</tr>
+<tr><td><p>eumask_*</p></td>
+<td><p>provided by <a class="reference internal" href="#estack-eclass">estack.eclass</a></p></td>
+</tr>
+<tr><td><p>evar_*</p></td>
+<td><p>provided by <a class="reference internal" href="#estack-eclass">estack.eclass</a></p></td>
+</tr>
+<tr><td><p>make_desktop_entry</p></td>
+<td><p>provided by <a class="reference internal" href="#desktop-eclass">desktop.eclass</a></p></td>
+</tr>
+<tr><td><p>make_session_desktop</p></td>
+<td><p>provided by <a class="reference internal" href="#desktop-eclass">desktop.eclass</a></p></td>
+</tr>
+<tr><td><p>newicon</p></td>
+<td><p>provided by <a class="reference internal" href="#desktop-eclass">desktop.eclass</a></p></td>
+</tr>
+<tr><td><p>newmenu</p></td>
+<td><p>provided by <a class="reference internal" href="#desktop-eclass">desktop.eclass</a></p></td>
+</tr>
+<tr><td><p>preserve_old_lib</p></td>
+<td><p>provided by <a class="reference internal" href="#preserve-libs-eclass">preserve-libs.eclass</a></p></td>
+</tr>
+<tr><td><p>prune_libtool_files</p></td>
+<td><p>banned; see <a class="reference internal" href="#ltprune-eclass">ltprune.eclass</a></p></td>
+</tr>
+<tr><td colspan="2"><p>Eclasses</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#eapi7-ver-eclass">eapi7-ver.eclass</a></p></td>
+<td><p>banned; all built-in in EAPI 7</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#epatch-eclass">epatch.eclass</a></p></td>
+<td><p>banned; replacement: <span class="docutils literal">eapply</span> (built-in)</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#eutils-eclass">eutils.eclass</a></p></td>
+<td><p>most functions moved into different eclasses</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#ltprune-eclass">ltprune.eclass</a></p></td>
+<td><p>banned; replacement by inline snippet</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#versionator-eclass">versionator.eclass</a></p></td>
+<td><p>banned; replacement: <a class="reference internal" href="#ver-cut">ver_cut</a>, <a class="reference internal" href="#ver-rs">ver_rs</a>, <a class="reference internal" href="#ver-test">ver_test</a></p></td>
+</tr>
+<tr><td colspan="2"><p>Variables</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#bdepend">BDEPEND</a></p></td>
+<td><p>new metadata var; for CBUILD build-dependencies</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#broot">BROOT</a></p></td>
+<td><p>new variable; location where BDEPEND is installed</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#depend">DEPEND</a></p></td>
+<td><p>split into DEPEND (CHOST) and BDEPEND (CBUILD)</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#desttree">DESTTREE</a></p></td>
+<td><p>removed; replacement: <span class="docutils literal">into</span></p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#d">D</a></p></td>
+<td><p>no longer ends with a trailing slash</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#eclassdir">ECLASSDIR</a></p></td>
+<td><p>removed; no replacement</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#ed">ED</a></p></td>
+<td><p>no longer ends with a trailing slash</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#env-unset">ENV_UNSET</a></p></td>
+<td><p>new profile var; blacklists envvars from host</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#eroot">EROOT</a></p></td>
+<td><p>no longer ends with a trailing slash</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#esysroot">ESYSROOT</a></p></td>
+<td><p>new variable; SYSROOT + EPREFIX</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#insdesttree">INSDESTTREE</a></p></td>
+<td><p>removed; replacement: <span class="docutils literal">insinto</span></p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#portdir">PORTDIR</a></p></td>
+<td><p>removed; no replacement</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#root">ROOT</a></p></td>
+<td><p>no longer ends with a trailing slash</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#sysroot">SYSROOT</a></p></td>
+<td><p>new variable; location where DEPEND is installed</p></td>
+</tr>
+<tr><td colspan="2"><p>Profile files</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#package-mask">package.mask</a></p></td>
+<td><p>can be a directory now</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#package-provided">package.provided</a></p></td>
+<td><p>banned from profiles</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#package-use-force">package.use.force</a></p></td>
+<td><p>can be a directory now (+ stable variant)</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#package-use-mask">package.use.mask</a></p></td>
+<td><p>can be a directory now (+ stable variant)</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#package-use">package.use</a></p></td>
+<td><p>can be a directory now</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#use-force">use.force</a></p></td>
+<td><p>can be a directory now (+ stable variant)</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#use-mask">use.mask</a></p></td>
+<td><p>can be a directory now (+ stable variant)</p></td>
+</tr>
+<tr><td colspan="2"><p>Other</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#id4">^^ ( )</a></p></td>
+<td><p>empty exactly-one-of group now evaluates as false</p></td>
+</tr>
+<tr><td><p><a class="reference internal" href="#id3">|| ( )</a></p></td>
+<td><p>empty any-of group now evaluates as false</p></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id51">References</a></h1>
+<dl class="footnote brackets">
+<dt class="label" id="eapi6-guide"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The Ultimate Guide to EAPI 6 by Michał Górny
+(<a class="reference external" href="https://blogs.gentoo.org/mgorny/2015/11/13/the-ultimate-guide-to-eapi-6/">https://blogs.gentoo.org/mgorny/2015/11/13/the-ultimate-guide-to-eapi-6/</a>)</p>
+</dd>
+<dt class="label" id="glep62"><span class="brackets"><a class="fn-backref" href="#id5">2</a></span></dt>
+<dd><p>GLEP 62: Optional runtime dependencies via runtime-
+switchable USE flags
+(<a class="reference external" href="https://www.gentoo.org/glep/glep-0062.html">https://www.gentoo.org/glep/glep-0062.html</a>)</p>
+</dd>
+<dt class="label" id="glep73"><span class="brackets"><a class="fn-backref" href="#id6">3</a></span></dt>
+<dd><p>GLEP 73: Automated enforcing of REQUIRED_USE constraints
+(<a class="reference external" href="https://www.gentoo.org/glep/glep-0073.html">https://www.gentoo.org/glep/glep-0073.html</a>)</p>
+</dd>
+</dl>
+</div>
+</div>
+</body>
+</html>

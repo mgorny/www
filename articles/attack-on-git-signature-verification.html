@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<title>Attack on git signature verification via crafting multiple signatures</title>
+<meta name="author" content="Michał Górny" />
+<meta name="dcterms.date" content="2019-01-26" />
+<meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+<style type="text/css">
+
+/* Minimal style sheet for the HTML output of Docutils.                    */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*                                                                         */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+
+/* This CSS2.1_ stylesheet defines rules for Docutils elements without    */
+/* HTML equivalent. It is required to make the document semantic visible. */
+/*                                                                        */
+/* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
+/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
+
+/* alignment of text and inline objects inside block objects*/
+.align-left   { text-align: left; }
+.align-right  { text-align: right; }
+.align-center { clear: both; text-align: center; }
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
+
+/* titles */
+h1.title, p.subtitle {
+  text-align: center;
+}
+p.topic-title,
+p.sidebar-title,
+p.rubric,
+p.admonition-title,
+p.system-message-title {
+  font-weight: bold;
+}
+h1 + p.subtitle,
+h1 + p.section-subtitle {
+  font-size: 1.6em;
+}
+h2 + p.section-subtitle { font-size: 1.28em; }
+p.subtitle,
+p.section-subtitle,
+p.sidebar-subtitle {
+  font-weight: bold;
+  margin-top: -0.5em;
+}
+p.sidebar-title,
+p.rubric {
+  font-size: larger;
+}
+p.rubric { color: maroon; }
+a.toc-backref {
+  color: black;
+  text-decoration: none; }
+
+/* Warnings, Errors */
+div.caution p.admonition-title,
+div.attention p.admonition-title,
+div.danger p.admonition-title,
+div.error p.admonition-title,
+div.warning p.admonition-title,
+div.system-messages h1,
+div.error,
+span.problematic,
+p.system-message-title {
+  color: red;
+}
+
+/* inline literals */
+span.docutils.literal {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+/* do not wraph at hyphens and similar: */
+.literal > span.pre { white-space: nowrap; }
+
+/* Lists */
+
+/* compact and simple lists: no margin between items */
+.simple  li, .compact li,
+.simple  ul, .compact ul,
+.simple  ol, .compact ol,
+.simple > li p, .compact > li p,
+dl.simple > dd, dl.compact > dd {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Table of Contents */
+div.topic.contents { margin: 0.5em 0; }
+div.topic.contents ul {
+  list-style-type: none;
+  padding-left: 1.5em;
+}
+
+/* Enumerated Lists */
+ol.arabic     { list-style: decimal }
+ol.loweralpha { list-style: lower-alpha }
+ol.upperalpha { list-style: upper-alpha }
+ol.lowerroman { list-style: lower-roman }
+ol.upperroman { list-style: upper-roman }
+
+dt span.classifier { font-style: italic }
+dt span.classifier:before {
+  font-style: normal;
+  margin: 0.5em;
+  content: ":";
+}
+
+/* Field Lists and drivatives */
+/* bold field name, content starts on the same line */
+dl.field-list > dt,
+dl.option-list > dt,
+dl.docinfo > dt,
+dl.footnote > dt,
+dl.citation > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+/* Offset for field content (corresponds to the --field-name-limit option) */
+dl.field-list > dd,
+dl.option-list > dd,
+dl.docinfo > dd {
+  margin-left:  9em; /* ca. 14 chars in the test examples */
+}
+/* start field-body on a new line after long field names */
+dl.field-list > dd > *:first-child,
+dl.option-list > dd > *:first-child
+{
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+}
+/* field names followed by a colon */
+dl.field-list > dt:after,
+dl.docinfo > dt:after {
+  content: ":";
+}
+
+/* Bibliographic Fields (docinfo) */
+pre.address { font: inherit; }
+dd.authors > p { margin: 0; }
+
+/* Option Lists */
+dl.option-list { margin-left: 1.5em; }
+dl.option-list > dt { font-weight: normal; }
+span.option { white-space: nowrap; }
+
+/* Footnotes and Citations  */
+dl.footnote.superscript > dd {margin-left: 1em; }
+dl.footnote.brackets > dd {margin-left: 2em; }
+dl > dt.label { font-weight: normal; }
+a.footnote-reference.brackets:before,
+dt.label > span.brackets:before { content: "["; }
+a.footnote-reference.brackets:after,
+dt.label > span.brackets:after { content: "]"; }
+a.footnote-reference.superscript,
+dl.footnote.superscript > dt.label {
+  vertical-align: super;
+  font-size: smaller;
+}
+dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref > a { font-style: italic; }
+
+/* Line Blocks */
+div.line-block { display: block; }
+div.line-block div.line-block {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 40px;
+}
+
+/* Figures, Images, and Tables */
+.figure.align-left,
+figure.align-left,
+img.align-left,
+object.align-left,
+table.align-left {
+  margin-right: auto;
+}
+.figure.align-center,
+figure.align-center,
+img.align-center,
+object.align-center,
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.figure.align-right,
+figure.align-right,
+img.align-right,
+object.align-right,
+table.align-right {
+  margin-left: auto;
+}
+.figure.align-center, .figure.align-right,
+figure.align-center, figure.align-right,
+img.align-center, img.align-right,
+object.align-center, object.align-right {
+  display: block;
+}
+/* reset inner alignment in figures and tables */
+.figure.align-left, .figure.align-right,
+figure.align-left, figure.align-right,
+table.align-left, table.align-center, table.align-right {
+  text-align: inherit;
+}
+
+/* Admonitions and System Messages */
+div.admonition,
+div.system-message,
+div.sidebar,
+aside.sidebar {
+  margin: 1em 1.5em;
+  border: medium outset;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+/* Sidebar */
+div.sidebar,
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  float: right;
+  clear: right;
+}
+
+/* Text Blocks */
+blockquote,
+div.topic,
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+}
+pre.code .ln { color: gray; } /* line numbers */
+
+/* Tables */
+table { border-collapse: collapse; }
+td, th {
+  border-style: solid;
+  border-color: silver;
+  padding: 0 1ex;
+  border-width: thin;
+}
+td > p:first-child, th > p:first-child { margin-top: 0; }
+td > p, th > p { margin-bottom: 0; }
+
+table > caption {
+  text-align: left;
+  margin-bottom: 0.25em
+}
+
+table.borderless td, table.borderless th {
+  border: 0;
+  padding: 0;
+  padding-right: 0.5em /* separate table cells */
+}
+
+/* Document Header and Footer */
+/* div.header,				      */
+/* header { border-bottom: 1px solid black; } */
+/* div.footer,				      */
+/* footer { border-top: 1px solid black; }    */
+
+/* new HTML5 block elements: set display for older browsers */
+header, section, footer, aside, nav, main, article, figure {
+  display: block;
+}
+
+</style>
+<style type="text/css">
+
+/* CSS31_ style sheet for the output of Docutils HTML writers.             */
+/* Rules for easy reading and pre-defined style variants.		   */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*    	     	      	     	 					   */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+
+
+/* Document Structure */
+/* ****************** */
+
+/* "page layout" */
+body {
+  margin: 0;
+  background-color: #dbdbdb;
+}
+div.document,
+main {
+  line-height:1.3;
+  counter-reset: table;
+  /* counter-reset: figure; */
+  /* avoid long lines --> better reading */
+  /* OTOH: lines should not be too short because of missing hyphenation, */
+  max-width: 50em;
+  padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
+  margin: auto;
+  background-color: white;
+}
+
+/* Sections */
+
+/* Transitions */
+
+hr.docutils {
+  width: 80%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  clear: both;
+}
+
+/* Paragraphs */
+/* ========== */
+
+/* vertical space (parskip) */
+p, ol, ul, dl,
+div.line-block,
+div.topic,
+table {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+p:first-child { margin-top: 0; }
+/* (:last-child is new in CSS 3) */
+p:last-child  { margin-bottom: 0; }
+
+h1, h2, h3, h4, h5, h6,
+dl > dd {
+  margin-bottom: 0.5em;
+}
+
+/* Lists */
+/* ===== */
+
+/* Definition Lists */
+
+/* lists nested in definition lists */
+/* (:only-child is new in CSS 3) */
+dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
+
+/* Description Lists */
+/* styled like in most dictionaries, encyclopedias etc. */
+dl.description > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+
+/* Field Lists */
+
+/* example for custom field-name width */
+dl.field-list.narrow > dd {
+  margin-left: 5em;
+}
+/* run-in: start field-body on same line after long field names */
+dl.field-list.run-in > dd p {
+  display: block;
+}
+
+/* Bibliographic Fields */
+
+/* generally, bibliographic fields use special definition list dl.docinfo */
+/* but dedication and abstract are placed into "topic" divs */
+div.abstract p.topic-title {
+  text-align: center;
+}
+div.dedication {
+  margin: 2em 5em;
+  text-align: center;
+  font-style: italic;
+}
+div.dedication p.topic-title {
+  font-style: normal;
+}
+
+/* Citations */
+dl.citation dt.label {
+  font-weight: bold;
+}
+span.fn-backref {
+  font-weight: normal;
+}
+
+/* Text Blocks */
+/* =========== */
+
+/* Literal Blocks */
+
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  font-family: monospace;
+}
+
+/* Block Quotes */
+
+blockquote > table,
+div.topic > table {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+blockquote p.attribution,
+div.topic p.attribution {
+  text-align: right;
+  margin-left: 20%;
+}
+
+/* Tables */
+/* ====== */
+
+/* th { vertical-align: bottom; } */
+
+table tr { text-align: left; }
+
+/* "booktabs" style (no vertical lines) */
+table.booktabs {
+  border: 0;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.booktabs * {
+  border: 0;
+}
+table.booktabs th {
+  border-bottom: thin solid;
+}
+
+/* numbered tables (counter defined in div.document) */
+table.numbered > caption:before {
+  counter-increment: table;
+  content: "Table " counter(table) ": ";
+  font-weight: bold;
+}
+
+/* Explicit Markup Blocks */
+/* ====================== */
+
+/* Footnotes and Citations */
+/* ----------------------- */
+
+/* line on the left */
+dl.footnote {
+  padding-left: 1ex;
+  border-left: solid;
+  border-left-width: thin;
+}
+
+/* Directives */
+/* ---------- */
+
+/* Body Elements */
+/* ~~~~~~~~~~~~~ */
+
+/* Images and Figures */
+
+/* let content flow to the side of aligned images and figures */
+.figure.align-left,
+figure.align-left,
+img.align-left,
+object.align-left {
+  display: block;
+  clear: left;
+  float: left;
+  margin-right: 1em;
+}
+.figure.align-right,
+figure.align-right,
+img.align-right,
+object.align-right {
+  display: block;
+  clear: right;
+  float: right;
+  margin-left: 1em;
+}
+/* Stop floating sidebars, images and figures at section level 1,2,3 */
+h1, h2, h3 { clear: both; }
+
+/* Sidebar */
+
+/* Move right. In a layout with fixed margins, */
+/* it can be moved into the margin.   	       */
+div.sidebar,
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  margin-left: 1em;
+  margin-right: -2%;
+  background-color: #ffffee;
+}
+
+/* Code */
+
+pre.code { padding: 0.7ex }
+pre.code, code { background-color: #eeeeee }
+pre.code .ln { color: gray; } /* line numbers */
+/* basic highlighting: for a complete scheme, see */
+/* http://docutils.sourceforge.net/sandbox/stylesheets/ */
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+/* Math */
+/* styled separately (see math.css for math-output=HTML) */
+
+/* Epigraph           */
+/* Highlights         */
+/* Pull-Quote         */
+/* Compound Paragraph */
+/* Container          */
+
+/* can be styled in a custom stylesheet */
+
+/* Document Header and Footer */
+
+footer, header,
+div.footer, div.header {
+  font-size: smaller;
+  clear: both;
+  padding: 0.5em 2%;
+  background-color: #ebebee;
+  border: none;
+}
+
+/* Inline Markup */
+/* ============= */
+
+/* Emphasis           */
+/*   em               */
+/* Strong Emphasis    */
+/*   strong	      */
+/* Interpreted Text   */
+/*   span.interpreted */
+/* Title Reference    */
+/*   cite	      */
+
+/* Inline Literals                                          */
+/* possible values: normal, nowrap, pre, pre-wrap, pre-line */
+/*   span.docutils.literal { white-space: pre-wrap; }       */
+
+/* Hyperlink References */
+a { text-decoration: none; }
+
+/* External Targets       */
+/*   span.target.external */
+/* Internal Targets  	  */
+/*   span.target.internal */
+/* Footnote References    */
+/*   a.footnote-reference */
+/* Citation References    */
+/*   a.citation-reference */
+
+</style>
+</head>
+<body>
+<div class="document" id="attack-on-git-signature-verification-via-crafting-multiple-signatures">
+<h1 class="title">Attack on git signature verification via crafting multiple signatures</h1>
+<dl class="docinfo simple">
+<dt class="author">Author</dt>
+<dd class="author"><p>Michał Górny</p></dd>
+<dt class="date">Date</dt>
+<dd class="date">2019-01-26</dd>
+<dt class="version">Version</dt>
+<dd class="version">1.0</dd>
+<dt class="copyright">Copyright</dt>
+<dd class="copyright"><a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</a></dd>
+</dl>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#abstract" id="id4">Abstract</a></p></li>
+<li><p><a class="reference internal" href="#background" id="id5">Background</a></p>
+<ul>
+<li><p><a class="reference internal" href="#git-commit-signatures" id="id6">Git commit signatures</a></p></li>
+<li><p><a class="reference internal" href="#multiple-openpgp-signatures" id="id7">Multiple OpenPGP signatures</a></p></li>
+<li><p><a class="reference internal" href="#git-commit-signature-verification" id="id8">Git commit signature verification</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#summary" id="id9">Summary</a></p></li>
+<li><p><a class="reference internal" href="#impact" id="id10">Impact</a></p></li>
+<li><p><a class="reference internal" href="#solution" id="id11">Solution</a></p></li>
+<li><p><a class="reference internal" href="#detailed-outline-of-the-test-case" id="id12">Detailed outline of the test case</a></p>
+<ul>
+<li><p><a class="reference internal" href="#constructing-the-test-case" id="id13">Constructing the test case</a></p></li>
+<li><p><a class="reference internal" href="#analysis-of-git-behavior" id="id14">Analysis of git behavior</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#references" id="id15">References</a></p></li>
+<li><p><a class="reference internal" href="#comments" id="id16">Comments</a></p></li>
+</ul>
+</div>
+<div class="section" id="abstract">
+<h1><a class="toc-backref" href="#id4">Abstract</a></h1>
+<p>This article shortly explains the historical git weakness regarding
+handling commits with multiple OpenPGP signatures in git older than
+v2.20.  The method of creating such commits is presented,
+and the results of using them are described and analyzed.</p>
+</div>
+<div class="section" id="background">
+<h1><a class="toc-backref" href="#id5">Background</a></h1>
+<div class="section" id="git-commit-signatures">
+<h2><a class="toc-backref" href="#id6">Git commit signatures</a></h2>
+<p>Git supports including OpenPGP signatures in commit objects.  Signed
+commits are normally created using the <span class="docutils literal">git commit <span class="pre">--gpg-sign</span></span>
+(<span class="docutils literal"><span class="pre">-S</span></span>) option.</p>
+<p>In order to sign the commit, git creates an ASCII-armored detached
+signature of the raw commit object.  The signature is afterwards
+inserted into the commit object as an additional <span class="docutils literal">gpgsig</span> header.
+An example signed commit created using git-2.18.0 follows:</p>
+<pre class="literal-block">tree 7abbe04404b7c52c1aa0b4292ae70db4468f09c7
+author Michał Górny &lt;mgorny&#64;gentoo.org&gt; 1533894404 +0200
+committer Michał Górny &lt;mgorny&#64;gentoo.org&gt; 1533894404 +0200
+gpgsig -----BEGIN PGP SIGNATURE-----
+
+ iQKTBAABCgB9FiEEXr8g+Zb7PCLMb8pAur8dX/jIEQoFAlttXwpfFIAAAAAALgAo
+ aXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5maWZ0aGhvcnNlbWFuLm5ldDVF
+ QkYyMEY5OTZGQjNDMjJDQzZGQ0E0MEJBQkYxRDVGRjhDODExMEEACgkQur8dX/jI
+ EQqr9g/8DY3EVjIXI4JbZxFb+lFicMqMNSx64SexNb8HnM5LjEQGr8HmJSRdG3TC
+ P+s4wkT/amV9+tfjiLxY78MjG1Zx4OpvweHUwXrKg7b3epz9Q7uzt+2UStjq3yuU
+ HmJl3P/NziZdVTTRekQ4AYi2C6ZE/HPn7NBKwdWyrmFBOPijjWgWBvFsVtvkEfzQ
+ SCPjpiDOX0RqyF16o6ZjVYatykyT3JSJAcMmL7E6HS8n9wdmJ5k7JXVly5OS3ZUb
+ vivUKJRz/3u9+AT0Eju5JaVGbyhL3+2+oZjy1VCWq8xoIveezQ9MDikuSLan1MjF
+ JfbXvj7PL4LrVXFajNz8HEnVIwB8QOgfqyyw7MSK4PFUhmplvJ45rj8gNRGI4qMr
+ zjJCZxlUcj+qyfWIrGA7QMDXJtZwTB8gNCkJmRutuRMIs//ntlq1qPBvcJMDLOJ9
+ jXPB7nG9+X+0XuOXPExPPqBBqB9Vp2165ZDE2jpwfEEE6BEteqDPfwHW9XxsJvvu
+ wBBFUQXpxfnQF4SqcVYlb/6eTjBK3xjr+d9sbvWTN4cOBXfrG/0xI7aeuQd8Wwu2
+ RoIUtAtEsH3jRpW8Ag8hsee9yf1LPWs7DsXZSShG2391q5719RVJaYHIBvOCmgu3
+ JSQqw6+77aXRDHm/8DOBx8y+F3YKmNHJQWx1Gmg2wJ0++kU4nY8=
+ =yA4c
+ -----END PGP SIGNATURE-----
+
+Initial commit</pre>
+<p>In order to verify this signature, git reads the <span class="docutils literal">gpgsig</span> header
+and strips it from the commit object.  The remaining part of the commit
+object is afterwards verified using the detached signature.</p>
+</div>
+<div class="section" id="multiple-openpgp-signatures">
+<h2><a class="toc-backref" href="#id7">Multiple OpenPGP signatures</a></h2>
+<p>The GnuPG implementation of OpenPGP supports creating multiple
+signatures of the data.  As of gnupg-2.2.9, this can be accomplished
+via providing multiple <span class="docutils literal"><span class="pre">--local-user</span></span> (<span class="docutils literal"><span class="pre">-u</span></span>) options to one
+of the signing commands.</p>
+<p>Technically, multiple signatures are created via concatenating multiple
+signature packets.  It needs to be noted that only binary concatenation
+of the packets is valid.  Concatenated ASCII-armored signatures will
+not be handled correctly — they need to be dearmored first,
+and rearmored after the concatenation.</p>
+</div>
+<div class="section" id="git-commit-signature-verification">
+<h2><a class="toc-backref" href="#id8">Git commit signature verification</a></h2>
+<p>In order to verify signatures, git spawns <span class="docutils literal">gpg <span class="pre">--verify</span> ...</span>
+with the <span class="docutils literal"><span class="pre">--status-fd</span></span> option and processes its machine-oriented
+output.  It discards the exit status of GnuPG.</p>
+<p>The output is processed by scanning it for a number of status codes.
+The code as of 2018-08-03 (from the git repository) uses the following
+array:</p>
+<pre class="literal-block">static struct {
+    char result;
+    const char *check;
+} sigcheck_gpg_status[] = {
+    { 'G', &quot;\n[GNUPG:] GOODSIG &quot; },
+    { 'B', &quot;\n[GNUPG:] BADSIG &quot; },
+    { 'U', &quot;\n[GNUPG:] TRUST_NEVER&quot; },
+    { 'U', &quot;\n[GNUPG:] TRUST_UNDEFINED&quot; },
+    { 'E', &quot;\n[GNUPG:] ERRSIG &quot;},
+    { 'X', &quot;\n[GNUPG:] EXPSIG &quot;},
+    { 'Y', &quot;\n[GNUPG:] EXPKEYSIG &quot;},
+    { 'R', &quot;\n[GNUPG:] REVKEYSIG &quot;},
+};</pre>
+<p>Git scans the whole buffer for those status strings, in order.  It does
+not interrupt the search upon finding one of the strings; therefore
+the later statuses override the earlier ones.  Finally, it returns
+a structure containing the result code along with appropriate key
+identifier and UID.  <a class="footnote-reference brackets" href="#git-old-code" id="id1">1</a></p>
+</div>
+</div>
+<div class="section" id="summary">
+<h1><a class="toc-backref" href="#id9">Summary</a></h1>
+<p>The attack is based on replacing the original commit object with
+a crafted commit.  The crafted commit can contain altered data —
+for example, the tree reference could be replaced with a tree containing
+malicious data.  The commit signature is replaced by a concatenation
+of the original signature and an untrusted signature of the updated
+commit.</p>
+<p>Effectively, the crafted commit contains two OpenPGP signatures:</p>
+<ol class="arabic simple">
+<li><p>The original OpenPGP signature that was made with a trusted key
+but does not correspond to the current data (is bad).</p></li>
+<li><p>The crafted commit signature that was made with an untrusted key but
+is valid.</p></li>
+</ol>
+<p>Upon processing this commit, git fails to distinguish the two signatures
+properly.  Depending on whether the key used to create the crafted
+commit signature is in user's keyring, and whether it's trusted
+by the user (presuming the trusted key is), the signature-related
+format strings work as listed in the table:</p>
+<blockquote>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 34%" />
+<col style="width: 28%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr><th class="head"><p>Format</p></th>
+<th class="head"><p>Not in keyring</p></th>
+<th class="head"><p>Untrusted</p></th>
+<th class="head"><p>Trusted</p></th>
+</tr>
+</thead>
+<tbody>
+<tr><td><p><span class="docutils literal">%G?</span></p></td>
+<td><p>E (unverifiable)</p></td>
+<td><p>U (untrusted)</p></td>
+<td><p>B (bad)</p></td>
+</tr>
+<tr><td><p><span class="docutils literal">%GK</span></p></td>
+<td><p>malicious key</p></td>
+<td><p>trusted key</p></td>
+<td><p>trusted key</p></td>
+</tr>
+<tr><td><p><span class="docutils literal">%GS</span></p></td>
+<td><p>trusted key</p></td>
+<td><p>trusted key</p></td>
+<td><p>trusted key</p></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+<div class="section" id="impact">
+<h1><a class="toc-backref" href="#id10">Impact</a></h1>
+<p>Since in no case the result is reported as good, this issue does not
+impact the result of <span class="docutils literal"><span class="pre">--verify-signatures</span></span> option.  However, it could
+be exploited to confuse custom signature verification scripts using
+the format strings.</p>
+<p>The worst possible case occurs when the attacker's key is present
+in user's keyring but it is not trusted.  This could occur e.g.
+if the key is present on the keyservers and the user is using
+<span class="docutils literal"><span class="pre">auto-key-retrieve</span></span> GnuPG option, or if the key was used for some
+legitimate purpose before.  In this scenario, the second signature
+downgrades the classification from ‘B’ (bad signature) to ‘U’ (untrusted
+key).  Given that it is common for users to verify using untrusted keys,
+the attack could easily be overlooked.  However, this is really no
+different from replacing the signature altogether.</p>
+<p>The real problem is that the <span class="docutils literal">%GK</span> and <span class="docutils literal">%GS</span> format strings both
+report the trusted key data rather than the one reported as untrusted
+(and corresponding to <span class="docutils literal">%G?</span>).  This means that if a script verifies
+trust based on reported key identifer, it would wrongly consider
+the commit as correctly signed using the trusted key.</p>
+</div>
+<div class="section" id="solution">
+<h1><a class="toc-backref" href="#id11">Solution</a></h1>
+<p>The problem has been resolved upstream via refactoring the status output
+processing code to detect multiple exclusive statuses (indicating
+multiple signatures present) and explicitly consider the case
+unsupported (reported as <span class="docutils literal">E</span>).  This fix has been included in v0.20.0.
+<a class="footnote-reference brackets" href="#commit-da6cf1b336" id="id2">2</a></p>
+</div>
+<div class="section" id="detailed-outline-of-the-test-case">
+<h1><a class="toc-backref" href="#id12">Detailed outline of the test case</a></h1>
+<div class="section" id="constructing-the-test-case">
+<h2><a class="toc-backref" href="#id13">Constructing the test case</a></h2>
+<p>Given a repository with signed commits, the test case can be built
+as outlined below:</p>
+<ol class="arabic simple">
+<li><p>Create a malicious tree object.  This could be done using low-level
+git commands, or by simply creating a commit, taking its tree object
+ID and discarding it.</p></li>
+<li><p>Obtain the raw data of a signed commit using <span class="docutils literal">git <span class="pre">cat-file</span> <span class="pre">-p</span> <span class="pre">&lt;commit-id&gt;</span></span>.</p></li>
+<li><p>Copy the ASCII-armored signature of the original commit (from
+<span class="docutils literal">gpgsig</span> header) and store it in a regular text file.</p></li>
+<li><p>Copy the original commit into new file, stripping the <span class="docutils literal">gpgsig</span> tag.</p></li>
+<li><p>Verify the correctness of the above steps using <span class="docutils literal">gpg <span class="pre">--verify</span> <span class="pre">&lt;orig-signature-file&gt;</span> <span class="pre">&lt;stripped-commit-file&gt;</span></span>.</p></li>
+<li><p>Dearmor the original signature using <span class="docutils literal">gpg <span class="pre">--dearmor</span> <span class="pre">&lt;orig-signature-file&gt;</span></span>.</p></li>
+<li><p>Alter the commit data, e.g. by replacing the tree reference with
+the malicious tree object.</p></li>
+<li><p>Create a detached (binary) signature for the new commit data using
+<span class="docutils literal">gpg <span class="pre">-u</span> <span class="pre">&lt;key-id&gt;</span> <span class="pre">--detach-sign</span> <span class="pre">&lt;stripped-commit-file&gt;</span></span>.</p></li>
+<li><p>Concatenate both signatures and rearmor them using <span class="docutils literal">cat <span class="pre">&lt;orig-signature-file&gt;</span> <span class="pre">&lt;new-signature-file&gt;</span> | gpg <span class="pre">--enarmor</span></span>.</p></li>
+<li><p>Add the <span class="docutils literal">gpgsig</span> header to the new commit file using the original
+header/footer and the base64 armored data from the enarmored file.</p></li>
+<li><p>Inject the crafted commit using <span class="docutils literal">git <span class="pre">hash-object</span> <span class="pre">-t</span> commit <span class="pre">-w</span> <span class="pre">&lt;new-commit-file&gt;</span></span>.</p></li>
+<li><p>Set the branch to point to the new commit, e.g. using <span class="docutils literal">git reset <span class="pre">--hard</span> <span class="pre">&lt;new-commit-id&gt;</span></span>.</p></li>
+</ol>
+</div>
+<div class="section" id="analysis-of-git-behavior">
+<h2><a class="toc-backref" href="#id14">Analysis of git behavior</a></h2>
+<p>As outlined in <a class="reference internal" href="#git-commit-signature-verification">Git commit signature verification</a>, git matches
+the status output of GnuPG against a set of expected status strings,
+in order of definition.  The example status output for the crafted
+commit might be:</p>
+<pre class="literal-block">[GNUPG:] NEWSIG
+[GNUPG:] KEYEXPIRED 1376950668
+[GNUPG:] KEY_CONSIDERED 3408B1B906EB579B41D9CB0CDF84256885283521 0
+[GNUPG:] KEYEXPIRED 1376950668
+[GNUPG:] KEY_CONSIDERED 3408B1B906EB579B41D9CB0CDF84256885283521 0
+[GNUPG:] BADSIG BABF1D5FF8C8110A Michał Górny (Gentoo) &lt;mgorny&#64;gentoo.org&gt;
+[GNUPG:] VERIFICATION_COMPLIANCE_MODE 23
+[GNUPG:] NEWSIG
+[GNUPG:] KEY_CONSIDERED 55642983197252C35550375FBBC7E6E002FE74E8 0
+[GNUPG:] SIG_ID 2Jjh1WK6tNxktx0Ijiy+rdV9VGk 2018-08-14 1534241226
+[GNUPG:] KEY_CONSIDERED 55642983197252C35550375FBBC7E6E002FE74E8 0
+[GNUPG:] GOODSIG BBC7E6E002FE74E8 Example key &lt;example&#64;example.com&gt;
+[GNUPG:] NOTATION_NAME issuer-fpr&#64;notations.openpgp.fifthhorseman.net
+[GNUPG:] NOTATION_FLAGS 0 1
+[GNUPG:] NOTATION_DATA 55642983197252C35550375FBBC7E6E002FE74E8
+[GNUPG:] VALIDSIG 55642983197252C35550375FBBC7E6E002FE74E8 2018-08-14 1534241226 0 4 0 1 10 00 55642983197252C35550375FBBC7E6E002FE74E8
+[GNUPG:] KEY_CONSIDERED 55642983197252C35550375FBBC7E6E002FE74E8 0
+[GNUPG:] TRUST_UNDEFINED 0 pgp
+[GNUPG:] VERIFICATION_COMPLIANCE_MODE 23</pre>
+<p>Note that GnuPG outputs status for each of the signatures separately,
+prefixing each with <span class="docutils literal">NEWSIG</span> status.  However, git does not support
+this status.  Instead, it assumes that the output will refer to a single
+signature only.</p>
+<p>If we analyze the git behavior, it looks for <span class="docutils literal">GOODSIG</span> status first.
+If the attacker's key is present in the local keyring, this line will
+be present and git will initially set the signing key and UID to it.
+However, this does not really matter since other statuses will override
+it.</p>
+<p>The next match is for <span class="docutils literal">BADSIG</span>.  This one is always present due to
+the original signature.  Again, git obtains the key identifier and UID
+from it and overrides the previous values.</p>
+<p>Afterwards, git matches <span class="docutils literal">TRUST_*</span> statuses.  One of them will match
+if the attacker's key is present in keyring but it is not trusted.  This
+overrides the check result but since those statuses do not carry a key
+ID or UID, those values are left over from the previous check.</p>
+<p>Finally, git matches a number of negative statuses starting with
+<span class="docutils literal">ERRSIG</span>.  It is present if the attacker's key is not found
+in the local keyring, and it overrides the previous status.  However, it
+carries only the key ID but not UID, so it overrides only the former.</p>
+<p>Therefore, the check result (<span class="docutils literal">%G?</span>) will represent either untrusted
+key (<span class="docutils literal">U</span>) or verification error (<span class="docutils literal">E</span>).  However, since neither
+of those statuses provides UID, the UID previously obtained from
+<span class="docutils literal">BADSIG</span> will be returned instead.  Furthermore, since <span class="docutils literal">TRUST_*</span>
+does not contain key identifier, the one from <span class="docutils literal">BADSIG</span> will also be
+preserved in the untrusted branch.</p>
+</div>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id15">References</a></h1>
+<dl class="footnote brackets">
+<dt class="label" id="git-old-code"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>gpg-interface.c &#64; 1e7adb9 (2018-07-18)
+(<a class="reference external" href="https://github.com/git/git/blob/1e7adb97566bff7d3431ce64b8d0d854a6863ed5/gpg-interface.c#L78">https://github.com/git/git/blob/1e7adb97566bff7d3431ce64b8d0d854a6863ed5/gpg-interface.c#L78</a>)</p>
+</dd>
+<dt class="label" id="commit-da6cf1b336"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>gpg-interface.c: detect and reject multiple
+signatures on commits
+(<a class="reference external" href="https://github.com/git/git/commit/da6cf1b3360eefdce3dbde7632eca57177327f37">https://github.com/git/git/commit/da6cf1b3360eefdce3dbde7632eca57177327f37</a>)</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="comments">
+<h1><a class="toc-backref" href="#id16">Comments</a></h1>
+<p>The comments to this article are maintained as part of the relevant
+blog entry: <a class="reference external" href="https://blogs.gentoo.org/mgorny/2019/01/26/attack-on-git-signature-verification-via-crafting-multiple-signatures/#comments">Attack on git signature verification via crafting multiple
+signatures</a>.</p>
+</div>
+</div>
+</body>
+</html>

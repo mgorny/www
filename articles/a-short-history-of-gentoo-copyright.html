@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<title>A short history of Gentoo copyright</title>
+<meta name="author" content="Michał Górny" />
+<meta name="dcterms.date" content="2018-05-18" />
+<meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+<style type="text/css">
+
+/* Minimal style sheet for the HTML output of Docutils.                    */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*                                                                         */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+
+/* This CSS2.1_ stylesheet defines rules for Docutils elements without    */
+/* HTML equivalent. It is required to make the document semantic visible. */
+/*                                                                        */
+/* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
+/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
+
+/* alignment of text and inline objects inside block objects*/
+.align-left   { text-align: left; }
+.align-right  { text-align: right; }
+.align-center { clear: both; text-align: center; }
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
+
+/* titles */
+h1.title, p.subtitle {
+  text-align: center;
+}
+p.topic-title,
+p.sidebar-title,
+p.rubric,
+p.admonition-title,
+p.system-message-title {
+  font-weight: bold;
+}
+h1 + p.subtitle,
+h1 + p.section-subtitle {
+  font-size: 1.6em;
+}
+h2 + p.section-subtitle { font-size: 1.28em; }
+p.subtitle,
+p.section-subtitle,
+p.sidebar-subtitle {
+  font-weight: bold;
+  margin-top: -0.5em;
+}
+p.sidebar-title,
+p.rubric {
+  font-size: larger;
+}
+p.rubric { color: maroon; }
+a.toc-backref {
+  color: black;
+  text-decoration: none; }
+
+/* Warnings, Errors */
+div.caution p.admonition-title,
+div.attention p.admonition-title,
+div.danger p.admonition-title,
+div.error p.admonition-title,
+div.warning p.admonition-title,
+div.system-messages h1,
+div.error,
+span.problematic,
+p.system-message-title {
+  color: red;
+}
+
+/* inline literals */
+span.docutils.literal {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+/* do not wraph at hyphens and similar: */
+.literal > span.pre { white-space: nowrap; }
+
+/* Lists */
+
+/* compact and simple lists: no margin between items */
+.simple  li, .compact li,
+.simple  ul, .compact ul,
+.simple  ol, .compact ol,
+.simple > li p, .compact > li p,
+dl.simple > dd, dl.compact > dd {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Table of Contents */
+div.topic.contents { margin: 0.5em 0; }
+div.topic.contents ul {
+  list-style-type: none;
+  padding-left: 1.5em;
+}
+
+/* Enumerated Lists */
+ol.arabic     { list-style: decimal }
+ol.loweralpha { list-style: lower-alpha }
+ol.upperalpha { list-style: upper-alpha }
+ol.lowerroman { list-style: lower-roman }
+ol.upperroman { list-style: upper-roman }
+
+dt span.classifier { font-style: italic }
+dt span.classifier:before {
+  font-style: normal;
+  margin: 0.5em;
+  content: ":";
+}
+
+/* Field Lists and drivatives */
+/* bold field name, content starts on the same line */
+dl.field-list > dt,
+dl.option-list > dt,
+dl.docinfo > dt,
+dl.footnote > dt,
+dl.citation > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+/* Offset for field content (corresponds to the --field-name-limit option) */
+dl.field-list > dd,
+dl.option-list > dd,
+dl.docinfo > dd {
+  margin-left:  9em; /* ca. 14 chars in the test examples */
+}
+/* start field-body on a new line after long field names */
+dl.field-list > dd > *:first-child,
+dl.option-list > dd > *:first-child
+{
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+}
+/* field names followed by a colon */
+dl.field-list > dt:after,
+dl.docinfo > dt:after {
+  content: ":";
+}
+
+/* Bibliographic Fields (docinfo) */
+pre.address { font: inherit; }
+dd.authors > p { margin: 0; }
+
+/* Option Lists */
+dl.option-list { margin-left: 1.5em; }
+dl.option-list > dt { font-weight: normal; }
+span.option { white-space: nowrap; }
+
+/* Footnotes and Citations  */
+dl.footnote.superscript > dd {margin-left: 1em; }
+dl.footnote.brackets > dd {margin-left: 2em; }
+dl > dt.label { font-weight: normal; }
+a.footnote-reference.brackets:before,
+dt.label > span.brackets:before { content: "["; }
+a.footnote-reference.brackets:after,
+dt.label > span.brackets:after { content: "]"; }
+a.footnote-reference.superscript,
+dl.footnote.superscript > dt.label {
+  vertical-align: super;
+  font-size: smaller;
+}
+dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref > a { font-style: italic; }
+
+/* Line Blocks */
+div.line-block { display: block; }
+div.line-block div.line-block {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 40px;
+}
+
+/* Figures, Images, and Tables */
+.figure.align-left,
+figure.align-left,
+img.align-left,
+object.align-left,
+table.align-left {
+  margin-right: auto;
+}
+.figure.align-center,
+figure.align-center,
+img.align-center,
+object.align-center,
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.figure.align-right,
+figure.align-right,
+img.align-right,
+object.align-right,
+table.align-right {
+  margin-left: auto;
+}
+.figure.align-center, .figure.align-right,
+figure.align-center, figure.align-right,
+img.align-center, img.align-right,
+object.align-center, object.align-right {
+  display: block;
+}
+/* reset inner alignment in figures and tables */
+.figure.align-left, .figure.align-right,
+figure.align-left, figure.align-right,
+table.align-left, table.align-center, table.align-right {
+  text-align: inherit;
+}
+
+/* Admonitions and System Messages */
+div.admonition,
+div.system-message,
+div.sidebar,
+aside.sidebar {
+  margin: 1em 1.5em;
+  border: medium outset;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+/* Sidebar */
+div.sidebar,
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  float: right;
+  clear: right;
+}
+
+/* Text Blocks */
+blockquote,
+div.topic,
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+}
+pre.code .ln { color: gray; } /* line numbers */
+
+/* Tables */
+table { border-collapse: collapse; }
+td, th {
+  border-style: solid;
+  border-color: silver;
+  padding: 0 1ex;
+  border-width: thin;
+}
+td > p:first-child, th > p:first-child { margin-top: 0; }
+td > p, th > p { margin-bottom: 0; }
+
+table > caption {
+  text-align: left;
+  margin-bottom: 0.25em
+}
+
+table.borderless td, table.borderless th {
+  border: 0;
+  padding: 0;
+  padding-right: 0.5em /* separate table cells */
+}
+
+/* Document Header and Footer */
+/* div.header,				      */
+/* header { border-bottom: 1px solid black; } */
+/* div.footer,				      */
+/* footer { border-top: 1px solid black; }    */
+
+/* new HTML5 block elements: set display for older browsers */
+header, section, footer, aside, nav, main, article, figure {
+  display: block;
+}
+
+</style>
+<style type="text/css">
+
+/* CSS31_ style sheet for the output of Docutils HTML writers.             */
+/* Rules for easy reading and pre-defined style variants.		   */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*    	     	      	     	 					   */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+
+
+/* Document Structure */
+/* ****************** */
+
+/* "page layout" */
+body {
+  margin: 0;
+  background-color: #dbdbdb;
+}
+div.document,
+main {
+  line-height:1.3;
+  counter-reset: table;
+  /* counter-reset: figure; */
+  /* avoid long lines --> better reading */
+  /* OTOH: lines should not be too short because of missing hyphenation, */
+  max-width: 50em;
+  padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
+  margin: auto;
+  background-color: white;
+}
+
+/* Sections */
+
+/* Transitions */
+
+hr.docutils {
+  width: 80%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  clear: both;
+}
+
+/* Paragraphs */
+/* ========== */
+
+/* vertical space (parskip) */
+p, ol, ul, dl,
+div.line-block,
+div.topic,
+table {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+p:first-child { margin-top: 0; }
+/* (:last-child is new in CSS 3) */
+p:last-child  { margin-bottom: 0; }
+
+h1, h2, h3, h4, h5, h6,
+dl > dd {
+  margin-bottom: 0.5em;
+}
+
+/* Lists */
+/* ===== */
+
+/* Definition Lists */
+
+/* lists nested in definition lists */
+/* (:only-child is new in CSS 3) */
+dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
+
+/* Description Lists */
+/* styled like in most dictionaries, encyclopedias etc. */
+dl.description > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+
+/* Field Lists */
+
+/* example for custom field-name width */
+dl.field-list.narrow > dd {
+  margin-left: 5em;
+}
+/* run-in: start field-body on same line after long field names */
+dl.field-list.run-in > dd p {
+  display: block;
+}
+
+/* Bibliographic Fields */
+
+/* generally, bibliographic fields use special definition list dl.docinfo */
+/* but dedication and abstract are placed into "topic" divs */
+div.abstract p.topic-title {
+  text-align: center;
+}
+div.dedication {
+  margin: 2em 5em;
+  text-align: center;
+  font-style: italic;
+}
+div.dedication p.topic-title {
+  font-style: normal;
+}
+
+/* Citations */
+dl.citation dt.label {
+  font-weight: bold;
+}
+span.fn-backref {
+  font-weight: normal;
+}
+
+/* Text Blocks */
+/* =========== */
+
+/* Literal Blocks */
+
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  font-family: monospace;
+}
+
+/* Block Quotes */
+
+blockquote > table,
+div.topic > table {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+blockquote p.attribution,
+div.topic p.attribution {
+  text-align: right;
+  margin-left: 20%;
+}
+
+/* Tables */
+/* ====== */
+
+/* th { vertical-align: bottom; } */
+
+table tr { text-align: left; }
+
+/* "booktabs" style (no vertical lines) */
+table.booktabs {
+  border: 0;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.booktabs * {
+  border: 0;
+}
+table.booktabs th {
+  border-bottom: thin solid;
+}
+
+/* numbered tables (counter defined in div.document) */
+table.numbered > caption:before {
+  counter-increment: table;
+  content: "Table " counter(table) ": ";
+  font-weight: bold;
+}
+
+/* Explicit Markup Blocks */
+/* ====================== */
+
+/* Footnotes and Citations */
+/* ----------------------- */
+
+/* line on the left */
+dl.footnote {
+  padding-left: 1ex;
+  border-left: solid;
+  border-left-width: thin;
+}
+
+/* Directives */
+/* ---------- */
+
+/* Body Elements */
+/* ~~~~~~~~~~~~~ */
+
+/* Images and Figures */
+
+/* let content flow to the side of aligned images and figures */
+.figure.align-left,
+figure.align-left,
+img.align-left,
+object.align-left {
+  display: block;
+  clear: left;
+  float: left;
+  margin-right: 1em;
+}
+.figure.align-right,
+figure.align-right,
+img.align-right,
+object.align-right {
+  display: block;
+  clear: right;
+  float: right;
+  margin-left: 1em;
+}
+/* Stop floating sidebars, images and figures at section level 1,2,3 */
+h1, h2, h3 { clear: both; }
+
+/* Sidebar */
+
+/* Move right. In a layout with fixed margins, */
+/* it can be moved into the margin.   	       */
+div.sidebar,
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  margin-left: 1em;
+  margin-right: -2%;
+  background-color: #ffffee;
+}
+
+/* Code */
+
+pre.code { padding: 0.7ex }
+pre.code, code { background-color: #eeeeee }
+pre.code .ln { color: gray; } /* line numbers */
+/* basic highlighting: for a complete scheme, see */
+/* http://docutils.sourceforge.net/sandbox/stylesheets/ */
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+/* Math */
+/* styled separately (see math.css for math-output=HTML) */
+
+/* Epigraph           */
+/* Highlights         */
+/* Pull-Quote         */
+/* Compound Paragraph */
+/* Container          */
+
+/* can be styled in a custom stylesheet */
+
+/* Document Header and Footer */
+
+footer, header,
+div.footer, div.header {
+  font-size: smaller;
+  clear: both;
+  padding: 0.5em 2%;
+  background-color: #ebebee;
+  border: none;
+}
+
+/* Inline Markup */
+/* ============= */
+
+/* Emphasis           */
+/*   em               */
+/* Strong Emphasis    */
+/*   strong	      */
+/* Interpreted Text   */
+/*   span.interpreted */
+/* Title Reference    */
+/*   cite	      */
+
+/* Inline Literals                                          */
+/* possible values: normal, nowrap, pre, pre-wrap, pre-line */
+/*   span.docutils.literal { white-space: pre-wrap; }       */
+
+/* Hyperlink References */
+a { text-decoration: none; }
+
+/* External Targets       */
+/*   span.target.external */
+/* Internal Targets  	  */
+/*   span.target.internal */
+/* Footnote References    */
+/*   a.footnote-reference */
+/* Citation References    */
+/*   a.citation-reference */
+
+</style>
+</head>
+<body>
+<div class="document" id="a-short-history-of-gentoo-copyright">
+<h1 class="title">A short history of Gentoo copyright</h1>
+<dl class="docinfo simple">
+<dt class="author">Author</dt>
+<dd class="author"><p>Michał Górny</p></dd>
+<dt class="date">Date</dt>
+<dd class="date">2018-05-18</dd>
+<dt class="version">Version</dt>
+<dd class="version">1.0</dd>
+<dt class="copyright">Copyright</dt>
+<dd class="copyright"><a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</a></dd>
+</dl>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#preamble" id="id24">Preamble</a></p></li>
+<li><p><a class="reference internal" href="#source-of-copyright-ownership-policy" id="id25">Source of copyright ownership policy</a></p></li>
+<li><p><a class="reference internal" href="#relicensing-to-gpl-2" id="id26">Relicensing to GPL-2</a></p></li>
+<li><p><a class="reference internal" href="#copyright-assignment-forms" id="id27">Copyright assignment forms</a></p></li>
+<li><p><a class="reference internal" href="#transfer-of-copyright-to-the-foundation" id="id28">Transfer of copyright to the Foundation</a></p></li>
+<li><p><a class="reference internal" href="#copyright-of-user-contributions" id="id29">Copyright of user contributions</a></p></li>
+<li><p><a class="reference internal" href="#the-future" id="id30">The future</a></p></li>
+<li><p><a class="reference internal" href="#references" id="id31">References</a></p></li>
+</ul>
+</div>
+<div class="section" id="preamble">
+<h1><a class="toc-backref" href="#id24">Preamble</a></h1>
+<p>As part of the recent effort into forming a new copyright policy for
+Gentoo, a research into the historical status has been conducted.  We've
+tried to establish all the key events regarding the topic, as well
+as the reasoning behind the existing policy.  I would like to shortly
+note the history based on the evidence discovered by Robin H. Johnson,
+Ulrich Müller and myself.</p>
+</div>
+<div class="section" id="source-of-copyright-ownership-policy">
+<h1><a class="toc-backref" href="#id25">Source of copyright ownership policy</a></h1>
+<p>The custom of assigning the copyright to Gentoo seems to date back to
+its early days.  It is already present in the first known commit to
+the gentoo-x86 CVS repository <a class="footnote-reference brackets" href="#first-commit" id="id1">1</a>:</p>
+<pre class="literal-block"># Copyright 1999-2000 Gentoo Technologies, Inc.
+# Distributed under the terms of the GNU General Public License, v2 or later
+# $header$</pre>
+<p>It seems that this has been followed through since then.  Apparently
+at least a few times contributors have asked about this.  Daniel
+Robbins' post from 2003-08-21 seems to shed more light on this:</p>
+<blockquote>
+<p>What we are doing now began way back when we figured out that slapping
+a &quot;Copyright 2000 Gentoo Technologies, Inc.&quot; allowed us to comply with
+the GPL and get back to coding.  That's all there is to our current
+&quot;policy,&quot; folks.  [...]  <a class="footnote-reference brackets" href="#robbins-20030821" id="id2">2</a></p>
+</blockquote>
+<p>In the same mail, Daniel indicates that he would like the copyright to
+be assigned both to Gentoo Technologies and to the submitter
+simultaneously.  However, it seems that this idea never took off.  This
+particular thread has been referenced in Junuary 2004, and Jon Portnoy's
+reply from 2004-01-07 seems to provide the explanation:</p>
+<blockquote>
+<p>In another post in that thread, he [Daniel] said that he had consulted
+with his lawyer and dual copyrights were, indeed, a bad idea.
+<a class="footnote-reference brackets" href="#portnoy" id="id3">3</a></p>
+</blockquote>
+<p>However, the post mentioned is nowhere to be found in the archives.</p>
+</div>
+<div class="section" id="relicensing-to-gpl-2">
+<h1><a class="toc-backref" href="#id26">Relicensing to GPL-2</a></h1>
+<p>The Gentoo ebuild repository was initially licensed ‘GPL, v2 or later’,
+as seen in the header above.  The ‘or later’ part was removed later.
+The first commit using pure ‘GPL v2’ seems to be dated 2002-02-09
+<a class="footnote-reference brackets" href="#gplv2-commit" id="id4">4</a>.  It uses the following heading:</p>
+<pre class="literal-block"># Copyright 1999-2002 Gentoo Technologies, Inc.
+# Distributed under the terms of the GNU General Public License v2</pre>
+<p>Afterwards, the ebuilds were slowly transitioned to new license as part
+of other changes.  It seems that major relicensing of ebuilds was done
+in October of 2002 but a handful of GPL-2+ ebuilds remained,
+and occassionally new ebuilds allowing newer GPL versions were
+committed.  The last GPL-2+ ebuilds were cleaned up in 2012.  Some
+of the auxiliary files (e.g. init.d scripts) still use GPL-2+ today.</p>
+<p>The closest explanation preceding the relicensing seems to be
+Daniel Robbins' post from 2002-02-07 which states:</p>
+<blockquote>
+<p>[...]  It does allow me to tweak the GPL part of the license to be &quot;v2
+only&quot;, which has been something that I've been meaning to do for a
+while since I like the GPL but don't automatically trust future GPL
+licenses.  [...]  <a class="footnote-reference brackets" href="#robbins-20020207" id="id5">5</a></p>
+</blockquote>
+<p>Back then, GPL-3 was not even in the making for over three more years.
+Its final version has been published mid-2007 <a class="footnote-reference brackets" href="#gplv3-guide" id="id6">6</a>.  Gentoo
+has not yet made any decisive move with regards to GPL-3.</p>
+</div>
+<div class="section" id="copyright-assignment-forms">
+<h1><a class="toc-backref" href="#id27">Copyright assignment forms</a></h1>
+<p>The early Gentoo copyright assignments did not seem to have been backed
+by any paperwork.  However, based on the evidence collected, it seems
+that Gentoo recruiters were collecting copyright assignment forms
+in the period between December 2003 and July 2004.  Sadly, they failed
+to create a single archive for them, and we have been able only to find
+some of them scattered over various locations.</p>
+<p>There is no clear public evidence as to the event of creating copyright
+forms used by Gentoo.  The first copyright form published
+on the website is dated 2003-12-09 <a class="footnote-reference brackets" href="#copy-form" id="id7">7</a>.  According to
+a long-time Gentoo developer, it might have been created in relation
+to the activities of the recent Zynot fork <a class="footnote-reference brackets" href="#zynot" id="id8">8</a>.</p>
+<p>A letter archived at 2003-10-30 <a class="footnote-reference brackets" href="#letter-to-zynot" id="id9">9</a> indicates that
+Gentoo Technologies were seeking action against apparent copyright
+violation on the side of Zynot.  Sadly, the only date on the letter
+is the deadline of 2003-09-12, and the referenced code has not been
+archived.  However, it seems a plausible explanation that if Gentoo were
+to seek legal action against copyright violations, it would try
+to collect copyright forms to back its claims.</p>
+<p>By the end of June 2004, Trustees started discussing problems with
+the copyright forms in use.  The best list of the claims seems to be
+found in Kurt Lieber's mail dated 2004-06-29:</p>
+<blockquote>
+<p>[...]</p>
+<p>Our copyright assignment doc needs to change.  Specific problems with
+it:</p>
+<ul class="simple">
+<li><p>It claims ownership of developer hard drives &quot;...or computer media
+relating to the Work.&quot;)</p></li>
+<li><p>It says &quot;Gentoo Technologies&quot; instead of &quot;Gentoo Foundation&quot;</p></li>
+<li><p>It is completely unenforceable for any user (non-dev) that submits
+something to bugzilla and/or <a class="reference external" href="mailto:submissions&#64;g.o">submissions&#64;g.o</a>.  (we're not
+requiring them to sign this doc, so it's not enforceable)</p></li>
+<li><p>Because we allow the storage things like kernel patches, etc.
+for which we do not own the copyright, in CVS (in the files/
+directories), it shows that we're selectively enforcing the
+copyright assignment.  In the past, this has often resulted
+in the entire document being tossed in court.</p></li>
+<li><p>It is questionable whether or not we have any legal right to enforce
+copyright claims for non-US devs.  They're not US citizens, so it's
+not clear if they're subject to US copyright
+restrictions/assignments.</p></li>
+<li><p>[...]  <a class="footnote-reference brackets" href="#lieber-20040629" id="id10">11</a></p></li>
+</ul>
+</blockquote>
+<p>This was followed by a related thread from Deedra Waters on 2004-07-01:</p>
+<blockquote>
+<p>[...]</p>
+<p>With all the questions being raised now about the copyright assignment
+form, should I stop asking people to sign the current form as they
+come in?  The reason I ask this is because if we create a new form,
+everyone will have to sign that form regardless.</p>
+<p>If the current form isn't enforceable, then having people sign it
+doesn't really do us much good, on top of that, we also need to find
+out the rules behind minors signing copyright forms. Currently, we
+have a lot of devs who are under 18 and I can think of a couple
+of devs who are under 18 who have signed this form.</p>
+<p>[...]  <a class="footnote-reference brackets" href="#waters-20040701" id="id11">12</a></p>
+</blockquote>
+<p>Apparently, at this point copyright forms stopped being requested.
+The topic of updating the form continued to appear on the Trustee agenda
+afterwards <a class="footnote-reference brackets" href="#status-update" id="id12">13</a>.  However, it doesn't seem that
+a new copyright policy was ever actually created.</p>
+<p>The only update done to the copyright form was to change the assignee
+to Gentoo Foundation which happend on 2006-08-23
+<a class="footnote-reference brackets" href="#copy-form-foundation" id="id13">14</a>.  It has eventually been removed on 2007-01-27,
+along with the policy <a class="footnote-reference brackets" href="#copy-form-rm" id="id14">15</a>.  A comment made by Bryan
+Østergaard on bug #140286 indicates that:</p>
+<blockquote>
+<p>Looks like all these issues are already fixed but as we haven't used
+the copyright-assignment doc for 2 years at least, I've cvs rm'ed it
+now. If we should ever need it again it can be restored from attic.
+<a class="footnote-reference brackets" href="#bug-140286" id="id15">16</a></p>
+</blockquote>
+<p>Most of the forms that we were able to collect come from a single mail
+archive dated 2004-03-24.  It contained unique forms for around 40
+individuals, earliest dated 2003-12-29.  The newest copyright form found
+(on Bugzilla) was dated 2004-06-02.  It is probable that there were more
+copyright forms sent in the second quarter of 2004.</p>
+<p>Based on the data available to us, we have been able to verify age
+on less than 20 of the available forms, and found only one case
+of the form being signed by a person below the age of maturity. Some
+of the developer names make it possible that they were signed by non-US
+citizens.</p>
+<p>It seems that while we always required the copyright to be assigned
+to Gentoo, trying to back that up with written contracts was only
+a short-lived experiment.  It is unclear how many Gentoo developers have
+actually signed them.  However, it is clear that most of the current
+Gentoo developers have never heard of them, and that most of the current
+Gentoo code is not covered by them.</p>
+</div>
+<div class="section" id="transfer-of-copyright-to-the-foundation">
+<h1><a class="toc-backref" href="#id28">Transfer of copyright to the Foundation</a></h1>
+<p>All events presented so far have started in the days when Gentoo
+Technologies, Inc. was still relevant.  The Gentoo Foundation was
+founded on 2004-05-28 <a class="footnote-reference brackets" href="#foundation-aoi" id="id16">17</a>.  One month later, the first
+commit updating copyright notice to Gentoo Foundation was made
+<a class="footnote-reference brackets" href="#foundation-copy-commit" id="id17">18</a>.</p>
+<p>As for the events following, I'd like to quote the timeline made by
+Robin H. Johnson in the work-in-progress Copyright Policy
+draft:</p>
+<blockquote>
+<ul>
+<li><p>2005-05-19: Gentoo Technologies, Inc. files an <strong>Assignment of
+Copyright</strong> document, signed by Daniel Robbins, which transfers any
+copyrights held by <em>Gentoo Technologies, Inc.</em> over <cite>All files to
+which Gentoo Technologies, Inc. may hold the copyright that existed
+in the Gentoo Concurrent Versions System (CVS) Repositories as of 25
+June 2004</cite>.</p></li>
+<li><p>2005-06-13: <em>Gentoo Technologies, Inc.</em> files a <strong>recordation of
+copyright</strong> with the United States Copyright Office, signed by
+Daniel Robbins, President.  The copyright is asserted over <cite>Gentoo
+Concurrent Versions System (CVS) Repositories as of 25 June 2004</cite>.</p></li>
+<li><p>2005-06-13: <em>Gentoo Technologies, Inc.</em> provides a <strong>Release from
+Contract Requirements</strong> document, signed by Daniel Robbins.  The
+complete body of the document is as follows:</p>
+<blockquote>
+<p>Gentoo Technologies, Inc. does hereby release all individuals who
+have signed the contract known as the &quot;Gentoo Technologies, Inc.
+Copyright Assignment Form&quot; from any future duties and obligations
+of these individuals associated with that contract.  As of this
+date any provision of that contract requiring any future duties is
+hereby nullified.</p>
+</blockquote>
+</li>
+</ul>
+<p><a class="footnote-reference brackets" href="#new-policy-draft" id="id18">19</a></p>
+</blockquote>
+</div>
+<div class="section" id="copyright-of-user-contributions">
+<h1><a class="toc-backref" href="#id29">Copyright of user contributions</a></h1>
+<p>The copyright of all user-contributed ebuilds in the Gentoo repository
+is assigned to the Gentoo Foundation.  Only a handful of ebuilds express
+additional copyrights over external code fragments.  However, it is
+unclear how many users have <em>willingly</em> attributed the copyright
+to Gentoo, and how many did that only because otherwise they could not
+contribute.</p>
+<p>RepoMan have been enforcing the required copyright notice since
+2003-10-02 <a class="footnote-reference brackets" href="#repoman-copy" id="id19">20</a>.  It is present in template files
+in the repository and in integrations for major editors.  It seems that
+Gentoo developers were always required to enforce the copyright
+assignment.  Citing another Daniel Robbins' post from 2002-02-07:</p>
+<blockquote>
+<p>All ebuilds should be Copyrighted by Gentoo Technologies, Inc.
+or should generally not be put on Portage.  [...]
+<a class="footnote-reference brackets" href="#robbins-20020207-2" id="id20">21</a></p>
+</blockquote>
+<p>They were historical cases of users withdrawing their contributions upon
+being required to transfer the copyright to Gentoo.  Furthermore, there
+was at least a single case of proxied maintainer reusing a third-party
+ebuild and changing the copyright notice without obtaining the owner's
+agreement (this has been discovered in time, and it has not been
+merged).  However, there is no way to know if developers haven't
+unilaterally changed copyrights on user submissions in the past.</p>
+</div>
+<div class="section" id="the-future">
+<h1><a class="toc-backref" href="#id30">The future</a></h1>
+<p>Three main points were made in favor of copyright assignments so far:</p>
+<ol class="arabic simple">
+<li><p>They allowed Gentoo Technologies to unilaterally change the license.</p></li>
+<li><p>They technically allowed Gentoo to pursue copyright violations for
+any of the code.</p></li>
+<li><p>They made code reuse simpler due to not requiring tracking
+of copyrights.</p></li>
+</ol>
+<p>However, the points brought in the earlier sections make the Gentoo
+implementation of copyright assignment doubtful at least.  It has caused
+us to reject some contributions (not a meaningful amount, though)
+and raised some doubt as to the actual copyright owners in our code.
+Most importantly, it has been pointed out that the full assignment
+as used by Gentoo is not permitted by the laws of most of the EU
+countries.  This makes the status of code contributed by European
+developers unclear.</p>
+<p>Those legal issues are not specific to Gentoo.  They have resulted
+in a large number of projects creating various kinds of Contributor
+License Agreements <a class="footnote-reference brackets" href="#cla" id="id21">22</a>.  One of the most interesting variants is
+Fiduciary Licence Agreement (FLA) <a class="footnote-reference brackets" href="#fla" id="id22">23</a>.  Technically, the old
+copyright forms could be replaced by such a document.  However, all
+contributors would be required to sign it before contributing
+any copyrightable work.  This is quite inconvenient, and other open
+source projects have already suffered loss of contributors for this
+precise reason (for one, I don't contribute to Google projects anymore).</p>
+<p>The current copyright draft <a class="footnote-reference brackets" href="#new-policy-draft" id="id23">19</a> aims to provide users
+the choice between two models: retaining copyright, or sublicensing
+to Gentoo Foundation via FLA.  While this wouldn't give us the full
+coverage of copyright, it should provide a reasonable compromise between
+the benefits of copyright ownership and contributor's convenience
+and need for attribution.</p>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id31">References</a></h1>
+<dl class="footnote brackets">
+<dt class="label" id="first-commit"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>[gentoo-x86] /header.txt; r1.1
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/header.txt?revision=1.1&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/header.txt?revision=1.1&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="robbins-20030821"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Daniel Robbins, Re: [gentoo-dev] Why should
+copyright assignment be a requirement?
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/60630a3e1b5ba40c49fa65daadd45fbd">https://archives.gentoo.org/gentoo-dev/message/60630a3e1b5ba40c49fa65daadd45fbd</a>)</p>
+</dd>
+<dt class="label" id="portnoy"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Jon Portnoy, Re: [gentoo-dev] ebuild copyright attribution?
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/6754792cbe9763d249a0c4ee3d3f0602">https://archives.gentoo.org/gentoo-dev/message/6754792cbe9763d249a0c4ee3d3f0602</a>)</p>
+</dd>
+<dt class="label" id="gplv2-commit"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>[gentoo-x86] /x11-misc/wmakerconf/wmakerconf-2.8.1.ebuild r1.1
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/x11-misc/wmakerconf/wmakerconf-2.8.1.ebuild?hideattic=0&amp;revision=1.1&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/x11-misc/wmakerconf/wmakerconf-2.8.1.ebuild?hideattic=0&amp;revision=1.1&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="robbins-20020207"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Daniel Robbins, Re: [gentoo-dev] Ebuild info:
+author, maintainer and copyrights
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/7a857384b8929cb930329eb59e27636a">https://archives.gentoo.org/gentoo-dev/message/7a857384b8929cb930329eb59e27636a</a>)</p>
+</dd>
+<dt class="label" id="gplv3-guide"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>Brett Smith, A Quick Guide to GPLv3
+(<a class="reference external" href="https://www.gnu.org/licenses/quick-guide-gplv3.en.html">https://www.gnu.org/licenses/quick-guide-gplv3.en.html</a>)</p>
+</dd>
+<dt class="label" id="copy-form"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/devrel/assignment.txt r1.1
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/devrel/assignment.txt?hideattic=0&amp;revision=1.1&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/devrel/assignment.txt?hideattic=0&amp;revision=1.1&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="zynot"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p>The Zynot Foundation (archived 2003-08-04)
+(<a class="reference external" href="http://web.archive.org/web/20030804132831/http://www.zynot.org:80/">http://web.archive.org/web/20030804132831/http://www.zynot.org:80/</a>)</p>
+</dd>
+<dt class="label" id="letter-to-zynot"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
+<dd><p>Jeffrey D. Myers, letter regarding Zynot copyright
+violation
+(<a class="reference external" href="https://web.archive.org/web/20031030042426/http://dev.gentoo.org/~drobbins/letter-to-zynot.txt">https://web.archive.org/web/20031030042426/http://dev.gentoo.org/~drobbins/letter-to-zynot.txt</a>)</p>
+</dd>
+<dt class="label" id="bug-55572"><span class="brackets">10</span></dt>
+<dd><p>Bug 55572 (tomk) - Retire: Tom Knight (tomk)
+(<a class="reference external" href="https://bugs.gentoo.org/55572#c7">https://bugs.gentoo.org/55572#c7</a>)</p>
+</dd>
+<dt class="label" id="lieber-20040629"><span class="brackets"><a class="fn-backref" href="#id10">11</a></span></dt>
+<dd><p>Kurt Lieber, [gentoo-trustees] copyright assignment doc
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-trustees/message/a8fed0ebe05befb8463a1f4b09c4ed09">https://archives.gentoo.org/gentoo-trustees/message/a8fed0ebe05befb8463a1f4b09c4ed09</a>)</p>
+</dd>
+<dt class="label" id="waters-20040701"><span class="brackets"><a class="fn-backref" href="#id11">12</a></span></dt>
+<dd><p>Deedra Waters, [gentoo-trustees] copyright forms and new devs
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-trustees/message/d860d16f85dc6cea23077b0ff8b979c0">https://archives.gentoo.org/gentoo-trustees/message/d860d16f85dc6cea23077b0ff8b979c0</a>)</p>
+</dd>
+<dt class="label" id="status-update"><span class="brackets"><a class="fn-backref" href="#id12">13</a></span></dt>
+<dd><p>Sven Vermeulen, [gentoo-nfp] Status Update
+of the Gentoo Foundation
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/24adbb5301b339663963fa203da51cae">https://archives.gentoo.org/gentoo-nfp/message/24adbb5301b339663963fa203da51cae</a>)</p>
+</dd>
+<dt class="label" id="copy-form-foundation"><span class="brackets"><a class="fn-backref" href="#id13">14</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/devrel/copyright/assignment.txt r1.2
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/devrel/copyright/assignment.txt?hideattic=0&amp;revision=1.2&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/devrel/copyright/assignment.txt?hideattic=0&amp;revision=1.2&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="copy-form-rm"><span class="brackets"><a class="fn-backref" href="#id14">15</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/devrel/copyright/assignment.txt
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/devrel/copyright/assignment.txt?view=log&amp;hideattic=0">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/devrel/copyright/assignment.txt?view=log&amp;hideattic=0</a>)</p>
+</dd>
+<dt class="label" id="bug-140286"><span class="brackets"><a class="fn-backref" href="#id15">16</a></span></dt>
+<dd><p>Bug 140286 - out of date copyright information
+(<a class="reference external" href="https://bugs.gentoo.org/140286#c2">https://bugs.gentoo.org/140286#c2</a>)</p>
+</dd>
+<dt class="label" id="foundation-aoi"><span class="brackets"><a class="fn-backref" href="#id16">17</a></span></dt>
+<dd><p>Foundation: Articles of Incorporation
+(<a class="reference external" href="https://wiki.gentoo.org/wiki/Foundation:Articles_of_Incorporation">https://wiki.gentoo.org/wiki/Foundation:Articles_of_Incorporation</a>)</p>
+</dd>
+<dt class="label" id="foundation-copy-commit"><span class="brackets"><a class="fn-backref" href="#id17">18</a></span></dt>
+<dd><p>[gentoo-x86] /app-accessibility/at-poke/at-poke-0.2.1.ebuild r1.3
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/app-accessibility/at-poke/at-poke-0.2.1.ebuild?hideattic=0&amp;revision=1.3&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/app-accessibility/at-poke/at-poke-0.2.1.ebuild?hideattic=0&amp;revision=1.3&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="new-policy-draft"><span class="brackets">19</span><span class="fn-backref">(<a href="#id18">1</a>,<a href="#id23">2</a>)</span></dt>
+<dd><p>Richard Freeman, Alice Ferrazzi, Ulrich Müller,
+Robin H. Johnson: Copyright Policy [draft]
+(<a class="reference external" href="https://github.com/ulm/copyrightpolicy/blob/master/glep-copyrightpolicy.rst">https://github.com/ulm/copyrightpolicy/blob/master/glep-copyrightpolicy.rst</a>)</p>
+</dd>
+<dt class="label" id="repoman-copy"><span class="brackets"><a class="fn-backref" href="#id19">20</a></span></dt>
+<dd><p>[gentoo-src] /portage/bin/repoman r1.32
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-src/portage/bin/repoman?revision=1.32&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-src/portage/bin/repoman?revision=1.32&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="robbins-20020207-2"><span class="brackets"><a class="fn-backref" href="#id20">21</a></span></dt>
+<dd><p>Daniel Robbins, Re: [gentoo-dev] Ebuild info:
+author, maintainer and copyrights
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/8025ad7c83e29d0db66044b47b47bbaf">https://archives.gentoo.org/gentoo-dev/message/8025ad7c83e29d0db66044b47b47bbaf</a>)</p>
+</dd>
+<dt class="label" id="cla"><span class="brackets"><a class="fn-backref" href="#id21">22</a></span></dt>
+<dd><p>Wikipedia: Contributor License Agreement # Users
+(<a class="reference external" href="https://en.wikipedia.org/wiki/Contributor_License_Agreement#Users">https://en.wikipedia.org/wiki/Contributor_License_Agreement#Users</a>)</p>
+</dd>
+<dt class="label" id="fla"><span class="brackets"><a class="fn-backref" href="#id22">23</a></span></dt>
+<dd><p>FSFE: Fiduciary Licence Agreement (FLA)
+(<a class="reference external" href="https://fsfe.org/activities/ftf/fla.en.html">https://fsfe.org/activities/ftf/fla.en.html</a>)</p>
+</dd>
+</dl>
+</div>
+</div>
+</body>
+</html>

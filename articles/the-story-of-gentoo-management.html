@@ -1,0 +1,2168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<title>The story of Gentoo management</title>
+<meta name="author" content="Michał Górny" />
+<meta name="dcterms.date" content="2018-05-25" />
+<meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+<style type="text/css">
+
+/* Minimal style sheet for the HTML output of Docutils.                    */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*                                                                         */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+
+/* This CSS2.1_ stylesheet defines rules for Docutils elements without    */
+/* HTML equivalent. It is required to make the document semantic visible. */
+/*                                                                        */
+/* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
+/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
+
+/* alignment of text and inline objects inside block objects*/
+.align-left   { text-align: left; }
+.align-right  { text-align: right; }
+.align-center { clear: both; text-align: center; }
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
+
+/* titles */
+h1.title, p.subtitle {
+  text-align: center;
+}
+p.topic-title,
+p.sidebar-title,
+p.rubric,
+p.admonition-title,
+p.system-message-title {
+  font-weight: bold;
+}
+h1 + p.subtitle,
+h1 + p.section-subtitle {
+  font-size: 1.6em;
+}
+h2 + p.section-subtitle { font-size: 1.28em; }
+p.subtitle,
+p.section-subtitle,
+p.sidebar-subtitle {
+  font-weight: bold;
+  margin-top: -0.5em;
+}
+p.sidebar-title,
+p.rubric {
+  font-size: larger;
+}
+p.rubric { color: maroon; }
+a.toc-backref {
+  color: black;
+  text-decoration: none; }
+
+/* Warnings, Errors */
+div.caution p.admonition-title,
+div.attention p.admonition-title,
+div.danger p.admonition-title,
+div.error p.admonition-title,
+div.warning p.admonition-title,
+div.system-messages h1,
+div.error,
+span.problematic,
+p.system-message-title {
+  color: red;
+}
+
+/* inline literals */
+span.docutils.literal {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+/* do not wraph at hyphens and similar: */
+.literal > span.pre { white-space: nowrap; }
+
+/* Lists */
+
+/* compact and simple lists: no margin between items */
+.simple  li, .compact li,
+.simple  ul, .compact ul,
+.simple  ol, .compact ol,
+.simple > li p, .compact > li p,
+dl.simple > dd, dl.compact > dd {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Table of Contents */
+div.topic.contents { margin: 0.5em 0; }
+div.topic.contents ul {
+  list-style-type: none;
+  padding-left: 1.5em;
+}
+
+/* Enumerated Lists */
+ol.arabic     { list-style: decimal }
+ol.loweralpha { list-style: lower-alpha }
+ol.upperalpha { list-style: upper-alpha }
+ol.lowerroman { list-style: lower-roman }
+ol.upperroman { list-style: upper-roman }
+
+dt span.classifier { font-style: italic }
+dt span.classifier:before {
+  font-style: normal;
+  margin: 0.5em;
+  content: ":";
+}
+
+/* Field Lists and drivatives */
+/* bold field name, content starts on the same line */
+dl.field-list > dt,
+dl.option-list > dt,
+dl.docinfo > dt,
+dl.footnote > dt,
+dl.citation > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+/* Offset for field content (corresponds to the --field-name-limit option) */
+dl.field-list > dd,
+dl.option-list > dd,
+dl.docinfo > dd {
+  margin-left:  9em; /* ca. 14 chars in the test examples */
+}
+/* start field-body on a new line after long field names */
+dl.field-list > dd > *:first-child,
+dl.option-list > dd > *:first-child
+{
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+}
+/* field names followed by a colon */
+dl.field-list > dt:after,
+dl.docinfo > dt:after {
+  content: ":";
+}
+
+/* Bibliographic Fields (docinfo) */
+pre.address { font: inherit; }
+dd.authors > p { margin: 0; }
+
+/* Option Lists */
+dl.option-list { margin-left: 1.5em; }
+dl.option-list > dt { font-weight: normal; }
+span.option { white-space: nowrap; }
+
+/* Footnotes and Citations  */
+dl.footnote.superscript > dd {margin-left: 1em; }
+dl.footnote.brackets > dd {margin-left: 2em; }
+dl > dt.label { font-weight: normal; }
+a.footnote-reference.brackets:before,
+dt.label > span.brackets:before { content: "["; }
+a.footnote-reference.brackets:after,
+dt.label > span.brackets:after { content: "]"; }
+a.footnote-reference.superscript,
+dl.footnote.superscript > dt.label {
+  vertical-align: super;
+  font-size: smaller;
+}
+dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref > a { font-style: italic; }
+
+/* Line Blocks */
+div.line-block { display: block; }
+div.line-block div.line-block {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 40px;
+}
+
+/* Figures, Images, and Tables */
+.figure.align-left,
+figure.align-left,
+img.align-left,
+object.align-left,
+table.align-left {
+  margin-right: auto;
+}
+.figure.align-center,
+figure.align-center,
+img.align-center,
+object.align-center,
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.figure.align-right,
+figure.align-right,
+img.align-right,
+object.align-right,
+table.align-right {
+  margin-left: auto;
+}
+.figure.align-center, .figure.align-right,
+figure.align-center, figure.align-right,
+img.align-center, img.align-right,
+object.align-center, object.align-right {
+  display: block;
+}
+/* reset inner alignment in figures and tables */
+.figure.align-left, .figure.align-right,
+figure.align-left, figure.align-right,
+table.align-left, table.align-center, table.align-right {
+  text-align: inherit;
+}
+
+/* Admonitions and System Messages */
+div.admonition,
+div.system-message,
+div.sidebar,
+aside.sidebar {
+  margin: 1em 1.5em;
+  border: medium outset;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+/* Sidebar */
+div.sidebar,
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  float: right;
+  clear: right;
+}
+
+/* Text Blocks */
+blockquote,
+div.topic,
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+}
+pre.code .ln { color: gray; } /* line numbers */
+
+/* Tables */
+table { border-collapse: collapse; }
+td, th {
+  border-style: solid;
+  border-color: silver;
+  padding: 0 1ex;
+  border-width: thin;
+}
+td > p:first-child, th > p:first-child { margin-top: 0; }
+td > p, th > p { margin-bottom: 0; }
+
+table > caption {
+  text-align: left;
+  margin-bottom: 0.25em
+}
+
+table.borderless td, table.borderless th {
+  border: 0;
+  padding: 0;
+  padding-right: 0.5em /* separate table cells */
+}
+
+/* Document Header and Footer */
+/* div.header,				      */
+/* header { border-bottom: 1px solid black; } */
+/* div.footer,				      */
+/* footer { border-top: 1px solid black; }    */
+
+/* new HTML5 block elements: set display for older browsers */
+header, section, footer, aside, nav, main, article, figure {
+  display: block;
+}
+
+</style>
+<style type="text/css">
+
+/* CSS31_ style sheet for the output of Docutils HTML writers.             */
+/* Rules for easy reading and pre-defined style variants.		   */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*    	     	      	     	 					   */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+
+
+/* Document Structure */
+/* ****************** */
+
+/* "page layout" */
+body {
+  margin: 0;
+  background-color: #dbdbdb;
+}
+div.document,
+main {
+  line-height:1.3;
+  counter-reset: table;
+  /* counter-reset: figure; */
+  /* avoid long lines --> better reading */
+  /* OTOH: lines should not be too short because of missing hyphenation, */
+  max-width: 50em;
+  padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
+  margin: auto;
+  background-color: white;
+}
+
+/* Sections */
+
+/* Transitions */
+
+hr.docutils {
+  width: 80%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  clear: both;
+}
+
+/* Paragraphs */
+/* ========== */
+
+/* vertical space (parskip) */
+p, ol, ul, dl,
+div.line-block,
+div.topic,
+table {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+p:first-child { margin-top: 0; }
+/* (:last-child is new in CSS 3) */
+p:last-child  { margin-bottom: 0; }
+
+h1, h2, h3, h4, h5, h6,
+dl > dd {
+  margin-bottom: 0.5em;
+}
+
+/* Lists */
+/* ===== */
+
+/* Definition Lists */
+
+/* lists nested in definition lists */
+/* (:only-child is new in CSS 3) */
+dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
+
+/* Description Lists */
+/* styled like in most dictionaries, encyclopedias etc. */
+dl.description > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+
+/* Field Lists */
+
+/* example for custom field-name width */
+dl.field-list.narrow > dd {
+  margin-left: 5em;
+}
+/* run-in: start field-body on same line after long field names */
+dl.field-list.run-in > dd p {
+  display: block;
+}
+
+/* Bibliographic Fields */
+
+/* generally, bibliographic fields use special definition list dl.docinfo */
+/* but dedication and abstract are placed into "topic" divs */
+div.abstract p.topic-title {
+  text-align: center;
+}
+div.dedication {
+  margin: 2em 5em;
+  text-align: center;
+  font-style: italic;
+}
+div.dedication p.topic-title {
+  font-style: normal;
+}
+
+/* Citations */
+dl.citation dt.label {
+  font-weight: bold;
+}
+span.fn-backref {
+  font-weight: normal;
+}
+
+/* Text Blocks */
+/* =========== */
+
+/* Literal Blocks */
+
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  font-family: monospace;
+}
+
+/* Block Quotes */
+
+blockquote > table,
+div.topic > table {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+blockquote p.attribution,
+div.topic p.attribution {
+  text-align: right;
+  margin-left: 20%;
+}
+
+/* Tables */
+/* ====== */
+
+/* th { vertical-align: bottom; } */
+
+table tr { text-align: left; }
+
+/* "booktabs" style (no vertical lines) */
+table.booktabs {
+  border: 0;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.booktabs * {
+  border: 0;
+}
+table.booktabs th {
+  border-bottom: thin solid;
+}
+
+/* numbered tables (counter defined in div.document) */
+table.numbered > caption:before {
+  counter-increment: table;
+  content: "Table " counter(table) ": ";
+  font-weight: bold;
+}
+
+/* Explicit Markup Blocks */
+/* ====================== */
+
+/* Footnotes and Citations */
+/* ----------------------- */
+
+/* line on the left */
+dl.footnote {
+  padding-left: 1ex;
+  border-left: solid;
+  border-left-width: thin;
+}
+
+/* Directives */
+/* ---------- */
+
+/* Body Elements */
+/* ~~~~~~~~~~~~~ */
+
+/* Images and Figures */
+
+/* let content flow to the side of aligned images and figures */
+.figure.align-left,
+figure.align-left,
+img.align-left,
+object.align-left {
+  display: block;
+  clear: left;
+  float: left;
+  margin-right: 1em;
+}
+.figure.align-right,
+figure.align-right,
+img.align-right,
+object.align-right {
+  display: block;
+  clear: right;
+  float: right;
+  margin-left: 1em;
+}
+/* Stop floating sidebars, images and figures at section level 1,2,3 */
+h1, h2, h3 { clear: both; }
+
+/* Sidebar */
+
+/* Move right. In a layout with fixed margins, */
+/* it can be moved into the margin.   	       */
+div.sidebar,
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  margin-left: 1em;
+  margin-right: -2%;
+  background-color: #ffffee;
+}
+
+/* Code */
+
+pre.code { padding: 0.7ex }
+pre.code, code { background-color: #eeeeee }
+pre.code .ln { color: gray; } /* line numbers */
+/* basic highlighting: for a complete scheme, see */
+/* http://docutils.sourceforge.net/sandbox/stylesheets/ */
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+/* Math */
+/* styled separately (see math.css for math-output=HTML) */
+
+/* Epigraph           */
+/* Highlights         */
+/* Pull-Quote         */
+/* Compound Paragraph */
+/* Container          */
+
+/* can be styled in a custom stylesheet */
+
+/* Document Header and Footer */
+
+footer, header,
+div.footer, div.header {
+  font-size: smaller;
+  clear: both;
+  padding: 0.5em 2%;
+  background-color: #ebebee;
+  border: none;
+}
+
+/* Inline Markup */
+/* ============= */
+
+/* Emphasis           */
+/*   em               */
+/* Strong Emphasis    */
+/*   strong	      */
+/* Interpreted Text   */
+/*   span.interpreted */
+/* Title Reference    */
+/*   cite	      */
+
+/* Inline Literals                                          */
+/* possible values: normal, nowrap, pre, pre-wrap, pre-line */
+/*   span.docutils.literal { white-space: pre-wrap; }       */
+
+/* Hyperlink References */
+a { text-decoration: none; }
+
+/* External Targets       */
+/*   span.target.external */
+/* Internal Targets  	  */
+/*   span.target.internal */
+/* Footnote References    */
+/*   a.footnote-reference */
+/* Citation References    */
+/*   a.citation-reference */
+
+</style>
+</head>
+<body>
+<div class="document" id="the-story-of-gentoo-management">
+<h1 class="title">The story of Gentoo management</h1>
+<dl class="docinfo simple">
+<dt class="author">Author</dt>
+<dd class="author"><p>Michał Górny</p></dd>
+<dt class="date">Date</dt>
+<dd class="date">2018-05-25</dd>
+<dt class="version">Version</dt>
+<dd class="version">1.0</dd>
+<dt class="copyright">Copyright</dt>
+<dd class="copyright"><a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</a></dd>
+</dl>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#preamble" id="id111">Preamble</a></p></li>
+<li><p><a class="reference internal" href="#gentoo-top-level-management" id="id112">Gentoo top-level management</a></p>
+<ul>
+<li><p><a class="reference internal" href="#early-managers" id="id113">Early managers</a></p></li>
+<li><p><a class="reference internal" href="#how-were-managers-selected" id="id114">How were managers selected?</a></p></li>
+<li><p><a class="reference internal" href="#the-rise-and-fall-of-gentoo-managers" id="id115">The rise and fall of Gentoo Managers</a></p></li>
+<li><p><a class="reference internal" href="#putting-it-to-the-table" id="id116">Putting it to the table</a></p></li>
+<li><p><a class="reference internal" href="#conclusion" id="id117">Conclusion</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#gentoo-foundation" id="id118">Gentoo Foundation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-beginnings-of-the-foundation" id="id119">The beginnings of the Foundation</a></p></li>
+<li><p><a class="reference internal" href="#the-dark-years" id="id120">The dark years</a></p></li>
+<li><p><a class="reference internal" href="#foundation-then-foundation-yesterday" id="id121">Foundation then, Foundation yesterday</a></p></li>
+<li><p><a class="reference internal" href="#the-recent-months" id="id122">The recent months</a></p></li>
+<li><p><a class="reference internal" href="#trustee-elections" id="id123">Trustee elections</a></p></li>
+<li><p><a class="reference internal" href="#finding-the-trustees" id="id124">Finding the Trustees</a></p></li>
+<li><p><a class="reference internal" href="#id74" id="id125">Conclusion</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#gentoo-council" id="id126">Gentoo Council</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-metastructure-debate" id="id127">The metastructure debate</a></p></li>
+<li><p><a class="reference internal" href="#council-elections" id="id128">Council elections</a></p></li>
+<li><p><a class="reference internal" href="#important-points-in-council-history" id="id129">Important points in Council history</a></p></li>
+<li><p><a class="reference internal" href="#establishing-council-members" id="id130">Establishing Council members</a></p></li>
+<li><p><a class="reference internal" href="#id109" id="id131">Conclusion</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#the-split-of-responsibilities" id="id132">The split of responsibilities</a></p></li>
+<li><p><a class="reference internal" href="#epilogue" id="id133">Epilogue</a></p></li>
+<li><p><a class="reference internal" href="#thanks" id="id134">Thanks</a></p></li>
+<li><p><a class="reference internal" href="#references" id="id135">References</a></p></li>
+</ul>
+</div>
+<div class="section" id="preamble">
+<h1><a class="toc-backref" href="#id111">Preamble</a></h1>
+<p>I have recently made a tabular summary of (probably) all Council members
+and Trustees in the history of Gentoo <a class="footnote-reference brackets" href="#management-table" id="id1">1</a>.  I think
+that this table provides a very succinct way of expressing the changes
+within management of Gentoo.  While it can't express the complete
+history of Gentoo, it can serve as a useful tool of reference.</p>
+<p>What questions can it answer?  For example, it provides an easy way to
+see how many terms individuals have served, or how long Trustee terms
+were.  You can clearly see who served both on the Council
+and on the Board and when those two bodies had common members.  Most
+notably, it collects a fair amount of hard-to-find data in a single
+table.</p>
+<p>Can you trust it?  I've put an effort to make the developer lists
+correct but given the bad quality of data (see below), I can't guarantee
+complete correctness.  The Trustee term dates are approximate at best,
+and oriented around elections rather than actual term (which is hard
+to find).  Finally, I've merged a few short-time changes such as empty
+seats between resignation and appointing a replacement, as expressing
+them one by one made little sense and would cause the tables to grow
+even longer.</p>
+<p>This article aims to be the text counterpart to the table.  I would like
+to tell the history of the presented management bodies, explain
+the sources that I've used to get the data and the problems that I've
+found while working on it.</p>
+<p>As you could suspect, the further back I had to go, the less good data
+I was able to find.  The problems included the limited scope of our
+archives and some apparent secrecy of decision-making processes
+at the early time (judging by some cross-posts, the traffic on -core
+mailing list was significant, and it was not archived before late
+2004).  Both due to lack of data, and due to specific interest
+in developer self-government, this article starts in mid-2003.</p>
+</div>
+<div class="section" id="gentoo-top-level-management">
+<h1><a class="toc-backref" href="#id112">Gentoo top-level management</a></h1>
+<div class="section" id="early-managers">
+<h2><a class="toc-backref" href="#id113">Early managers</a></h2>
+<p>The first known well-defined form of Gentoo management was the top-level
+management structure (apparently later called <em>metastructure</em>) defined
+in GLEP 4.  The structure is described as:</p>
+<blockquote>
+<p>[...]  This management structure will consist of the chief architect
+and a group of developers that will be given the title of &quot;Top-level
+managers.&quot; Top-level managers will be accountable for the projects
+they manage, and be responsible for communicating the status of their
+projects to the rest of the top-level managers and chief architect,
+among other things detailed later in this document.</p>
+<p>All the top-level projects in the Gentoo project will be clearly
+defined, including with goals, sub-projects, members, roadmap and
+schedules.  [...]  <a class="footnote-reference brackets" href="#glep4" id="id2">2</a></p>
+</blockquote>
+<p>So apparently a number of top-level projects is defined, and managers
+(leads) of those projects form the management team along with the chief
+architect of Daniel Robbins.  GLEP 4 also includes the list of initial
+managers, top-level projects and a lot of bureaucracy for them
+to follow.</p>
+<p>According to the dates inside the GLEP, it was posted by the end of June
+2003, and the implementation work started soon after.  The first project
+list was posted on the site on 2003-07-19 <a class="footnote-reference brackets" href="#projects-static" id="id3">3</a>; it has
+been later renamed (without changes) and can still be found
+in the archival version of our website <a class="footnote-reference brackets" href="#projects-archive" id="id4">4</a>.
+It introduces a few differences from the GLEP: gentoo-linux project is
+gone, and three new projects appear: metastructure, gentoo-base
+and documentation.  It also features a group of orphan projects that
+apparently are not included in the top-level management.</p>
+<p>The original projects page does not clearly distinguish managers
+from regular project members.  In some cases, the top-level projects
+list only one member, or the first member is listed out of order (with
+other members being sorted lexically).  By comparing the list obtained
+from those apparent leads with GLEP 4 on one hand, and with future
+manager lists on the other hand, we can arrange a working hypothesis
+on who managed most of the projects.  According to this hypothesis,
+the main difference between GLEP and the site would be reducing most
+of the projects to one manager, with Daniel Robbins disappearing from
+the explicit listings.</p>
+<p>The next data point is 2003-09-22 when the previous static listing was
+replaced by an index dynamically including different project pages
+in Gentoo (that was used until 2013) <a class="footnote-reference brackets" href="#projects-dynamic" id="id5">5</a>.  Initially,
+this file included an explicit list of managers and only three projects
+(including a new Desktop TLP).  According to commit messages, all
+missing TLPs were added on 2003-09-30 <a class="footnote-reference brackets" href="#projects-alltlp" id="id6">6</a>, forming
+a list equal to the one from previous site, plus the new Desktop
+project.  A commit later, on 2003-10-09 the last manager was added
+to the list <a class="footnote-reference brackets" href="#projects-allmanagers" id="id7">7</a>.</p>
+<p>At this point, I think that we can form a first clear list of top-level
+managers in Gentoo.  Some of the projects already have a project page
+with complete member list.  Others are only included on the list along
+with their leads.  By combining the managers and leads listed
+in the top-level projects, we can account for all managers explicitly
+listed on the project list.  However, we do not have enough data to
+clearly assign them to specific projects yet.</p>
+</div>
+<div class="section" id="how-were-managers-selected">
+<h2><a class="toc-backref" href="#id114">How were managers selected?</a></h2>
+<p>One of the key issues on which my research was focused was determining
+how were various management bodies selected.  After all, if managers are
+to be considered Gentoo's body of self-government, it would be crucial
+for Gentoo developers to have an actual say in selecting the managers.</p>
+<p>The metastructure proposal was written by Daniel Robbins, the chief
+architect of Gentoo.  While this would effectively put him as the one
+choosing initial management team, there is evidence to suggest that he
+based the list on existing responsibilities within Gentoo.  Quoting
+his reply to feedback on the metastructure proposal:</p>
+<blockquote>
+<p>[...]  Meaning that existing roles and responsibilities of developers
+within the Gentoo Linux project will be fully respected and reflected
+in the organization as this plan is implemented.  <a class="footnote-reference brackets" href="#robbins-20030625" id="id8">8</a></p>
+</blockquote>
+<p>For example, you can see that the manager of the Hardened project used
+to be its lead prior to GLEP 4 <a class="footnote-reference brackets" href="#hardened" id="id9">10</a>.  As a matter of historical
+curiosity, the Hardened project seems to be the first Gentoo project to
+have a site in the GuideXML system.</p>
+<p>The procedure for manager changes afterwards is less clear.  It was not
+specified in GLEP 4.  A mail from Daniel Robbins, posted on 2003-07-15
+states:</p>
+<blockquote>
+<p>Currently, new managers are elected by unanimous vote of the existing
+managers.  [...]  <a class="footnote-reference brackets" href="#robbins-20030715" id="id10">12</a></p>
+</blockquote>
+<p>When the Desktop TLP project was formed, the managers apparently had
+a problem selecting the lead.  The problem was pointed out during
+the 2003-12-15 manager meeting:</p>
+<blockquote>
+<p>Paul de Vrieze (pauldv) presented the nominees for the desktop lead
+position (foser, liquidx, spider, spyderous, and tseng), and it
+immediately became clear that the new procedures for electing
+a manager were far from well-defined.</p>
+<p>[...]  Dennis M.D. Ljungmark (Spider) from the desktop group pointed
+out that the desktop group had not really participated
+in the selection process, noting that &quot;the whole process seem[ed]
+opaque and closed&quot;, a conclusion that apparently rendered, for them,
+the nomination process itself fairly pointless.</p>
+<p>That revelation pretty much shut down any actual discussion
+of the vote itself, as the discussion then focused on how to construct
+a fair, serviceable top-level manager selection procedure.  [...]
+<a class="footnote-reference brackets" href="#managers-20031215" id="id11">11</a></p>
+</blockquote>
+<p>The 2004-05-17 Gentoo Weekly Newsletter indicates a change
+in the selection method:</p>
+<blockquote>
+<p>Another Gentoo Managers' Meeting was held today on May 17th. The first
+items on the agenda were votes on requiring a supermajority
+of managers (66%) to confirm new managers, and on confirming John
+Davis as the lead for Release Engineering. The supermajority
+requirement was ratified, and subsequently John was confirmed
+as the the Release Engineering lead.  <a class="footnote-reference brackets" href="#gwn-20040517" id="id12">13</a></p>
+</blockquote>
+<p>The model of GLEP 4 is hard to judge.  On one hand, it certainly
+ratified delegating some of the decisional power to the developers.
+On the other hand, the manager selection was always limited
+to the existing managers and the manager terms were unlimited.
+As a result, distribution of power still depended on the few people
+holding it.  John Davis has pointed out those problems in his mail dated
+2003-07-15  <a class="footnote-reference brackets" href="#davis-20030715" id="id13">14</a>.  It does not seem that his calls were
+answered at the time.</p>
+</div>
+<div class="section" id="the-rise-and-fall-of-gentoo-managers">
+<h2><a class="toc-backref" href="#id115">The rise and fall of Gentoo Managers</a></h2>
+<p>The early period of Gentoo Managers is marked by high activity.  GLEP 4
+required status reports twice a week and weekly IRC meetings.  Sadly,
+a lot of the related data is lost to Gentoo developers since it took
+place on gentoo-managers mailing list.  While we seem to possess
+the complete archives of it, we can't publish them since there is
+no indication that the mailing list was intended to be published
+as a whole.  Quoting another of Daniel Robbins' replies from 2003-06-25:</p>
+<blockquote>
+<p>The gentoo-managers list is intended for &quot;meetings.&quot;  I fully support
+having the weekly manager status updates posted publicly on project
+pages as part of our accountability to our users.  I think
+the meetings themselves should be private though.  But each project's
+and subproject's weekly status should be public information.</p>
+</blockquote>
+<p>On the plus side, it seems that the manager meetings were public
+after all and the logs of all meetings between 2003-11-03 and 2004-07-19
+are available <a class="footnote-reference brackets" href="#manager-meeting-logs" id="id14">15</a>.  Additionally, meetings up
+to 2004-03-08 include (GuideXML) summaries.  Besides that, some
+of the decisions are to be found in the Gentoo Weekly Newsletter
+<a class="footnote-reference brackets" href="#gwn" id="id15">16</a>.</p>
+<p>Did Managers have real deciding power?  It appears that they did.
+Quoting Paul de Vrieze's mail from 2003-11-19:</p>
+<blockquote>
+<p>Key decisions are made by the management team.  A formal voting system
+is being developed, but currently we work with consensus vote.  Note
+that this is consensus of the management team.  In this Daniel
+[Robbins] has some extra edge as the project leader although it is not
+formal.  <a class="footnote-reference brackets" href="#de-vrieze-20031119" id="id16">17</a></p>
+</blockquote>
+<p>The first major scratch occurred around 2004-04-26.  This day, Daniel
+Robbins announced his resignation from development roles
+<a class="footnote-reference brackets" href="#robbins-resignation" id="id17">18</a>.  No Chief Architect was appointed
+in replacement.  GLEP 4 was still in force, although the discipline
+seemed to fade away.  Managers list traffic decreased, Manager meeting
+logs stopped being published.  Once Gentoo Foundation was formed, many
+of the managers started doubling as Trustees, making it harder to
+exactly determine the role of Managers in the following year.</p>
+<p>The first end point on the timeline of Managers is 2005-06-14.  This
+day, the results of vote for the new metastructure were announced
+<a class="footnote-reference brackets" href="#metastructure-vote-results" id="id18">19</a>.  What was later codified as GLEP 39
+has been approved <a class="footnote-reference brackets" href="#glep39" id="id19">20</a>.  Managers were at their last.</p>
+<p>The first Council election results were published on 2005-09-01
+<a class="footnote-reference brackets" href="#council-results-1" id="id20">21</a>.  The first Council met at 2005-09-15
+<a class="footnote-reference brackets" href="#council-meeting-1" id="id21">22</a>.  A few days later, the list of managers was
+removed from the site <a class="footnote-reference brackets" href="#managers-removal" id="id22">23</a>.</p>
+</div>
+<div class="section" id="putting-it-to-the-table">
+<h2><a class="toc-backref" href="#id116">Putting it to the table</a></h2>
+<p>Fitting Managers into the management table was not an easy task.  But
+why do it in the first place?  I wanted to include them because they
+were predecessors to the Council.  I think the evidence to that is clear
+— their powers were ratified by GLEP 4 metastructure, and the Council
+was formed through a metastructure proposal replacing it.  In this
+context, it seemed really interesting to compare the first elected
+Council with the final team of Managers.</p>
+<p>But who were on the final team?  This is really hard to answer.  When
+originally researching managers, I had my share of doubt whether GLEP 4
+was actually followed to the letter and new TLP leads were becoming
+managers.  While we have found evidence to support that, it is unclear
+whether it was still taking place during the last months of Manager
+activity — whether the new TLP leads were confirmed by the Managers
+and accordingly added to the mailing list.</p>
+<p>Let's look at the CVS logs of various project pages in reverse
+chronological order.  We see that Mike Frysinger became co-lead of base
+system in August 2005; a month earlier Brandon Hale was removed
+from desktop (apparently inactive since March <a class="footnote-reference brackets" href="#tseng-retirement" id="id23">24</a>)
+and Sven Wegener created a new page for QA project listing himself
+as the lead.  All of this happened already past the new metastructure
+vote, and past last activity of gentoo-managers list.  Should we
+consider either of them Managers then?</p>
+<p>Let's look further.  May 2005 brings Jon Portnoy (temporarily) stepping
+down from Developer Relations top-level management and a complete
+leadership change in Portage project — three new leads.  Apparently they
+weren't added to the -managers list but posted the project status
+by proxy.  I think we can consider this the most relevant point for
+the final team — although it is unclear if all TLP leads were actually
+participating in the management, or considering themselves Managers.</p>
+<p>Once we know whom to put, the next problem is how to put the data
+in the table.  Originally I wanted to place Managers just below
+the Council, to emphasize on the succession.  However, this met two
+problems.  Firstly, it would put Managers in 2004/05 term (respective to
+the Trustee term) which would be quite imprecise given that Managers
+were not really running in terms.  Secondly, the count of 20 apparent
+Managers in May 2005 would be a hard fit, compared to 7 Council members.
+Therefore, I've decided to place them in a separate table.</p>
+<p>Finally, I was wondering whether I should assign them to their
+respective projects instead of using a flat list.  Both approaches have
+their advantages.  A flat list puts more focus on the management team
+and its members.  The project assignment indicates which projects were
+considered top-level, at the cost of duplicating some of the managers.
+For those reasons, I've included both variants.</p>
+</div>
+<div class="section" id="conclusion">
+<h2><a class="toc-backref" href="#id117">Conclusion</a></h2>
+<p>The GLEP 4 metastructure was probably the first official management
+structure of Gentoo.  It structured the distribution in a hierarchy,
+with Chief Architect and top-level project managers on top,
+and subprojects below them.  It created a certain vertical model, with
+subprojects answering to their parent projects, and parent projects
+representing their subprojects.</p>
+<p>Was it a revolution?  I wouldn't consider it so.  It is apparent that
+some developers already had some degree of decisional power
+and influence in Gentoo.  Daniel Robbins admitted that the structure was
+meant to reflect the developer roles at the time <a class="footnote-reference brackets" href="#robbins-20030625" id="id24">8</a>.
+However, the choice of top-level projects may have reduced the influence
+of some of the developers.  For example, in reply to Joshua Brindle
+Daniel Robbins admits that his project has been moved under gentoo-alt
+umbrella <a class="footnote-reference brackets" href="#robbins-20030625-2" id="id25">9</a>.</p>
+<p>Was it a democracy?  Certainly it was a step towards it, though it
+wasn't one yet.  The power started being distributed but the access to
+it was limited to a closed group of Managers.  A few developers have
+managed to join the group but it certainly wasn't open.  In the end,
+only people contributing to specific areas (top-level projects) could
+have become Managers, upon approval from other Managers.</p>
+<p>Was it a good model?  Hard to tell.  Certainly it worked for some time
+but it seems that it eventually started to decline.  That might have
+been related to Daniel Robbins leaving, or to Managers focusing on their
+other roles as Trustees.  That might simply have been caused by people
+having less time to work on Gentoo.  In any case, it eventually stopped
+fitting the needs of Gentoo at the time and was replaced.</p>
+</div>
+</div>
+<div class="section" id="gentoo-foundation">
+<h1><a class="toc-backref" href="#id118">Gentoo Foundation</a></h1>
+<div class="section" id="the-beginnings-of-the-foundation">
+<h2><a class="toc-backref" href="#id119">The beginnings of the Foundation</a></h2>
+<p>Originally, Gentoo has been backed by a commercial company Gentoo
+Technologies, owned and run by Daniel Robbins.  Apparently, not all
+developers agreed with this model.</p>
+<p>The earliest mention of a Gentoo not-for-profit I was able to find was
+in Daniel Robbins' mail dated 2003-06-25, in reply to the GLEP 4
+metastructure proposal:</p>
+<blockquote>
+<p>On Tue, Jun 24, 2003 at 09:15:00PM -0500, Joshua Brindle wrote:</p>
+<blockquote>
+<p>[...]</p>
+<p>2) I didn't see not-for-profit mentioned, don't you think this is
+essential to the success of gentoo?</p>
+</blockquote>
+<p>Yes, I think it is. Having me move out of the day-to-day management
+efforts will allow me to focus efforts on getting the not-for-profit
+started.  Right now I am simply too overwhelmed with work.
+<a class="footnote-reference brackets" href="#robbins-20030625-2" id="id26">9</a></p>
+</blockquote>
+<p>The mails around the time indicate that the non-profit status was
+discussed and agreed on for some time already.  However, it did not
+seem to be moving forward as some of the developers desired.
+The for-profit endeavors made by Daniel Robbins have apparently caused
+it to be forked into Zynot  <a class="footnote-reference brackets" href="#zynot-reasons-for-forking" id="id27">25</a>.</p>
+<p>The work on actually forming the non-for-profit seems to have started
+in April 2004.  The first complete proposal is dated 2004-04-16:</p>
+<blockquote>
+<p>Gentoo Foundation, Inc. proposal</p>
+<p>The purpose of this foundation is to hold the intellectual property
+of the Gentoo free software project.  It will have a board of
+trustees.  This not-for-profit will be an open membership trade
+association.</p>
+<p>Trade associations (unlike charities) can be more restrictive in their
+requirements for membership.  Membership will be limited to Gentoo
+developers.  The criteria for being a Gentoo developer will be
+determined by the board of trustees.  There will be no membership
+dues.</p>
+<p>There will be an initial board of trustees appointed, which will be
+selected to meet my commitments to existing managers and developers.
+This initial board of trustees will serve for one year from the
+establishment of the Gentoo Foundation, after which point the board
+will be elected by the members (Gentoo developers.)  After that,
+regular elections will be held (election cycle TBD) to determine board
+members.</p>
+<p>The Gentoo Store will pay for the establishment of this
+not-for-profit.  The Gentoo Store will also pay for the Gentoo
+Foundation's application for 501(c)(6) federal trade association
+status (~$5000 or so?)</p>
+<p>Gentoo Technologies, Inc. will transfer the copyrights and trademarks
+to the Gentoo Foundation.  In exchange, the Gentoo Foundation will
+grant Daniel Robbins &amp; Gentoo Technologies, Inc. perpetual,
+non-exclusive, royalty-free use of the &quot;Gentoo&quot; trademark and &quot;G&quot;
+logo.  This will allow me to continue to run the Gentoo Store if I
+want.</p>
+<p>I will be a member of the initial board of trustees, to give
+legitimacy to the Gentoo Foundation and also show my commitment
+to the future success of this entity.  <a class="footnote-reference brackets" href="#robbins-20040416" id="id28">26</a></p>
+</blockquote>
+<p>Later on, Daniel Robbins resigned from this role on the initial Board.
+The Foundation has been established on 2004-05-28.  This date, along
+with the original appointed Board of Trustees can be found
+in the Articles of Incorporation <a class="footnote-reference brackets" href="#foundation-aoi" id="id29">27</a>.  At this point,
+the 13 Trustees started working on solving various legal issues
+regarding the new NFP.</p>
+<p>The initial issues found in Sven Vermeulen's 2004-10-21 status update
+include: registering Gentoo trademark and logo, setting up a bank
+account, resolving copyright assignment issues and handling donations
+<a class="footnote-reference brackets" href="#vermeulen-20041021" id="id30">28</a>.  By December, the work on Bylaws has apparently
+started <a class="footnote-reference brackets" href="#goodyear-20041201" id="id31">29</a>.</p>
+<p>The first quarter of 2005 does not leave any trace of activity
+on the Foundation mailing lists.  However, the first draft of Bylaws
+is published <a class="footnote-reference brackets" href="#bylaws-draft" id="id32">30</a>.  The first topic of April are upcoming
+Trustee elections:</p>
+<blockquote>
+<p>The Gentoo Foundation, Inc was incorporated on 28 May 2004.  According
+to the articles of incorporation, a new board of trustees needs to be
+elected within 13 months of its incorporation, which is coming up
+fast.  At the moment the only members of the foundation are the
+current trustees, and clearly that needs to change before we hold
+elections.  <a class="footnote-reference brackets" href="#goodyear-20050411" id="id33">31</a></p>
+</blockquote>
+<p>The Trustees agreed on inviting all Gentoo developers who have been
+developers for at least one year <a class="footnote-reference brackets" href="#goodyear-20050416" id="id34">32</a>, discussed
+the election procedures <a class="footnote-reference brackets" href="#goodyear-20050427" id="id35">33</a> and give birth to
+the voting software still used today <a class="footnote-reference brackets" href="#griffis-20050428" id="id36">34</a>.</p>
+<p>On 2005-05-21, Grant Goodyear confirmed receiving copyright
+and trademark transfers from Gentoo Technologies <a class="footnote-reference brackets" href="#goodyear-20050521" id="id37">35</a>.
+On 2005-09-14, he confirmed that Gentoo trademark has been registered to
+the Foundation <a class="footnote-reference brackets" href="#goodyear-20050914" id="id38">36</a>.  The end of 2005 concludes
+the early active period of the Foundation.</p>
+</div>
+<div class="section" id="the-dark-years">
+<h2><a class="toc-backref" href="#id120">The dark years</a></h2>
+<p>The year 2006 brings little visible progress in the Foundation affairs.
+This year's Trustee elections bring fewer nominees than the previous
+ones.  Quoting Grant Goodyear's reply to Diego Pettenò:</p>
+<blockquote>
+<p>Diego 'Flameeyes' Pettenò wrote: [Tue Jul 04 2006, 01:34:02PM CDT]</p>
+<blockquote>
+<p>What happens if we don't get any nomination? I know it's early
+but... well usually there are some early shots, and in 4 days we had
+nothing.  This is strange to say the least.</p>
+</blockquote>
+<p>Well, it will make thinning out the list of trustees much simpler.</p>
+<p>[...]</p>
+<p>Assuming nobody complains too much, let's assume that the nominations
+and elections for trustees will coincide with those for council
+members.  I'm still suggesting that we limit the number of trustees to
+5, assuming that we will quickly replace any trustees who depart
+during his or her term.  As for Foundation membership, that's still a
+tricky issue, since the bylaws were never approved [...].
+<a class="footnote-reference brackets" href="#goodyear-20060706" id="id39">37</a></p>
+</blockquote>
+<p>The nominations bring only 5 nominees.  Therefore, they are accepted
+as the new Board without a vote.  Seemant Kulleen announces it
+on 2006-09-05 <a class="footnote-reference brackets" href="#kulleen-20060905" id="id40">38</a>.  His mail immediately meets strong
+response from Gentoo developers who disagree with skipping the vote.</p>
+<p>On 2006-09-23 a new election is announced <a class="footnote-reference brackets" href="#kulleen-20060923" id="id41">39</a>.  This
+time, 7 developers are nominated and five of them are elected into
+the Board (with small changes, compared to the earlier result)
+<a class="footnote-reference brackets" href="#goodyear-20061021" id="id42">40</a>.  However, Seemant Kulleen resigns almost
+immediately <a class="footnote-reference brackets" href="#kulleen-20061023" id="id43">41</a>, and Stuart Herbert a month later
+<a class="footnote-reference brackets" href="#herbert-20061129" id="id44">42</a>.</p>
+<p>There is no apparent Trustee activity during the first half of 2007.
+The single mails sent by Gentoo developers to the mailing list remain
+unanswered.  The upcoming 2007/2008 election does not bring even
+sufficient number of candidates to fill all the slots
+<a class="footnote-reference brackets" href="#gianelloni-20070731" id="id45">43</a>.  At this point, Trustees seem to be working
+towards SFC inception <a class="footnote-reference brackets" href="#goodyear-20070926" id="id46">44</a>.  There are no further news
+until 2008.</p>
+<p>The first massive peak of activity results from Daniel Robbins'
+2008-01-11 blog post stating:</p>
+<blockquote>
+<p>Several days ago, the Gentoo community discovered the unfortunate news
+that the Gentoo Foundation's charter has been revoked for several
+weeks, which means that as of this moment the Gentoo Foundation no
+longer exists.</p>
+<p>[...]</p>
+<p>It also appears that all but two of the interim Foundation trustees
+have either resigned or are unreachable.  Grant Goodyear appears to be
+the only remaining trustee who actively does legal stuff, along with
+Chris Gianelloni who runs the Gentoo Store.  <a class="footnote-reference brackets" href="#robbins-20080111" id="id47">45</a></p>
+</blockquote>
+<p>The Grant Goodyear's update from 2008-01-18 provides more details:</p>
+<blockquote>
+<p>With help from Renat Lumpau (rl03), I spent some time this week
+talking to the Foundation's lawyers, collecting documents, and sifting
+through old e-mails.  As I posted on gentoo-nfp a couple of days ago,
+the state of New Mexico did, indeed, revoke the charter for the Gentoo
+Foundation, Inc. in October of 2007.  It's still not entirely clear
+why, since I mailed a check along with the (then) current and past-due
+annual reports to the state of NM way back in July.  Since the check
+never cleared, it seems a good guess that the paperwork went astray,
+but we won't know until Renat's request (and $5) are processed by NM
+and they get back to him.  <a class="footnote-reference brackets" href="#goodyear-20080119" id="id48">46</a></p>
+</blockquote>
+<p>He also confirms that all Trustees but himself and Paul de Vrieze have
+resigned.</p>
+<p>By the end of the month, nominations for new Trustee Board start.  This
+time, a full Board of 5 Trustees is elected from the initial 8 nominees
+<a class="footnote-reference brackets" href="#vicetto-20080229" id="id49">47</a>.  The new Trustees are much more successful.</p>
+<p>By 2008-05-13, the Foundation is reinstated <a class="footnote-reference brackets" href="#thomson-20080513" id="id50">48</a>.
+On 2008-08-31, the first Bylaws are adopted <a class="footnote-reference brackets" href="#bylaws-20080831" id="id51">49</a>
+<a class="footnote-reference brackets" href="#trustee-meeting-200808" id="id52">50</a>.</p>
+</div>
+<div class="section" id="foundation-then-foundation-yesterday">
+<h2><a class="toc-backref" href="#id121">Foundation then, Foundation yesterday</a></h2>
+<p>Since then, the Foundation has been operating with no major
+interruptions.  The initial Bylaws already included the Trustee election
+model still used today:</p>
+<blockquote>
+<p>Trustees shall normally hold office for a period not exceeding two
+electoral periods.  Trustees shall retire annually by rotation
+(and may be re-elected).  [...]  <a class="footnote-reference brackets" href="#bylaws-20080831" id="id53">49</a></p>
+</blockquote>
+<p>They also included the restriction that:</p>
+<blockquote>
+<p>No individual shall serve as a Gentoo Foundation Trustee and Gentoo
+Council Member concurrently.  <a class="footnote-reference brackets" href="#bylaws-20080831" id="id54">49</a></p>
+</blockquote>
+<p>Initially, only Gentoo developers were admitted to the Foundation.
+However, the 2008-10 meeting already changed them to allow non-developer
+members <a class="footnote-reference brackets" href="#summers-20081117" id="id55">51</a>:</p>
+<blockquote>
+<p>Active Gentoo developers who are not members of the Foundation may
+apply for membership.  Any developer applying for membership
+in the Foundation will become a member of the Foundation immediately
+after the next Trustee meeting following the application unless
+an absolute majority of the trustees (currently 3 out of 5) oppose
+membership for the developer at this meeting.</p>
+<p>Applicants who are not Gentoo developers need to cite verifiable
+evidence of contributing to Gentoo or to the stated aims of the Gentoo
+Foundation Inc.  <a class="footnote-reference brackets" href="#bylaws-20081116" id="id56">52</a></p>
+</blockquote>
+<p>The two following years again form a period of low activity, built
+mostly around Trustee elections.  The silence is broken in January 2011
+by a series of posts by William L. Thomson Jr., apparently summarized
+in his final mail:</p>
+<blockquote>
+<p>Just making a quick list of the items/questions asked buried in a few
+posts in a previous thread. No need to reply till there are answers.
+This is just a list/summary of the items/questions to be answered once
+the internal audit has been completed.</p>
+<p>I am very appreciative and thankful that the trustees will be
+conducting an internal audit. I will patiently away the outcome,
+and answers to the following items/questions.</p>
+<ol class="arabic simple">
+<li><p>State filings, with NMPRC and State Attorney General, bi-annual
+filings with NMPRC, and annual with State Attorney General</p></li>
+<li><p>Federal filings, annual tax return, form 990 (990-N or 990-EZ)</p></li>
+<li><p>Where is the money from the old bank account? When was it
+received/deposited into new account, and how much?</p></li>
+<li><p>What is the cause behind the $9k discrepancy in Q3 2010, and why
+was that not caught sooner, like in 2008 or 2009?
+<a class="footnote-reference brackets" href="#thomson-20110328" id="id57">53</a></p></li>
+</ol>
+</blockquote>
+<p>In November 2011, Matthew Summers indicates that Foundation filings
+are in order.</p>
+<p>By the end of 2012, the topic of copyright is brought again, by Rich
+Freeman <a class="footnote-reference brackets" href="#freeman-20121217" id="id58">55</a>.  This is not the first time Trustees
+debate about copyright.  However, I think it is worth mentioning since
+today's copyright work is based on the draft policy written by Rich.</p>
+<p>Over the following years, the NFP mailing list traffic is low.
+Recurring topics include copyright, logo usage and Social Contract,
+financial reports and elections.</p>
+</div>
+<div class="section" id="the-recent-months">
+<h2><a class="toc-backref" href="#id122">The recent months</a></h2>
+<p>The Foundation activity starts to peak again in October 2016.  Matthew
+Thode opens a discussion on changing the procedure for admission
+of members to include a quiz <a class="footnote-reference brackets" href="#thode-20161013" id="id59">56</a> which does not
+eventually get implemented.  Neither does Robin H. Johnson's proposal
+of admitting developers automatically <a class="footnote-reference brackets" href="#johnson-20161013" id="id60">57</a>.</p>
+<p>On 2016-11-07, Alec Warner proposes merging Gentoo developers and staff
+members into a single Gentoo member type <a class="footnote-reference brackets" href="#warner-20161107" id="id61">58</a>.  This is
+probably the first case in years when Trustees reach outside the direct
+affairs of the Foundation.  In reply, Michael Palimaka points out that:</p>
+<blockquote>
+<p>That is no longer correct - &quot;staffer&quot; is a thing of the past.  These
+days, everyone is a developer whether they work on ebuilds or not.</p>
+<p>[...]</p>
+<p>While I applaud your efforts, the proposal seems to be based
+on an outdated picture of the community.  Additionally, given our
+current metastructure, it's not clear to me how this is even
+a Foundation issue.  <a class="footnote-reference brackets" href="#palimaka-20161109" id="id62">59</a></p>
+</blockquote>
+<p>On 2007-01-05, Matthew Thode proposes:</p>
+<blockquote>
+<p>[...]</p>
+<p>In order to solve this Gentoo needs to have a combined electorate,
+meaning those that would vote for Council would also vote for Trustees
+and visa-versa.  This would ensure that everyone’s needs are
+represented.  We should have a single combined governing body, let’s
+call it ‘The Board’.  This is so that conflicts between Council and
+Trustees (as they exist now) would have a straightforward resolution.
+This new ‘Board’ would be able to use the existing project
+metastructure to delegate roles to various groups (Comrel, Infra, etc
+would still exist, but under this new Board).  <a class="footnote-reference brackets" href="#thode-20170105" id="id63">60</a></p>
+</blockquote>
+<p>This post has started a major discussion on the role of Trustees
+and Council that is still running today, as well of the purpose
+of the Foundation.  It brought many replies, counter-proposals
+and reiterations.  Since the process is far from finished, I will
+not be getting into details.</p>
+<p>The last fact to mention is that on 2017-06-19 Bylaws have been changed
+again, to add the following requirement for Trustee candidates:</p>
+<blockquote>
+<p>Candidates standing for election must be active Gentoo Developers
+as of the record date (Effective 2017/07/04).  <a class="footnote-reference brackets" href="#bylaws-20170619" id="id64">61</a></p>
+</blockquote>
+</div>
+<div class="section" id="trustee-elections">
+<h2><a class="toc-backref" href="#id123">Trustee elections</a></h2>
+<p>While the first Board of Trustees has been explicitly appointed
+by Daniel Robbins, the subsequent Boards are subject to elections.
+The elections occur annually, and consist of nomination phase followed
+by voting.  The votes are counted using Schulze method (which is one
+of the Condorcet methods).</p>
+<p>The electorate consists of all Foundation members.  Originally,
+the membership was offered to all project members who were Gentoo
+developers for at least one year.  By October 2008, this was changed to
+allow all Gentoo developers (without the one year limit)
+and non-developers who have contributed to Gentoo. According to
+pre-2008 Bylaws and traditionally past that, Foundation membership
+is terminated after not voting in two consecutive Trustee elections.</p>
+<p>At first, all Foundation members could have been nominated.  The 2008
+Bylaws change therefore implied opening Trustee nominations
+to non-developer Foundation members.  This was changed again in 2017,
+restricting Trustee candidates to active Gentoo developers.  Since 2008,
+the Bylaws have explicitly forbidden a single individual from being
+a Trustee and a Council member simultaneously.</p>
+<p>The first election, held in 2005 resulted in 13 Trustees being elected.
+7 of them were reelected from the original Board.  Upon the failure
+of 2006 nominations, the Board was reduced to 5 Trustees, and their term
+was ratified to the period of two elections.  Starting next year, half
+of the Board was supposed to be rotated annually.  However, in reality
+this did not start happening until 2009.  Afterwards, in a few cases
+Trustees served for three years without reelection.</p>
+<p>The popularity of Trustee elections fluctuated over the years.  As you
+can see in the table, only some of the elections actually involved
+voting.  Three of them (if we skip the one which was restarted) were
+limited to the nominations phase, as they did not bring enough nominees
+to dispute any of the seats.  The 2007 election brought so few
+candidates that the Board did not change at all.</p>
+<p>Besides annual elections, Trustee seats were subject to mid-term
+resignations.  Those seats were filled by vote among the remaining
+Trustees.  There were three kinds of candidates selected this way:</p>
+<ul class="simple">
+<li><p>highest-ranked candidates which did not make it to the Board during
+the previous election (<em>H</em> in the table),</p></li>
+<li><p>Foundation officers at the time (<em>O</em> in the table),</p></li>
+<li><p>Gentoo developers replying to open recruitment notices
+(<em>R</em> in the table).</p></li>
+</ul>
+<p>Nevertheless, the Trustee Board historically had empty seats during
+the 2006-2008 period, and the second half of the 2008/09 term.</p>
+<p>The Trustee elections certainly had a democratic bit to them.  However,
+they have a few weaknesses.  Those are:</p>
+<ol class="arabic simple">
+<li><p>Lacking a mechanism to veto a nominee, especially in case there
+are too few to hold an election.</p></li>
+<li><p>Explicitly allowing arbitrary Trustee selection in case of vacant
+seat.</p></li>
+<li><p>Giving Trustees arbitrary, direct control over their electorate.</p></li>
+</ol>
+<p>The first argument was already raised during the first 2006 election
+where all nominees were to be appointed Trustees without a vote due
+to lack of candidates.  Ciaran McCreesh already tipped a solution back
+then:</p>
+<blockquote>
+<p>A Debian-style &quot;reopen nominations&quot; option with a vote would make more
+sense...  <a class="footnote-reference brackets" href="#mccreesh-20060905" id="id65">68</a></p>
+</blockquote>
+<p>However, this proposal has never been considered seriously until I
+proposed a more complete scheme that combined it with fallbacks that
+accounted for the apparent necessities of the existing system
+and provided an accurate timeline <a class="footnote-reference brackets" href="#gorny-20180418" id="id66">69</a>.  This proposal
+has been accepted during May 2018 Trustee meeting and hopefully will
+be used during the election following it.</p>
+<p>The second point can't be solved that easily.  As some of the Trustees
+point out, it is important to avoid long-term vacancies in the Board.
+Therefore, Trustees will continue to appoint replacement for resigning
+Trustees and hold power to appoint new Trustees in case of vacant seats.
+On the plus side, those nominations are usually based on the previous
+elections, so they end up being at least partially democratic.</p>
+<p>The third point is specific to the simple structure of the Foundation.
+At the moment, Trustees both approve (or reject) member applications,
+and (via post-2008 Bylaws) determine the criteria for loss of interest
+which influence membership terminations.</p>
+</div>
+<div class="section" id="finding-the-trustees">
+<h2><a class="toc-backref" href="#id124">Finding the Trustees</a></h2>
+<p>The previous section was focused on the theoretical side and examples
+of Trustee elections.  Now it's time to say how I've managed to obtain
+the results that can be seen in the table, what data sources did I use
+and what that choice implies.</p>
+<p>My first idea was to use the results provided by the Elections project
+<a class="footnote-reference brackets" href="#trustee-election-results" id="id67">62</a>.  However, this included only the results
+for the three most recent elections, and full Board member lists only
+for two of them.  By looking at the git repository <a class="footnote-reference brackets" href="#election-git" id="id68">63</a>
+or the historical CVS repository <a class="footnote-reference brackets" href="#trustee-election-cvs" id="id69">64</a>, I could
+obtain some more data but it would still not be sufficient to form
+a full view.</p>
+<p>My second idea was to use the Foundation website history.  However,
+the effort of checking both the Wiki page history <a class="footnote-reference brackets" href="#foundation-wiki" id="id70">65</a>
+and the historical GuideXML page history <a class="footnote-reference brackets" href="#foundation-guidexml" id="id71">66</a> only
+revealed more issues than it solved.  Not only was the data limited
+to changes in the Board with little to no explanation but also some
+of the delays and partial updates made the data confusing (e.g. Roy
+Bamford has been listed as a Board member for 3 months after new Trustee
+was added).</p>
+<p>Nevertheless, the website history helped me a great deal as a secondary
+information source which I consulted to confirm my results and establish
+the approximate dates needed to find evidence of Board changes.</p>
+<p>The third and final source of information were the Foundation mailing
+lists.  Roy Bamford helped me greatly by suggesting to look into
+the election announcement mails that indicated which Trustees were being
+replaced by rotation.  At this point, the painstaking work started.
+With each election representing a time point, the election results mail
+established part of the Trustees past this point, while the election
+announcement established part of the Trustees before this point who
+finished their term.</p>
+<p>This approach did not work reliably for all the terms though.  Mid-term
+Trustee changes and Trustees serving three terms made the data
+inconsistent, and confused me thoroughly.  However, with the help
+of recollections of past Trustees combined with thorough search over
+mailing list archives and comparison with website changes, I was
+eventually able to establish the historical Board members and their
+approximate terms.</p>
+<p>Two periods posed the biggest problems to me: the 2006-2008 period,
+and the 2014-2016 period.  In the first case, the limited data confused
+me deeply.  I was able to find the 2006/07 election announcement,
+the two resignations and the replacements.  However, I wasn't able to
+find anything complete on the 2007/08 election.  Only after being
+pointed to Grant Goodyear's 2008 status mail <a class="footnote-reference brackets" href="#goodyear-20080119" id="id72">46</a>,
+I was able to establish the state of affairs by the end of 2007/08 term.
+The period in between is still marked as ‘missing data’.</p>
+<p>In the case of 2014-2016, the data I've collected simply did not fit.
+I've requested help on the Foundation mailing list <a class="footnote-reference brackets" href="#gorny-20180517" id="id73">67</a>.
+It turned out that my problem consisted of two successive cases
+of three-year term combined with mid-term resignation.</p>
+<p>Once I had a complete table of Trustees, the remaining task was to
+establish how they were elected.  Based on the election mails, I was
+able to distinguish full elections from nomination-only elections.
+For mid-term replacements, the combination of meeting logs, election
+mails, other mails and site logs led me to determine the most likely
+reasons why a particular individual was selected.</p>
+<p>Lastly, I would like to list one more source of information: meeting
+logs.  While working on the Council member lists, I was able to use
+their meeting logs to successfully verify the Council members throughout
+the term.  Sadly, the Trustee logs were far from helpful.  Neither
+the summaries (which rarely contain any useful information, and look
+more like agenda), nor their metadata contained the list of attendees.
+Even worse, the roll calls during the meetings were hardly readable
+and did not really distinguish current Trustees from other attendees who
+decided to ‘wave’ their hands along with them.</p>
+</div>
+<div class="section" id="id74">
+<h2><a class="toc-backref" href="#id125">Conclusion</a></h2>
+<p>The Gentoo Foundation has been formed in 2004 to provide
+a not-for-profit entity to hold Gentoo copyright and trademarks, process
+financials and handle all other legal aspects of Gentoo's existence.
+Since then, it had its ups and downs.</p>
+<p>They had to face a number of problems, starting with the periodic lack
+of interest in Trustee positions and limited interest of third parties
+in helping Gentoo.  They have reached to umbrella organizations more
+than once but without success <a class="footnote-reference brackets" href="#goodyear-20070926" id="id75">44</a>.</p>
+<p>They had to handle accounting, and sometimes deal with the problems left
+over by their predecessors <a class="footnote-reference brackets" href="#thomson-20110328" id="id76">53</a>.  They had to deal with
+legal and IRS filings.  The former has already caused them trouble
+<a class="footnote-reference brackets" href="#goodyear-20080119" id="id77">46</a>, the latter is still not completely solved
+as of today <a class="footnote-reference brackets" href="#joint-meeting-20180120" id="id78">70</a>.</p>
+<p>Historically, Trustees were handling issues directly related to
+the legal and financial support of Gentoo.  This included such topics
+as copyright issues (which are handled by a dedicated team today),
+trademarks, donations and spendings.  However, recently Trustees
+started showing interest in gaining influence over wider aspects
+of Gentoo, with proposals going as far as to change the metastructure
+<a class="footnote-reference brackets" href="#thode-20170105" id="id79">60</a>.</p>
+<p>The Trustees have once again reached the peak on the timeline of their
+activity.  Gentoo is at an interesting point, and it is hard to predict
+what the future might bring.  Hopefully, all the most important problems
+will be solved during this year, though unlikely before the next Trustee
+elections.</p>
+</div>
+</div>
+<div class="section" id="gentoo-council">
+<h1><a class="toc-backref" href="#id126">Gentoo Council</a></h1>
+<div class="section" id="the-metastructure-debate">
+<h2><a class="toc-backref" href="#id127">The metastructure debate</a></h2>
+<p>The history of Gentoo Council begins in 2005.  It being with a poll
+on changing the Gentoo metastructure as posted on 2005-06-08
+<a class="footnote-reference brackets" href="#metastructure-vote" id="id80">71</a>.  Sadly, it seems that all the discussion leading
+up to the vote was kept private.  However, we have been able to extract
+the proposals put up for vote and Ulrich Müller has prepared a MediaWiki
+conversion of their texts.  The proposals put up for vote were:</p>
+<ul class="simple">
+<li><p>The “FOSDEM” proposal, splitting projects into 7 groups, requiring
+quarterly project reports and manager meetings with one representative
+from each project <a class="footnote-reference brackets" href="#metastructure-fosdem" id="id81">72</a>.</p></li>
+<li><p>Thierry Carrez' “Alternative” proposal, also splitting projects
+into groups, with project-level meetings, group-level meetings
+of project leads, top-level meetings of project group secretaries
+and obligatory GLEPs for every global change
+<a class="footnote-reference brackets" href="#metastructure-alternative" id="id82">73</a>.</p></li>
+<li><p>Grant Goodyear's “Oldschool” proposal with non-grouped projects
+and a small Council (7-13 members) <a class="footnote-reference brackets" href="#metastructure-oldschool" id="id83">74</a>.</p></li>
+<li><p>Grant Goodyear's “Oldschool” proposal with a large Council
+(e.g. ~10% of developers) <a class="footnote-reference brackets" href="#metastructure-oldschool" id="id84">74</a>.</p></li>
+<li><p>Ciaran McCreesh's proposals combining both “Oldschool” proposals
+with “boot for being a slacker” <a class="footnote-reference brackets" href="#metastructure-oldschool" id="id85">74</a>
+<a class="footnote-reference brackets" href="#metastructure-slacker-boot" id="id86">75</a>.</p></li>
+<li><p>Keeping the GLEP 4 metastructure <a class="footnote-reference brackets" href="#glep4" id="id87">2</a>.</p></li>
+<li><p>Jason Stubb's “task force” proposal, combining the GLEP 4
+metastructure with a non-voting, top-level Task Force to “document
+and improve all structure, policies and procedures.”
+<a class="footnote-reference brackets" href="#metastructure-taskforce" id="id88">76</a></p></li>
+</ul>
+<p>The vote results have been announced on 2005-06-14.  The “Oldschool”
+proposal with “boot for being a slacker” and a small Council won
+<a class="footnote-reference brackets" href="#metastructure-vote-results" id="id89">19</a>.  The final version of the proposal has
+been codified into GLEP 39.  It describes the Council the following way:</p>
+<blockquote>
+<p>[...]</p>
+<ol class="upperalpha simple" start="2">
+<li><p>Global issues will be decided by an elected Gentoo council.</p>
+<ul class="simple">
+<li><p>There will be a set number of council members.  (For the
+first election that number was set to 7 by acclamation.)</p></li>
+<li><p>Council members will be chosen by a general election of all
+devs once per year.</p></li>
+<li><p>The council must hold an open meeting at least once per month.</p></li>
+<li><p>Council decisions are by majority vote of those who show up (or
+their proxies).</p></li>
+<li><p>[...]</p></li>
+<li><p>Disciplinary actions may be appealed to the council.</p></li>
+</ul>
+</li>
+</ol>
+<p><a class="footnote-reference brackets" href="#glep39" id="id90">20</a></p>
+</blockquote>
+<p>The first Council meeting was held on 2005-09-15 <a class="footnote-reference brackets" href="#council-meeting-1" id="id91">22</a>.</p>
+</div>
+<div class="section" id="council-elections">
+<h2><a class="toc-backref" href="#id128">Council elections</a></h2>
+<p>The nominations for the first Council do not seem to have been public.
+Apparently, the voting was open throughout August 2005, and the results
+were published on 2005-09-01 <a class="footnote-reference brackets" href="#council-results-1" id="id92">21</a>.  However, in 2006
+the nominations were already public <a class="footnote-reference brackets" href="#council-nominations-2006" id="id93">77</a>.</p>
+<p>The same model as for Trustee elections is used.  The elections occur
+anually, and the Council term lasts a year.  The elections consist of
+a nomination period, followed by vote.  Votes are counted using
+Schulze method.</p>
+<p>The electorate includes all active Gentoo developers, and only Gentoo
+developers can serve on the Council.  New Gentoo developers are admitted
+through Recruiters project.  The developer status can be terminated
+by Undertakers project because of inactivity, or by Community Relations
+project as a disciplinary action (historically, both those functions
+were handled by Developer Relations).</p>
+<p>When a Council seat was vacated throughout the term, the Council members
+either have voted on accepting the next highest-ranked candidate from
+the previous election, or ran an election for the missing seat.  GLEP 39
+explicitly specifies procedures for removing inactive Council members
+and reelecting the Council when a meeting does not reach the quorum
+of 50% <a class="footnote-reference brackets" href="#glep39" id="id94">20</a>.  Of these procedures, to this day the former has been
+used exactly once (2009-12).</p>
+<p>The _reopen_nominations option has been introduced during the second
+elections of 2008 (for the missing seat):</p>
+<blockquote>
+<p>An important point in this election is the new <em>_reopen_nominations</em>
+candidate.  If this candidate ranks over all other candidates,
+the election will be reopened.  Any candidate that ranks below this
+candidate won't be taken into account if there's a need to replace any
+member of the council until the end of term.
+<a class="footnote-reference brackets" href="#council-nominations-2008b" id="id95">78</a></p>
+</blockquote>
+<p>This finalized the Council election model as it is still used today.
+Let's look at the same aspects that I've listed as problems in Trustee
+elections:</p>
+<ol class="arabic simple">
+<li><p>Council elections <em>do</em> provide a way to veto a candidate.  If his
+name is voted below _reopen_nominations, he will not take the seat.</p></li>
+<li><p>The Council members have been appointing members for mid-term vacant
+seats.  Only in two of the cases an election has been held.</p></li>
+<li><p>The Council <em>does not</em> directly manage its electorate.  This is done
+by separate privileged team.  However, the Council <em>does</em> have
+indirect influence via serving as the appeal court for disciplinary
+actions.  There is also no limitation in Council members doubling
+as members of those teams.</p></li>
+</ol>
+<p>The Council elections seem to be more democratic than Trustee elections
+then.  The problem of vetoing a candidate has been solved there in 2008
+already, and the wider structure reduced the Council's control
+of electorate.</p>
+</div>
+<div class="section" id="important-points-in-council-history">
+<h2><a class="toc-backref" href="#id129">Important points in Council history</a></h2>
+<p>The history of Gentoo Council is not as interesting as the history
+of Trustees.  During all the past years, the Council has been deciding
+on technical and management aspects of Gentoo, reviewing GLEPs,
+approving EAPIs, serving as a final court for technical disputes
+and an appeal court for disciplinary actions.</p>
+<p>Andreas K. Hüttel has compiled the past Council meeting summaries
+into a single PDF document <a class="footnote-reference brackets" href="#council-decisions" id="id96">79</a>.  Nevertheless, I'm
+going to note a few events that had affected Gentoo long-term.</p>
+<dl class="simple">
+<dt>2006-01-12</dt>
+<dd><p>Council members are forbidden to act as proxies for other Council
+members <a class="footnote-reference brackets" href="#council-20060112" id="id97">80</a>.  GLEP 39 is updated appropriately
+<a class="footnote-reference brackets" href="#glep39-20060209" id="id98">81</a>.</p>
+</dd>
+<dt>2007-03-15</dt>
+<dd><p>The first version of Gentoo Code of Conduct is approved
+<a class="footnote-reference brackets" href="#council-20070315" id="id99">82</a>.</p>
+</dd>
+<dt>2007-06-14</dt>
+<dd><p>gentoo-project mailing list is introduced, originally as unmoderated
+alternative to gentoo-dev <a class="footnote-reference brackets" href="#council-20070614" id="id100">83</a>.</p>
+</dd>
+<dt>2007-10-11</dt>
+<dd><p>GLEP 39 is amended to require a request-for-comments from every new
+project <a class="footnote-reference brackets" href="#council-20071011" id="id101">84</a> <a class="footnote-reference brackets" href="#glep39-20071012" id="id102">85</a>.</p>
+</dd>
+<dt>2008-09-11</dt>
+<dd><p>PMS/EAPI 0 is approved <a class="footnote-reference brackets" href="#council-20080911" id="id103">86</a>.</p>
+</dd>
+<dt>2010-08-09</dt>
+<dd><p>gentoo-council mailing list is disbanded, in favor of gentoo-project
+<a class="footnote-reference brackets" href="#council-20100809" id="id104">87</a>.</p>
+</dd>
+<dt>2014-01-19</dt>
+<dd><p>GLEP 39 is amended to account for project pages being migrated to Wiki
+<a class="footnote-reference brackets" href="#glep39-20140119" id="id105">88</a>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="establishing-council-members">
+<h2><a class="toc-backref" href="#id130">Establishing Council members</a></h2>
+<p>I have to say that of all management bodies considered, establishing
+the Council members was the easiest task so far.  Thanks to single-year
+terms combined with yearly elections, I was able to assemble most
+of the table based on the published Council election results
+<a class="footnote-reference brackets" href="#council-election-results" id="id106">89</a> <a class="footnote-reference brackets" href="#council-election-cvs" id="id107">90</a>.</p>
+<p>The Council meeting logs page includes summaries of all Council meetings
+along with list of participants (Council members at the time)
+<a class="footnote-reference brackets" href="#council-meeting-logs" id="id108">91</a>.  Using this list, I have verified my earlier
+results and established all the remaining mid-term seat changes,
+the latter confirmed by actual meeting logs.</p>
+<p>That's all.  I have easily assembled the complete list, and verified
+each row with two sources.</p>
+</div>
+<div class="section" id="id109">
+<h2><a class="toc-backref" href="#id131">Conclusion</a></h2>
+<p>The Gentoo Council has been formed in 2005 as a part of new
+metastructure.  It represents a shift from a hierarchical structure
+where global decisions were made by privileged top-level project leads
+to a system where Council is formed independently of project management,
+and creating new projects is trivial.</p>
+<p>The Council has dealt with many global issues, both technical
+and social in nature.  It has been reviewing and approving various
+proposals, including GLEPs, EAPIs (final approval) and other community
+requests.  It has been asked multiple times to resolve technical
+conflicts, override project decisions and review disciplinary actions.
+However, it has never interfered with the Foundation affairs.</p>
+<p>The majority of issues brought to the Council were technical in nature,
+and that may have brought some developers to believe that the Council
+is limited to deciding on technical issues.  In many cases, the requests
+for the Council (that were not appeals) overlapped with the scope
+of other projects in Gentoo, most notably Quality Assurance team.</p>
+<p>The -nfp proposals of 2017 <a class="footnote-reference brackets" href="#thode-20170105" id="id110">60</a> have started a new
+discussion about the role of the Council in Gentoo.  It is possible that
+the developers will eventually have to revisit the Gentoo metastructure
+and reconsider the relation between Gentoo Foundation and Gentoo
+developers.</p>
+</div>
+</div>
+<div class="section" id="the-split-of-responsibilities">
+<h1><a class="toc-backref" href="#id132">The split of responsibilities</a></h1>
+<p>The following table tries to graphically summarize the split
+of responsibilities between the business and the community part
+of Gentoo in its history.</p>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 23%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr><th class="head"><p>Term</p></th>
+<th class="head" colspan="4"><p>Business</p></th>
+<th class="head" colspan="5"><p>Community</p></th>
+</tr>
+</thead>
+<tbody>
+<tr><td rowspan="2"><p>-2004</p></td>
+<td rowspan="2"></td>
+<td colspan="3"><p>Gentoo
+Technologies
+(president)</p></td>
+<td colspan="2"><p>Chief
+Architect</p></td>
+<td colspan="3"><p>Managers</p></td>
+</tr>
+<tr><td colspan="5"><p>Daniel Robbins</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+</tr>
+<tr><td rowspan="2"><p>2004
+/05</p></td>
+<td><p>Gentoo
+Technologies
+(president)</p></td>
+<td colspan="3"><p>Gentoo
+Foundation
+(Trustees)</p></td>
+<td colspan="5"><p>Managers</p></td>
+</tr>
+<tr><td><p>D Robbins</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+</tr>
+<tr><td rowspan="3"><p>2005-</p></td>
+<td rowspan="3"></td>
+<td colspan="3"><p>Gentoo
+Foundation</p></td>
+<td colspan="5" rowspan="2"><p>Council</p></td>
+</tr>
+<tr><td colspan="3"><p>Trustees</p></td>
+</tr>
+<tr><td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+<td><p>...</p></td>
+</tr>
+</tbody>
+</table>
+<p>It all started with Daniel Robbins who run both the business
+and the community side of Gentoo.  The business part was originally
+dealt with by Gentoo Technologies, Inc.</p>
+<p>Over time, the community part grew and individual developers were
+growing influence on the project.  Apparently, some of them had major
+influence even before GLEP 4 was ratified.  Nevertheless, GLEP 4
+provides the first visible metastructure, with a management team
+consisting of a Chief Architect and a number of Managers.  At this
+point, Daniel Robbins is the link between business and community part
+of Gentoo, a personal union between the two worlds.</p>
+<p>The year 2004 brings two significant changes.  Firstly, Daniel Robbins
+resigns from his position of Chief Architect (and a future Trustee
+seat).  Secondly, Gentoo Foundation is formed to take over business part
+of Gentoo.  At this point, many Managers double the seat of a Trustee
+and a Manager, prolonging the personal union.</p>
+<p>The year 2005 finishes the transition from Gentoo Technologies to Gentoo
+Foundation.  By the end of the year, Council is formed to replace
+Managers.  For two terms to come, a few Council members double
+as Trustees.  The union becomes weaker.</p>
+<p>In 2008 there are no common members in both bodies left.  New Foundation
+Bylaws explicitly forbid a single person from simultaneously serving
+both as a Council member and a Trustee.  At this point, the both bodies
+start going their separate ways.</p>
+<p>While the early double-role of Daniel Robbins may have made the split
+of responsibilities blurry, it was clearly visible since the inception
+of Trustees.  Even with the shared members, both groups worked
+independently — Trustees on setting up the legal and financial backing
+of Gentoo, Council on solving the problems of the distribution and its
+community.</p>
+<p>The split between the business and community part probably became more
+distinct due to Foundation having a separate member list.  Over time,
+developers not interested in the business affairs of Gentoo have stopped
+joining the Foundation.  Since 2008, the Foundation also started
+admitting non-developer members which further diverged the member lists.</p>
+<p>I have done a rough count of Foundation members by the end of April
+2018.  To obtain more realistic numbers, I have assumed developer
+retirements in progress to be already complete, as well as queued
+Foundation member removals due to non-voting.  Out of 199 active
+developers 72 were Foundation members (which accounts for approximately
+36%).  At the same time, the Foundation had 5 non-developer members,
+and 4 members that were recently retired developers (and who therefore
+may no longer be active Foundation members as well).</p>
+</div>
+<div class="section" id="epilogue">
+<h1><a class="toc-backref" href="#id133">Epilogue</a></h1>
+<p>This article started with a few simple questions: what was the relation
+between past Council members and Trustees?  How many members did they
+share in the past?  Did Gentoo developers move from Council to Trustees,
+and the other way around?  Those questions gave birth to a table listing
+past Council members and Trustees.</p>
+<p>As I've been collecting the data, more ideas came.  If I already found
+out that some of the Council seats were appointed rather than elected,
+why not include that?  If we have this data for Council, why not include
+it for Trustees as well?  If I have gotten that far already, why
+not include the Managers as well?</p>
+<p>The deeper I've got, the harder it was to obtain the data.  Even if I
+were able to obtain some data, I needed to conduct deeper research
+in order to interpret it correctly.  Finding Trustees forced me to go
+through a lot of mails.  Figuring out Managers practically required me
+to thoroughly research the metastructure at the time.</p>
+<p>Having to find this much data on Top-level Management structure, it
+seemed wasteful not to share it.  This in turn gave birth to this
+article.  The history of Managers inevitably touched the beginnings
+of Gentoo Foundation and the Council.  This naturally lead to extending
+the article to those two management bodies as well, with their stories,
+election specifics and member research details.</p>
+<p>Once the article covered all the distinct bodies, comparisons between
+them were the natural consequence.  After all, I've not only established
+what their similarities and differences were but also in some cases
+traced back the influence between them.</p>
+<p>This is how a table grew into a long article on history of Gentoo
+management.  It started by going in reverse chronological order
+from the newest Council term, then changed into historical research
+going in chronological order from establishing GLEP 4, eventually taking
+a double run over the years of 2003-2018.</p>
+<p>This story tells of the evolution of Gentoo project.  It started with
+the growth of Gentoo developers' influence in the project.  The original
+Gentoo Technologies company has been replaced by a not-for-profit run
+entirely by the community.  The original top-level management structure
+has been replaced with a Council elected among the developers.
+The original personal union between business and community sphere
+of Gentoo has been replaced by a bond of partnership.</p>
+<p>Yet the process is far from finished.  Gentoo is a living body which
+is still looking for ways to evolve.  It has its phases of stagnation
+but it also has peaks of activity ready to dissolve the existing
+metastructure and rebuild it into something new.  Changes are proposed
+every once and then; many of them are forgotten but some of them add
+to Gentoo's history.</p>
+<p>Today's Gentoo organizational structure is the same structure
+established in 2008, which in turn is the structure from 2005 with small
+changes.  Tomorrow's Gentoo may have a ‘structure from 2008 with small
+changes’, or it may be something completely different.  The only way
+to find out is to wait and see.</p>
+</div>
+<div class="section" id="thanks">
+<h1><a class="toc-backref" href="#id134">Thanks</a></h1>
+<p>I would like to thank the following people who have contributed to this
+article through providing me with additional data and helping
+to understand the data I already had:</p>
+<ul class="simple">
+<li><p>David Abbott,</p></li>
+<li><p>Roy Bamford,</p></li>
+<li><p>Andreas K. Hüttel,</p></li>
+<li><p>Robin H. Johnson,</p></li>
+<li><p>Ulrich Müller,</p></li>
+<li><p>Alec Warner.</p></li>
+</ul>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id135">References</a></h1>
+<dl class="footnote brackets">
+<dt class="label" id="management-table"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Michał Górny, Gentoo management over time
+(<a class="reference external" href="https://dev.gentoo.org/~mgorny/articles/gentoo-management.html">https://dev.gentoo.org/~mgorny/articles/gentoo-management.html</a>)</p>
+</dd>
+<dt class="label" id="glep4"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id87">2</a>)</span></dt>
+<dd><p>Daniel Robbins, GLEP 4: Gentoo top-level management
+structure proposal
+(<a class="reference external" href="https://www.gentoo.org/glep/glep-0004.html">https://www.gentoo.org/glep/glep-0004.html</a>)</p>
+</dd>
+<dt class="label" id="projects-static"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/metastructure/projects.xml r1.1
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/metastructure/projects.xml?revision=1.1&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/metastructure/projects.xml?revision=1.1&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="projects-archive"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Gentoo metastructure project (archived 2005-03-08)
+(<a class="reference external" href="https://web.archive.org/web/20050308032336/http://www.gentoo.org:80/proj/en/metastructure/oldprojects.xml">https://web.archive.org/web/20050308032336/http://www.gentoo.org:80/proj/en/metastructure/oldprojects.xml</a>)</p>
+</dd>
+<dt class="label" id="projects-dynamic"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/metastructure/gentoo.xml
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/metastructure/gentoo.xml?view=log">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/metastructure/gentoo.xml?view=log</a>)</p>
+</dd>
+<dt class="label" id="projects-alltlp"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/metastructure/gentoo.xml r1.7
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/metastructure/gentoo.xml?revision=1.7&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/metastructure/gentoo.xml?revision=1.7&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="projects-allmanagers"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/metastructure/gentoo.xml r1.8
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/metastructure/gentoo.xml?revision=1.8&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/metastructure/gentoo.xml?revision=1.8&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="robbins-20030625"><span class="brackets">8</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id24">2</a>)</span></dt>
+<dd><p>Daniel Robbins, [gentoo-dev] Re: [gentoo-core]
+<em>IMPORTANT</em> top-level management structure!
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/d36ceb1de1368999332ab2840f409abc">https://archives.gentoo.org/gentoo-dev/message/d36ceb1de1368999332ab2840f409abc</a>)</p>
+</dd>
+<dt class="label" id="robbins-20030625-2"><span class="brackets">9</span><span class="fn-backref">(<a href="#id25">1</a>,<a href="#id26">2</a>)</span></dt>
+<dd><p>Daniel Robbins, [gentoo-dev] [<a class="reference external" href="mailto:drobbins&#64;gentoo.org">drobbins&#64;gentoo.org</a>:
+Re: [gentoo-core] <em>IMPORTANT</em> top-level management structure!]
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/e6413db7da2f79999d536700b6324526">https://archives.gentoo.org/gentoo-dev/message/e6413db7da2f79999d536700b6324526</a>)</p>
+</dd>
+<dt class="label" id="hardened"><span class="brackets"><a class="fn-backref" href="#id9">10</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/hardened/index.xml r1.12
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/hardened/index.xml?revision=1.12&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/hardened/index.xml?revision=1.12&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="managers-20031215"><span class="brackets"><a class="fn-backref" href="#id11">11</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/devrel/manager-meetings/summaries/2003/20031215.xml r1.2
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/devrel/manager-meetings/summaries/2003/20031215.xml?hideattic=0&amp;revision=1.2&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/devrel/manager-meetings/summaries/2003/20031215.xml?hideattic=0&amp;revision=1.2&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="robbins-20030715"><span class="brackets"><a class="fn-backref" href="#id10">12</a></span></dt>
+<dd><p>Re: [gentoo-dev] Gentoo part III?
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/65d46d9e7f4514275f5b3154db124a17">https://archives.gentoo.org/gentoo-dev/message/65d46d9e7f4514275f5b3154db124a17</a>)</p>
+</dd>
+<dt class="label" id="gwn-20040517"><span class="brackets"><a class="fn-backref" href="#id12">13</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/news/en/gwn/20040517-newsletter.txt r1.1
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/news/en/gwn/20040517-newsletter.txt?revision=1.1&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/news/en/gwn/20040517-newsletter.txt?revision=1.1&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="davis-20030715"><span class="brackets"><a class="fn-backref" href="#id13">14</a></span></dt>
+<dd><p>John Davis, [gentoo-dev] Gentoo part II.
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/08a3ede681aa313dcda6b22b5bfdd810">https://archives.gentoo.org/gentoo-dev/message/08a3ede681aa313dcda6b22b5bfdd810</a>)</p>
+</dd>
+<dt class="label" id="manager-meeting-logs"><span class="brackets"><a class="fn-backref" href="#id14">15</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/devrel/manager-meetings
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/devrel/manager-meetings/?hideattic=0">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/devrel/manager-meetings/?hideattic=0</a>)</p>
+</dd>
+<dt class="label" id="gwn"><span class="brackets"><a class="fn-backref" href="#id15">16</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/news/en/gwn
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/news/en/gwn/">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/news/en/gwn/</a>)</p>
+</dd>
+<dt class="label" id="de-vrieze-20031119"><span class="brackets"><a class="fn-backref" href="#id16">17</a></span></dt>
+<dd><p>Paul de Vrieze, Re: [gentoo-dev] Gentoo
+internal structure
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/f37e321b1b6ec588de4d07e00f6d75c2">https://archives.gentoo.org/gentoo-dev/message/f37e321b1b6ec588de4d07e00f6d75c2</a>)</p>
+</dd>
+<dt class="label" id="robbins-resignation"><span class="brackets"><a class="fn-backref" href="#id17">18</a></span></dt>
+<dd><p>Daniel Robbins, [gentoo-nfp] Resigning from development role
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/49f3cb71da20ee1eced4915c315fa8a2">https://archives.gentoo.org/gentoo-nfp/message/49f3cb71da20ee1eced4915c315fa8a2</a>)</p>
+</dd>
+<dt class="label" id="metastructure-vote-results"><span class="brackets">19</span><span class="fn-backref">(<a href="#id18">1</a>,<a href="#id89">2</a>)</span></dt>
+<dd><p>[gentoo-dev] Metastructure vote preliminary results
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/f5ab9ccca62a5d5e0b7b7ab0156f19b3">https://archives.gentoo.org/gentoo-dev/message/f5ab9ccca62a5d5e0b7b7ab0156f19b3</a>)</p>
+</dd>
+<dt class="label" id="glep39"><span class="brackets">20</span><span class="fn-backref">(<a href="#id19">1</a>,<a href="#id90">2</a>,<a href="#id94">3</a>)</span></dt>
+<dd><p>Grant Goodyear, Ciaran McCreesh, GLEP 39: An &quot;old-school&quot;
+metastructure proposal with &quot;boot for being a slacker&quot;
+(<a class="reference external" href="https://www.gentoo.org/glep/glep-0039.html">https://www.gentoo.org/glep/glep-0039.html</a>)</p>
+</dd>
+<dt class="label" id="council-results-1"><span class="brackets">21</span><span class="fn-backref">(<a href="#id20">1</a>,<a href="#id92">2</a>)</span></dt>
+<dd><p>[gentoo-dev] Election results
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/3a1042167ebac103b9ffec5261ed6827">https://archives.gentoo.org/gentoo-dev/message/3a1042167ebac103b9ffec5261ed6827</a>)</p>
+</dd>
+<dt class="label" id="council-meeting-1"><span class="brackets">22</span><span class="fn-backref">(<a href="#id21">1</a>,<a href="#id91">2</a>)</span></dt>
+<dd><p>[gentoo-dev] first council meeting
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/5dff5c2606b4c79392c51fd4e49dbeab">https://archives.gentoo.org/gentoo-dev/message/5dff5c2606b4c79392c51fd4e49dbeab</a>)</p>
+</dd>
+<dt class="label" id="managers-removal"><span class="brackets"><a class="fn-backref" href="#id22">23</a></span></dt>
+<dd><p>Diff of /xml/htdocs/proj/en/metastructure/gentoo.xml;
+r1.18 to r1.19
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/metastructure/gentoo.xml?r1=1.18&amp;r2=1.19">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/metastructure/gentoo.xml?r1=1.18&amp;r2=1.19</a>)</p>
+</dd>
+<dt class="label" id="tseng-retirement"><span class="brackets"><a class="fn-backref" href="#id23">24</a></span></dt>
+<dd><p>Retire: Brandon Hale (tseng)
+(<a class="reference external" href="https://bugs.gentoo.org/118218">https://bugs.gentoo.org/118218</a>)</p>
+</dd>
+<dt class="label" id="zynot-reasons-for-forking"><span class="brackets"><a class="fn-backref" href="#id27">25</a></span></dt>
+<dd><p>Zachary T Welch, Reasons for Forking
+A Linux Distribution (archived 2003-07-07)
+(<a class="reference external" href="http://web.archive.org/web/20030707080226/http://www.zynot.org/info/fork.html">http://web.archive.org/web/20030707080226/http://www.zynot.org/info/fork.html</a>)</p>
+</dd>
+<dt class="label" id="robbins-20040416"><span class="brackets"><a class="fn-backref" href="#id28">26</a></span></dt>
+<dd><p>Daniel Robbins, [gentoo-nfp] I met with my lawyer
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/d5c3593a859b319725e2c11192eb87c8">https://archives.gentoo.org/gentoo-nfp/message/d5c3593a859b319725e2c11192eb87c8</a>)</p>
+</dd>
+<dt class="label" id="foundation-aoi"><span class="brackets"><a class="fn-backref" href="#id29">27</a></span></dt>
+<dd><p>Gentoo Foundation Inc., Articles of Incorporation
+(<a class="reference external" href="https://wiki.gentoo.org/wiki/Foundation:Articles_of_Incorporation">https://wiki.gentoo.org/wiki/Foundation:Articles_of_Incorporation</a>)</p>
+</dd>
+<dt class="label" id="vermeulen-20041021"><span class="brackets"><a class="fn-backref" href="#id30">28</a></span></dt>
+<dd><p>Sven Vermeulen, [gentoo-nfp] Status Update
+of the Gentoo Foundation
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/24adbb5301b339663963fa203da51cae">https://archives.gentoo.org/gentoo-nfp/message/24adbb5301b339663963fa203da51cae</a>)</p>
+</dd>
+<dt class="label" id="goodyear-20041201"><span class="brackets"><a class="fn-backref" href="#id31">29</a></span></dt>
+<dd><p>Grant Goodyear, [gentoo-trustees] Re: [PSF-Board]
+Requesting permission to use parts of bylaws for Gentoo
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-trustees/message/ba6b2276db75336eb0023780a659e1a6">https://archives.gentoo.org/gentoo-trustees/message/ba6b2276db75336eb0023780a659e1a6</a>)</p>
+</dd>
+<dt class="label" id="bylaws-draft"><span class="brackets"><a class="fn-backref" href="#id32">30</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/foundation/en/bylaws.xml r1.1
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/foundation/en/bylaws.xml?hideattic=0&amp;revision=1.1&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/foundation/en/bylaws.xml?hideattic=0&amp;revision=1.1&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="goodyear-20050411"><span class="brackets"><a class="fn-backref" href="#id33">31</a></span></dt>
+<dd><p>Grant Goodyear, [gentoo-nfp] Upcoming elections
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/423ad420aabbd6230c98ccdb7684d598">https://archives.gentoo.org/gentoo-nfp/message/423ad420aabbd6230c98ccdb7684d598</a>)</p>
+</dd>
+<dt class="label" id="goodyear-20050416"><span class="brackets"><a class="fn-backref" href="#id34">32</a></span></dt>
+<dd><p>Grant Goodyear, [gentoo-nfp] Foundation
+membership and trustee election.
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/6ea628934ddeff51c44715255d642c35">https://archives.gentoo.org/gentoo-nfp/message/6ea628934ddeff51c44715255d642c35</a>)</p>
+</dd>
+<dt class="label" id="goodyear-20050427"><span class="brackets"><a class="fn-backref" href="#id35">33</a></span></dt>
+<dd><p>Grant Goodyear, [gentoo-nfp] Thoughts
+on upcoming trustee elections
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/74f98cf099bd737e4cb931be978f1f16">https://archives.gentoo.org/gentoo-nfp/message/74f98cf099bd737e4cb931be978f1f16</a>)</p>
+</dd>
+<dt class="label" id="griffis-20050428"><span class="brackets"><a class="fn-backref" href="#id36">34</a></span></dt>
+<dd><p>Aron Griffis, Re: [gentoo-nfp] Thoughts
+on upcoming trustee elections
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/2565c6653b5cf76e55689ffb0f87ddca">https://archives.gentoo.org/gentoo-nfp/message/2565c6653b5cf76e55689ffb0f87ddca</a>)</p>
+</dd>
+<dt class="label" id="goodyear-20050521"><span class="brackets"><a class="fn-backref" href="#id37">35</a></span></dt>
+<dd><p>[gentoo-nfp] Transfer of copyrights and marks
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/0558f4bbba7ff2a666edded0669be724">https://archives.gentoo.org/gentoo-nfp/message/0558f4bbba7ff2a666edded0669be724</a>)</p>
+</dd>
+<dt class="label" id="goodyear-20050914"><span class="brackets"><a class="fn-backref" href="#id38">36</a></span></dt>
+<dd><p>[gentoo-nfp] &quot;Gentoo&quot; registered trademark
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/9b3ed16aa3bbd2135243680a83872d8b">https://archives.gentoo.org/gentoo-nfp/message/9b3ed16aa3bbd2135243680a83872d8b</a>)</p>
+</dd>
+<dt class="label" id="goodyear-20060706"><span class="brackets"><a class="fn-backref" href="#id39">37</a></span></dt>
+<dd><p>Grant Goodyear, [gentoo-nfp] Re: [gentoo-core]
+Nominations?
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/e0f33eb9579f0083dda1abe0e69cc844">https://archives.gentoo.org/gentoo-nfp/message/e0f33eb9579f0083dda1abe0e69cc844</a>)</p>
+</dd>
+<dt class="label" id="kulleen-20060905"><span class="brackets"><a class="fn-backref" href="#id40">38</a></span></dt>
+<dd><p>[gentoo-dev] Trustees Announcement
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/b6814d46849a6811808509289c6485f7">https://archives.gentoo.org/gentoo-dev/message/b6814d46849a6811808509289c6485f7</a>)</p>
+</dd>
+<dt class="label" id="kulleen-20060923"><span class="brackets"><a class="fn-backref" href="#id41">39</a></span></dt>
+<dd><p>Seemant Kulleen, [gentoo-nfp] Trustee Elections 2006
+(part II)
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/0c7a6bd52a2ba19174caba9c41f72371">https://archives.gentoo.org/gentoo-nfp/message/0c7a6bd52a2ba19174caba9c41f72371</a>)</p>
+</dd>
+<dt class="label" id="goodyear-20061021"><span class="brackets"><a class="fn-backref" href="#id42">40</a></span></dt>
+<dd><p>Grant Goodyear, [gentoo-nfp]
+[<a class="reference external" href="mailto:nattfodd&#64;gentoo.org">nattfodd&#64;gentoo.org</a>: [gentoo-core] Trustees 2006 election results]
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/0504696c146ae3ad92e63f5b810c8353">https://archives.gentoo.org/gentoo-nfp/message/0504696c146ae3ad92e63f5b810c8353</a>)</p>
+</dd>
+<dt class="label" id="kulleen-20061023"><span class="brackets"><a class="fn-backref" href="#id43">41</a></span></dt>
+<dd><p>Seemant Kulleen, [gentoo-nfp] New Trustees
+- My Resignation
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/4cbddb6562e24d579041504c8de27496">https://archives.gentoo.org/gentoo-nfp/message/4cbddb6562e24d579041504c8de27496</a>)</p>
+</dd>
+<dt class="label" id="herbert-20061129"><span class="brackets"><a class="fn-backref" href="#id44">42</a></span></dt>
+<dd><p>Stuart Herbert, [gentoo-nfp] Resignation
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/3da6e0f5eb6869fa08f0530c7897b769">https://archives.gentoo.org/gentoo-nfp/message/3da6e0f5eb6869fa08f0530c7897b769</a>)</p>
+</dd>
+<dt class="label" id="gianelloni-20070731"><span class="brackets"><a class="fn-backref" href="#id45">43</a></span></dt>
+<dd><p>Chris Gianelloni, [gentoo-nfp] Possible scenario
+for '07/'08 Trustees
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/a610308b572886f9e70b2fe6f6a5b6cb">https://archives.gentoo.org/gentoo-nfp/message/a610308b572886f9e70b2fe6f6a5b6cb</a>)</p>
+</dd>
+<dt class="label" id="goodyear-20070926"><span class="brackets">44</span><span class="fn-backref">(<a href="#id46">1</a>,<a href="#id75">2</a>)</span></dt>
+<dd><p>Grant Goodyear, [gentoo-nfp] update
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/4bfe3d934ede38397f108b9d8f4b1321">https://archives.gentoo.org/gentoo-nfp/message/4bfe3d934ede38397f108b9d8f4b1321</a>)</p>
+</dd>
+<dt class="label" id="robbins-20080111"><span class="brackets"><a class="fn-backref" href="#id47">45</a></span></dt>
+<dd><p>Daniel Robbins, And it gets worse...
+(archived 2010-06-08)
+(<a class="reference external" href="http://web.archive.org/web/20100608140450/http://blog.funtoo.org:80/2008/01/and-it-gets-worse.html">http://web.archive.org/web/20100608140450/http://blog.funtoo.org:80/2008/01/and-it-gets-worse.html</a>)</p>
+</dd>
+<dt class="label" id="goodyear-20080119"><span class="brackets">46</span><span class="fn-backref">(<a href="#id48">1</a>,<a href="#id72">2</a>,<a href="#id77">3</a>)</span></dt>
+<dd><p>Grant Goodyear, [gentoo-nfp] Foundation update
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/ef3914ff65576a0578d58634e7811c8e">https://archives.gentoo.org/gentoo-nfp/message/ef3914ff65576a0578d58634e7811c8e</a>)</p>
+</dd>
+<dt class="label" id="vicetto-20080229"><span class="brackets"><a class="fn-backref" href="#id49">47</a></span></dt>
+<dd><p>Jorge Manuel B. S. Vicetto,
+[gentoo-nfp] Fwd: Gentoo Foundation 2008 Elections - Results
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/600696caa6b5ab9744b29a1df8f427be">https://archives.gentoo.org/gentoo-nfp/message/600696caa6b5ab9744b29a1df8f427be</a>)</p>
+</dd>
+<dt class="label" id="thomson-20080513"><span class="brackets"><a class="fn-backref" href="#id50">48</a></span></dt>
+<dd><p>William L. Thomson Jr.,
+[gentoo-nfp] Foundation reinstated
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/d2632d76e6582187bb1816897bb81ffd">https://archives.gentoo.org/gentoo-nfp/message/d2632d76e6582187bb1816897bb81ffd</a>)</p>
+</dd>
+<dt class="label" id="bylaws-20080831"><span class="brackets">49</span><span class="fn-backref">(<a href="#id51">1</a>,<a href="#id53">2</a>,<a href="#id54">3</a>)</span></dt>
+<dd><p>[gentoo] /xml/htdocs/foundation/en/BylawsAdopted.xml r1.1
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/foundation/en/BylawsAdopted.xml?hideattic=0&amp;revision=1.1&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/foundation/en/BylawsAdopted.xml?hideattic=0&amp;revision=1.1&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="trustee-meeting-200808"><span class="brackets"><a class="fn-backref" href="#id52">50</a></span></dt>
+<dd><p>August 2008 Trustee meeting log
+(<a class="reference external" href="https://projects.gentoo.org/foundation/2008/august2008.txt">https://projects.gentoo.org/foundation/2008/august2008.txt</a>)</p>
+</dd>
+<dt class="label" id="summers-20081117"><span class="brackets"><a class="fn-backref" href="#id55">51</a></span></dt>
+<dd><p>Matthew Summers, [gentoo-nfp] Foundation
+Membership Announcement and Application Information
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/57b10a66bb0c3b6b38ed69b852d941e3">https://archives.gentoo.org/gentoo-nfp/message/57b10a66bb0c3b6b38ed69b852d941e3</a>)</p>
+</dd>
+<dt class="label" id="bylaws-20081116"><span class="brackets"><a class="fn-backref" href="#id56">52</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/foundation/en/BylawsAdopted.xml r1.2
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/foundation/en/BylawsAdopted.xml?hideattic=0&amp;revision=1.2&amp;view=markup">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/foundation/en/BylawsAdopted.xml?hideattic=0&amp;revision=1.2&amp;view=markup</a>)</p>
+</dd>
+<dt class="label" id="thomson-20110328"><span class="brackets">53</span><span class="fn-backref">(<a href="#id57">1</a>,<a href="#id76">2</a>)</span></dt>
+<dd><p>William L. Thomson Jr., [gentoo-nfp] List of items
+to be addressed by audit
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/b937891f5b89959d0dc79167fec5ae44">https://archives.gentoo.org/gentoo-nfp/message/b937891f5b89959d0dc79167fec5ae44</a>)</p>
+</dd>
+<dt class="label" id="summers-20111117"><span class="brackets">54</span></dt>
+<dd><p>Matthew Summers, [gentoo-nfp] 2011 NMPRC Filing
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/b1d89cc7b2c13584cd185676a7059193">https://archives.gentoo.org/gentoo-nfp/message/b1d89cc7b2c13584cd185676a7059193</a>)</p>
+</dd>
+<dt class="label" id="freeman-20121217"><span class="brackets"><a class="fn-backref" href="#id58">55</a></span></dt>
+<dd><p>Rich Freeman, [gentoo-nfp] Soliciting Feedback:
+Gentoo Copyright Assignments / Licensing
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/75fe33aaf71d0be9f82aaf1eea9e76cb">https://archives.gentoo.org/gentoo-nfp/message/75fe33aaf71d0be9f82aaf1eea9e76cb</a>)</p>
+</dd>
+<dt class="label" id="thode-20161013"><span class="brackets"><a class="fn-backref" href="#id59">56</a></span></dt>
+<dd><p>Matthew Thode, [gentoo-nfp] Foundation membership
+and who can join
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/775328e1c45fbf410da3cd03c065e2b9">https://archives.gentoo.org/gentoo-nfp/message/775328e1c45fbf410da3cd03c065e2b9</a>)</p>
+</dd>
+<dt class="label" id="johnson-20161013"><span class="brackets"><a class="fn-backref" href="#id60">57</a></span></dt>
+<dd><p>Robin H. Johnson, [gentoo-nfp] Bylaw proposal:
+Amend Section 4.3. Admission of Members: automatic developer membership
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/862113eba01f66bfbba71ec4f5162c5a">https://archives.gentoo.org/gentoo-nfp/message/862113eba01f66bfbba71ec4f5162c5a</a>)</p>
+</dd>
+<dt class="label" id="warner-20161107"><span class="brackets"><a class="fn-backref" href="#id61">58</a></span></dt>
+<dd><p>Alec Warner, [gentoo-nfp] Next meeting; a motion
+to have 1 type of Gentoo member.
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/ef040f14ce54d2ce461eb5ad32400579">https://archives.gentoo.org/gentoo-nfp/message/ef040f14ce54d2ce461eb5ad32400579</a>)</p>
+</dd>
+<dt class="label" id="palimaka-20161109"><span class="brackets"><a class="fn-backref" href="#id62">59</a></span></dt>
+<dd><p>Michael Palimaka, [gentoo-nfp] Re: Next meeting;
+a motion to have 1 type of Gentoo member.
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/eec297a3a7d1803c4579ec10e894822b">https://archives.gentoo.org/gentoo-nfp/message/eec297a3a7d1803c4579ec10e894822b</a>)</p>
+</dd>
+<dt class="label" id="thode-20170105"><span class="brackets">60</span><span class="fn-backref">(<a href="#id63">1</a>,<a href="#id79">2</a>,<a href="#id110">3</a>)</span></dt>
+<dd><p>Matthew Thode, [gentoo-nfp] Merging Trustees
+and Council / Developers and Foundation
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/b094364b1e059218000f9d9c5654297a">https://archives.gentoo.org/gentoo-nfp/message/b094364b1e059218000f9d9c5654297a</a>)</p>
+</dd>
+<dt class="label" id="bylaws-20170619"><span class="brackets"><a class="fn-backref" href="#id64">61</a></span></dt>
+<dd><p>Foundation Bylaws (version from 2017-06-19)
+(<a class="reference external" href="https://wiki.gentoo.org/index.php?title=Foundation:Bylaws&amp;oldid=650466">https://wiki.gentoo.org/index.php?title=Foundation:Bylaws&amp;oldid=650466</a>)</p>
+</dd>
+<dt class="label" id="trustee-election-results"><span class="brackets"><a class="fn-backref" href="#id67">62</a></span></dt>
+<dd><p>Gentoo Trustee elections
+(<a class="reference external" href="https://wiki.gentoo.org/wiki/Project:Elections/Trustees#Gentoo_Trustee_elections_2">https://wiki.gentoo.org/wiki/Project:Elections/Trustees#Gentoo_Trustee_elections_2</a>)</p>
+</dd>
+<dt class="label" id="election-git"><span class="brackets"><a class="fn-backref" href="#id68">63</a></span></dt>
+<dd><p>proj/elections.git: Gentoo Elections control data
+(<a class="reference external" href="https://gitweb.gentoo.org/proj/elections.git/">https://gitweb.gentoo.org/proj/elections.git/</a>)</p>
+</dd>
+<dt class="label" id="trustee-election-cvs"><span class="brackets"><a class="fn-backref" href="#id69">64</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/elections/trustees
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/elections/trustees/">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/elections/trustees/</a>)</p>
+</dd>
+<dt class="label" id="foundation-wiki"><span class="brackets"><a class="fn-backref" href="#id70">65</a></span></dt>
+<dd><p>Foundation:Main Page - Gentoo Wiki
+(https://wiki.gentoo.org/wiki/Foundation:Main_Page)</p>
+</dd>
+<dt class="label" id="foundation-guidexml"><span class="brackets"><a class="fn-backref" href="#id71">66</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/foundation/en/index.xml
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/foundation/en/index.xml?view=log">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/foundation/en/index.xml?view=log</a>)</p>
+</dd>
+<dt class="label" id="gorny-20180517"><span class="brackets"><a class="fn-backref" href="#id73">67</a></span></dt>
+<dd><p>Michał Górny, [gentoo-nfp] Trying to figure out
+Trustee elections 2014-2016
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/6ed8eb7af6a767424af59362d3d05c8e">https://archives.gentoo.org/gentoo-nfp/message/6ed8eb7af6a767424af59362d3d05c8e</a>)</p>
+</dd>
+<dt class="label" id="mccreesh-20060905"><span class="brackets"><a class="fn-backref" href="#id65">68</a></span></dt>
+<dd><p>Ciaran McCreesh, Re: [gentoo-dev] Trustees Announcement
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/83f2db5a36b7abe1b3d004991081041f">https://archives.gentoo.org/gentoo-dev/message/83f2db5a36b7abe1b3d004991081041f</a>)</p>
+</dd>
+<dt class="label" id="gorny-20180418"><span class="brackets"><a class="fn-backref" href="#id66">69</a></span></dt>
+<dd><p>Michał Górny, [gentoo-nfp] New Trustee voting proposal
+(including _reopen_nominations)
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-nfp/message/1cf0c52c0ffd6cad6f914ac46e87a233">https://archives.gentoo.org/gentoo-nfp/message/1cf0c52c0ffd6cad6f914ac46e87a233</a>)</p>
+</dd>
+<dt class="label" id="joint-meeting-20180120"><span class="brackets"><a class="fn-backref" href="#id78">70</a></span></dt>
+<dd><p>Joint Council&amp;Trustee meeting 2018-01-20
+(<a class="reference external" href="https://projects.gentoo.org/council/meeting-logs/20180120.txt">https://projects.gentoo.org/council/meeting-logs/20180120.txt</a>)</p>
+</dd>
+<dt class="label" id="metastructure-vote"><span class="brackets"><a class="fn-backref" href="#id80">71</a></span></dt>
+<dd><p>Daniel Drake, [gentoo-dev] Gentoo metastructure
+reform poll is open
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/889310a392bdc9306ff9a2bffe0e4642">https://archives.gentoo.org/gentoo-dev/message/889310a392bdc9306ff9a2bffe0e4642</a>)</p>
+</dd>
+<dt class="label" id="metastructure-fosdem"><span class="brackets"><a class="fn-backref" href="#id81">72</a></span></dt>
+<dd><p>FOSDEM 2005 Metastructure proposal
+(<a class="reference external" href="https://wiki.gentoo.org/wiki/Project:Council/Metastructure_reform_2005/FOSDEM">https://wiki.gentoo.org/wiki/Project:Council/Metastructure_reform_2005/FOSDEM</a>)</p>
+</dd>
+<dt class="label" id="metastructure-alternative"><span class="brackets"><a class="fn-backref" href="#id82">73</a></span></dt>
+<dd><p>Thierry Carrez, Alternative Metastructure
+proposal
+(<a class="reference external" href="https://wiki.gentoo.org/wiki/Project:Council/Metastructure_reform_2005/Alternative">https://wiki.gentoo.org/wiki/Project:Council/Metastructure_reform_2005/Alternative</a>)</p>
+</dd>
+<dt class="label" id="metastructure-oldschool"><span class="brackets">74</span><span class="fn-backref">(<a href="#id83">1</a>,<a href="#id84">2</a>,<a href="#id85">3</a>)</span></dt>
+<dd><p>Grant Goodyear, An &quot;old-school&quot; metastructure
+proposal
+(<a class="reference external" href="https://wiki.gentoo.org/wiki/Project:Council/Metastructure_reform_2005/Oldschool">https://wiki.gentoo.org/wiki/Project:Council/Metastructure_reform_2005/Oldschool</a>)</p>
+</dd>
+<dt class="label" id="metastructure-slacker-boot"><span class="brackets"><a class="fn-backref" href="#id86">75</a></span></dt>
+<dd><p>Ciaran McCreesh, Re: [gentoo-core] Gentoo
+Metastructure -- Last call for reform proposals / May 30, 23:59 UTC
+(<a class="reference external" href="https://wiki.gentoo.org/wiki/Project:Council/Metastructure_reform_2005/Slacker-boot">https://wiki.gentoo.org/wiki/Project:Council/Metastructure_reform_2005/Slacker-boot</a>)</p>
+</dd>
+<dt class="label" id="metastructure-taskforce"><span class="brackets"><a class="fn-backref" href="#id88">76</a></span></dt>
+<dd><p>Daniel Drake, Re: [gentoo-dev] Gentoo
+metastructure reform poll is open
+(<a class="reference external" href="https://wiki.gentoo.org/wiki/Project:Council/Metastructure_reform_2005/Task-force">https://wiki.gentoo.org/wiki/Project:Council/Metastructure_reform_2005/Task-force</a>)</p>
+</dd>
+<dt class="label" id="council-nominations-2006"><span class="brackets"><a class="fn-backref" href="#id93">77</a></span></dt>
+<dd><p>Mike Frysinger, [gentoo-dev] Nominations
+open for the Gentoo Council 2007
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/aa073f4053fdeffde9f3e4c404a89c6a">https://archives.gentoo.org/gentoo-dev/message/aa073f4053fdeffde9f3e4c404a89c6a</a>)</p>
+</dd>
+<dt class="label" id="council-nominations-2008b"><span class="brackets"><a class="fn-backref" href="#id95">78</a></span></dt>
+<dd><p>Jorge Manuel B. S. Vicetto,
+[gentoo-council] Gentoo Council nominations are now closed
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-council/message/eab0ab605f91e4d1aa196fd5891dd0ec">https://archives.gentoo.org/gentoo-council/message/eab0ab605f91e4d1aa196fd5891dd0ec</a>)</p>
+</dd>
+<dt class="label" id="council-decisions"><span class="brackets"><a class="fn-backref" href="#id96">79</a></span></dt>
+<dd><p>A. K. Hüttel, Council decision and summary overview
+(<a class="reference external" href="https://dev.gentoo.org/~dilfridge/decisions.pdf">https://dev.gentoo.org/~dilfridge/decisions.pdf</a>)</p>
+</dd>
+<dt class="label" id="council-20060112"><span class="brackets"><a class="fn-backref" href="#id97">80</a></span></dt>
+<dd><p>Council meeting log for 2006-01-12
+(<a class="reference external" href="https://projects.gentoo.org/council/meeting-logs/20060112-summary.txt">https://projects.gentoo.org/council/meeting-logs/20060112-summary.txt</a>)</p>
+</dd>
+<dt class="label" id="glep39-20060209"><span class="brackets"><a class="fn-backref" href="#id98">81</a></span></dt>
+<dd><p>data/glep.git, cb52ae71f77de2d1200a696eb7296e69cf657c60
+(<a class="reference external" href="https://gitweb.gentoo.org/data/glep.git/commit/?id=cb52ae71f77de2d1200a696eb7296e69cf657c60">https://gitweb.gentoo.org/data/glep.git/commit/?id=cb52ae71f77de2d1200a696eb7296e69cf657c60</a>)</p>
+</dd>
+<dt class="label" id="council-20070315"><span class="brackets"><a class="fn-backref" href="#id99">82</a></span></dt>
+<dd><p>Council meeting log for 2007-03-15
+(<a class="reference external" href="https://projects.gentoo.org/council/meeting-logs/20070315-summary.txt">https://projects.gentoo.org/council/meeting-logs/20070315-summary.txt</a>)</p>
+</dd>
+<dt class="label" id="council-20070614"><span class="brackets"><a class="fn-backref" href="#id100">83</a></span></dt>
+<dd><p>Council meeting log for 2007-06-14
+(<a class="reference external" href="https://projects.gentoo.org/council/meeting-logs/20070614-summary.txt">https://projects.gentoo.org/council/meeting-logs/20070614-summary.txt</a>)</p>
+</dd>
+<dt class="label" id="council-20071011"><span class="brackets"><a class="fn-backref" href="#id101">84</a></span></dt>
+<dd><p>Council meeting log for 2007-10-11
+(<a class="reference external" href="https://projects.gentoo.org/council/meeting-logs/20071011-summary.txt">https://projects.gentoo.org/council/meeting-logs/20071011-summary.txt</a>)</p>
+</dd>
+<dt class="label" id="glep39-20071012"><span class="brackets"><a class="fn-backref" href="#id102">85</a></span></dt>
+<dd><p>data/glep.git, c82fe1a98c374714f0f178f5543a5dd5fb0c70b0
+(<a class="reference external" href="https://gitweb.gentoo.org/data/glep.git/commit/?id=c82fe1a98c374714f0f178f5543a5dd5fb0c70b0">https://gitweb.gentoo.org/data/glep.git/commit/?id=c82fe1a98c374714f0f178f5543a5dd5fb0c70b0</a>)</p>
+</dd>
+<dt class="label" id="council-20080911"><span class="brackets"><a class="fn-backref" href="#id103">86</a></span></dt>
+<dd><p>Council meeting log for 2008-09-11
+(<a class="reference external" href="https://projects.gentoo.org/council/meeting-logs/20080911-summary.txt">https://projects.gentoo.org/council/meeting-logs/20080911-summary.txt</a>)</p>
+</dd>
+<dt class="label" id="council-20100809"><span class="brackets"><a class="fn-backref" href="#id104">87</a></span></dt>
+<dd><p>Council meeting log for 2010-08-09
+(<a class="reference external" href="https://projects.gentoo.org/council/meeting-logs/20100809-summary.txt">https://projects.gentoo.org/council/meeting-logs/20100809-summary.txt</a>)</p>
+</dd>
+<dt class="label" id="glep39-20140119"><span class="brackets"><a class="fn-backref" href="#id105">88</a></span></dt>
+<dd><p>GLEP 39, Revision as of 2014-01-19T14:50:19
+(<a class="reference external" href="https://wiki.gentoo.org/index.php?title=GLEP:39&amp;oldid=99195">https://wiki.gentoo.org/index.php?title=GLEP:39&amp;oldid=99195</a>)</p>
+</dd>
+<dt class="label" id="council-election-results"><span class="brackets"><a class="fn-backref" href="#id106">89</a></span></dt>
+<dd><p>Gentoo Council elections
+(<a class="reference external" href="https://wiki.gentoo.org/wiki/Project:Elections/Council">https://wiki.gentoo.org/wiki/Project:Elections/Council</a>)</p>
+</dd>
+<dt class="label" id="council-election-cvs"><span class="brackets"><a class="fn-backref" href="#id107">90</a></span></dt>
+<dd><p>[gentoo] /xml/htdocs/proj/en/elections/council
+(<a class="reference external" href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/elections/council/">https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo/xml/htdocs/proj/en/elections/council/</a>)</p>
+</dd>
+<dt class="label" id="council-meeting-logs"><span class="brackets"><a class="fn-backref" href="#id108">91</a></span></dt>
+<dd><p>Council Meeting logs - Gentoo Wiki
+(<a class="reference external" href="https://wiki.gentoo.org/wiki/Project:Council/Meeting_logs">https://wiki.gentoo.org/wiki/Project:Council/Meeting_logs</a>)</p>
+</dd>
+</dl>
+</div>
+</div>
+</body>
+</html>
