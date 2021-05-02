@@ -1,0 +1,118 @@
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Python release and Gentoo packaging timeline</title>
+  </head>
+  <body>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["timeline"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var container = document.getElementById('timeline');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({ type: 'string', id: 'Row' });
+        dataTable.addColumn({ type: 'string', id: 'State' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTable.addRows([
+
+          [ '2.5 upstream', 'α', new Date(2006, 3, 5), new Date(2006, 5, 20) ],
+          [ '2.5 upstream', 'β', new Date(2006, 5, 20), new Date(2006, 7, 17) ],
+          [ '2.5 upstream', 'rc', new Date(2006, 7, 17), new Date(2006, 8, 19) ],
+          [ '2.5 upstream', 'stable', new Date(2006, 8, 19), new Date(2008, 11, 23) ],
+          [ '2.5 upstream', 'security', new Date(2008, 11, 23), new Date(2011, 4, 26) ],
+          [ '2.6 upstream', 'dev', new Date(2006, 7, 18), new Date(2008, 1, 29) ],
+          [ '2.6 upstream', 'α', new Date(2008, 1, 29), new Date(2008, 5, 18) ],
+          [ '2.6 upstream', 'β', new Date(2008, 5, 18), new Date(2008, 8, 12) ],
+          [ '2.6 upstream', 'rc', new Date(2008, 8, 12), new Date(2009, 9, 1) ],
+          [ '2.6 upstream', 'stable', new Date(2009, 9, 1), new Date(2010, 7, 24) ],
+          [ '2.6 upstream', 'security', new Date(2010, 7, 24), new Date(2013, 9, 29) ],
+          [ '2.7 upstream', 'dev', new Date(2008, 9, 3), new Date(2009, 11, 5) ],
+          [ '2.7 upstream', 'α', new Date(2009, 11, 5), new Date(2010, 3, 3) ],
+          [ '2.7 upstream', 'β', new Date(2010, 3, 3), new Date(2010, 5, 5) ],
+          [ '2.7 upstream', 'rc', new Date(2010, 5, 5), new Date(2010, 6, 3) ],
+          [ '2.7 upstream', 'stable', new Date(2010, 6, 3), new Date(2020, 3, 20) ],
+          [ '3.0 upstream', 'dev', new Date(2006, 2, 30), new Date(2008, 1, 29) ],
+          [ '3.0 upstream', 'α', new Date(2008, 1, 29), new Date(2008, 5, 18) ],
+          [ '3.0 upstream', 'β', new Date(2008, 5, 18), new Date(2008, 8, 17) ],
+          [ '3.0 upstream', 'rc', new Date(2008, 8, 17), new Date(2008, 11, 3) ],
+          [ '3.0 upstream', 'stable', new Date(2008, 11, 3), new Date(2009, 1, 13) ],
+          [ '3.1 upstream', 'dev', new Date(2008, 11, 3), new Date(2009, 2, 7) ],
+          [ '3.1 upstream', 'α', new Date(2009, 2, 7), new Date(2009, 4, 6) ],
+          [ '3.1 upstream', 'β', new Date(2009, 4, 6), new Date(2009, 4, 30) ],
+          [ '3.1 upstream', 'rc', new Date(2009, 4, 30), new Date(2009, 5, 27) ],
+          [ '3.1 upstream', 'stable', new Date(2009, 5, 27), new Date(2011, 5, 11) ],
+          [ '3.1 upstream', 'security', new Date(2011, 5, 11), new Date(2012, 3, 9) ],
+          [ '3.2 upstream', 'dev', new Date(2009, 5, 27), new Date(2010, 7, 1) ],
+          [ '3.2 upstream', 'α', new Date(2010, 7, 1), new Date(2010, 11, 6) ],
+          [ '3.2 upstream', 'β', new Date(2010, 11, 6), new Date(2011, 0, 16) ],
+          [ '3.2 upstream', 'rc', new Date(2011, 0, 16), new Date(2011, 1, 20) ],
+          [ '3.2 upstream', 'stable', new Date(2011, 1, 20), new Date(2013, 4, 13) ],
+          [ '3.2 upstream', 'security', new Date(2013, 4, 13), new Date(2014, 9, 11) ],
+          [ '3.3 upstream', 'dev', new Date(2011, 1, 20), new Date(2012, 2, 5) ],
+          [ '3.3 upstream', 'α', new Date(2012, 2, 5), new Date(2012, 5, 27) ],
+          [ '3.3 upstream', 'β', new Date(2012, 5, 27), new Date(2012, 7, 24) ],
+          [ '3.3 upstream', 'rc', new Date(2012, 7, 24), new Date(2012, 8, 29) ],
+          [ '3.3 upstream', 'stable', new Date(2012, 8, 29), new Date(2014, 2, 8) ],
+          [ '3.3 upstream', 'security', new Date(2014, 2, 8), new Date(2017, 8, 29) ],
+          [ '3.4 upstream', 'dev', new Date(2012, 8, 29), new Date(2013, 7, 3) ],
+          [ '3.4 upstream', 'α', new Date(2013, 7, 3), new Date(2013, 10, 24) ],
+          [ '3.4 upstream', 'β', new Date(2013, 10, 24), new Date(2014, 1, 10) ],
+          [ '3.4 upstream', 'rc', new Date(2014, 1, 10), new Date(2014, 2, 16) ],
+          [ '3.4 upstream', 'stable', new Date(2014, 2, 16), new Date(2015, 11, 21) ],
+          [ '3.4 upstream', 'security', new Date(2015, 11, 21), new Date(2019, 2, 4) ],
+          [ '3.5 upstream', 'dev', new Date(2014, 2, 17), new Date(2015, 1, 8) ],
+          [ '3.5 upstream', 'α', new Date(2015, 1, 8), new Date(2015, 4, 24) ],
+          [ '3.5 upstream', 'β', new Date(2015, 4, 24), new Date(2015, 7, 10) ],
+          [ '3.5 upstream', 'rc', new Date(2015, 7, 10), new Date(2015, 8, 13) ],
+          [ '3.5 upstream', 'stable', new Date(2015, 8, 13), new Date(2017, 7, 8) ],
+          [ '3.5 upstream', 'security', new Date(2017, 7, 8), new Date(2020, 8, 5) ],
+          [ '3.6 upstream', 'dev', new Date(2015, 4, 24), new Date(2016, 4, 17) ],
+          [ '3.6 upstream', 'α', new Date(2016, 4, 17), new Date(2016, 8, 12) ],
+          [ '3.6 upstream', 'β', new Date(2016, 8, 12), new Date(2016, 11, 6) ],
+          [ '3.6 upstream', 'rc', new Date(2016, 11, 6), new Date(2016, 11, 23) ],
+          [ '3.6 upstream', 'stable', new Date(2016, 11, 23), new Date(2018, 11, 24) ],
+          [ '3.6 upstream', 'security', new Date(2018, 11, 24), new Date(2021, 11, 23) ],
+          [ '3.7 upstream', 'dev', new Date(2016, 8, 12), new Date(2017, 8, 19) ],
+          [ '3.7 upstream', 'α', new Date(2017, 8, 19), new Date(2018, 0, 31) ],
+          [ '3.7 upstream', 'β', new Date(2018, 0, 31), new Date(2018, 5, 12) ],
+          [ '3.7 upstream', 'rc', new Date(2018, 5, 12), new Date(2018, 5, 27) ],
+          [ '3.7 upstream', 'stable', new Date(2018, 5, 27), new Date(2020, 5, 27) ],
+          [ '3.7 upstream', 'security', new Date(2020, 5, 27), new Date(2023, 5, 27) ],
+          [ '3.8 upstream', 'dev', new Date(2018, 0, 29), new Date(2019, 1, 3) ],
+          [ '3.8 upstream', 'α', new Date(2019, 1, 3), new Date(2019, 5, 4) ],
+          [ '3.8 upstream', 'β', new Date(2019, 5, 4), new Date(2019, 9, 1) ],
+          [ '3.8 upstream', 'rc', new Date(2019, 9, 1), new Date(2019, 9, 14) ],
+          [ '3.8 upstream', 'stable', new Date(2019, 9, 14), new Date(2021, 4, 3) ],
+          [ '3.8 upstream', 'security', new Date(2021, 4, 3), new Date(2024, 9, 1) ],
+          [ '3.9 upstream', 'dev', new Date(2019, 5, 4), new Date(2019, 10, 19) ],
+          [ '3.9 upstream', 'α', new Date(2019, 10, 19), new Date(2020, 4, 18) ],
+          [ '3.9 upstream', 'β', new Date(2020, 4, 18), new Date(2020, 7, 11) ],
+          [ '3.9 upstream', 'rc', new Date(2020, 7, 11), new Date(2020, 9, 5) ],
+          [ '3.9 upstream', 'stable', new Date(2020, 9, 5), new Date(2022, 4, 2) ],
+          [ '3.9 upstream', 'security', new Date(2022, 4, 2), new Date(2024, 9, 1) ],
+          [ '3.10 upstream', 'dev', new Date(2020, 4, 18), new Date(2020, 9, 5) ],
+          [ '3.10 upstream', 'α', new Date(2020, 9, 5), new Date(2021, 4, 3) ],
+          [ '3.10 upstream', 'β', new Date(2021, 4, 3), new Date(2021, 7, 2) ],
+          [ '3.10 upstream', 'rc', new Date(2021, 7, 2), new Date(2021, 9, 4) ],
+          [ '3.10 upstream', 'stable', new Date(2021, 9, 4), new Date(2023, 3, 4) ],
+          [ '3.10 upstream', 'security', new Date(2023, 3, 4), new Date(2024, 9, 1) ],
+
+        ]);
+
+        var options = {
+          avoidOverlappingGridLines: false
+        };
+
+        chart.draw(dataTable, options);
+      }
+    </script>
+    <div id="timeline" style="height: 100%"></div>
+  </body>
+</html>
+
