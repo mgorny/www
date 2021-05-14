@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Gentoo management over time (by Michał Górny)</title>
+  <style type="text/css">
+    @import url('gentoo-management.css');
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+
+  <h1>Gentoo management over time</h1>
+
+  <h2>Council &amp; Trustees</h2>
+
+  <table class="wikitable">
+    <tr>
+      <th>Term</th>
+
+      <th class="date-column">Dates</th>
+
+      <th>E?</th>
+
+      <th colspan="7">Council members (7)</th>
+
+      <th class="date-column">Dates</th>
+
+      <th>E?</th>
+
+      <th colspan="5">Trustees (5)</th>
+    </tr>
+
+    <tr class="term-start">
+      <td>2019/20</td>
+
+      <td>2019-07 - 2020-06</td>
+
+      <td>E</td>
+
+      <td class="dilfridge">dilfridge</td>
+
+      <td class="gyakovlev">gyakovlev</td>
+
+      <td class="patrick">patrick</td>
+
+      <td class="slyfox">slyfox</td>
+
+      <td class="whissi">whissi</td>
+
+      <td class="ulm">ulm</td>
+
+      <td class="williamh">williamh</td>
+
+      <td>2019-09 -</td>
+
+      <td>E</td>
+
+      <td class="antarus">antarus</td>
+
+      <td rowspan="2" class="bman">bman</td>
+
+      <td rowspan="2" class="prometheanfire">prometheanfire</td>
+
+      <td class="alicef">alicef</td>
+
+      <td class="robbat2">robbat2</td>
+    </tr>
+
+    <tr class="term-start">
+      <td>2018/19</td>
+
+      <td>2018-07 - 2019-06</td>
+
+      <td>E</td>
+
+      <td class="dilfridge">dilfridge</td>
+
+      <td class="k_f">k_f</td>
+
+      <td class="leio">leio</td>
+
+      <td class="slyfox">slyfox</td>
+
+      <td class="whissi">whissi</td>
+
+      <td class="ulm">ulm</td>
+
+      <td class="williamh">williamh</td>
+
+      <td>2018-08 - 2019-08</td>
+
+      <td>E</td>
+
+      <td class="antarus">antarus</td>
+
+      <td rowspan="3" class="alicef">alicef</td>
+
+      <td class="robbat2">robbat2</td>
+    </tr>
+
+    <tr class="term-start">
+      <td rowspan="2">2017/18</td>
+
+      <td rowspan="2">2017-07 - 2018-06</td>
+
+      <td rowspan="2">E</td>
+
+      <td rowspan="2" class="dilfridge">dilfridge</td>
+
+      <td rowspan="2" class="k_f">k_f</td>
+
+      <td rowspan="2" class="mgorny">mgorny</td>
+
+      <td rowspan="2" class="slyfox">slyfox</td>
+
+      <td rowspan="2" class="tamiko">tamiko</td>
+
+      <td rowspan="2" class="ulm">ulm</td>
+
+      <td rowspan="2" class="williamh">williamh</td>
+
+      <td>2018-01 - 2018-07</td>
+
+      <td>H</td>
+
+      <td rowspan="2" class="kensington">kensington</td>
+
+      <td rowspan="3" class="dabbott">dabbott</td>
+
+      <td rowspan="3" class="prometheanfire">prometheanfire</td>
+
+      <td class="klondike">klondike</td>
+    </tr>
+
+    <tr>
+      <td>2017-08 - 2017-12</td>
+
+      <td>E</td>
+
+      <td class="zlg">zlg</td>
+    </tr>
+
+    <tr class="term-start">
+      <td>2016/17</td>
+
+      <td>2016-07 - 2017-06</td>
+
+      <td>E</td>
+
+      <td class="dilfridge">dilfridge</td>
+
+      <td class="k_f">k_f</td>
+
+      <td class="blueness">blueness</td>
+
+      <td class="jlec">jlec</td>
+
+      <td class="rich0">rich0</td>
+
+      <td class="ulm">ulm</td>
+
+      <td class="williamh">williamh</td>
+
+      <td>2016-08 - 2017-07</td>
+
+      <td>E</td>
+
+      <td rowspan="4" class="antarus">antarus</td>
+
+      <td rowspan="3" class="swift">swift</td>
+
+      <td rowspan="3" class="robbat2">robbat2</td>
+    </tr>
+
+    <tr class="term-start">
+      <td rowspan="2">2015/16</td>
+
+      <td rowspan="2">2015-07 - 2016-06</td>
+
+      <td rowspan="2">E</td>
+
+      <td rowspan="2" class="dilfridge">dilfridge</td>
+
+      <td rowspan="2" class="k_f">k_f</td>
+
+      <td rowspan="2" class="blueness">blueness</td>
+
+      <td rowspan="2" class="jlec">jlec</td>
+
+      <td rowspan="2" class="rich0">rich0</td>
+
+      <td rowspan="2" class="ulm">ulm</td>
+
+      <td rowspan="2" class="williamh">williamh</td>
+
+      <td>2016-01 - 2016-07</td>
+
+      <td>O</td>
+
+      <td class="dabbott">dabbott</td>
+
+      <td rowspan="3" class="neddyseagoon">neddyseagoon</td>
+    </tr>
+
+    <tr>
+      <td>2015-08 - 2015-12</td>
+
+      <td>N</td>
+
+      <td rowspan="3" class="quantumsummers">quantumsummers</td>
+    </tr>
+
+    <tr class="term-start">
+      <td>2014/15</td>
+
+      <td>2014-07 - 2015-06</td>
+
+      <td>E</td>
+
+      <td class="dilfridge">dilfridge</td>
+
+      <td class="dberkholz">dberkholz</td>
+
+      <td class="blueness">blueness</td>
+
+      <td class="radhermit">radhermit</td>
+
+      <td class="rich0">rich0</td>
+
+      <td class="ulm">ulm</td>
+
+      <td class="williamh">williamh</td>
+
+      <td>2014-08 - 2015-07</td>
+
+      <td>N</td>
+
+      <td rowspan="2" class="swift">swift</td>
+
+      <td rowspan="2" class="betelgeuse">betelgeuse</td>
+    </tr>
+
+    <tr class="term-start">
+      <td>2013/14</td>
+
+      <td>2013-07 - 2014-06</td>
+
+      <td>E</td>
+
+      <td class="dilfridge">dilfridge</td>
+
+      <td class="dberkholz">dberkholz</td>
+
+      <td class="blueness">blueness</td>
+
+      <td class="scarabeus">scarabeus</td>
+
+      <td class="rich0">rich0</td>
+
+      <td class="ulm">ulm</td>
+
+      <td class="williamh">williamh</td>
+
+      <td>2013-09 - 2014-07</td>
+
+      <td>E</td>
+
+      <td rowspan="2" class="dabbott">dabbott</td>
+
+      <td rowspan="2" class="neddyseagoon">neddyseagoon</td>
+    </tr>
+
+    <tr class="term-start">
+      <td>2012/13</td>
+
+      <td>2012-07 - 2013-06</td>
+
+      <td>E</td>
+
+      <td class="betelgeuse">betelgeuse</td>
+
+      <td class="dberkholz">dberkholz</td>
+
+      <td class="grobian">grobian</td>
+
+      <td class="scarabeus">scarabeus</td>
+
+      <td class="chainsaw">chainsaw</td>
+
+      <td class="ulm">ulm</td>
+
+      <td class="williamh">williamh</td>
+
+      <td>2012-09 - 2013-07</td>
+
+      <td>E</td>
+
+      <td rowspan="2" class="quantumsummers">quantumsummers</td>
+
+      <td rowspan="2" class="rich0">rich0</td>
+
+      <td rowspan="2" class="robbat2">robbat2</td>
+    </tr>
+
+    <tr class="term-start">
+      <td>2011/12</td>
+
+      <td>2011-07 - 2012-06</td>
+
+      <td>E</td>
+
+      <td class="betelgeuse">betelgeuse</td>
+
+      <td class="dberkholz">dberkholz</td>
+
+      <td class="grobian">grobian</td>
+
+      <td class="hwoarang">hwoarang</td>
+
+      <td class="chainsaw">chainsaw</td>
+
+      <td class="ulm">ulm</td>
+
+      <td class="jmbsvicetto">jmbsvicetto</td>
+
+      <td>2011-05 - 2011-08</td>
+
+      <td>E</td>
+
+      <td rowspan="3" class="dabbott">dabbott</td>
+
+      <td rowspan="3" class="neddyseagoon">neddyseagoon</td>
+    </tr>
+
+    <tr class="term-start">
+      <td rowspan="2">2010/11</td>
+
+      <td>2011-01 - 2011-06</td>
+
+      <td>H</td>
+
+      <td rowspan="2" class="betelgeuse">betelgeuse</td>
+
+      <td rowspan="2" class="ferringb">ferringb</td>
+
+      <td class="patrick">patrick</td>
+
+      <td rowspan="2" class="scarabeus">scarabeus</td>
+
+      <td rowspan="2" class="chainsaw">chainsaw</td>
+
+      <td rowspan="2" class="wired">wired</td>
+
+      <td rowspan="2" class="jmbsvicetto">jmbsvicetto</td>
+
+      <td rowspan="2">2010-04 - 2011-04</td>
+
+      <td rowspan="2">N</td>
+
+      <td rowspan="4" class="quantumsummers">quantumsummers</td>
+
+      <td rowspan="2" class="tsunam">tsunam</td>
+
+      <td rowspan="4" class="robbat2">robbat2</td>
+    </tr>
+
+    <tr>
+      <td>2010-07 - 2011-12</td>
+
+      <td>E</td>
+
+      <td class="halcy0n">halcy0n</td>
+    </tr>
+
+    <tr class="term-start">
+      <td rowspan="2">2009/10</td>
+
+      <td>2010-01 - 2010-06</td>
+
+      <td>E</td>
+
+      <td rowspan="2" class="betelgeuse">betelgeuse</td>
+
+      <td rowspan="2" class="dertobi123">dertobi123</td>
+
+      <td rowspan="2" class="leio">leio</td>
+
+      <td class="scarabeus">scarabeus</td>
+
+      <td rowspan="2" class="calchan">calchan</td>
+
+      <td rowspan="2" class="ulm">ulm</td>
+
+      <td rowspan="2" class="solar">solar</td>
+
+      <td>2009-09 - 2010-03</td>
+
+      <td>?</td>
+
+      <td class="dabbott">dabbott</td>
+
+      <td rowspan="7" class="neddyseagoon">neddyseagoon</td>
+
+      <td rowspan="7" class="tsunam">tsunam</td>
+    </tr>
+
+    <tr>
+      <td>2009-07 - 2009-12</td>
+
+      <td>E</td>
+
+      <td class="lu_zero">lu_zero</td>
+
+      <td>2009-04 - 2009-08</td>
+
+      <td>E</td>
+
+      <td rowspan="6" class="fmccor">fmccor</td>
+    </tr>
+
+    <tr class="term-start">
+      <td rowspan="5">2008/09</td>
+
+      <td>2009-06</td>
+
+      <td>H</td>
+
+      <td rowspan="5" class="betelgeuse">betelgeuse</td>
+
+      <td rowspan="5" class="dertobi123">dertobi123</td>
+
+      <td rowspan="2" class="leio">leio</td>
+
+      <td rowspan="5" class="lu_zero">lu_zero</td>
+
+      <td rowspan="4" class="cardoe">cardoe</td>
+
+      <td class="ulm">ulm</td>
+
+      <td rowspan="3">dev-zero</td>
+
+      <td rowspan="3">2008-09 - 2009-03</td>
+
+      <td rowspan="3">R</td>
+
+      <td rowspan="3" class="dmwaters">dmwaters</td>
+
+      <td rowspan="3">(empty)</td>
+    </tr>
+
+    <tr>
+      <td>2009-03 - 2009-05</td>
+
+      <td>H</td>
+
+      <td rowspan="4" class="dberkholz">dberkholz</td>
+    </tr>
+
+    <tr>
+      <td>2008-12 - 2009-02</td>
+
+      <td>E</td>
+
+      <td rowspan="3" class="halcy0n">halcy0n</td>
+    </tr>
+
+    <tr>
+      <td>2008-09 - 2008-12</td>
+
+      <td>H</td>
+
+      <td rowspan="2" class="jokey">jokey</td>
+
+      <td rowspan="2">2008-03 - 2008-08</td>
+
+      <td rowspan="2">E</td>
+
+      <td rowspan="2" class="tgall">tgall</td>
+
+      <td rowspan="2" class="wltjr">wltjr</td>
+    </tr>
+
+    <tr>
+      <td>2008-07 - 2008-09</td>
+
+      <td>E</td>
+
+      <td class="flameeyes">flameeyes</td>
+    </tr>
+
+    <tr class="term-start">
+      <td rowspan="2">2007/08</td>
+
+      <td>2008-01 - 2008-06</td>
+
+      <td>H</td>
+
+      <td rowspan="2" class="betelgeuse">betelgeuse</td>
+
+      <td rowspan="2" class="amne">amne</td>
+
+      <td rowspan="2" class="vapier">vapier</td>
+
+      <td rowspan="2" class="lu_zero">lu_zero</td>
+
+      <td rowspan="2" class="flameeyes">flameeyes</td>
+
+      <td rowspan="2" class="dberkholz">dberkholz</td>
+
+      <td class="jokey">jokey</td>
+
+      <td>? - 2008-02</td>
+
+      <td></td>
+
+      <td rowspan="4" class="g2boojum">g2boojum</td>
+
+      <td rowspan="3" class="pauldv">pauldv</td>
+
+      <td>(empty)</td>
+
+      <td>(empty)</td>
+
+      <td>(empty)</td>
+    </tr>
+
+    <tr>
+      <td>2007-09 - 2007-12</td>
+
+      <td>E</td>
+
+      <td class="uberlord">uberlord</td>
+
+      <td colspan="2"></td>
+
+      <td colspan="3" style="text-align: center;">(... missing data ...)</td>
+    </tr>
+
+    <tr class="term-start">
+      <td rowspan="3">2006/07</td>
+
+      <td>2007-06 - 2007-08</td>
+
+      <td>H</td>
+
+      <td class="jaervosz">jaervosz</td>
+
+      <td rowspan="3" class="kugelfang">kugelfang</td>
+
+      <td rowspan="3" class="vapier">vapier</td>
+
+      <td rowspan="3" class="kingtaco">kingtaco</td>
+
+      <td rowspan="3" class="wolf31o2">wolf31o2</td>
+
+      <td rowspan="3" class="robbat2">robbat2</td>
+
+      <td rowspan="2" class="uberlord">uberlord</td>
+
+      <td>2006-12 - ?</td>
+
+      <td>H</td>
+
+      <td rowspan="2" class="mcummings">mcummings</td>
+
+      <td rowspan="2" class="wolf31o2">wolf31o2</td>
+
+      <td class="rl03">rl03</td>
+    </tr>
+
+    <tr>
+      <td>2007-03 - 2007-05</td>
+
+      <td>H</td>
+
+      <td rowspan="2" class="kloeri">kloeri</td>
+
+      <td>2006-11</td>
+
+      <td>E</td>
+
+      <td class="stuart">stuart</td>
+
+      <td class="seemant">seemant</td>
+    </tr>
+
+    <tr>
+      <td>2006-09 - 2007-02</td>
+
+      <td>E</td>
+
+      <td class="flameeyes">flameeyes</td>
+
+      <th class="date-column">Dates</th>
+
+      <th>E?</th>
+
+      <th colspan="7">Trustees (13)</th>
+    </tr>
+
+    <tr class="term-start">
+      <td rowspan="2">2005/06</td>
+
+      <td rowspan="2">2005-09 - 2006-08</td>
+
+      <td rowspan="2">E</td>
+
+      <td rowspan="2" class="agriffis">agriffis</td>
+
+      <td rowspan="2" class="koon">koon</td>
+
+      <td rowspan="2" class="vapier">vapier</td>
+
+      <td rowspan="2" class="azarah">azarah</td>
+
+      <td rowspan="2" class="swift">swift</td>
+
+      <td rowspan="2" class="seemant">seemant</td>
+
+      <td rowspan="2" class="solar">solar</td>
+
+      <td rowspan="2">2005-05 - 2006-08</td>
+
+      <td rowspan="2">E</td>
+
+      <td class="g2boojum">g2boojum</td>
+
+      <td class="dmwaters">dmwaters</td>
+
+      <td class="klieber">klieber</td>
+
+      <td class="swift">swift</td>
+
+      <td class="seemant">seemant</td>
+
+      <td class="kumba">kumba</td>
+
+      <td class="ramereth">ramereth</td>
+    </tr>
+
+    <tr>
+      <td class="dostrow">dostrow</td>
+
+      <td class="pylon">pylon</td>
+
+      <td class="carpaski">carpaski</td>
+
+      <td class="jhuebel">jhuebel</td>
+
+      <td class="dberkholz">dberkholz</td>
+
+      <td class="cshields">cshields</td>
+
+      <td class="empty"></td>
+    </tr>
+
+    <tr class="term-start">
+      <td rowspan="2">2004/05</td>
+
+      <td rowspan="2" colspan="9"></td>
+
+      <td rowspan="2">2004-05 - 2005-04</td>
+      
+      <td rowspan="2"></td>
+
+      <td class="g2boojum">g2boojum</td>
+
+      <td class="dmwaters">dmwaters</td>
+
+      <td class="klieber">klieber</td>
+
+      <td class="swift">swift</td>
+
+      <td class="seemant">seemant</td>
+
+      <td class="method">method</td>
+
+      <td class="pfeifer">pfeifer</td>
+    </tr>
+
+    <tr>
+      <td class="agriffis">agriffis</td>
+
+      <td class="pauldv">pauldv</td>
+
+      <td class="carpaski">carpaski</td>
+
+      <td class="azarah">azarah</td>
+
+      <td class="zhen">zhen</td>
+
+      <td class="cshields">cshields</td>
+
+      <td class="empty"></td>
+    </tr>
+  </table>
+
+  <h2>Top-level Management (flat)</h2>
+
+  <table class="wikitable">
+    <tr>
+      <th class="date-column">Date</th>
+
+      <th>Chief Architect</th>
+
+      <th colspan="21">Managers (TLP leads)</th>
+    </tr>
+
+    <tr>
+      <td>(2005-08-11)</td>
+
+      <td class="empty" rowspan="3"></td>
+
+      <td rowspan="4" class="azarah">azarah</td>
+
+      <td rowspan="3" class="dberkholz">dberkholz</td>
+
+      <td rowspan="3" class="dmwaters">dmwaters</td>
+
+      <td rowspan="2" class="ferringb">ferringb</td>
+
+      <td rowspan="2" class="genone">genone</td>
+
+      <td rowspan="2" class="jaervosz">jaervosz</td>
+
+      <td rowspan="2" class="johnm">johnm</td>
+
+      <td rowspan="2" class="jstubbs">jstubbs</td>
+
+      <td rowspan="4" class="klieber">klieber</td>
+
+      <td rowspan="2" class="koon">koon</td>
+
+      <td rowspan="4" class="method">method</td>
+
+      <td rowspan="2" class="neysx">neysx</td>
+
+      <td rowspan="4" class="pauldv">pauldv</td>
+
+      <td rowspan="2" class="plasmaroo">plasmaroo</td>
+
+      <td rowspan="4" class="pvdabeel">pvdabeel</td>
+
+      <td rowspan="2" class="ramereth">ramereth</td>
+
+      <td rowspan="4" class="seemant">seemant</td>
+
+      <td class="swegener">swegener</td>
+
+      <td rowspan="4" class="swift">swift</td>
+
+      <td class="vapier">vapier</td>
+
+      <td rowspan="2" class="wolf31o2">wolf31o2</td>
+    </tr>
+
+    <tr>
+      <td>2005-05-04</td>
+
+      <td rowspan="2" class="tseng">tseng</td>
+
+      <td class="empty" rowspan="3"></td>
+    </tr>
+
+    <tr>
+      <td>2004-04-26</td>
+
+      <td rowspan="2" class="avenj">avenj</td>
+
+      <td class="carpaski">carpaski</td>
+
+      <td rowspan="2" class="iggy">iggy</td>
+
+      <td class="zhen">zhen</td>
+
+      <td class="empty" rowspan="2"></td>
+
+      <td class="empty" rowspan="2"></td>
+
+      <td class="empty" rowspan="2"></td>
+
+      <td class="empty" rowspan="2"></td>
+
+      <td class="empty" rowspan="2"></td>
+
+      <td class="empty" rowspan="2"></td>
+    </tr>
+
+    <tr>
+      <td>2003-09-30</td>
+
+      <td class="drobbins">drobbins</td>
+
+      <td class="empty"></td>
+
+      <td class="empty"></td>
+
+      <td class="empty"></td>
+
+      <td class="empty"></td>
+
+      <td class="empty"></td>
+    </tr>
+  </table>
+
+  <h2>Top-level Management (by TLP)</h2>
+
+  <table class="wikitable">
+    <tr>
+      <th class="date-column">Date</th>
+
+      <th>Chief Arch.</th>
+
+      <th colspan="2">base system</th>
+
+      <th colspan="2">desktop</th>
+
+      <th colspan="2">developer relations</th>
+
+      <th colspan="2">GDP (doc)</th>
+
+      <th colspan="2">gentoo-alt</th>
+
+      <th>hardened</th>
+
+      <th colspan="2">infrastructure</th>
+
+      <th>kernel</th>
+    </tr>
+
+    <tr>
+      <td>(2005-08-11)</td>
+
+      <td class="empty" rowspan="3"></td>
+
+      <!-- base -->
+
+      <td rowspan="4" class="azarah">azarah</td>
+
+      <td class="vapier">vapier</td>
+
+      <!-- desktop -->
+
+      <td rowspan="3" class="dberkholz">dberkholz</td>
+
+      <td class="empty"></td>
+
+      <!-- devrel -->
+
+      <td rowspan="3" class="dmwaters">dmwaters</td>
+
+      <td class="empty" rowspan="2"></td>
+
+      <!-- gdp -->
+
+      <td rowspan="4" class="swift">swift</td>
+
+      <td rowspan="2" class="neysx">neysx</td>
+
+      <!-- gentoo-alt -->
+
+      <td rowspan="4" class="pvdabeel">pvdabeel</td>
+      
+      <td class="empty" rowspan="3"></td>
+
+      <!-- hardened -->
+
+      <td rowspan="4" class="method">method</td>
+
+      <!-- infra -->
+
+      <td rowspan="4" class="klieber">klieber</td>
+
+      <td rowspan="2" class="ramereth">ramereth</td>
+
+      <!-- kernel -->
+
+      <td rowspan="2" class="johnm">johnm</td>
+    </tr>
+
+    <tr>
+      <td>2005-05-04</td>
+
+      <!-- base -->
+
+      <td class="empty" rowspan="3"></td>
+
+      <!-- desktop -->
+
+      <td rowspan="2" class="tseng">tseng</td>
+    </tr>
+
+    <tr>
+      <td>2004-04-26</td>
+
+      <!-- devrel -->
+
+      <td rowspan="2" class="avenj">avenj</td>
+
+      <!-- gdp -->
+
+      <td class="empty" rowspan="2"></td>
+
+      <!-- infra -->
+
+      <td class="empty" rowspan="2"></td>
+
+      <!-- kernel -->
+
+      <td rowspan="2" class="iggy">iggy</td>
+
+    </tr>
+
+    <tr>
+      <td>2003-09-30</td>
+
+      <td class="drobbins">drobbins</td>
+
+      <!-- desktop -->
+
+      <td class="empty"></td>
+
+      <td class="empty"></td>
+
+      <!-- devrel -->
+
+      <td class="seemant">seemant</td>
+
+      <!-- gentoo-alt -->
+
+      <td class="drobbins">drobbins</td>
+    </tr>
+  </table>
+
+  <table class="wikitable">
+    <tr>
+      <th class="date-column">Date</th>
+
+      <th colspan="2">metastructure</th>
+
+      <th colspan="3">portage</th>
+
+      <th colspan="2">public relations</th>
+
+      <th colspan="2">quality assurance</th>
+
+      <th colspan="2">release engineering</th>
+
+      <th colspan="3">security</th>
+
+      <th>tools</th>
+    </tr>
+
+    <tr>
+      <td>(2005-08-11)</td>
+
+      <!-- metastructure -->
+
+      <td rowspan="4" class="pauldv">pauldv</td>
+
+      <td class="empty" rowspan="3"></td>
+
+      <!-- portage -->
+
+      <td rowspan="2" class="ferringb">ferringb</td>
+
+      <td rowspan="2" class="genone">genone</td>
+
+      <td rowspan="2" class="jstubbs">jstubbs</td>
+
+      <!-- pr -->
+
+      <td rowspan="4" class="klieber">klieber</td>
+
+      <td class="empty" rowspan="2"></td>
+
+      <!-- qa -->
+
+      <td class="swegener">swegener</td>
+
+      <td rowspan="4" class="seemant">seemant</td>
+
+      <!-- releng -->
+
+      <td rowspan="2" class="plasmaroo">plasmaroo</td>
+
+      <td rowspan="2" class="wolf31o2">wolf31o2</td>
+
+      <!-- security -->
+
+      <td rowspan="2" class="klieber">klieber</td>
+
+      <td rowspan="2" class="koon">koon</td>
+
+      <td rowspan="2" class="jaervosz">jaervosz</td>
+
+      <!-- tools -->
+
+      <td rowspan="4" class="pvdabeel">pvdabeel</td>
+    </tr>
+
+    <tr>
+      <td>2005-05-04</td>
+
+      <!-- qa -->
+
+      <td class="empty" rowspan="3"></td>
+    </tr>
+
+    <tr>
+      <td>2004-04-26</td>
+
+      <!-- portage -->
+
+      <td class="carpaski">carpaski</td>
+
+      <td class="pvdabeel">pvdabeel?</td>
+
+      <td class="empty" rowspan="2"></td>
+
+      <!-- pr -->
+
+      <td class="swift">swift</td>
+
+      <!-- releng -->
+      
+      <td class="zhen">zhen</td>
+
+      <td class="empty" rowspan="2"></td>
+
+      <!-- security -->
+
+      <td class="empty" rowspan="2"></td>
+
+      <td class="empty" rowspan="2"></td>
+
+      <td class="empty" rowspan="2"></td>
+    </tr>
+
+    <tr>
+      <td>2003-09-30</td>
+
+      <!-- metastructure -->
+
+      <td class="drobbins">drobbins</td>
+
+      <!-- portage -->
+
+      <td class="klieber">klieber</td>
+
+      <td class="empty"></td>
+
+      <!-- pr -->
+
+      <td class="empty"></td>
+
+      <!-- releng -->
+
+      <td class="drobbins">drobbins</td>
+    </tr>
+  </table>
+
+  <h2>Legend</h2>
+
+  <ul>
+    <li>E — full election (with voting)</li>
+
+    <li>N — nominations only; no voting due to lack of candidates</li>
+
+    <li>H — new members selected by Council/Trustees from highest
+      voted candidates of previous election</li>
+
+    <li>O — new members appointed from the officers of the Foundation
+      at the time</li>
+
+    <li>R — new members appointed via open recruitment</li>
+
+    <li>? — no clear evidence to how new member was appointed</li>
+  </ul>
+
+  <h2>Notes</h2>
+
+  <ol>
+    <li>
+      While I've put an effort for the data to be correct, there may
+      be mistakes.
+    </li>
+
+    <li>
+      Spanned columns indicate continuation of term (not subject to
+      reelection).  Divided rows indicate that the seat was up
+      for a new election due to rotation or resignation.
+    </li>
+
+    <li>
+      Due to limited time and little data available, Trustee term dates
+      are only approximates based on elections, resignations and other
+      available data points.  It is likely that most of the Trustees
+      actually started their term later than presented.
+    </li>
+
+    <li>
+      In some cases, events occurring shortly one after another have
+      been merged.  For example, a vacancies that lasted a month have
+      been skipped and only the replacement is presented.
+    </li>
+
+    <li>
+      The data has been aligned on yearly terms.  However, due to
+      different (and shifting) election dates, there may be even a few
+      months shift between Council members and Trustees presented
+      alongside.
+    </li>
+
+    <li>
+      Due to limited data, Managers have been only presented as a series
+      of snapshots.  The newest snapshot (dated 2005-08-11) includes
+      project lead changes after GLEP 39 approval — it is unclear
+      if the new Managers ever took their post.
+    </li>
+  </ol>
+
+  <div class="text-center">
+    <p><small>Copyright Ⓒ 2018 Michał Górny. Distributed under the terms
+      of <a rel='external' href='http://creativecommons.org/licenses/by/3.0/'>
+        CC BY 3.0</a></small>.</p>
+  </div>
+
+  </div>
+</body>
+</html>
