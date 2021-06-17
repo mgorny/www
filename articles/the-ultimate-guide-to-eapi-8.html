@@ -657,7 +657,7 @@ pkg_postrm<span class="operator">()</span> <span class="operator">{</span>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>TL;DR: <span class="docutils literal">IDEPEND</span> specifies programs that you execute during
-<span class="docutils literal">pkg_preinst`, ``pkg_postinst</span>, <span class="docutils literal">pkg_prerm</span> and <span class="docutils literal">pkg_postrm</span>.</p>
+<span class="docutils literal">pkg_preinst</span>, <span class="docutils literal">pkg_postinst</span>, <span class="docutils literal">pkg_prerm</span> and <span class="docutils literal">pkg_postrm</span>.</p>
 </div>
 <p>Install-time dependencies are not a new idea.  It has been on the board
 for quite some time already but we never had a compelling reason
@@ -870,6 +870,11 @@ providing default values and the ebuilds being able to override them.</p>
 </section>
 <section id="dosym-r-to-create-relative-symlinks">
 <span id="dosym-r"></span><h3><a class="toc-backref" href="#id12">dosym -r to create relative symlinks</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>TL;DR: <span class="docutils literal"><span class="pre">-r</span></span> now can be used to have dosym figure out the correct
+relative path from symlink to target.</p>
+</div>
 <p>We have been pushing for relative symlink targets for some time now,
 as they are more reliable.  Consider the two following examples:</p>
 <pre class="code bash literal-block"><code>dosym <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">EPREFIX</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>/usr/lib/frobnicate/frobnicate /usr/bin/frobnicate
@@ -1200,6 +1205,18 @@ unpackers (e.g. we could use 7-Zip to unpack RAR archives).</p>
 <h2><a class="toc-backref" href="#id23">Retroactive changes</a></h2>
 <section id="properties-test-network-to-ease-reenabling-tests-requiring-internet">
 <span id="test-network"></span><h3><a class="toc-backref" href="#id24">PROPERTIES=test_network to ease reenabling tests requiring Internet</a></h3>
+<pre class="code bash literal-block"><code><span class="comment single"># Tests fail with network-sandbox, since they try to resolve google.com
+</span><span class="name variable">PROPERTIES</span><span class="operator">=</span><span class="literal string double">&quot;test_network&quot;</span>
+<span class="name variable">RESTRICT</span><span class="operator">=</span><span class="literal string double">&quot;test&quot;</span>
+
+python_test<span class="operator">()</span> <span class="operator">{</span>
+    <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">EPYTHON</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span> tests/tests.py -v <span class="operator">||</span> die
+<span class="operator">}</span></code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>TL;DR: <span class="docutils literal">PROPERTIES=test_network</span> can now be used when it is really
+impossible to provide meaningful testing without Internet access.</p>
+</div>
 <p>Ideally, we'd want all tests to work just fine without accessing
 the Internet, either via mocks or spawning local servers.
 Unfortunately, not all packages do that and in the end,
@@ -1211,18 +1228,25 @@ environments.</p>
 <p>For this reason, we have decided to add a new <span class="docutils literal">PROPERTIES</span> value
 <span class="docutils literal">test_network</span>.  It is supposed to be combined with <span class="docutils literal">RESTRICT=test</span>,
 and it indicates that the tests are restricted precisely because they
-need to access the Internet.</p>
+need to access the Internet.  In the example above (taken from pycares),
+all the package's tests require Internet access but otherwise they would
+work just fine.</p>
 <p>Now, old versions of package managers will just skip the tests because
-of the test restriction.  However, new versions include a new
-<span class="docutils literal">ALLOW_TEST</span> configuration variable (for <span class="docutils literal">make.conf</span>) that can
-be used to elide test restriction.  If its value is set to <span class="docutils literal">network</span>,
-then test restriction will be ignored on packages indicating
-<span class="docutils literal"><span class="pre">network-test</span></span>.  This makes it an invaluable tool both for developers
-and arch testers.</p>
+of the test restriction.  However, the recent versions of Portage
+include a new <span class="docutils literal">ALLOW_TEST</span> configuration variable (for <span class="docutils literal">make.conf</span>)
+that can be used to elide test restriction.  If its value is set to
+<span class="docutils literal">network</span>, then test restriction will be ignored and the tests will
+be run on packages indicating <span class="docutils literal"><span class="pre">network-test</span></span>.  This makes it
+an invaluable tool both for developers and arch testers.</p>
 <p>This feature was originally proposed for EAPI 8 as a new <span class="docutils literal">RESTRICT</span>
 value.  However, we have decided that it will be cleaner and more
 convenient to combine with <span class="docutils literal">RESTRICT=test</span> and make an optional
 extension for all EAPIs.</p>
+<p>Note that this is primarily intended to be used on packages that do not
+provide a meaningful subset of tests working without the Internet.
+Whenever reasonable, it is still preferable to skip the tests accessing
+the Internet and run the remainder of the test suite without adding
+the test restriction in the first place.</p>
 </section>
 </section>
 <section id="cheat-sheet-index">

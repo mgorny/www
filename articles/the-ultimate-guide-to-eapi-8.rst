@@ -2,8 +2,8 @@
 The ultimate guide to EAPI 8
 ============================
 :Author: Michał Górny
-:Date: 2021-06-16
-:Version: 1.0
+:Date: 2021-06-17
+:Version: 1.1
 :Copyright: https://creativecommons.org/licenses/by/3.0/
 :Specification: https://projects.gentoo.org/pms/8/pms.html
 
@@ -68,7 +68,7 @@ Install-time dependencies (IDEPEND)
 .. Note::
 
    TL;DR: ``IDEPEND`` specifies programs that you execute during
-   ``pkg_preinst`, ``pkg_postinst``, ``pkg_prerm`` and ``pkg_postrm``.
+   ``pkg_preinst``, ``pkg_postinst``, ``pkg_prerm`` and ``pkg_postrm``.
 
 
 Install-time dependencies are not a new idea.  It has been on the board
@@ -250,6 +250,11 @@ providing default values and the ebuilds being able to override them.
 
 dosym -r to create relative symlinks
 ------------------------------------
+.. Note::
+
+   TL;DR: ``-r`` now can be used to have dosym figure out the correct
+   relative path from symlink to target.
+
 We have been pushing for relative symlink targets for some time now,
 as they are more reliable.  Consider the two following examples:
 
@@ -545,6 +550,7 @@ In EAPI 8, they always use the default options.  As a result,
 affects ``doexe``/``newexe``.  Furthermore, ``diropts`` do not affect
 the directories implicitly created by these helpers.
 
+
 .. _working directory:
 
 pkg_* phases now run in a dedicated empty directory
@@ -660,6 +666,21 @@ Retroactive changes
 
 PROPERTIES=test_network to ease reenabling tests requiring Internet
 -------------------------------------------------------------------
+.. code-block:: bash
+
+    # Tests fail with network-sandbox, since they try to resolve google.com
+    PROPERTIES="test_network"
+    RESTRICT="test"
+
+    python_test() {
+        "${EPYTHON}" tests/tests.py -v || die
+    }
+
+.. Note::
+
+   TL;DR: ``PROPERTIES=test_network`` can now be used when it is really
+   impossible to provide meaningful testing without Internet access.
+
 Ideally, we'd want all tests to work just fine without accessing
 the Internet, either via mocks or spawning local servers.
 Unfortunately, not all packages do that and in the end,
@@ -672,20 +693,28 @@ environments.
 For this reason, we have decided to add a new ``PROPERTIES`` value
 ``test_network``.  It is supposed to be combined with ``RESTRICT=test``,
 and it indicates that the tests are restricted precisely because they
-need to access the Internet.
+need to access the Internet.  In the example above (taken from pycares),
+all the package's tests require Internet access but otherwise they would
+work just fine.
 
 Now, old versions of package managers will just skip the tests because
-of the test restriction.  However, new versions include a new
-``ALLOW_TEST`` configuration variable (for ``make.conf``) that can
-be used to elide test restriction.  If its value is set to ``network``,
-then test restriction will be ignored on packages indicating
-``network-test``.  This makes it an invaluable tool both for developers
-and arch testers.
+of the test restriction.  However, the recent versions of Portage
+include a new ``ALLOW_TEST`` configuration variable (for ``make.conf``)
+that can be used to elide test restriction.  If its value is set to
+``network``, then test restriction will be ignored and the tests will
+be run on packages indicating ``network-test``.  This makes it
+an invaluable tool both for developers and arch testers.
 
 This feature was originally proposed for EAPI 8 as a new ``RESTRICT``
 value.  However, we have decided that it will be cleaner and more
 convenient to combine with ``RESTRICT=test`` and make an optional
 extension for all EAPIs.
+
+Note that this is primarily intended to be used on packages that do not
+provide a meaningful subset of tests working without the Internet.
+Whenever reasonable, it is still preferable to skip the tests accessing
+the Internet and run the remainder of the test suite without adding
+the test restriction in the first place.
 
 
 Cheat sheet / index
