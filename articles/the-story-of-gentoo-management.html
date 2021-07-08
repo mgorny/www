@@ -2,18 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <title>The story of Gentoo management</title>
 <meta name="author" content="Michał Górny" />
 <meta name="dcterms.date" content="2018-05-25" />
 <meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
-<link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/"/>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: minimal.css 8642 2021-03-26 13:51:14Z milde $               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -32,81 +33,67 @@
 /* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
 /* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
 
-/* alignment of text and inline objects inside block objects*/
-.align-left   { text-align: left; }
-.align-right  { text-align: right; }
-.align-center { clear: both; text-align: center; }
-.align-top    { vertical-align: top; }
-.align-middle { vertical-align: middle; }
-.align-bottom { vertical-align: bottom; }
-
 /* titles */
-h1.title, p.subtitle {
-  text-align: center;
-}
 p.topic-title,
-p.sidebar-title,
-p.rubric,
 p.admonition-title,
 p.system-message-title {
   font-weight: bold;
 }
-h1 + p.subtitle,
-h1 + p.section-subtitle {
-  font-size: 1.6em;
+p.sidebar-title,
+p.rubric {
+  font-weight: bold;
+  font-size: larger;
 }
-h2 + p.section-subtitle { font-size: 1.28em; }
+p.rubric {
+  color: maroon;
+}
 p.subtitle,
 p.section-subtitle,
 p.sidebar-subtitle {
   font-weight: bold;
   margin-top: -0.5em;
 }
-p.sidebar-title,
-p.rubric {
-  font-size: larger;
+h1 + p.subtitle {
+  font-size: 1.6em;
 }
-p.rubric { color: maroon; }
-a.toc-backref {
+h2 + p.section-subtitle, a.toc-backref {
   color: black;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 /* Warnings, Errors */
-div.caution p.admonition-title,
-div.attention p.admonition-title,
-div.danger p.admonition-title,
-div.error p.admonition-title,
-div.warning p.admonition-title,
-div.system-messages h1,
-div.error,
-span.problematic,
-p.system-message-title {
+.system-messages h2,
+.system-message-title,
+span.problematic {
   color: red;
 }
 
-/* inline literals */
-span.docutils.literal {
+/* Inline Literals */
+.docutils.literal {
   font-family: monospace;
   white-space: pre-wrap;
 }
-/* do not wraph at hyphens and similar: */
+/* do not wrap at hyphens and similar: */
 .literal > span.pre { white-space: nowrap; }
 
 /* Lists */
 
 /* compact and simple lists: no margin between items */
-.simple  li, .compact li,
-.simple  ul, .compact ul,
-.simple  ol, .compact ol,
-.simple > li p, .compact > li p,
-dl.simple > dd, dl.compact > dd {
+.simple  li, .simple  ul, .simple  ol,
+.compact li, .compact ul, .compact ol,
+.simple  > li p, dl.simple  > dd,
+.compact > li p, dl.compact > dd {
   margin-top: 0;
   margin-bottom: 0;
 }
+/* Nested Paragraphs */
+p:first-child { margin-top: 0; }
+p:last-child { margin-bottom: 0; }
+td > p, th > p { margin-bottom: 0; }
 
 /* Table of Contents */
-div.topic.contents { margin: 0.5em 0; }
-div.topic.contents ul {
+.topic.contents { margin: 0.5em 0; }
+.topic.contents ul.auto-toc {
   list-style-type: none;
   padding-left: 1.5em;
 }
@@ -118,14 +105,14 @@ ol.upperalpha { list-style: upper-alpha }
 ol.lowerroman { list-style: lower-roman }
 ol.upperroman { list-style: upper-roman }
 
-dt span.classifier { font-style: italic }
-dt span.classifier:before {
+/* Definition Lists and Derivatives */
+dt .classifier { font-style: italic }
+dt .classifier:before {
   font-style: normal;
   margin: 0.5em;
   content: ":";
 }
-
-/* Field Lists and drivatives */
+/* Field Lists and similar */
 /* bold field name, content starts on the same line */
 dl.field-list > dt,
 dl.option-list > dt,
@@ -143,7 +130,7 @@ dl.citation > dt {
 dl.field-list > dd,
 dl.option-list > dd,
 dl.docinfo > dd {
-  margin-left:  9em; /* ca. 14 chars in the test examples */
+  margin-left:  9em; /* ca. 14 chars in the test examples, fit all Docinfo fields */
 }
 /* start field-body on a new line after long field names */
 dl.field-list > dd > *:first-child,
@@ -160,18 +147,20 @@ dl.docinfo > dt:after {
 }
 
 /* Bibliographic Fields (docinfo) */
-pre.address { font: inherit; }
-dd.authors > p { margin: 0; }
+dl.docinfo pre.address {
+  font: inherit;
+  margin: 0.5em 0;
+}
+dl.docinfo > dd.authors > p { margin: 0; }
 
 /* Option Lists */
-dl.option-list { margin-left: 1.5em; }
 dl.option-list > dt { font-weight: normal; }
 span.option { white-space: nowrap; }
 
 /* Footnotes and Citations  */
-dl.footnote.superscript > dd {margin-left: 1em; }
-dl.footnote.brackets > dd {margin-left: 2em; }
-dl > dt.label { font-weight: normal; }
+dl.footnote.superscript > dd { margin-left: 1em; }
+dl.footnote.brackets > dd { margin-left: 2em; }
+dl.footnote > dt { font-weight: normal; }
 a.footnote-reference.brackets:before,
 dt.label > span.brackets:before { content: "["; }
 a.footnote-reference.brackets:after,
@@ -179,130 +168,113 @@ dt.label > span.brackets:after { content: "]"; }
 a.footnote-reference.superscript,
 dl.footnote.superscript > dt.label {
   vertical-align: super;
-  font-size: smaller;
+  font-size: small;
 }
-dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref {
+  margin-left: 0.2em;
+  font-weight: normal;
+}
 dt.label > span.fn-backref > a { font-style: italic; }
 
-/* Line Blocks */
-div.line-block { display: block; }
-div.line-block div.line-block {
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 40px;
+/* Alignment */
+.align-left   {
+  text-align: left;
+  margin-right: auto;
 }
+.align-center {
+  clear: both;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.align-right  {
+  text-align: right;
+  margin-left: auto;
+}
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
 
-/* Figures, Images, and Tables */
-.figure.align-left,
-figure.align-left,
-img.align-left,
-object.align-left,
-table.align-left {
-  margin-right: auto;
-}
-.figure.align-center,
-figure.align-center,
-img.align-center,
-object.align-center,
-table.align-center {
-  margin-left: auto;
-  margin-right: auto;
-}
-.figure.align-right,
-figure.align-right,
-img.align-right,
-object.align-right,
-table.align-right {
-  margin-left: auto;
-}
-.figure.align-center, .figure.align-right,
-figure.align-center, figure.align-right,
-img.align-center, img.align-right,
-object.align-center, object.align-right {
-  display: block;
-}
 /* reset inner alignment in figures and tables */
-.figure.align-left, .figure.align-right,
 figure.align-left, figure.align-right,
 table.align-left, table.align-center, table.align-right {
   text-align: inherit;
 }
 
-/* Admonitions and System Messages */
-div.admonition,
-div.system-message,
-div.sidebar,
-aside.sidebar {
-  margin: 1em 1.5em;
-  border: medium outset;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  padding-right: 1em;
-  padding-left: 1em;
+/* Text Blocks */
+blockquote,
+div.topic,
+aside.topic {
+  margin: 1em 2em;
 }
-
-/* Sidebar */
-div.sidebar,
-aside.sidebar {
+.sidebar,
+.admonition,
+.system-message {
+  border: thin solid;
+  margin: 1em 2em;
+  padding: 0.5em 1em;
+}
+.sidebar {
   width: 30%;
   max-width: 26em;
   float: right;
   clear: right;
 }
+div.line-block { display: block; }
+div.line-block div.line-block, pre { margin-left: 2em; }
 
-/* Text Blocks */
-blockquote,
-div.topic,
-pre.literal-block,
-pre.doctest-block,
-pre.math,
-pre.code {
-  margin-left: 1.5em;
-  margin-right: 1.5em;
+/* Code line numbers: dropped when copying text from the page */
+pre.code .ln { display: none; }
+pre.code code:before {
+  content: attr(data-lineno); /* …, none) fallback not supported by any browser */
+  color: gray;
 }
-pre.code .ln { color: gray; } /* line numbers */
 
 /* Tables */
-table { border-collapse: collapse; }
+table {
+  border-collapse: collapse;
+}
 td, th {
-  border-style: solid;
-  border-color: silver;
+  border: thin solid silver;
   padding: 0 1ex;
-  border-width: thin;
 }
-td > p:first-child, th > p:first-child { margin-top: 0; }
-td > p, th > p { margin-bottom: 0; }
-
-table > caption {
-  text-align: left;
-  margin-bottom: 0.25em
-}
-
-table.borderless td, table.borderless th {
+.borderless td, .borderless th {
   border: 0;
   padding: 0;
   padding-right: 0.5em /* separate table cells */
 }
 
-/* Document Header and Footer */
-/* div.header,				      */
-/* header { border-bottom: 1px solid black; } */
-/* div.footer,				      */
-/* footer { border-top: 1px solid black; }    */
+table > caption {
+  text-align: left;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+table.captionbelow {
+  caption-side: bottom;
+}
 
-/* new HTML5 block elements: set display for older browsers */
-header, section, footer, aside, nav, main, article, figure {
+/* Document Header and Footer */
+header { border-bottom: 1px solid black; }
+footer { border-top: 1px solid black; }
+
+/* Images are block-level by default in Docutils */
+/* New HTML5 block elements: set display for older browsers */
+img, header, section, footer, aside, nav, main, article, figure, video {
   display: block;
+}
+/* inline images */
+p img, p video, figure img, figure video {
+  display: inline;
 }
 
 </style>
 <style type="text/css">
 
 /* CSS31_ style sheet for the output of Docutils HTML writers.             */
-/* Rules for easy reading and pre-defined style variants.		   */
+/* Rules for easy reading and pre-defined style variants.                  */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: plain.css 8636 2021-03-19 00:23:33Z milde $                                                               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -310,11 +282,11 @@ header, section, footer, aside, nav, main, article, figure {
 /*    Copying and distribution of this file, with or without modification, */
 /*    are permitted in any medium without royalty provided the copyright   */
 /*    notice and this notice are preserved.                                */
-/*    	     	      	     	 					   */
+/*                                                                         */
 /*    This file is offered as-is, without any warranty.                    */
 /*                                                                         */
 /* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
-/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+/* .. _CSS3: http://www.w3.org/TR/CSS3                                     */
 
 
 /* Document Structure */
@@ -325,23 +297,26 @@ body {
   margin: 0;
   background-color: #dbdbdb;
 }
-div.document,
-main {
+main, footer, header {
   line-height:1.3;
-  counter-reset: table;
-  /* counter-reset: figure; */
   /* avoid long lines --> better reading */
+  /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */
   /* OTOH: lines should not be too short because of missing hyphenation, */
-  max-width: 50em;
+  max-width: 50rem;
   padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
   margin: auto;
+}
+main {
+  counter-reset: table figure;
   background-color: white;
 }
-
-/* Sections */
+footer, header {
+  font-size: smaller;
+  padding: 0.5em 2%;
+  border: none;
+}
 
 /* Transitions */
-
 hr.docutils {
   width: 80%;
   margin-top: 1em;
@@ -350,10 +325,9 @@ hr.docutils {
 }
 
 /* Paragraphs */
-/* ========== */
 
 /* vertical space (parskip) */
-p, ol, ul, dl,
+p, ol, ul, dl, li, dd,
 div.line-block,
 div.topic,
 table {
@@ -372,10 +346,12 @@ dl > dd {
 /* Lists */
 /* ===== */
 
-/* Definition Lists */
+/* Separate list entries in compound lists */
+dl > dd, ol > li,
 
-/* lists nested in definition lists */
-/* (:only-child is new in CSS 3) */
+/* Definition Lists */
+/* Indent lists nested in definition lists */
+/* (:only-child is new in CSS 3)           */
 dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
 
 /* Description Lists */
@@ -416,28 +392,16 @@ div.dedication p.topic-title {
   font-style: normal;
 }
 
-/* Citations */
-dl.citation dt.label {
-  font-weight: bold;
-}
-span.fn-backref {
-  font-weight: normal;
-}
-
 /* Text Blocks */
 /* =========== */
 
 /* Literal Blocks */
-
-pre.literal-block,
-pre.doctest-block,
-pre.math,
-pre.code {
+pre.literal-block, pre.doctest-block,
+pre.math, pre.code {
   font-family: monospace;
 }
 
 /* Block Quotes */
-
 blockquote > table,
 div.topic > table {
   margin-top: 0;
@@ -499,32 +463,45 @@ dl.footnote {
 /* Images and Figures */
 
 /* let content flow to the side of aligned images and figures */
-.figure.align-left,
 figure.align-left,
 img.align-left,
+video.align-left,
 object.align-left {
-  display: block;
   clear: left;
   float: left;
   margin-right: 1em;
 }
-.figure.align-right,
 figure.align-right,
 img.align-right,
+video.align-right,
 object.align-right {
-  display: block;
   clear: right;
   float: right;
   margin-left: 1em;
 }
-/* Stop floating sidebars, images and figures at section level 1,2,3 */
-h1, h2, h3 { clear: both; }
+/* Stop floating sidebars, images and figures */
+h1, h2, h3, h4, footer, header { clear: both; }
+
+/* Numbered figures */
+figure.numbered > figcaption > p:before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ": ";
+  font-weight: bold;
+}
+
+/* Admonitions and System Messages */
+.caution p.admonition-title,
+.attention p.admonition-title,
+.danger p.admonition-title,
+.error p.admonition-title,
+.warning p.admonition-title,
+div.error {
+  color: red;
+}
 
 /* Sidebar */
-
 /* Move right. In a layout with fixed margins, */
-/* it can be moved into the margin.   	       */
-div.sidebar,
+/* it can be moved into the margin.            */
 aside.sidebar {
   width: 30%;
   max-width: 26em;
@@ -534,10 +511,8 @@ aside.sidebar {
 }
 
 /* Code */
-
 pre.code { padding: 0.7ex }
 pre.code, code { background-color: #eeeeee }
-pre.code .ln { color: gray; } /* line numbers */
 /* basic highlighting: for a complete scheme, see */
 /* http://docutils.sourceforge.net/sandbox/stylesheets/ */
 pre.code .comment, code .comment { color: #5C6576 }
@@ -556,30 +531,8 @@ pre.code .inserted, code .inserted { background-color: #A3D289}
 /* Compound Paragraph */
 /* Container          */
 
-/* can be styled in a custom stylesheet */
-
-/* Document Header and Footer */
-
-footer, header,
-div.footer, div.header {
-  font-size: smaller;
-  clear: both;
-  padding: 0.5em 2%;
-  background-color: #ebebee;
-  border: none;
-}
-
 /* Inline Markup */
 /* ============= */
-
-/* Emphasis           */
-/*   em               */
-/* Strong Emphasis    */
-/*   strong	      */
-/* Interpreted Text   */
-/*   span.interpreted */
-/* Title Reference    */
-/*   cite	      */
 
 /* Inline Literals                                          */
 /* possible values: normal, nowrap, pre, pre-wrap, pre-line */
@@ -590,7 +543,7 @@ a { text-decoration: none; }
 
 /* External Targets       */
 /*   span.target.external */
-/* Internal Targets  	  */
+/* Internal Targets       */
 /*   span.target.internal */
 /* Footnote References    */
 /*   a.footnote-reference */
@@ -599,8 +552,8 @@ a { text-decoration: none; }
 
 </style>
 </head>
-<body>
-<div class="document" id="the-story-of-gentoo-management">
+<body class="with-toc">
+<main id="the-story-of-gentoo-management">
 <h1 class="title">The story of Gentoo management</h1>
 <dl class="docinfo simple">
 <dt class="author">Author</dt>
@@ -651,8 +604,8 @@ a { text-decoration: none; }
 <li><p><a class="reference internal" href="#references" id="id135">References</a></p></li>
 </ul>
 </div>
-<div class="section" id="preamble">
-<h1><a class="toc-backref" href="#id111">Preamble</a></h1>
+<section id="preamble">
+<h2><a class="toc-backref" href="#id111">Preamble</a></h2>
 <p>I have recently made a tabular summary of (probably) all Council members
 and Trustees in the history of Gentoo <a class="footnote-reference brackets" href="#management-table" id="id1">1</a>.  I think
 that this table provides a very succinct way of expressing the changes
@@ -683,11 +636,11 @@ at the early time (judging by some cross-posts, the traffic on -core
 mailing list was significant, and it was not archived before late
 2004).  Both due to lack of data, and due to specific interest
 in developer self-government, this article starts in mid-2003.</p>
-</div>
-<div class="section" id="gentoo-top-level-management">
-<h1><a class="toc-backref" href="#id112">Gentoo top-level management</a></h1>
-<div class="section" id="early-managers">
-<h2><a class="toc-backref" href="#id113">Early managers</a></h2>
+</section>
+<section id="gentoo-top-level-management">
+<h2><a class="toc-backref" href="#id112">Gentoo top-level management</a></h2>
+<section id="early-managers">
+<h3><a class="toc-backref" href="#id113">Early managers</a></h3>
 <p>The first known well-defined form of Gentoo management was the top-level
 management structure (apparently later called <em>metastructure</em>) defined
 in GLEP 4.  The structure is described as:</p>
@@ -742,9 +695,9 @@ with their leads.  By combining the managers and leads listed
 in the top-level projects, we can account for all managers explicitly
 listed on the project list.  However, we do not have enough data to
 clearly assign them to specific projects yet.</p>
-</div>
-<div class="section" id="how-were-managers-selected">
-<h2><a class="toc-backref" href="#id114">How were managers selected?</a></h2>
+</section>
+<section id="how-were-managers-selected">
+<h3><a class="toc-backref" href="#id114">How were managers selected?</a></h3>
 <p>One of the key issues on which my research was focused was determining
 how were various management bodies selected.  After all, if managers are
 to be considered Gentoo's body of self-government, it would be crucial
@@ -806,9 +759,9 @@ As a result, distribution of power still depended on the few people
 holding it.  John Davis has pointed out those problems in his mail dated
 2003-07-15  <a class="footnote-reference brackets" href="#davis-20030715" id="id13">14</a>.  It does not seem that his calls were
 answered at the time.</p>
-</div>
-<div class="section" id="the-rise-and-fall-of-gentoo-managers">
-<h2><a class="toc-backref" href="#id115">The rise and fall of Gentoo Managers</a></h2>
+</section>
+<section id="the-rise-and-fall-of-gentoo-managers">
+<h3><a class="toc-backref" href="#id115">The rise and fall of Gentoo Managers</a></h3>
 <p>The early period of Gentoo Managers is marked by high activity.  GLEP 4
 required status reports twice a week and weekly IRC meetings.  Sadly,
 a lot of the related data is lost to Gentoo developers since it took
@@ -854,9 +807,9 @@ has been approved <a class="footnote-reference brackets" href="#glep39" id="id19
 <a class="footnote-reference brackets" href="#council-results-1" id="id20">21</a>.  The first Council met at 2005-09-15
 <a class="footnote-reference brackets" href="#council-meeting-1" id="id21">22</a>.  A few days later, the list of managers was
 removed from the site <a class="footnote-reference brackets" href="#managers-removal" id="id22">23</a>.</p>
-</div>
-<div class="section" id="putting-it-to-the-table">
-<h2><a class="toc-backref" href="#id116">Putting it to the table</a></h2>
+</section>
+<section id="putting-it-to-the-table">
+<h3><a class="toc-backref" href="#id116">Putting it to the table</a></h3>
 <p>Fitting Managers into the management table was not an easy task.  But
 why do it in the first place?  I wanted to include them because they
 were predecessors to the Council.  I think the evidence to that is clear
@@ -900,9 +853,9 @@ their advantages.  A flat list puts more focus on the management team
 and its members.  The project assignment indicates which projects were
 considered top-level, at the cost of duplicating some of the managers.
 For those reasons, I've included both variants.</p>
-</div>
-<div class="section" id="conclusion">
-<h2><a class="toc-backref" href="#id117">Conclusion</a></h2>
+</section>
+<section id="conclusion">
+<h3><a class="toc-backref" href="#id117">Conclusion</a></h3>
 <p>The GLEP 4 metastructure was probably the first official management
 structure of Gentoo.  It structured the distribution in a hierarchy,
 with Chief Architect and top-level project managers on top,
@@ -929,12 +882,12 @@ been related to Daniel Robbins leaving, or to Managers focusing on their
 other roles as Trustees.  That might simply have been caused by people
 having less time to work on Gentoo.  In any case, it eventually stopped
 fitting the needs of Gentoo at the time and was replaced.</p>
-</div>
-</div>
-<div class="section" id="gentoo-foundation">
-<h1><a class="toc-backref" href="#id118">Gentoo Foundation</a></h1>
-<div class="section" id="the-beginnings-of-the-foundation">
-<h2><a class="toc-backref" href="#id119">The beginnings of the Foundation</a></h2>
+</section>
+</section>
+<section id="gentoo-foundation">
+<h2><a class="toc-backref" href="#id118">Gentoo Foundation</a></h2>
+<section id="the-beginnings-of-the-foundation">
+<h3><a class="toc-backref" href="#id119">The beginnings of the Foundation</a></h3>
 <p>Originally, Gentoo has been backed by a commercial company Gentoo
 Technologies, owned and run by Daniel Robbins.  Apparently, not all
 developers agreed with this model.</p>
@@ -1024,9 +977,9 @@ and trademark transfers from Gentoo Technologies <a class="footnote-reference b
 On 2005-09-14, he confirmed that Gentoo trademark has been registered to
 the Foundation <a class="footnote-reference brackets" href="#goodyear-20050914" id="id38">36</a>.  The end of 2005 concludes
 the early active period of the Foundation.</p>
-</div>
-<div class="section" id="the-dark-years">
-<h2><a class="toc-backref" href="#id120">The dark years</a></h2>
+</section>
+<section id="the-dark-years">
+<h3><a class="toc-backref" href="#id120">The dark years</a></h3>
 <p>The year 2006 brings little visible progress in the Foundation affairs.
 This year's Trustee elections bring fewer nominees than the previous
 ones.  Quoting Grant Goodyear's reply to Diego Pettenò:</p>
@@ -1098,9 +1051,9 @@ time, a full Board of 5 Trustees is elected from the initial 8 nominees
 <p>By 2008-05-13, the Foundation is reinstated <a class="footnote-reference brackets" href="#thomson-20080513" id="id50">48</a>.
 On 2008-08-31, the first Bylaws are adopted <a class="footnote-reference brackets" href="#bylaws-20080831" id="id51">49</a>
 <a class="footnote-reference brackets" href="#trustee-meeting-200808" id="id52">50</a>.</p>
-</div>
-<div class="section" id="foundation-then-foundation-yesterday">
-<h2><a class="toc-backref" href="#id121">Foundation then, Foundation yesterday</a></h2>
+</section>
+<section id="foundation-then-foundation-yesterday">
+<h3><a class="toc-backref" href="#id121">Foundation then, Foundation yesterday</a></h3>
 <p>Since then, the Foundation has been operating with no major
 interruptions.  The initial Bylaws already included the Trustee election
 model still used today:</p>
@@ -1160,9 +1113,9 @@ today's copyright work is based on the draft policy written by Rich.</p>
 <p>Over the following years, the NFP mailing list traffic is low.
 Recurring topics include copyright, logo usage and Social Contract,
 financial reports and elections.</p>
-</div>
-<div class="section" id="the-recent-months">
-<h2><a class="toc-backref" href="#id122">The recent months</a></h2>
+</section>
+<section id="the-recent-months">
+<h3><a class="toc-backref" href="#id122">The recent months</a></h3>
 <p>The Foundation activity starts to peak again in October 2016.  Matthew
 Thode opens a discussion on changing the procedure for admission
 of members to include a quiz <a class="footnote-reference brackets" href="#thode-20161013" id="id59">56</a> which does not
@@ -1181,7 +1134,7 @@ on an outdated picture of the community.  Additionally, given our
 current metastructure, it's not clear to me how this is even
 a Foundation issue.  <a class="footnote-reference brackets" href="#palimaka-20161109" id="id62">59</a></p>
 </blockquote>
-<p>On 2007-01-05, Matthew Thode proposes:</p>
+<p>On 2017-01-05, Matthew Thode proposes:</p>
 <blockquote>
 <p>[...]</p>
 <p>In order to solve this Gentoo needs to have a combined electorate,
@@ -1205,9 +1158,9 @@ again, to add the following requirement for Trustee candidates:</p>
 <p>Candidates standing for election must be active Gentoo Developers
 as of the record date (Effective 2017/07/04).  <a class="footnote-reference brackets" href="#bylaws-20170619" id="id64">61</a></p>
 </blockquote>
-</div>
-<div class="section" id="trustee-elections">
-<h2><a class="toc-backref" href="#id123">Trustee elections</a></h2>
+</section>
+<section id="trustee-elections">
+<h3><a class="toc-backref" href="#id123">Trustee elections</a></h3>
 <p>While the first Board of Trustees has been explicitly appointed
 by Daniel Robbins, the subsequent Boards are subject to elections.
 The elections occur annually, and consist of nomination phase followed
@@ -1284,9 +1237,9 @@ elections, so they end up being at least partially democratic.</p>
 At the moment, Trustees both approve (or reject) member applications,
 and (via post-2008 Bylaws) determine the criteria for loss of interest
 which influence membership terminations.</p>
-</div>
-<div class="section" id="finding-the-trustees">
-<h2><a class="toc-backref" href="#id124">Finding the Trustees</a></h2>
+</section>
+<section id="finding-the-trustees">
+<h3><a class="toc-backref" href="#id124">Finding the Trustees</a></h3>
 <p>The previous section was focused on the theoretical side and examples
 of Trustee elections.  Now it's time to say how I've managed to obtain
 the results that can be seen in the table, what data sources did I use
@@ -1351,9 +1304,9 @@ more like agenda), nor their metadata contained the list of attendees.
 Even worse, the roll calls during the meetings were hardly readable
 and did not really distinguish current Trustees from other attendees who
 decided to ‘wave’ their hands along with them.</p>
-</div>
-<div class="section" id="id74">
-<h2><a class="toc-backref" href="#id125">Conclusion</a></h2>
+</section>
+<section id="id74">
+<h3><a class="toc-backref" href="#id125">Conclusion</a></h3>
 <p>The Gentoo Foundation has been formed in 2004 to provide
 a not-for-profit entity to hold Gentoo copyright and trademarks, process
 financials and handle all other legal aspects of Gentoo's existence.
@@ -1379,12 +1332,12 @@ activity.  Gentoo is at an interesting point, and it is hard to predict
 what the future might bring.  Hopefully, all the most important problems
 will be solved during this year, though unlikely before the next Trustee
 elections.</p>
-</div>
-</div>
-<div class="section" id="gentoo-council">
-<h1><a class="toc-backref" href="#id126">Gentoo Council</a></h1>
-<div class="section" id="the-metastructure-debate">
-<h2><a class="toc-backref" href="#id127">The metastructure debate</a></h2>
+</section>
+</section>
+<section id="gentoo-council">
+<h2><a class="toc-backref" href="#id126">Gentoo Council</a></h2>
+<section id="the-metastructure-debate">
+<h3><a class="toc-backref" href="#id127">The metastructure debate</a></h3>
 <p>The history of Gentoo Council begins in 2005.  It being with a poll
 on changing the Gentoo metastructure as posted on 2005-06-08
 <a class="footnote-reference brackets" href="#metastructure-vote" id="id80">71</a>.  Sadly, it seems that all the discussion leading
@@ -1437,9 +1390,9 @@ their proxies).</p></li>
 <p><a class="footnote-reference brackets" href="#glep39" id="id90">20</a></p>
 </blockquote>
 <p>The first Council meeting was held on 2005-09-15 <a class="footnote-reference brackets" href="#council-meeting-1" id="id91">22</a>.</p>
-</div>
-<div class="section" id="council-elections">
-<h2><a class="toc-backref" href="#id128">Council elections</a></h2>
+</section>
+<section id="council-elections">
+<h3><a class="toc-backref" href="#id128">Council elections</a></h3>
 <p>The nominations for the first Council do not seem to have been public.
 Apparently, the voting was open throughout August 2005, and the results
 were published on 2005-09-01 <a class="footnote-reference brackets" href="#council-results-1" id="id92">21</a>.  However, in 2006
@@ -1489,9 +1442,9 @@ as members of those teams.</p></li>
 then.  The problem of vetoing a candidate has been solved there in 2008
 already, and the wider structure reduced the Council's control
 of electorate.</p>
-</div>
-<div class="section" id="important-points-in-council-history">
-<h2><a class="toc-backref" href="#id129">Important points in Council history</a></h2>
+</section>
+<section id="important-points-in-council-history">
+<h3><a class="toc-backref" href="#id129">Important points in Council history</a></h3>
 <p>The history of Gentoo Council is not as interesting as the history
 of Trustees.  During all the past years, the Council has been deciding
 on technical and management aspects of Gentoo, reviewing GLEPs,
@@ -1530,9 +1483,9 @@ project <a class="footnote-reference brackets" href="#council-20071011" id="id10
 <a class="footnote-reference brackets" href="#glep39-20140119" id="id105">88</a>.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="establishing-council-members">
-<h2><a class="toc-backref" href="#id130">Establishing Council members</a></h2>
+</section>
+<section id="establishing-council-members">
+<h3><a class="toc-backref" href="#id130">Establishing Council members</a></h3>
 <p>I have to say that of all management bodies considered, establishing
 the Council members was the easiest task so far.  Thanks to single-year
 terms combined with yearly elections, I was able to assemble most
@@ -1545,9 +1498,9 @@ results and established all the remaining mid-term seat changes,
 the latter confirmed by actual meeting logs.</p>
 <p>That's all.  I have easily assembled the complete list, and verified
 each row with two sources.</p>
-</div>
-<div class="section" id="id109">
-<h2><a class="toc-backref" href="#id131">Conclusion</a></h2>
+</section>
+<section id="id109">
+<h3><a class="toc-backref" href="#id131">Conclusion</a></h3>
 <p>The Gentoo Council has been formed in 2005 as a part of new
 metastructure.  It represents a shift from a hierarchical structure
 where global decisions were made by privileged top-level project leads
@@ -1569,10 +1522,10 @@ discussion about the role of the Council in Gentoo.  It is possible that
 the developers will eventually have to revisit the Gentoo metastructure
 and reconsider the relation between Gentoo Foundation and Gentoo
 developers.</p>
-</div>
-</div>
-<div class="section" id="the-split-of-responsibilities">
-<h1><a class="toc-backref" href="#id132">The split of responsibilities</a></h1>
+</section>
+</section>
+<section id="the-split-of-responsibilities">
+<h2><a class="toc-backref" href="#id132">The split of responsibilities</a></h2>
 <p>The following table tries to graphically summarize the split
 of responsibilities between the business and the community part
 of Gentoo in its history.</p>
@@ -1691,9 +1644,9 @@ developers 72 were Foundation members (which accounts for approximately
 36%).  At the same time, the Foundation had 5 non-developer members,
 and 4 members that were recently retired developers (and who therefore
 may no longer be active Foundation members as well).</p>
-</div>
-<div class="section" id="epilogue">
-<h1><a class="toc-backref" href="#id133">Epilogue</a></h1>
+</section>
+<section id="epilogue">
+<h2><a class="toc-backref" href="#id133">Epilogue</a></h2>
 <p>This article started with a few simple questions: what was the relation
 between past Council members and Trustees?  How many members did they
 share in the past?  Did Gentoo developers move from Council to Trustees,
@@ -1742,9 +1695,9 @@ established in 2008, which in turn is the structure from 2005 with small
 changes.  Tomorrow's Gentoo may have a ‘structure from 2008 with small
 changes’, or it may be something completely different.  The only way
 to find out is to wait and see.</p>
-</div>
-<div class="section" id="thanks">
-<h1><a class="toc-backref" href="#id134">Thanks</a></h1>
+</section>
+<section id="thanks">
+<h2><a class="toc-backref" href="#id134">Thanks</a></h2>
 <p>I would like to thank the following people who have contributed to this
 article through providing me with additional data and helping
 to understand the data I already had:</p>
@@ -1756,9 +1709,9 @@ to understand the data I already had:</p>
 <li><p>Ulrich Müller,</p></li>
 <li><p>Alec Warner.</p></li>
 </ul>
-</div>
-<div class="section" id="references">
-<h1><a class="toc-backref" href="#id135">References</a></h1>
+</section>
+<section id="references">
+<h2><a class="toc-backref" href="#id135">References</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="management-table"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Michał Górny, Gentoo management over time
@@ -2162,7 +2115,7 @@ open for the Gentoo Council 2007
 (<a class="reference external" href="https://wiki.gentoo.org/wiki/Project:Council/Meeting_logs">https://wiki.gentoo.org/wiki/Project:Council/Meeting_logs</a>)</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</main>
 </body>
 </html>
