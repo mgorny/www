@@ -7,7 +7,7 @@
 .term-start { border-top: 2px solid #aaa; }
 
 .agriffis { background: yellow; }
-.alicef { background: aliceblue; }
+.alicef { background: aliceblue; color: green; }
 .amne { }
 .antarus { background: mediumslateblue; color: white; }
 .avenj { }
@@ -33,7 +33,7 @@
 .g2boojum { background: dimgray; color: white; }
 .grobian { background: cornflowerblue; color: white; }
 .gyakovlev { background: gold; }
-.halcy0n { background: darkgoldenrod; color: white; }
+.halcy0n { background: darkgoldenrod; }
 .hwoarang { }
 .iggy { }
 .jaervosz { background: lemonchiffon; }
@@ -51,11 +51,13 @@
 .kugelfang { }
 .kumba { }
 .leio { background: darkmagenta; color: white; }
-.lu_zero { background: crimson; color: white; }
+.lu_zero { background: crimson; color: yellow; }
+.marecki { }
+.mattst88 { background: crimson; color: white; }
 .method { background: black; color: white; }
-.mgorny { }
+.mgorny { background: darkorange; }
 .neddyseagoon { background: limegreen; }
-.patrick { background: deeppink; }
+.patrick { background: deeppink; color: white; }
 .pauldv { background: lightgray; }
 .pfeifer { }
 .prometheanfire { background: mediumseagreen; color: white; }
@@ -66,15 +68,16 @@
 .ramereth { background: mediumvioletred; color: white; }
 .rich0 { background: brown; color: white; }
 .robbat2 { background: lightblue; }
+.sam { }
 .scarabeus { background: coral; }
 .seemant { background: lavender; }
 .slyfox { background: mediumorchid; color: white; }
-.solar { background: darkorange; }
+.solar { background: darkorange; color: white; }
 .swift { background: khaki; }
 .tamiko { }
 .tgall { }
 .tsunam { background: navy; color: white; }
-.uberlord { background: gold; }
+.uberlord { background: gold; color: red; }
 .ulm { background: aquamarine; }
 .vapier { background: darkolivegreen; color: white; }
 .whissi { background: darkkhaki; }
