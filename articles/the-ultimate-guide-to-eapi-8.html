@@ -6,7 +6,7 @@
 <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <title>The ultimate guide to EAPI 8</title>
 <meta name="author" content="Michał Górny" />
-<meta name="dcterms.date" content="2021-06-16" />
+<meta name="dcterms.date" content="2021-06-17" />
 <meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
 <link rel="schema.dcterms" href="http://purl.org/dc/terms/"/>
 <style type="text/css">
@@ -559,9 +559,9 @@ a { text-decoration: none; }
 <dt class="author">Author</dt>
 <dd class="author"><p>Michał Górny</p></dd>
 <dt class="date">Date</dt>
-<dd class="date">2021-06-16</dd>
+<dd class="date">2021-06-17</dd>
 <dt class="version">Version</dt>
-<dd class="version">1.0</dd>
+<dd class="version">1.1</dd>
 <dt class="copyright">Copyright</dt>
 <dd class="copyright"><a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</a></dd>
 <dt class="specification">Specification</dt>
@@ -726,7 +726,8 @@ for <span class="docutils literal">CBUILD</span> and therefore directly executab
 </tr>
 <tr><td><p>Relevant offset-prefix</p></td>
 <td colspan="2"><p>BROOT</p></td>
-<td colspan="3"><p>EPREFIX</p></td>
+<td><p>(*)</p></td>
+<td colspan="2"><p>EPREFIX</p></td>
 </tr>
 <tr><td><p>Path combined with prefix</p></td>
 <td colspan="2"><p>BROOT</p></td>
@@ -741,6 +742,9 @@ for <span class="docutils literal">CBUILD</span> and therefore directly executab
 </tbody>
 </table>
 </blockquote>
+<p>(*) The offset-prefix applicable to <span class="docutils literal">DEPEND</span> depends on the values
+of <span class="docutils literal">ROOT</span> and <span class="docutils literal">SYSROOT</span>.  This is explained in detail in the EAPI 7
+Guide.</p>
 </section>
 <section id="selective-fetch-mirror-restriction">
 <span id="mirror"></span><span id="fetch"></span><h3><a class="toc-backref" href="#id8">Selective fetch/mirror restriction</a></h3>
@@ -841,11 +845,11 @@ libraries.  <a class="footnote-reference brackets" href="#qa-policy-static" id="
 </section>
 <section id="properties-and-restrict-are-now-accumulated-across-eclasses">
 <span id="restrict"></span><span id="properties"></span><h3><a class="toc-backref" href="#id11">PROPERTIES and RESTRICT are now accumulated across eclasses</a></h3>
-<p>Up to EAPI 7, <span class="docutils literal">PROPERTIES</span> and <span class="docutils literal">RESTRICT</span> were treated like
-a regular bash variables when sourcing eclasses.  This meant that
-if an eclass or an ebuild wanted to modify them, they had to explicitly
-append to them, e.g. via <span class="docutils literal">+=</span>.  This was inconsistent with how some
-other variables (but not all) were handled, and confusing to developers.
+<p>Up to EAPI 7, <span class="docutils literal">PROPERTIES</span> and <span class="docutils literal">RESTRICT</span> were treated like regular
+bash variables when sourcing eclasses.  This meant that if an eclass
+or an ebuild wanted to modify them, they had to explicitly append
+to them, e.g.  via <span class="docutils literal">+=</span>.  This was inconsistent with how some other
+variables (but not all) were handled, and confusing to developers.
 For example, consider the following snippet:</p>
 <pre class="code bash literal-block"><code><span class="name variable">EAPI</span><span class="operator">=</span><span class="literal number">7</span>
 

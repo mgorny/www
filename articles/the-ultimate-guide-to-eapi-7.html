@@ -561,7 +561,7 @@ a { text-decoration: none; }
 <dt class="date">Date</dt>
 <dd class="date">2018-05-03</dd>
 <dt class="version">Version</dt>
-<dd class="version">1.0</dd>
+<dd class="version">1.1</dd>
 <dt class="copyright">Copyright</dt>
 <dd class="copyright"><a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</a></dd>
 </dl>
@@ -923,17 +923,23 @@ no embedded <span class="docutils literal">EPREFIX</span> and has an <span class
 appended.  When <span class="docutils literal">SYSROOT</span> is different from <span class="docutils literal">ROOT</span>, pure build time
 dependencies (<span class="docutils literal">DEPEND</span>) are installed to <span class="docutils literal">SYSROOT</span>, allowing users
 to save space on the filesystem running the actual target.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Originally, <span class="docutils literal">ESYSROOT</span> used <span class="docutils literal">EPREFIX</span> unconditionally.  However,
+the logic has been changed retroactively as described below.</p>
+</div>
 <p>It was unclear whether <span class="docutils literal">SYSROOT</span> should embed the offset prefix
 or not, and whether a different value of <span class="docutils literal">EPREFIX</span> should be allowed
-for <span class="docutils literal">SYSROOT</span>.  Eventually, we concluded that using the same
-<span class="docutils literal">EPREFIX</span> is necessary for interoperability.  For example,
-if a library specified as a build-time dependency hardcodes a path
-to a file that is used at runtime, the path must match in both roots,
-and therefore its prefix has to match.</p>
-<p>The split into two variables intends to allow using <span class="docutils literal">SYSROOT</span> with
-paths that have <span class="docutils literal">EPREFIX</span> included already (e.g. paths obtained
-from various external tools).  Model matching <span class="docutils literal">ROOT</span>/<span class="docutils literal">EROOT</span> also
-reduces the risk of confusion.</p>
+for <span class="docutils literal">SYSROOT</span>.  Eventually, we have decided to use the following
+logic to keep things somewhat simple and working at the same time:</p>
+<ol class="arabic simple">
+<li><p>If <span class="docutils literal">SYSROOT</span> is equal to <span class="docutils literal">ROOT</span>, then <span class="docutils literal">EPREFIX</span> is used.
+Effectively, <span class="docutils literal">ESYSROOT</span> is equal to <span class="docutils literal">EROOT</span>.</p></li>
+<li><p>If <span class="docutils literal">SYSROOT</span> is empty and <span class="docutils literal">ROOT</span> is not empty, then <span class="docutils literal">BROOT</span>
+is used.  Effectively, <span class="docutils literal">ESYSROOT</span> is equal to <span class="docutils literal">BROOT</span>.</p></li>
+<li><p>Otherwise, no prefix is used and <span class="docutils literal">ESYSROOT</span> is equal
+to <span class="docutils literal">SYSROOT</span>.</p></li>
+</ol>
 <pre class="code bash literal-block"><code>src_configure<span class="operator">()</span> <span class="operator">{</span>
     <span class="comment single"># HACK: add include path missing upstream
 </span>    <span class="name builtin">local</span> -x <span class="name variable">CPPFLAGS</span><span class="operator">=</span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">CPPFLAGS</span><span class="literal string interpol">}</span><span class="literal string double"> -I</span><span class="literal string interpol">${</span><span class="name variable">ESYSROOT</span><span class="literal string interpol">}</span><span class="literal string double">/usr/include/foo&quot;</span>
@@ -1019,10 +1025,10 @@ dependency types.  It is included below for completeness.</p>
 <blockquote>
 <table>
 <colgroup>
-<col style="width: 45%" />
-<col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 29%" />
+<col style="width: 42%" />
+<col style="width: 12%" />
+<col style="width: 19%" />
+<col style="width: 27%" />
 </colgroup>
 <thead>
 <tr><th class="head"><p>Dependency type</p></th>
@@ -1044,7 +1050,7 @@ dependency types.  It is included below for completeness.</p>
 </tr>
 <tr><td><p>Relevant offset-prefix</p></td>
 <td><p>BROOT</p></td>
-<td><p>EPREFIX</p></td>
+<td><p>(see above)</p></td>
 <td><p>EPREFIX</p></td>
 </tr>
 <tr><td><p>Path combined with prefix</p></td>
