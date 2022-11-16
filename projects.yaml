@@ -1,4 +1,36 @@
 ---
+name: pycargoebuild
+date: 2022-11-09
+tags: gentoo package-management python rust
+github: projg2/pycargoebuild
+desc: |
+  An ebuild generator for Cargo/Rust packages, written in Python.
+  Featuring proper ``LICENSE`` support, in-place ebuild updates,
+  merging multiple Cargo packages and most importantly, not requiring
+  Rust.
+---
+name: gpep517
+date: 2022-04-04
+tags: gentoo python
+github: projg2/gpep517
+desc: |
+  A script to aid building and installing Python wheels using `PEP 517`_
+  backends. Minimal dependency footprint (and no bundled dependencies!)
+  make it suitable for use while bootstrapping new Python targets
+  for Gentoo.
+
+  .. _PEP 517: https://peps.python.org/pep-0517/
+---
+name: denonavr-cli
+date: 2022-06-19
+tags: python
+github: projg2/denonavr-cli
+desc: |
+  A minimal CLI client providing basic control over Denon AV Receivers,
+  using denonavr_ Python package.
+
+  .. _denonavr: https://pypi.org/project/denonavr/
+---
 name: goose (gander)
 date: 2020-05-10
 tags: django gentoo metric python
