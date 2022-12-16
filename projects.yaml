@@ -158,6 +158,17 @@ desc: |
   .. _key poisoning attacks on SKS:
      https://gist.github.com/rjhansen/67ab921ffb4084c865b3618d6955275f
 ---
+name: acct-*
+date: 2019-06-20
+tags: gentoo package-management
+desc: |
+  A new framework for managing system group and user accounts.  It
+  replaces the previous approach of creating and modifying groups
+  and users ad-hoc in invidual ebuilds with a dedicated package
+  for every account.  This provides a single source of truth for account
+  data, enables easy locking of unused accounts and using consistent
+  fixed UIDs and GIDs across systems.
+---
 name: votrify
 date: 2019-06-15
 tags: openpgp python
