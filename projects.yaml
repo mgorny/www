@@ -1,4 +1,16 @@
 ---
+name: app-alternatives
+date: 2022-11-28
+tags: gentoo package-management
+desc: |
+  A new ebuild-based framework for switching between alternative tool
+  providers.  Replaces some of the previous solutions such as eselect
+  modules, USE=symlink uses and manual hacks.  Ensures that the symlinks
+  are owned by a single package and supports merged /usr systems.
+  Can also replace some of the old virtuals or make it possible
+  to distinguish a dependency on a generic POSIX-compliant tool from
+  a dependency on a specific implementation.
+---
 name: pycargoebuild
 date: 2022-11-09
 tags: gentoo package-management python rust
