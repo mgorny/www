@@ -2,18 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <title>A copyright primer (not only) for Gentoo developers</title>
 <meta name="author" content="Michał Górny" />
 <meta name="dcterms.date" content="2020-08-24" />
 <meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/4.0/" />
-<link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/"/>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: minimal.css 8642 2021-03-26 13:51:14Z milde $               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -32,81 +33,67 @@
 /* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
 /* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
 
-/* alignment of text and inline objects inside block objects*/
-.align-left   { text-align: left; }
-.align-right  { text-align: right; }
-.align-center { clear: both; text-align: center; }
-.align-top    { vertical-align: top; }
-.align-middle { vertical-align: middle; }
-.align-bottom { vertical-align: bottom; }
-
 /* titles */
-h1.title, p.subtitle {
-  text-align: center;
-}
 p.topic-title,
-p.sidebar-title,
-p.rubric,
 p.admonition-title,
 p.system-message-title {
   font-weight: bold;
 }
-h1 + p.subtitle,
-h1 + p.section-subtitle {
-  font-size: 1.6em;
+p.sidebar-title,
+p.rubric {
+  font-weight: bold;
+  font-size: larger;
 }
-h2 + p.section-subtitle { font-size: 1.28em; }
+p.rubric {
+  color: maroon;
+}
 p.subtitle,
 p.section-subtitle,
 p.sidebar-subtitle {
   font-weight: bold;
   margin-top: -0.5em;
 }
-p.sidebar-title,
-p.rubric {
-  font-size: larger;
+h1 + p.subtitle {
+  font-size: 1.6em;
 }
-p.rubric { color: maroon; }
-a.toc-backref {
+h2 + p.section-subtitle, a.toc-backref {
   color: black;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 /* Warnings, Errors */
-div.caution p.admonition-title,
-div.attention p.admonition-title,
-div.danger p.admonition-title,
-div.error p.admonition-title,
-div.warning p.admonition-title,
-div.system-messages h1,
-div.error,
-span.problematic,
-p.system-message-title {
+.system-messages h2,
+.system-message-title,
+span.problematic {
   color: red;
 }
 
-/* inline literals */
-span.docutils.literal {
+/* Inline Literals */
+.docutils.literal {
   font-family: monospace;
   white-space: pre-wrap;
 }
-/* do not wraph at hyphens and similar: */
+/* do not wrap at hyphens and similar: */
 .literal > span.pre { white-space: nowrap; }
 
 /* Lists */
 
 /* compact and simple lists: no margin between items */
-.simple  li, .compact li,
-.simple  ul, .compact ul,
-.simple  ol, .compact ol,
-.simple > li p, .compact > li p,
-dl.simple > dd, dl.compact > dd {
+.simple  li, .simple  ul, .simple  ol,
+.compact li, .compact ul, .compact ol,
+.simple  > li p, dl.simple  > dd,
+.compact > li p, dl.compact > dd {
   margin-top: 0;
   margin-bottom: 0;
 }
+/* Nested Paragraphs */
+p:first-child { margin-top: 0; }
+p:last-child { margin-bottom: 0; }
+td > p, th > p { margin-bottom: 0; }
 
 /* Table of Contents */
-div.topic.contents { margin: 0.5em 0; }
-div.topic.contents ul {
+.topic.contents { margin: 0.5em 0; }
+.topic.contents ul.auto-toc {
   list-style-type: none;
   padding-left: 1.5em;
 }
@@ -118,14 +105,14 @@ ol.upperalpha { list-style: upper-alpha }
 ol.lowerroman { list-style: lower-roman }
 ol.upperroman { list-style: upper-roman }
 
-dt span.classifier { font-style: italic }
-dt span.classifier:before {
+/* Definition Lists and Derivatives */
+dt .classifier { font-style: italic }
+dt .classifier:before {
   font-style: normal;
   margin: 0.5em;
   content: ":";
 }
-
-/* Field Lists and drivatives */
+/* Field Lists and similar */
 /* bold field name, content starts on the same line */
 dl.field-list > dt,
 dl.option-list > dt,
@@ -143,7 +130,7 @@ dl.citation > dt {
 dl.field-list > dd,
 dl.option-list > dd,
 dl.docinfo > dd {
-  margin-left:  9em; /* ca. 14 chars in the test examples */
+  margin-left:  9em; /* ca. 14 chars in the test examples, fit all Docinfo fields */
 }
 /* start field-body on a new line after long field names */
 dl.field-list > dd > *:first-child,
@@ -160,18 +147,20 @@ dl.docinfo > dt:after {
 }
 
 /* Bibliographic Fields (docinfo) */
-pre.address { font: inherit; }
-dd.authors > p { margin: 0; }
+dl.docinfo pre.address {
+  font: inherit;
+  margin: 0.5em 0;
+}
+dl.docinfo > dd.authors > p { margin: 0; }
 
 /* Option Lists */
-dl.option-list { margin-left: 1.5em; }
 dl.option-list > dt { font-weight: normal; }
 span.option { white-space: nowrap; }
 
 /* Footnotes and Citations  */
-dl.footnote.superscript > dd {margin-left: 1em; }
-dl.footnote.brackets > dd {margin-left: 2em; }
-dl > dt.label { font-weight: normal; }
+dl.footnote.superscript > dd { margin-left: 1em; }
+dl.footnote.brackets > dd { margin-left: 2em; }
+dl.footnote > dt { font-weight: normal; }
 a.footnote-reference.brackets:before,
 dt.label > span.brackets:before { content: "["; }
 a.footnote-reference.brackets:after,
@@ -179,130 +168,113 @@ dt.label > span.brackets:after { content: "]"; }
 a.footnote-reference.superscript,
 dl.footnote.superscript > dt.label {
   vertical-align: super;
-  font-size: smaller;
+  font-size: small;
 }
-dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref {
+  margin-left: 0.2em;
+  font-weight: normal;
+}
 dt.label > span.fn-backref > a { font-style: italic; }
 
-/* Line Blocks */
-div.line-block { display: block; }
-div.line-block div.line-block {
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 40px;
+/* Alignment */
+.align-left   {
+  text-align: left;
+  margin-right: auto;
 }
+.align-center {
+  clear: both;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.align-right  {
+  text-align: right;
+  margin-left: auto;
+}
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
 
-/* Figures, Images, and Tables */
-.figure.align-left,
-figure.align-left,
-img.align-left,
-object.align-left,
-table.align-left {
-  margin-right: auto;
-}
-.figure.align-center,
-figure.align-center,
-img.align-center,
-object.align-center,
-table.align-center {
-  margin-left: auto;
-  margin-right: auto;
-}
-.figure.align-right,
-figure.align-right,
-img.align-right,
-object.align-right,
-table.align-right {
-  margin-left: auto;
-}
-.figure.align-center, .figure.align-right,
-figure.align-center, figure.align-right,
-img.align-center, img.align-right,
-object.align-center, object.align-right {
-  display: block;
-}
 /* reset inner alignment in figures and tables */
-.figure.align-left, .figure.align-right,
 figure.align-left, figure.align-right,
 table.align-left, table.align-center, table.align-right {
   text-align: inherit;
 }
 
-/* Admonitions and System Messages */
-div.admonition,
-div.system-message,
-div.sidebar,
-aside.sidebar {
-  margin: 1em 1.5em;
-  border: medium outset;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  padding-right: 1em;
-  padding-left: 1em;
+/* Text Blocks */
+blockquote,
+div.topic,
+aside.topic {
+  margin: 1em 2em;
 }
-
-/* Sidebar */
-div.sidebar,
-aside.sidebar {
+.sidebar,
+.admonition,
+.system-message {
+  border: thin solid;
+  margin: 1em 2em;
+  padding: 0.5em 1em;
+}
+.sidebar {
   width: 30%;
   max-width: 26em;
   float: right;
   clear: right;
 }
+div.line-block { display: block; }
+div.line-block div.line-block, pre { margin-left: 2em; }
 
-/* Text Blocks */
-blockquote,
-div.topic,
-pre.literal-block,
-pre.doctest-block,
-pre.math,
-pre.code {
-  margin-left: 1.5em;
-  margin-right: 1.5em;
+/* Code line numbers: dropped when copying text from the page */
+pre.code .ln { display: none; }
+pre.code code:before {
+  content: attr(data-lineno); /* …, none) fallback not supported by any browser */
+  color: gray;
 }
-pre.code .ln { color: gray; } /* line numbers */
 
 /* Tables */
-table { border-collapse: collapse; }
+table {
+  border-collapse: collapse;
+}
 td, th {
-  border-style: solid;
-  border-color: silver;
+  border: thin solid silver;
   padding: 0 1ex;
-  border-width: thin;
 }
-td > p:first-child, th > p:first-child { margin-top: 0; }
-td > p, th > p { margin-bottom: 0; }
-
-table > caption {
-  text-align: left;
-  margin-bottom: 0.25em
-}
-
-table.borderless td, table.borderless th {
+.borderless td, .borderless th {
   border: 0;
   padding: 0;
   padding-right: 0.5em /* separate table cells */
 }
 
-/* Document Header and Footer */
-/* div.header,				      */
-/* header { border-bottom: 1px solid black; } */
-/* div.footer,				      */
-/* footer { border-top: 1px solid black; }    */
+table > caption {
+  text-align: left;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+table.captionbelow {
+  caption-side: bottom;
+}
 
-/* new HTML5 block elements: set display for older browsers */
-header, section, footer, aside, nav, main, article, figure {
+/* Document Header and Footer */
+header { border-bottom: 1px solid black; }
+footer { border-top: 1px solid black; }
+
+/* Images are block-level by default in Docutils */
+/* New HTML5 block elements: set display for older browsers */
+img, header, section, footer, aside, nav, main, article, figure, video {
   display: block;
+}
+/* inline images */
+p img, p video, figure img, figure video {
+  display: inline;
 }
 
 </style>
 <style type="text/css">
 
 /* CSS31_ style sheet for the output of Docutils HTML writers.             */
-/* Rules for easy reading and pre-defined style variants.		   */
+/* Rules for easy reading and pre-defined style variants.                  */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: plain.css 8636 2021-03-19 00:23:33Z milde $                                                               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -310,11 +282,11 @@ header, section, footer, aside, nav, main, article, figure {
 /*    Copying and distribution of this file, with or without modification, */
 /*    are permitted in any medium without royalty provided the copyright   */
 /*    notice and this notice are preserved.                                */
-/*    	     	      	     	 					   */
+/*                                                                         */
 /*    This file is offered as-is, without any warranty.                    */
 /*                                                                         */
 /* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
-/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+/* .. _CSS3: http://www.w3.org/TR/CSS3                                     */
 
 
 /* Document Structure */
@@ -325,23 +297,26 @@ body {
   margin: 0;
   background-color: #dbdbdb;
 }
-div.document,
-main {
+main, footer, header {
   line-height:1.3;
-  counter-reset: table;
-  /* counter-reset: figure; */
   /* avoid long lines --> better reading */
+  /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */
   /* OTOH: lines should not be too short because of missing hyphenation, */
-  max-width: 50em;
+  max-width: 50rem;
   padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
   margin: auto;
+}
+main {
+  counter-reset: table figure;
   background-color: white;
 }
-
-/* Sections */
+footer, header {
+  font-size: smaller;
+  padding: 0.5em 2%;
+  border: none;
+}
 
 /* Transitions */
-
 hr.docutils {
   width: 80%;
   margin-top: 1em;
@@ -350,10 +325,9 @@ hr.docutils {
 }
 
 /* Paragraphs */
-/* ========== */
 
 /* vertical space (parskip) */
-p, ol, ul, dl,
+p, ol, ul, dl, li, dd,
 div.line-block,
 div.topic,
 table {
@@ -372,10 +346,12 @@ dl > dd {
 /* Lists */
 /* ===== */
 
-/* Definition Lists */
+/* Separate list entries in compound lists */
+dl > dd, ol > li,
 
-/* lists nested in definition lists */
-/* (:only-child is new in CSS 3) */
+/* Definition Lists */
+/* Indent lists nested in definition lists */
+/* (:only-child is new in CSS 3)           */
 dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
 
 /* Description Lists */
@@ -416,28 +392,16 @@ div.dedication p.topic-title {
   font-style: normal;
 }
 
-/* Citations */
-dl.citation dt.label {
-  font-weight: bold;
-}
-span.fn-backref {
-  font-weight: normal;
-}
-
 /* Text Blocks */
 /* =========== */
 
 /* Literal Blocks */
-
-pre.literal-block,
-pre.doctest-block,
-pre.math,
-pre.code {
+pre.literal-block, pre.doctest-block,
+pre.math, pre.code {
   font-family: monospace;
 }
 
 /* Block Quotes */
-
 blockquote > table,
 div.topic > table {
   margin-top: 0;
@@ -499,32 +463,45 @@ dl.footnote {
 /* Images and Figures */
 
 /* let content flow to the side of aligned images and figures */
-.figure.align-left,
 figure.align-left,
 img.align-left,
+video.align-left,
 object.align-left {
-  display: block;
   clear: left;
   float: left;
   margin-right: 1em;
 }
-.figure.align-right,
 figure.align-right,
 img.align-right,
+video.align-right,
 object.align-right {
-  display: block;
   clear: right;
   float: right;
   margin-left: 1em;
 }
-/* Stop floating sidebars, images and figures at section level 1,2,3 */
-h1, h2, h3 { clear: both; }
+/* Stop floating sidebars, images and figures */
+h1, h2, h3, h4, footer, header { clear: both; }
+
+/* Numbered figures */
+figure.numbered > figcaption > p:before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ": ";
+  font-weight: bold;
+}
+
+/* Admonitions and System Messages */
+.caution p.admonition-title,
+.attention p.admonition-title,
+.danger p.admonition-title,
+.error p.admonition-title,
+.warning p.admonition-title,
+div.error {
+  color: red;
+}
 
 /* Sidebar */
-
 /* Move right. In a layout with fixed margins, */
-/* it can be moved into the margin.   	       */
-div.sidebar,
+/* it can be moved into the margin.            */
 aside.sidebar {
   width: 30%;
   max-width: 26em;
@@ -534,10 +511,8 @@ aside.sidebar {
 }
 
 /* Code */
-
 pre.code { padding: 0.7ex }
 pre.code, code { background-color: #eeeeee }
-pre.code .ln { color: gray; } /* line numbers */
 /* basic highlighting: for a complete scheme, see */
 /* http://docutils.sourceforge.net/sandbox/stylesheets/ */
 pre.code .comment, code .comment { color: #5C6576 }
@@ -556,30 +531,8 @@ pre.code .inserted, code .inserted { background-color: #A3D289}
 /* Compound Paragraph */
 /* Container          */
 
-/* can be styled in a custom stylesheet */
-
-/* Document Header and Footer */
-
-footer, header,
-div.footer, div.header {
-  font-size: smaller;
-  clear: both;
-  padding: 0.5em 2%;
-  background-color: #ebebee;
-  border: none;
-}
-
 /* Inline Markup */
 /* ============= */
-
-/* Emphasis           */
-/*   em               */
-/* Strong Emphasis    */
-/*   strong	      */
-/* Interpreted Text   */
-/*   span.interpreted */
-/* Title Reference    */
-/*   cite	      */
 
 /* Inline Literals                                          */
 /* possible values: normal, nowrap, pre, pre-wrap, pre-line */
@@ -590,7 +543,7 @@ a { text-decoration: none; }
 
 /* External Targets       */
 /*   span.target.external */
-/* Internal Targets  	  */
+/* Internal Targets       */
 /*   span.target.internal */
 /* Footnote References    */
 /*   a.footnote-reference */
@@ -599,8 +552,8 @@ a { text-decoration: none; }
 
 </style>
 </head>
-<body>
-<div class="document" id="a-copyright-primer-not-only-for-gentoo-developers">
+<body class="with-toc">
+<main id="a-copyright-primer-not-only-for-gentoo-developers">
 <h1 class="title">A copyright primer (not only) for Gentoo developers</h1>
 <dl class="docinfo simple">
 <dt class="author">Author</dt>
@@ -679,18 +632,18 @@ by someone with more experience and knowledge.</p>
 <li><p><a class="reference internal" href="#references" id="id60">References</a></p></li>
 </ul>
 </div>
-<div class="section" id="preface">
-<h1><a class="toc-backref" href="#id25">Preface</a></h1>
-<div class="section" id="disclaimer">
-<h2><a class="toc-backref" href="#id26">Disclaimer</a></h2>
+<section id="preface">
+<h2><a class="toc-backref" href="#id25">Preface</a></h2>
+<section id="disclaimer">
+<h3><a class="toc-backref" href="#id26">Disclaimer</a></h3>
 <p>I am not a lawyer.  The information presented here is based on various
 (hopefully trustworthy) sources.  While I have put my best effort
 to keep this correct, it is entirely possible that some of it may
 be incorrect, outdated or simply do not apply in a specific
 jurisdiction.  Use at your own risk, and if in doubt, consult a lawyer.</p>
-</div>
-<div class="section" id="purpose-of-this-guide">
-<h2><a class="toc-backref" href="#id27">Purpose of this guide</a></h2>
+</section>
+<section id="purpose-of-this-guide">
+<h3><a class="toc-backref" href="#id27">Purpose of this guide</a></h3>
 <p>The purpose of this guide is to provide a single source of copyright
 information that could be helpful to people like me — software
 developers and packagers.  Unlike many other guides that can be found
@@ -707,12 +660,12 @@ because we are unlikely to be (successfully) sued.</p>
 to update it as I find or receive new information.  If you find
 a mistake, an outdated information or simply think something should
 be extended, please do not hesitate to contact me.</p>
-</div>
-</div>
-<div class="section" id="basics">
-<h1><a class="toc-backref" href="#id28">Basics</a></h1>
-<div class="section" id="copyright-law-and-its-scope">
-<h2><a class="toc-backref" href="#id29">Copyright law and its scope</a></h2>
+</section>
+</section>
+<section id="basics">
+<h2><a class="toc-backref" href="#id28">Basics</a></h2>
+<section id="copyright-law-and-its-scope">
+<h3><a class="toc-backref" href="#id29">Copyright law and its scope</a></h3>
 <p>The purpose of <em>copyright law</em> is to protect creative work.  It is
 important to understand that copyright covers only work that was
 actually created and recorded, and to the scope of its actual text,
@@ -745,9 +698,9 @@ While at least some countries provide a means of registering copyright,
 the registration is not necessary for it to apply.  It is important
 to understand that copyright applies even if the author does not include
 a copyright notice or the work is published pseudonymously.</p>
-</div>
-<div class="section" id="other-ip-laws">
-<h2><a class="toc-backref" href="#id30">Other IP laws</a></h2>
+</section>
+<section id="other-ip-laws">
+<h3><a class="toc-backref" href="#id30">Other IP laws</a></h3>
 <p>Besides copyright law, I would like to shortly discuss two other laws
 that could be of relevance when dealing with intellectual property:
 patents and trademarks.  Both are outside the scope of this guide
@@ -794,9 +747,9 @@ symbol.</p>
 The Gentoo name and logo are registered trademarks in order to protect
 them from being used to create another Linux distribution with the same
 name and creating confusion as to which is which.</p>
-</div>
-<div class="section" id="original-and-derivative-work-or-what-is-copyrighted">
-<h2><a class="toc-backref" href="#id31">Original and derivative work, or what is copyrighted</a></h2>
+</section>
+<section id="original-and-derivative-work-or-what-is-copyrighted">
+<h3><a class="toc-backref" href="#id31">Original and derivative work, or what is copyrighted</a></h3>
 <p>In order to understand some of the further concepts in this article,
 it is necessary to introduce two important terms: <em>original work</em>
 and <em>derivative work</em>.</p>
@@ -832,9 +785,9 @@ is a derivative of object files (and the act of linking), a package
 is a derivative of all the files within it (and the act of packaging).
 This example shows how individual copyrights on program parts build up
 the copyright of the whole program.</p>
-</div>
-<div class="section" id="what-is-not-covered-by-copyright">
-<h2><a class="toc-backref" href="#id32">What is not covered by copyright</a></h2>
+</section>
+<section id="what-is-not-covered-by-copyright">
+<h3><a class="toc-backref" href="#id32">What is not covered by copyright</a></h3>
 <p>Not everything is covered by copyright.  The work that is not
 copyrighted is generally called to be in <em>public domain</em>.  The exact
 rules to what constitutes public domain vary from country to country
@@ -871,17 +824,17 @@ etc. without limitations.  They can also be used to create derivative
 works.  However, the derivative works of public domain materials may
 be protected by copyright if they include original content of their
 author.</p>
-</div>
-<div class="section" id="more-on-copyright">
-<h2><a class="toc-backref" href="#id33">More on copyright</a></h2>
+</section>
+<section id="more-on-copyright">
+<h3><a class="toc-backref" href="#id33">More on copyright</a></h3>
 <p>More information on the copyrigh in the United States can be found
 in <a class="reference external" href="https://www.copyright.gov/circs/">circulars issued by the U.S. Copyright Office</a>.</p>
-</div>
-</div>
-<div class="section" id="licenses">
-<h1><a class="toc-backref" href="#id34">Licenses</a></h1>
-<div class="section" id="overview-of-license-types">
-<h2><a class="toc-backref" href="#id35">Overview of license types</a></h2>
+</section>
+</section>
+<section id="licenses">
+<h2><a class="toc-backref" href="#id34">Licenses</a></h2>
+<section id="overview-of-license-types">
+<h3><a class="toc-backref" href="#id35">Overview of license types</a></h3>
 <p>In the most broad sense, <em>license</em> explains the rights and restrictions
 granted by the copyright owner.  Some copyright holders use custom
 license texts, while others resort to well-known public licenses.
@@ -907,9 +860,9 @@ also require derivative works to preserve these freedoms.  If we turn
 right, we go into <a class="reference internal" href="#permissive-licenses">permissive licenses</a> that do not have
 the aforementioned restriction.</p>
 <p>I will now explain all the license groups in detail.</p>
-</div>
-<div class="section" id="all-rights-reserved">
-<h2><a class="toc-backref" href="#id36">All rights reserved</a></h2>
+</section>
+<section id="all-rights-reserved">
+<h3><a class="toc-backref" href="#id36">All rights reserved</a></h3>
 <p>This is a term historically used in copyright notices.  While today it
 is no longer necessary to use it, it is sometimes used as an indication
 that the package is copyrighted and the copyright holder does not grant
@@ -927,9 +880,9 @@ problematic for packaging because if the original source disappears
 (upstream removes old version, stops distributing the software, goes
 bankrupt), it becomes no longer possible to install the package on new
 systems.</p>
-</div>
-<div class="section" id="free-software">
-<h2><a class="toc-backref" href="#id37">Free software</a></h2>
+</section>
+<section id="free-software">
+<h3><a class="toc-backref" href="#id37">Free software</a></h3>
 <p><em>Free software</em> is software that respects the user's freedom.  The GNU
 project explains it through four essential freedoms:</p>
 <blockquote>
@@ -952,9 +905,9 @@ is called free software.</p>
 <p>It is essential to note that this is not about cost.  It is entirely
 valid to sell free software — as long as the buyer obtains the license
 to modify and redistribute it (possibly for free!)</p>
-</div>
-<div class="section" id="proprietary-software">
-<h2><a class="toc-backref" href="#id38">Proprietary software</a></h2>
+</section>
+<section id="proprietary-software">
+<h3><a class="toc-backref" href="#id38">Proprietary software</a></h3>
 <p><em>Proprietary software</em> is software that is not free software.  This
 includes the all-rights-reserved software, as well as less restrictive
 licenses (as long as they don't grant all four freedoms) and more
@@ -975,9 +928,9 @@ seems superficial or unharmful),</p></li>
 <p>A special case of proprietary licenses are End User License Agreements.
 These are written in contract form, and require explicit agreement
 to their terms before installing (or using) the software.</p>
-</div>
-<div class="section" id="permissive-licenses">
-<h2><a class="toc-backref" href="#id39">Permissive licenses</a></h2>
+</section>
+<section id="permissive-licenses">
+<h3><a class="toc-backref" href="#id39">Permissive licenses</a></h3>
 <p><em>Permissive licenses</em> is the term used to distinguish free software
 licenses that are not copyleft.  They are permissive in the sense that
 they permit the relevant code (or more generally work) to be reused
@@ -1002,9 +955,9 @@ longer and more complex but it has the additional feature of granting
 you patent license for all the contributed code.</p>
 <p>For non-software works, a common example of permissive licenses
 are Creative Commons Attribution licenses (<a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>).</p>
-</div>
-<div class="section" id="public-domain-and-public-domain-alike-licenses">
-<h2><a class="toc-backref" href="#id40">Public domain and public domain-alike licenses</a></h2>
+</section>
+<section id="public-domain-and-public-domain-alike-licenses">
+<h3><a class="toc-backref" href="#id40">Public domain and public domain-alike licenses</a></h3>
 <p>As explained above, <em>public domain</em> means works that are not covered
 by copyright.  In this section, I would like to focus on authors
 expressly dedicating their work to public domain.  This means that you
@@ -1020,9 +973,9 @@ law.  <a class="footnote-reference brackets" href="#cc-zero" id="id12">12</a></p
 <p>Another similar license is called <a class="reference external" href="https://unlicense.org/">Unlicense</a>.  It takes a mixed approach
 of dedicating the software into public domain first, and adding
 a fallback license for jurisdictions where the former is not recognized.</p>
-</div>
-<div class="section" id="copyleft-licenses">
-<h2><a class="toc-backref" href="#id41">Copyleft licenses</a></h2>
+</section>
+<section id="copyleft-licenses">
+<h3><a class="toc-backref" href="#id41">Copyleft licenses</a></h3>
 <p><em>Copyleft licenses</em> are free software licenses that not only grant
 freedoms but also require them to be preserved in (some kinds of)
 derivative works.  The copyleft can either be weak or strong.  A <em>weak
@@ -1105,11 +1058,11 @@ not only have to use AGPL but also all network-oriented apps are
 required to publish their sources under AGPL.  Many users felt that this
 change was made purely to trick unknowing users into purchasing
 the commercial license.  <a class="footnote-reference brackets" href="#bdb-agpl" id="id17">17</a></p>
-</div>
-<div class="section" id="quick-index-of-popular-licenses">
-<h2><a class="toc-backref" href="#id42">Quick index of popular licenses</a></h2>
-<div class="section" id="copyleft-license-list">
-<h3><a class="toc-backref" href="#id43">Copyleft license list</a></h3>
+</section>
+<section id="quick-index-of-popular-licenses">
+<h3><a class="toc-backref" href="#id42">Quick index of popular licenses</a></h3>
+<section id="copyleft-license-list">
+<h4><a class="toc-backref" href="#id43">Copyleft license list</a></h4>
 <p>Weak copyleft for software:</p>
 <ul class="simple">
 <li><p>Mozilla Public License 2.0: <a class="reference external" href="https://www.mozilla.org/en-US/MPL/2.0/">MPL 2.0</a></p></li>
@@ -1130,9 +1083,9 @@ the commercial license.  <a class="footnote-reference brackets" href="#bdb-agpl"
 <li><p>GNU General Public License: <a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPL 3.0</a>, <a class="reference external" href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GPL 2.0</a></p></li>
 <li><p>Creative Commons Attribution-ShareAlike <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p></li>
 </ul>
-</div>
-<div class="section" id="permissive-license-list">
-<h3><a class="toc-backref" href="#id44">Permissive license list</a></h3>
+</section>
+<section id="permissive-license-list">
+<h4><a class="toc-backref" href="#id44">Permissive license list</a></h4>
 <p>Software:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a></p></li>
@@ -1144,18 +1097,18 @@ the commercial license.  <a class="footnote-reference brackets" href="#bdb-agpl"
 <ul class="simple">
 <li><p>Creative Commons Attribution <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p></li>
 </ul>
-</div>
-<div class="section" id="public-domain-alike-license-list">
-<h3><a class="toc-backref" href="#id45">Public domain-alike license list</a></h3>
+</section>
+<section id="public-domain-alike-license-list">
+<h4><a class="toc-backref" href="#id45">Public domain-alike license list</a></h4>
 <p>All kinds of works:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a></p></li>
 <li><p><a class="reference external" href="https://unlicense.org/">Unlicense</a></p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="more-on-licenses">
-<h2><a class="toc-backref" href="#id46">More on licenses</a></h2>
+</section>
+</section>
+<section id="more-on-licenses">
+<h3><a class="toc-backref" href="#id46">More on licenses</a></h3>
 <p>A comprehensive list of licenses with comments, including information
 on GPL compatibility and Free Software status can be found on <cite>GNU
 project's Various Licenses and Comments about Them</cite> page.</p>
@@ -1167,12 +1120,12 @@ on the <a class="reference external" href="https://tldrlegal.com/">TLDRLegal</a>
 Comparison of free and open-source software licences</a>.</p>
 <p>Sites that focus on helping to choose a license include <a class="reference external" href="http://oss-watch.ac.uk/apps/licdiff/">OSS Watch
 Licence Differentiator</a> and GitHub's <a class="reference external" href="https://choosealicense.com/">Choose a License</a>.</p>
-</div>
-</div>
-<div class="section" id="copyright-in-upstream-free-software-projects">
-<h1><a class="toc-backref" href="#id47">Copyright in (upstream) Free Software projects</a></h1>
-<div class="section" id="choosing-a-license">
-<h2><a class="toc-backref" href="#id48">Choosing a license</a></h2>
+</section>
+</section>
+<section id="copyright-in-upstream-free-software-projects">
+<h2><a class="toc-backref" href="#id47">Copyright in (upstream) Free Software projects</a></h2>
+<section id="choosing-a-license">
+<h3><a class="toc-backref" href="#id48">Choosing a license</a></h3>
 <p>Let's say you're starting a new project and want to consciously choose
 a license that fits you.  Let's assume that you're not bound to use
 any specific dependency yet, and there are no preconditions limiting
@@ -1216,9 +1169,9 @@ If you don't want patent grants, a few popular options are <a class="reference e
 <p>Finally, if you choose a public domain-alike license, then common
 options are <a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a> and <a class="reference external" href="https://unlicense.org/">Unlicense</a>.  These licenses <em>do not</em> include patent
 clauses.</p>
-</div>
-<div class="section" id="copyright-ownership">
-<h2><a class="toc-backref" href="#id49">Copyright ownership</a></h2>
+</section>
+<section id="copyright-ownership">
+<h3><a class="toc-backref" href="#id49">Copyright ownership</a></h3>
 <p>Normally, copyright to a specific work belongs to its author.
 An exception to this are <em>works made for hire</em>.  If the work is done
 by an employee within the scope of employment, the copyright belongs
@@ -1245,9 +1198,9 @@ of the transfer obtains copyright to the work in question.  This
 practice makes it possible to keep all (or most of) copyright
 to a project developed by a large number of contributors in single
 hands.</p>
-</div>
-<div class="section" id="copyright-notices">
-<h2><a class="toc-backref" href="#id50">Copyright notices</a></h2>
+</section>
+<section id="copyright-notices">
+<h3><a class="toc-backref" href="#id50">Copyright notices</a></h3>
 <p>The modern copyright law does not require works to carry prominent
 copyright notices anymore.  Nevertheless, it is a good idea to do so.
 Firstly, it makes it clear who holds copyright to the work (or parts
@@ -1276,9 +1229,9 @@ along with a VCS or an AUTHORS file.  <a class="footnote-reference brackets" hre
 no formal requirements of how they need to look like.  Nevertheless,
 including a detailed copyright notices is doing your users (and possibly
 yourself, in the future) a service.</p>
-</div>
-<div class="section" id="contributor-license-agreements-fla-and-dco">
-<h2><a class="toc-backref" href="#id51">Contributor License Agreements, FLA and DCO</a></h2>
+</section>
+<section id="contributor-license-agreements-fla-and-dco">
+<h3><a class="toc-backref" href="#id51">Contributor License Agreements, FLA and DCO</a></h3>
 <p>While for small projects it is generally acceptable to accept
 contributions without any further ado, large projects often find
 themselves in need of stronger legal assurances.</p>
@@ -1303,9 +1256,9 @@ the contributor has the right to submit it under project's license.
 DCO is generally signed by adding a <span class="docutils literal"><span class="pre">Signed-off-by</span></span> note to the commit
 message.  Therefore, unlike CLAs the signed certifications are part
 of the repository rather than kept separately.</p>
-</div>
-<div class="section" id="license-compatibility">
-<h2><a class="toc-backref" href="#id52">License compatibility</a></h2>
+</section>
+<section id="license-compatibility">
+<h3><a class="toc-backref" href="#id52">License compatibility</a></h3>
 <p><em>License compatibility</em> is an utility concept to establish if two
 licenses can be combined to create a new work.  License compatibility
 is often unidirectional, i.e. work under license X can become part
@@ -1375,9 +1328,9 @@ because there's no path that could be reached from both these licenses.
 However, if it was GPL 2.0+, then you could use GPL 3.0 that
 is the first license that can be reached both from Apache 2.0
 and from GPL 2.0+.</p>
-</div>
-<div class="section" id="dual-licensing">
-<h2><a class="toc-backref" href="#id53">Dual-licensing</a></h2>
+</section>
+<section id="dual-licensing">
+<h3><a class="toc-backref" href="#id53">Dual-licensing</a></h3>
 <p><em>Dual-licensing</em> (or more generally, multi-licensing) means releasing
 the software under two or more different licenses.  The users can choose
 the license that suits them better in given circumstances.</p>
@@ -1395,9 +1348,9 @@ buy a commercial license instead.</p>
 of the same license.  For example, when using the GNU licenses it is
 common to let user choose to use a newer version of the same license
 (e.g. GPL version 2 or later).</p>
-</div>
-<div class="section" id="relicensing">
-<h2><a class="toc-backref" href="#id54">Relicensing</a></h2>
+</section>
+<section id="relicensing">
+<h3><a class="toc-backref" href="#id54">Relicensing</a></h3>
 <p><em>Relicensing</em> means changing the license that the project is released
 under.  Usually relicensing is done from a particular version
 of the project forward.  In some cases, it is also possible to apply
@@ -1431,9 +1384,9 @@ with relicensing in the future, once either all necessary relicensing
 agreements are collected or the non-covered code is removed
 from the project.  This approach was taken by the LLVM project in order
 to switch to a derivative of <a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a> license.  <a class="footnote-reference brackets" href="#llvm-relicense" id="id24">23</a></p>
-</div>
-<div class="section" id="integrating-third-party-code-into-your-project">
-<h2><a class="toc-backref" href="#id55">Integrating third party code into your project</a></h2>
+</section>
+<section id="integrating-third-party-code-into-your-project">
+<h3><a class="toc-backref" href="#id55">Integrating third party code into your project</a></h3>
 <p>It is rather unlikely (and undesirable) for your project to be based
 entirely on original code.  Instead, you will at the very least link
 it to some libraries.  In some cases, you may need to incorporate some
@@ -1490,12 +1443,12 @@ MPL 2.0, a pretty recent license accounts for that explicitly by
 permitting dual-licensing of a larger work.  In some cases
 (e.g. integrating GPL-2.0 into GPL-3.0 project), your only option will
 be to try <a class="reference internal" href="#relicensing">relicensing</a> your project.</p>
-</div>
-</div>
-<div class="section" id="copyright-from-packager-s-perspective">
-<h1><a class="toc-backref" href="#id56">Copyright from packager's perspective</a></h1>
-<div class="section" id="which-licenses-to-include-in-package-metadata">
-<h2><a class="toc-backref" href="#id57">Which licenses to include in package metadata?</a></h2>
+</section>
+</section>
+<section id="copyright-from-packager-s-perspective">
+<h2><a class="toc-backref" href="#id56">Copyright from packager's perspective</a></h2>
+<section id="which-licenses-to-include-in-package-metadata">
+<h3><a class="toc-backref" href="#id57">Which licenses to include in package metadata?</a></h3>
 <p>When building software packages for the distribution, two kinds
 of licenses apply: licenses for files installed by the package,
 and license for files used to build it.  The first one is especially
@@ -1537,9 +1490,9 @@ in ebuild metadata.  Nevertheless, they can affect <a class="reference internal"
 restrictions</a> or even prevent some users from building the package.
 If the latter is the case (e.g. use of build scripts is forbidden under
 some circumstances), the package must not be included in Gentoo.</p>
-</div>
-<div class="section" id="determining-the-license">
-<h2><a class="toc-backref" href="#id58">Determining the license</a></h2>
+</section>
+<section id="determining-the-license">
+<h3><a class="toc-backref" href="#id58">Determining the license</a></h3>
 <p>The license of every output file is generally derived from the license
 of its inputs, including source files and possibly linked libraries
 (in case of strong copyleft).  In determining the licenses of source
@@ -1575,9 +1528,9 @@ differently from <em>all</em> source files.  For example, when linking
 to a GPL-2+ shared library, the upstream may decide to keep all its own
 sources under permissive licenses but must license the final executable
 as one of the compatible GPL variants.</p>
-</div>
-<div class="section" id="redistribution-restrictions">
-<h2><a class="toc-backref" href="#id59">Redistribution restrictions</a></h2>
+</section>
+<section id="redistribution-restrictions">
+<h3><a class="toc-backref" href="#id59">Redistribution restrictions</a></h3>
 <p>When packaging software, it is important to look at the redistribution
 rights granted to you by the license.  While free software grants you
 all of them (by definition), proprietary licenses may not.</p>
@@ -1627,10 +1580,10 @@ rather than the license itself.  In these cases, it is customary to add
 a <span class="docutils literal">bindist</span> USE flag, and apply changes necessary to permit binary
 redistribution when it is enabled (e.g. by disabling problematic
 features).</p>
-</div>
-</div>
-<div class="section" id="references">
-<h1><a class="toc-backref" href="#id60">References</a></h1>
+</section>
+</section>
+<section id="references">
+<h2><a class="toc-backref" href="#id60">References</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="copyright-basics"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>U.S. Copyright Office, Circular 1: Copyright
@@ -1740,7 +1693,7 @@ Licensing HOWTO, version 0.8 DRAFT
 (<a class="reference external" href="https://llvm.org/docs/DeveloperPolicy.html#relicensing">https://llvm.org/docs/DeveloperPolicy.html#relicensing</a>)</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</main>
 </body>
 </html>

@@ -2,18 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <title>Improving distfile mirror structure</title>
 <meta name="author" content="Michał Górny" />
 <meta name="dcterms.date" content="2019-10-13" />
 <meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/4.0/" />
-<link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/"/>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: minimal.css 8642 2021-03-26 13:51:14Z milde $               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -32,81 +33,67 @@
 /* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
 /* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
 
-/* alignment of text and inline objects inside block objects*/
-.align-left   { text-align: left; }
-.align-right  { text-align: right; }
-.align-center { clear: both; text-align: center; }
-.align-top    { vertical-align: top; }
-.align-middle { vertical-align: middle; }
-.align-bottom { vertical-align: bottom; }
-
 /* titles */
-h1.title, p.subtitle {
-  text-align: center;
-}
 p.topic-title,
-p.sidebar-title,
-p.rubric,
 p.admonition-title,
 p.system-message-title {
   font-weight: bold;
 }
-h1 + p.subtitle,
-h1 + p.section-subtitle {
-  font-size: 1.6em;
+p.sidebar-title,
+p.rubric {
+  font-weight: bold;
+  font-size: larger;
 }
-h2 + p.section-subtitle { font-size: 1.28em; }
+p.rubric {
+  color: maroon;
+}
 p.subtitle,
 p.section-subtitle,
 p.sidebar-subtitle {
   font-weight: bold;
   margin-top: -0.5em;
 }
-p.sidebar-title,
-p.rubric {
-  font-size: larger;
+h1 + p.subtitle {
+  font-size: 1.6em;
 }
-p.rubric { color: maroon; }
-a.toc-backref {
+h2 + p.section-subtitle, a.toc-backref {
   color: black;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 /* Warnings, Errors */
-div.caution p.admonition-title,
-div.attention p.admonition-title,
-div.danger p.admonition-title,
-div.error p.admonition-title,
-div.warning p.admonition-title,
-div.system-messages h1,
-div.error,
-span.problematic,
-p.system-message-title {
+.system-messages h2,
+.system-message-title,
+span.problematic {
   color: red;
 }
 
-/* inline literals */
-span.docutils.literal {
+/* Inline Literals */
+.docutils.literal {
   font-family: monospace;
   white-space: pre-wrap;
 }
-/* do not wraph at hyphens and similar: */
+/* do not wrap at hyphens and similar: */
 .literal > span.pre { white-space: nowrap; }
 
 /* Lists */
 
 /* compact and simple lists: no margin between items */
-.simple  li, .compact li,
-.simple  ul, .compact ul,
-.simple  ol, .compact ol,
-.simple > li p, .compact > li p,
-dl.simple > dd, dl.compact > dd {
+.simple  li, .simple  ul, .simple  ol,
+.compact li, .compact ul, .compact ol,
+.simple  > li p, dl.simple  > dd,
+.compact > li p, dl.compact > dd {
   margin-top: 0;
   margin-bottom: 0;
 }
+/* Nested Paragraphs */
+p:first-child { margin-top: 0; }
+p:last-child { margin-bottom: 0; }
+td > p, th > p { margin-bottom: 0; }
 
 /* Table of Contents */
-div.topic.contents { margin: 0.5em 0; }
-div.topic.contents ul {
+.topic.contents { margin: 0.5em 0; }
+.topic.contents ul.auto-toc {
   list-style-type: none;
   padding-left: 1.5em;
 }
@@ -118,14 +105,14 @@ ol.upperalpha { list-style: upper-alpha }
 ol.lowerroman { list-style: lower-roman }
 ol.upperroman { list-style: upper-roman }
 
-dt span.classifier { font-style: italic }
-dt span.classifier:before {
+/* Definition Lists and Derivatives */
+dt .classifier { font-style: italic }
+dt .classifier:before {
   font-style: normal;
   margin: 0.5em;
   content: ":";
 }
-
-/* Field Lists and drivatives */
+/* Field Lists and similar */
 /* bold field name, content starts on the same line */
 dl.field-list > dt,
 dl.option-list > dt,
@@ -143,7 +130,7 @@ dl.citation > dt {
 dl.field-list > dd,
 dl.option-list > dd,
 dl.docinfo > dd {
-  margin-left:  9em; /* ca. 14 chars in the test examples */
+  margin-left:  9em; /* ca. 14 chars in the test examples, fit all Docinfo fields */
 }
 /* start field-body on a new line after long field names */
 dl.field-list > dd > *:first-child,
@@ -160,18 +147,20 @@ dl.docinfo > dt:after {
 }
 
 /* Bibliographic Fields (docinfo) */
-pre.address { font: inherit; }
-dd.authors > p { margin: 0; }
+dl.docinfo pre.address {
+  font: inherit;
+  margin: 0.5em 0;
+}
+dl.docinfo > dd.authors > p { margin: 0; }
 
 /* Option Lists */
-dl.option-list { margin-left: 1.5em; }
 dl.option-list > dt { font-weight: normal; }
 span.option { white-space: nowrap; }
 
 /* Footnotes and Citations  */
-dl.footnote.superscript > dd {margin-left: 1em; }
-dl.footnote.brackets > dd {margin-left: 2em; }
-dl > dt.label { font-weight: normal; }
+dl.footnote.superscript > dd { margin-left: 1em; }
+dl.footnote.brackets > dd { margin-left: 2em; }
+dl.footnote > dt { font-weight: normal; }
 a.footnote-reference.brackets:before,
 dt.label > span.brackets:before { content: "["; }
 a.footnote-reference.brackets:after,
@@ -179,130 +168,113 @@ dt.label > span.brackets:after { content: "]"; }
 a.footnote-reference.superscript,
 dl.footnote.superscript > dt.label {
   vertical-align: super;
-  font-size: smaller;
+  font-size: small;
 }
-dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref {
+  margin-left: 0.2em;
+  font-weight: normal;
+}
 dt.label > span.fn-backref > a { font-style: italic; }
 
-/* Line Blocks */
-div.line-block { display: block; }
-div.line-block div.line-block {
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 40px;
+/* Alignment */
+.align-left   {
+  text-align: left;
+  margin-right: auto;
 }
+.align-center {
+  clear: both;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.align-right  {
+  text-align: right;
+  margin-left: auto;
+}
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
 
-/* Figures, Images, and Tables */
-.figure.align-left,
-figure.align-left,
-img.align-left,
-object.align-left,
-table.align-left {
-  margin-right: auto;
-}
-.figure.align-center,
-figure.align-center,
-img.align-center,
-object.align-center,
-table.align-center {
-  margin-left: auto;
-  margin-right: auto;
-}
-.figure.align-right,
-figure.align-right,
-img.align-right,
-object.align-right,
-table.align-right {
-  margin-left: auto;
-}
-.figure.align-center, .figure.align-right,
-figure.align-center, figure.align-right,
-img.align-center, img.align-right,
-object.align-center, object.align-right {
-  display: block;
-}
 /* reset inner alignment in figures and tables */
-.figure.align-left, .figure.align-right,
 figure.align-left, figure.align-right,
 table.align-left, table.align-center, table.align-right {
   text-align: inherit;
 }
 
-/* Admonitions and System Messages */
-div.admonition,
-div.system-message,
-div.sidebar,
-aside.sidebar {
-  margin: 1em 1.5em;
-  border: medium outset;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  padding-right: 1em;
-  padding-left: 1em;
+/* Text Blocks */
+blockquote,
+div.topic,
+aside.topic {
+  margin: 1em 2em;
 }
-
-/* Sidebar */
-div.sidebar,
-aside.sidebar {
+.sidebar,
+.admonition,
+.system-message {
+  border: thin solid;
+  margin: 1em 2em;
+  padding: 0.5em 1em;
+}
+.sidebar {
   width: 30%;
   max-width: 26em;
   float: right;
   clear: right;
 }
+div.line-block { display: block; }
+div.line-block div.line-block, pre { margin-left: 2em; }
 
-/* Text Blocks */
-blockquote,
-div.topic,
-pre.literal-block,
-pre.doctest-block,
-pre.math,
-pre.code {
-  margin-left: 1.5em;
-  margin-right: 1.5em;
+/* Code line numbers: dropped when copying text from the page */
+pre.code .ln { display: none; }
+pre.code code:before {
+  content: attr(data-lineno); /* …, none) fallback not supported by any browser */
+  color: gray;
 }
-pre.code .ln { color: gray; } /* line numbers */
 
 /* Tables */
-table { border-collapse: collapse; }
+table {
+  border-collapse: collapse;
+}
 td, th {
-  border-style: solid;
-  border-color: silver;
+  border: thin solid silver;
   padding: 0 1ex;
-  border-width: thin;
 }
-td > p:first-child, th > p:first-child { margin-top: 0; }
-td > p, th > p { margin-bottom: 0; }
-
-table > caption {
-  text-align: left;
-  margin-bottom: 0.25em
-}
-
-table.borderless td, table.borderless th {
+.borderless td, .borderless th {
   border: 0;
   padding: 0;
   padding-right: 0.5em /* separate table cells */
 }
 
-/* Document Header and Footer */
-/* div.header,				      */
-/* header { border-bottom: 1px solid black; } */
-/* div.footer,				      */
-/* footer { border-top: 1px solid black; }    */
+table > caption {
+  text-align: left;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+table.captionbelow {
+  caption-side: bottom;
+}
 
-/* new HTML5 block elements: set display for older browsers */
-header, section, footer, aside, nav, main, article, figure {
+/* Document Header and Footer */
+header { border-bottom: 1px solid black; }
+footer { border-top: 1px solid black; }
+
+/* Images are block-level by default in Docutils */
+/* New HTML5 block elements: set display for older browsers */
+img, header, section, footer, aside, nav, main, article, figure, video {
   display: block;
+}
+/* inline images */
+p img, p video, figure img, figure video {
+  display: inline;
 }
 
 </style>
 <style type="text/css">
 
 /* CSS31_ style sheet for the output of Docutils HTML writers.             */
-/* Rules for easy reading and pre-defined style variants.		   */
+/* Rules for easy reading and pre-defined style variants.                  */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: plain.css 8636 2021-03-19 00:23:33Z milde $                                                               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -310,11 +282,11 @@ header, section, footer, aside, nav, main, article, figure {
 /*    Copying and distribution of this file, with or without modification, */
 /*    are permitted in any medium without royalty provided the copyright   */
 /*    notice and this notice are preserved.                                */
-/*    	     	      	     	 					   */
+/*                                                                         */
 /*    This file is offered as-is, without any warranty.                    */
 /*                                                                         */
 /* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
-/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+/* .. _CSS3: http://www.w3.org/TR/CSS3                                     */
 
 
 /* Document Structure */
@@ -325,23 +297,26 @@ body {
   margin: 0;
   background-color: #dbdbdb;
 }
-div.document,
-main {
+main, footer, header {
   line-height:1.3;
-  counter-reset: table;
-  /* counter-reset: figure; */
   /* avoid long lines --> better reading */
+  /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */
   /* OTOH: lines should not be too short because of missing hyphenation, */
-  max-width: 50em;
+  max-width: 50rem;
   padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
   margin: auto;
+}
+main {
+  counter-reset: table figure;
   background-color: white;
 }
-
-/* Sections */
+footer, header {
+  font-size: smaller;
+  padding: 0.5em 2%;
+  border: none;
+}
 
 /* Transitions */
-
 hr.docutils {
   width: 80%;
   margin-top: 1em;
@@ -350,10 +325,9 @@ hr.docutils {
 }
 
 /* Paragraphs */
-/* ========== */
 
 /* vertical space (parskip) */
-p, ol, ul, dl,
+p, ol, ul, dl, li, dd,
 div.line-block,
 div.topic,
 table {
@@ -372,10 +346,12 @@ dl > dd {
 /* Lists */
 /* ===== */
 
-/* Definition Lists */
+/* Separate list entries in compound lists */
+dl > dd, ol > li,
 
-/* lists nested in definition lists */
-/* (:only-child is new in CSS 3) */
+/* Definition Lists */
+/* Indent lists nested in definition lists */
+/* (:only-child is new in CSS 3)           */
 dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
 
 /* Description Lists */
@@ -416,28 +392,16 @@ div.dedication p.topic-title {
   font-style: normal;
 }
 
-/* Citations */
-dl.citation dt.label {
-  font-weight: bold;
-}
-span.fn-backref {
-  font-weight: normal;
-}
-
 /* Text Blocks */
 /* =========== */
 
 /* Literal Blocks */
-
-pre.literal-block,
-pre.doctest-block,
-pre.math,
-pre.code {
+pre.literal-block, pre.doctest-block,
+pre.math, pre.code {
   font-family: monospace;
 }
 
 /* Block Quotes */
-
 blockquote > table,
 div.topic > table {
   margin-top: 0;
@@ -499,32 +463,45 @@ dl.footnote {
 /* Images and Figures */
 
 /* let content flow to the side of aligned images and figures */
-.figure.align-left,
 figure.align-left,
 img.align-left,
+video.align-left,
 object.align-left {
-  display: block;
   clear: left;
   float: left;
   margin-right: 1em;
 }
-.figure.align-right,
 figure.align-right,
 img.align-right,
+video.align-right,
 object.align-right {
-  display: block;
   clear: right;
   float: right;
   margin-left: 1em;
 }
-/* Stop floating sidebars, images and figures at section level 1,2,3 */
-h1, h2, h3 { clear: both; }
+/* Stop floating sidebars, images and figures */
+h1, h2, h3, h4, footer, header { clear: both; }
+
+/* Numbered figures */
+figure.numbered > figcaption > p:before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ": ";
+  font-weight: bold;
+}
+
+/* Admonitions and System Messages */
+.caution p.admonition-title,
+.attention p.admonition-title,
+.danger p.admonition-title,
+.error p.admonition-title,
+.warning p.admonition-title,
+div.error {
+  color: red;
+}
 
 /* Sidebar */
-
 /* Move right. In a layout with fixed margins, */
-/* it can be moved into the margin.   	       */
-div.sidebar,
+/* it can be moved into the margin.            */
 aside.sidebar {
   width: 30%;
   max-width: 26em;
@@ -534,10 +511,8 @@ aside.sidebar {
 }
 
 /* Code */
-
 pre.code { padding: 0.7ex }
 pre.code, code { background-color: #eeeeee }
-pre.code .ln { color: gray; } /* line numbers */
 /* basic highlighting: for a complete scheme, see */
 /* http://docutils.sourceforge.net/sandbox/stylesheets/ */
 pre.code .comment, code .comment { color: #5C6576 }
@@ -556,30 +531,8 @@ pre.code .inserted, code .inserted { background-color: #A3D289}
 /* Compound Paragraph */
 /* Container          */
 
-/* can be styled in a custom stylesheet */
-
-/* Document Header and Footer */
-
-footer, header,
-div.footer, div.header {
-  font-size: smaller;
-  clear: both;
-  padding: 0.5em 2%;
-  background-color: #ebebee;
-  border: none;
-}
-
 /* Inline Markup */
 /* ============= */
-
-/* Emphasis           */
-/*   em               */
-/* Strong Emphasis    */
-/*   strong	      */
-/* Interpreted Text   */
-/*   span.interpreted */
-/* Title Reference    */
-/*   cite	      */
 
 /* Inline Literals                                          */
 /* possible values: normal, nowrap, pre, pre-wrap, pre-line */
@@ -590,7 +543,7 @@ a { text-decoration: none; }
 
 /* External Targets       */
 /*   span.target.external */
-/* Internal Targets  	  */
+/* Internal Targets       */
 /*   span.target.internal */
 /* Footnote References    */
 /*   a.footnote-reference */
@@ -599,8 +552,8 @@ a { text-decoration: none; }
 
 </style>
 </head>
-<body>
-<div class="document" id="improving-distfile-mirror-structure">
+<body class="with-toc">
+<main id="improving-distfile-mirror-structure">
 <h1 class="title">Improving distfile mirror structure</h1>
 <dl class="docinfo simple">
 <dt class="author">Author</dt>
@@ -644,8 +597,8 @@ a { text-decoration: none; }
 <li><p><a class="reference internal" href="#references" id="id27">References</a></p></li>
 </ul>
 </div>
-<div class="section" id="preface">
-<h1><a class="toc-backref" href="#id10">Preface</a></h1>
+<section id="preface">
+<h2><a class="toc-backref" href="#id10">Preface</a></h2>
 <p>The Gentoo distfile mirror network is essential in distributing sources
 to our users.  It offloads upstream download locations, improves
 throughput and reliability, guarantees distfile persistency.</p>
@@ -659,11 +612,11 @@ in January 2017, and it resulted in GLEP 75 being created
 in January 2018.  With the actual implementation effort starting
 in October 2019, I'd like to summarize all the data and update it
 with fresh statistics.  <a class="footnote-reference brackets" href="#mirror-bugreport" id="id1">4</a> <a class="footnote-reference brackets" href="#glep75" id="id2">5</a></p>
-</div>
-<div class="section" id="current-state-of-distfile-mirrors">
-<h1><a class="toc-backref" href="#id11">Current state of distfile mirrors</a></h1>
-<div class="section" id="mirror-setup">
-<h2><a class="toc-backref" href="#id12">Mirror setup</a></h2>
+</section>
+<section id="current-state-of-distfile-mirrors">
+<h2><a class="toc-backref" href="#id11">Current state of distfile mirrors</a></h2>
+<section id="mirror-setup">
+<h3><a class="toc-backref" href="#id12">Mirror setup</a></h3>
 <p>The official Gentoo mirror list includes 63 mirrors at the moment.
 Almost all of them are outside Gentoo control, and are administered
 by various individuals.  They generally use rsync to fetch data
@@ -696,9 +649,9 @@ of mirrors successfully mirrored the symlink.  2 mirrors have not synced
 yet, and one gives 403 error (though it gives 404 for non-existing
 files, so it probably copied the symlink correctly and rejects access
 to the underlying file).</p>
-</div>
-<div class="section" id="distfile-structure">
-<h2><a class="toc-backref" href="#id13">Distfile structure</a></h2>
+</section>
+<section id="distfile-structure">
+<h3><a class="toc-backref" href="#id13">Distfile structure</a></h3>
 <p>The distfiles are placed in a single directory, using local filenames
 specified by ebuilds (either inferred from the URI, or specified using
 the arrow operator).  Distfiles for newly added packages are added
@@ -717,14 +670,18 @@ files.  This accounts for 23% of all mirrored distfiles.  The second
 most common prefix is <span class="docutils literal">github.com</span> which belongs to Go packages,
 and includes 1120 files.  All other apparent groups have less than
 1% share.</p>
-<div class="figure">
+<figure>
 <img alt="improving-distfile-mirror-structure/distfile-count-over-time.svg" src="improving-distfile-mirror-structure/distfile-count-over-time.svg" />
-<p class="caption">Figure 1a: number of distfiles in the Gentoo repository</p>
-</div>
-<div class="figure">
+<figcaption>
+<p>Figure 1a: number of distfiles in the Gentoo repository</p>
+</figcaption>
+</figure>
+<figure>
 <img alt="improving-distfile-mirror-structure/distfile-size-changes.svg" src="improving-distfile-mirror-structure/distfile-size-changes.svg" />
-<p class="caption">Figure 1b: monthly distfile removals and additions</p>
-</div>
+<figcaption>
+<p>Figure 1b: monthly distfile removals and additions</p>
+</figcaption>
+</figure>
 <p>The plot in figure 1a presents the number of uniquely-named distfiles
 in the Gentoo repository and their respective total size, as indicated
 by either the historical digest files or the newer Manifest2 format.
@@ -754,21 +711,23 @@ filtering historical data is non-trivial and would be very
 time-consuming.</p>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="proposed-replacement-layouts">
-<h1><a class="toc-backref" href="#id14">Proposed replacement layouts</a></h1>
-<div class="section" id="filename-prefix-based-layout">
-<h2><a class="toc-backref" href="#id15">Filename prefix-based layout</a></h2>
+</section>
+</section>
+<section id="proposed-replacement-layouts">
+<h2><a class="toc-backref" href="#id14">Proposed replacement layouts</a></h2>
+<section id="filename-prefix-based-layout">
+<h3><a class="toc-backref" href="#id15">Filename prefix-based layout</a></h3>
 <p>The most straightforward method of grouping distfiles is to group
 by a common filename prefix, in particular by the first character
 of filename.  Assuming case-insensitive matching, we can create
 26 groups corresponding to letters, plus one group for the remaining
 characters.  Such a split is presented on figure 2.</p>
-<div class="figure">
+<figure>
 <img alt="improving-distfile-mirror-structure/filename-prefix-layout.svg" src="improving-distfile-mirror-structure/filename-prefix-layout.svg" />
-<p class="caption">Figure 2: grouping of distfiles by first character of filename</p>
-</div>
+<figcaption>
+<p>Figure 2: grouping of distfiles by first character of filename</p>
+</figcaption>
+</figure>
 <p>Please note that the y axis of the plot is on logarithmic scale.
 The proposed split is uneven.  The <span class="docutils literal">t</span> group features 18 730 files,
 larger groups feature up to 5000 files, the smallest around 250.
@@ -781,9 +740,9 @@ into a few dedicated groups.  However, this increases the complexity
 of the solution, and still does not scale well.  For example, adding
 a new version will double the size of all the TeΧ Live groups,
 and removing an old version will reduce them to half the previous size.</p>
-</div>
-<div class="section" id="filename-delimited-paged-layout">
-<h2><a class="toc-backref" href="#id16">Filename-delimited (paged) layout</a></h2>
+</section>
+<section id="filename-delimited-paged-layout">
+<h3><a class="toc-backref" href="#id16">Filename-delimited (paged) layout</a></h3>
 <p>Another solution based on filenames was proposed by Andrew Barchuk.
 It based on splitting sorted filenames into buckets of the same size,
 and using the first filename in each group as a delimiter.  This has
@@ -813,9 +772,9 @@ maintenance.</p>
 what would happen if the groups were created prior to the introduction
 of the first TeΧ Live version.  In this case, all 8000+ ebuilds would
 land in a single group.</p>
-</div>
-<div class="section" id="category-package-based-layout">
-<h2><a class="toc-backref" href="#id17">Category/package-based layout</a></h2>
+</section>
+<section id="category-package-based-layout">
+<h3><a class="toc-backref" href="#id17">Category/package-based layout</a></h3>
 <p>Jason Zaman has proposed to reuse the layout from ebuild repository,
 i.e. split by category or package and category pair.  This solution has
 not been given much thought for three reasons.  <a class="footnote-reference brackets" href="#zaman" id="id8">9</a></p>
@@ -850,9 +809,9 @@ of writing are (in lines):</p>
 <p>Thirdly, the groups would be very uneven still, and the resulting split
 would be inefficient.  If grouping were done by package, there will be
 a huge number of directories having no more than a few distfiles.</p>
-</div>
-<div class="section" id="file-hash-based-layout">
-<h2><a class="toc-backref" href="#id18">File hash-based layout</a></h2>
+</section>
+<section id="file-hash-based-layout">
+<h3><a class="toc-backref" href="#id18">File hash-based layout</a></h3>
 <p>Another option considered was to reuse the hash of distfile in question.
 eryptographic hash functions are generally expected to produce
 divergent results even for apparently insignificant differences
@@ -860,14 +819,18 @@ in input.  This gives a good chance for the distribution to remain even
 through future distfile changes.</p>
 <p>For the purpose of testing, Blake2b hashes truncated to the respectively
 4 and 8 most significant bits were considered.</p>
-<div class="figure">
+<figure>
 <img alt="improving-distfile-mirror-structure/file-hash-1x.svg" src="improving-distfile-mirror-structure/file-hash-1x.svg" />
-<p class="caption">Figure 3a: grouping of distfiles by 4 msb of content hash</p>
-</div>
-<div class="figure">
+<figcaption>
+<p>Figure 3a: grouping of distfiles by 4 msb of content hash</p>
+</figcaption>
+</figure>
+<figure>
 <img alt="improving-distfile-mirror-structure/file-hash-2x.svg" src="improving-distfile-mirror-structure/file-hash-2x.svg" />
-<p class="caption">Figure 3b: grouping of distfiles by 8 msb of content hash</p>
-</div>
+<figcaption>
+<p>Figure 3b: grouping of distfiles by 8 msb of content hash</p>
+</figcaption>
+</figure>
 <p>The 4-bit hash variant produces 16 groups, having between 4250 and 5000
 distfiles each.  The 8-bit variant produces 256 groups, having between
 230 and 320 files each.  The latter proves satisfactorily even, with
@@ -880,9 +843,9 @@ in Manifests.  Its main disadvantage is that the client can not predict
 the path otherwise.  While this could technically be resolved by using
 a supplementary index, refreshing this index involves additional
 bandwidth usage that may even exceed the size of smaller distfiles.</p>
-</div>
-<div class="section" id="filename-hash-based-layout">
-<h2><a class="toc-backref" href="#id19">Filename hash-based layout</a></h2>
+</section>
+<section id="filename-hash-based-layout">
+<h3><a class="toc-backref" href="#id19">Filename hash-based layout</a></h3>
 <p>The final proposed variant, and the one chosen to implement the new
 layout was to use the hash of the filename.  Its advantage is that it
 can be calculated entirely without additional information,
@@ -890,14 +853,18 @@ and the cryptographic hash functions should retain their properties even
 with low entropy input that filenames are.</p>
 <p>For the purpose of testing, Blake2b hashes truncated to the respectively
 4 and 8 most significant bits were considered.  <a class="footnote-reference brackets" href="#hash-note" id="id9">3</a></p>
-<div class="figure">
+<figure>
 <img alt="improving-distfile-mirror-structure/filename-hash-1x.svg" src="improving-distfile-mirror-structure/filename-hash-1x.svg" />
-<p class="caption">Figure 4a: grouping of distfiles by 4 msb of filename hash</p>
-</div>
-<div class="figure">
+<figcaption>
+<p>Figure 4a: grouping of distfiles by 4 msb of filename hash</p>
+</figcaption>
+</figure>
+<figure>
 <img alt="improving-distfile-mirror-structure/filename-hash-2x.svg" src="improving-distfile-mirror-structure/filename-hash-2x.svg" />
-<p class="caption">Figure 4b: grouping of distfiles by 8 msb of filename hash</p>
-</div>
+<figcaption>
+<p>Figure 4b: grouping of distfiles by 8 msb of filename hash</p>
+</figcaption>
+</figure>
 <p>Curious enough, this variant produces even more even groups.  The 4-bit
 version gives between 4250 and 4500 distfiles in each group, while
 the 8-bit variant produces between 230 and 320 files.</p>
@@ -912,18 +879,20 @@ the package manager needs to implement.  Furthermore, the input
 is small enough for the performance differences to be insignificant.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="reliability-of-filename-hash-over-time">
-<h2><a class="toc-backref" href="#id20">Reliability of filename hash over time</a></h2>
+</section>
+<section id="reliability-of-filename-hash-over-time">
+<h3><a class="toc-backref" href="#id20">Reliability of filename hash over time</a></h3>
 <p>Of all the options proposed so far, the filename hash is the most
 promising: it is flexible, easy to compute and does not require
 additional information.  Let's see how it copes with historical
 distfiles.</p>
-<div class="figure">
+<figure>
 <img alt="improving-distfile-mirror-structure/filename-hash-over-time.svg" src="improving-distfile-mirror-structure/filename-hash-over-time.svg" />
-<p class="caption">Figure 5: Statistical analysis of filename hash split applied
+<figcaption>
+<p>Figure 5: Statistical analysis of filename hash split applied
 to historical data</p>
-</div>
+</figcaption>
+</figure>
 <p>Figure 5 combines two sets of statistical data.  The first plot compares
 mean group size with the median.  Additionally, minimum and maximum
 group sizes are indicated via error bars.  The second plot expresses
@@ -939,12 +908,12 @@ Therefore, it seems reasonable to assume that this layout will work well
 for many years to come.  It is probably more likely that a future layout
 change would occur as a consequence of Manifest hash change than
 the necessity of reshuffling distfiles.</p>
-</div>
-</div>
-<div class="section" id="migration-path">
-<h1><a class="toc-backref" href="#id21">Migration path</a></h1>
-<div class="section" id="general-migration-plan">
-<h2><a class="toc-backref" href="#id22">General migration plan</a></h2>
+</section>
+</section>
+<section id="migration-path">
+<h2><a class="toc-backref" href="#id21">Migration path</a></h2>
+<section id="general-migration-plan">
+<h3><a class="toc-backref" href="#id22">General migration plan</a></h3>
 <p>GLEP 75 has introduced a <span class="docutils literal">layout.conf</span> file that is placed in the top
 <span class="docutils literal">distfiles</span> directory of a mirror and specifies the layout used.
 The clients are expected to fetch this file before using the mirror
@@ -981,9 +950,9 @@ from <span class="docutils literal">layout.conf</span>.</p></li>
 <p>The remaining problem is how to solve the transitions in order to avoid
 both transferring all the existing distfiles again and storing two
 copies of the same file during the transitional period.</p>
-</div>
-<div class="section" id="hard-link-solution">
-<h2><a class="toc-backref" href="#id23">Hard link solution</a></h2>
+</section>
+<section id="hard-link-solution">
+<h3><a class="toc-backref" href="#id23">Hard link solution</a></h3>
 <p>One particularly interesting solution is to use hard links between both
 layouts.  If rsync has <span class="docutils literal"><span class="pre">--hard-links</span></span> option enabled, it will both
 avoid transferring the files twice and avoid occupying double the space.
@@ -997,9 +966,9 @@ the transitional period.  Therefore, if this option is chosen, some
 mirrors will suffer additional bandwidth usage during the initial
 transition, and additional disk usage during the lengthy transitional
 period.</p>
-</div>
-<div class="section" id="symbolic-link-solution">
-<h2><a class="toc-backref" href="#id24">Symbolic link solution</a></h2>
+</section>
+<section id="symbolic-link-solution">
+<h3><a class="toc-backref" href="#id24">Symbolic link solution</a></h3>
 <p>The more reliable alternative is to use symbolic links.  So far we
 aren't aware of any mirrors not supporting them, and they certainly
 avoid doubling the space needed to store distfiles.  Experimentally,
@@ -1012,9 +981,9 @@ a scenario, therefore this transition will involve transferring all
 the distfiles again.  This solution will save all mirrors from
 the increased disk space usage but all will suffer additional bandwidth
 usage during the final transition (cleanup).</p>
-</div>
-<div class="section" id="hybrid-solution">
-<h2><a class="toc-backref" href="#id25">Hybrid solution</a></h2>
+</section>
+<section id="hybrid-solution">
+<h3><a class="toc-backref" href="#id25">Hybrid solution</a></h3>
 <p>Finally, both options can be combined to provide the best of two worlds.
 During the transitional period, symlinks are used to link both layouts
 without consuming the disk space twice.  They are temporarily replaced
@@ -1027,10 +996,10 @@ impact will be limited by performing the transition in smaller groups.
 While some mirrors will suffer additional bandwidth and disk space use,
 the issue will be limited to short periods of time and smaller groups
 of distfiles.</p>
-</div>
-</div>
-<div class="section" id="summary">
-<h1><a class="toc-backref" href="#id26">Summary</a></h1>
+</section>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id26">Summary</a></h2>
 <p>The historical layout of distfile mirrors does not scale well to modern
 distfile counts.  While the majority of servers can cope with this,
 switching to a layout splitting files between multiple directories
@@ -1060,9 +1029,9 @@ be made.  The helper scripts for master mirror migration are ready,
 and the complete process has been tested.  Once the last details
 are confirmed and the new software is deployed, the transition
 can start.</p>
-</div>
-<div class="section" id="references">
-<h1><a class="toc-backref" href="#id27">References</a></h1>
+</section>
+<section id="references">
+<h2><a class="toc-backref" href="#id27">References</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="mirror-bugreport"><span class="brackets"><a class="fn-backref" href="#id1">4</a></span></dt>
 <dd><p>Bug 534528 - distfiles should be sorted into
@@ -1093,7 +1062,7 @@ mirror directory structure
 (<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/f26ed870c3a6d4ecf69a821723642975">https://archives.gentoo.org/gentoo-dev/message/f26ed870c3a6d4ecf69a821723642975</a>)</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</main>
 </body>
 </html>

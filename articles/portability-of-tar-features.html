@@ -2,18 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <title>Portability of tar features</title>
 <meta name="author" content="Michał Górny" />
 <meta name="dcterms.date" content="2018-11-25" />
 <meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
-<link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/"/>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: minimal.css 8642 2021-03-26 13:51:14Z milde $               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -32,81 +33,67 @@
 /* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
 /* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
 
-/* alignment of text and inline objects inside block objects*/
-.align-left   { text-align: left; }
-.align-right  { text-align: right; }
-.align-center { clear: both; text-align: center; }
-.align-top    { vertical-align: top; }
-.align-middle { vertical-align: middle; }
-.align-bottom { vertical-align: bottom; }
-
 /* titles */
-h1.title, p.subtitle {
-  text-align: center;
-}
 p.topic-title,
-p.sidebar-title,
-p.rubric,
 p.admonition-title,
 p.system-message-title {
   font-weight: bold;
 }
-h1 + p.subtitle,
-h1 + p.section-subtitle {
-  font-size: 1.6em;
+p.sidebar-title,
+p.rubric {
+  font-weight: bold;
+  font-size: larger;
 }
-h2 + p.section-subtitle { font-size: 1.28em; }
+p.rubric {
+  color: maroon;
+}
 p.subtitle,
 p.section-subtitle,
 p.sidebar-subtitle {
   font-weight: bold;
   margin-top: -0.5em;
 }
-p.sidebar-title,
-p.rubric {
-  font-size: larger;
+h1 + p.subtitle {
+  font-size: 1.6em;
 }
-p.rubric { color: maroon; }
-a.toc-backref {
+h2 + p.section-subtitle, a.toc-backref {
   color: black;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 /* Warnings, Errors */
-div.caution p.admonition-title,
-div.attention p.admonition-title,
-div.danger p.admonition-title,
-div.error p.admonition-title,
-div.warning p.admonition-title,
-div.system-messages h1,
-div.error,
-span.problematic,
-p.system-message-title {
+.system-messages h2,
+.system-message-title,
+span.problematic {
   color: red;
 }
 
-/* inline literals */
-span.docutils.literal {
+/* Inline Literals */
+.docutils.literal {
   font-family: monospace;
   white-space: pre-wrap;
 }
-/* do not wraph at hyphens and similar: */
+/* do not wrap at hyphens and similar: */
 .literal > span.pre { white-space: nowrap; }
 
 /* Lists */
 
 /* compact and simple lists: no margin between items */
-.simple  li, .compact li,
-.simple  ul, .compact ul,
-.simple  ol, .compact ol,
-.simple > li p, .compact > li p,
-dl.simple > dd, dl.compact > dd {
+.simple  li, .simple  ul, .simple  ol,
+.compact li, .compact ul, .compact ol,
+.simple  > li p, dl.simple  > dd,
+.compact > li p, dl.compact > dd {
   margin-top: 0;
   margin-bottom: 0;
 }
+/* Nested Paragraphs */
+p:first-child { margin-top: 0; }
+p:last-child { margin-bottom: 0; }
+td > p, th > p { margin-bottom: 0; }
 
 /* Table of Contents */
-div.topic.contents { margin: 0.5em 0; }
-div.topic.contents ul {
+.topic.contents { margin: 0.5em 0; }
+.topic.contents ul.auto-toc {
   list-style-type: none;
   padding-left: 1.5em;
 }
@@ -118,14 +105,14 @@ ol.upperalpha { list-style: upper-alpha }
 ol.lowerroman { list-style: lower-roman }
 ol.upperroman { list-style: upper-roman }
 
-dt span.classifier { font-style: italic }
-dt span.classifier:before {
+/* Definition Lists and Derivatives */
+dt .classifier { font-style: italic }
+dt .classifier:before {
   font-style: normal;
   margin: 0.5em;
   content: ":";
 }
-
-/* Field Lists and drivatives */
+/* Field Lists and similar */
 /* bold field name, content starts on the same line */
 dl.field-list > dt,
 dl.option-list > dt,
@@ -143,7 +130,7 @@ dl.citation > dt {
 dl.field-list > dd,
 dl.option-list > dd,
 dl.docinfo > dd {
-  margin-left:  9em; /* ca. 14 chars in the test examples */
+  margin-left:  9em; /* ca. 14 chars in the test examples, fit all Docinfo fields */
 }
 /* start field-body on a new line after long field names */
 dl.field-list > dd > *:first-child,
@@ -160,18 +147,20 @@ dl.docinfo > dt:after {
 }
 
 /* Bibliographic Fields (docinfo) */
-pre.address { font: inherit; }
-dd.authors > p { margin: 0; }
+dl.docinfo pre.address {
+  font: inherit;
+  margin: 0.5em 0;
+}
+dl.docinfo > dd.authors > p { margin: 0; }
 
 /* Option Lists */
-dl.option-list { margin-left: 1.5em; }
 dl.option-list > dt { font-weight: normal; }
 span.option { white-space: nowrap; }
 
 /* Footnotes and Citations  */
-dl.footnote.superscript > dd {margin-left: 1em; }
-dl.footnote.brackets > dd {margin-left: 2em; }
-dl > dt.label { font-weight: normal; }
+dl.footnote.superscript > dd { margin-left: 1em; }
+dl.footnote.brackets > dd { margin-left: 2em; }
+dl.footnote > dt { font-weight: normal; }
 a.footnote-reference.brackets:before,
 dt.label > span.brackets:before { content: "["; }
 a.footnote-reference.brackets:after,
@@ -179,130 +168,113 @@ dt.label > span.brackets:after { content: "]"; }
 a.footnote-reference.superscript,
 dl.footnote.superscript > dt.label {
   vertical-align: super;
-  font-size: smaller;
+  font-size: small;
 }
-dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref {
+  margin-left: 0.2em;
+  font-weight: normal;
+}
 dt.label > span.fn-backref > a { font-style: italic; }
 
-/* Line Blocks */
-div.line-block { display: block; }
-div.line-block div.line-block {
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 40px;
+/* Alignment */
+.align-left   {
+  text-align: left;
+  margin-right: auto;
 }
+.align-center {
+  clear: both;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.align-right  {
+  text-align: right;
+  margin-left: auto;
+}
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
 
-/* Figures, Images, and Tables */
-.figure.align-left,
-figure.align-left,
-img.align-left,
-object.align-left,
-table.align-left {
-  margin-right: auto;
-}
-.figure.align-center,
-figure.align-center,
-img.align-center,
-object.align-center,
-table.align-center {
-  margin-left: auto;
-  margin-right: auto;
-}
-.figure.align-right,
-figure.align-right,
-img.align-right,
-object.align-right,
-table.align-right {
-  margin-left: auto;
-}
-.figure.align-center, .figure.align-right,
-figure.align-center, figure.align-right,
-img.align-center, img.align-right,
-object.align-center, object.align-right {
-  display: block;
-}
 /* reset inner alignment in figures and tables */
-.figure.align-left, .figure.align-right,
 figure.align-left, figure.align-right,
 table.align-left, table.align-center, table.align-right {
   text-align: inherit;
 }
 
-/* Admonitions and System Messages */
-div.admonition,
-div.system-message,
-div.sidebar,
-aside.sidebar {
-  margin: 1em 1.5em;
-  border: medium outset;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  padding-right: 1em;
-  padding-left: 1em;
+/* Text Blocks */
+blockquote,
+div.topic,
+aside.topic {
+  margin: 1em 2em;
 }
-
-/* Sidebar */
-div.sidebar,
-aside.sidebar {
+.sidebar,
+.admonition,
+.system-message {
+  border: thin solid;
+  margin: 1em 2em;
+  padding: 0.5em 1em;
+}
+.sidebar {
   width: 30%;
   max-width: 26em;
   float: right;
   clear: right;
 }
+div.line-block { display: block; }
+div.line-block div.line-block, pre { margin-left: 2em; }
 
-/* Text Blocks */
-blockquote,
-div.topic,
-pre.literal-block,
-pre.doctest-block,
-pre.math,
-pre.code {
-  margin-left: 1.5em;
-  margin-right: 1.5em;
+/* Code line numbers: dropped when copying text from the page */
+pre.code .ln { display: none; }
+pre.code code:before {
+  content: attr(data-lineno); /* …, none) fallback not supported by any browser */
+  color: gray;
 }
-pre.code .ln { color: gray; } /* line numbers */
 
 /* Tables */
-table { border-collapse: collapse; }
+table {
+  border-collapse: collapse;
+}
 td, th {
-  border-style: solid;
-  border-color: silver;
+  border: thin solid silver;
   padding: 0 1ex;
-  border-width: thin;
 }
-td > p:first-child, th > p:first-child { margin-top: 0; }
-td > p, th > p { margin-bottom: 0; }
-
-table > caption {
-  text-align: left;
-  margin-bottom: 0.25em
-}
-
-table.borderless td, table.borderless th {
+.borderless td, .borderless th {
   border: 0;
   padding: 0;
   padding-right: 0.5em /* separate table cells */
 }
 
-/* Document Header and Footer */
-/* div.header,				      */
-/* header { border-bottom: 1px solid black; } */
-/* div.footer,				      */
-/* footer { border-top: 1px solid black; }    */
+table > caption {
+  text-align: left;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+table.captionbelow {
+  caption-side: bottom;
+}
 
-/* new HTML5 block elements: set display for older browsers */
-header, section, footer, aside, nav, main, article, figure {
+/* Document Header and Footer */
+header { border-bottom: 1px solid black; }
+footer { border-top: 1px solid black; }
+
+/* Images are block-level by default in Docutils */
+/* New HTML5 block elements: set display for older browsers */
+img, header, section, footer, aside, nav, main, article, figure, video {
   display: block;
+}
+/* inline images */
+p img, p video, figure img, figure video {
+  display: inline;
 }
 
 </style>
 <style type="text/css">
 
 /* CSS31_ style sheet for the output of Docutils HTML writers.             */
-/* Rules for easy reading and pre-defined style variants.		   */
+/* Rules for easy reading and pre-defined style variants.                  */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: plain.css 8636 2021-03-19 00:23:33Z milde $                                                               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -310,11 +282,11 @@ header, section, footer, aside, nav, main, article, figure {
 /*    Copying and distribution of this file, with or without modification, */
 /*    are permitted in any medium without royalty provided the copyright   */
 /*    notice and this notice are preserved.                                */
-/*    	     	      	     	 					   */
+/*                                                                         */
 /*    This file is offered as-is, without any warranty.                    */
 /*                                                                         */
 /* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
-/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+/* .. _CSS3: http://www.w3.org/TR/CSS3                                     */
 
 
 /* Document Structure */
@@ -325,23 +297,26 @@ body {
   margin: 0;
   background-color: #dbdbdb;
 }
-div.document,
-main {
+main, footer, header {
   line-height:1.3;
-  counter-reset: table;
-  /* counter-reset: figure; */
   /* avoid long lines --> better reading */
+  /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */
   /* OTOH: lines should not be too short because of missing hyphenation, */
-  max-width: 50em;
+  max-width: 50rem;
   padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
   margin: auto;
+}
+main {
+  counter-reset: table figure;
   background-color: white;
 }
-
-/* Sections */
+footer, header {
+  font-size: smaller;
+  padding: 0.5em 2%;
+  border: none;
+}
 
 /* Transitions */
-
 hr.docutils {
   width: 80%;
   margin-top: 1em;
@@ -350,10 +325,9 @@ hr.docutils {
 }
 
 /* Paragraphs */
-/* ========== */
 
 /* vertical space (parskip) */
-p, ol, ul, dl,
+p, ol, ul, dl, li, dd,
 div.line-block,
 div.topic,
 table {
@@ -372,10 +346,12 @@ dl > dd {
 /* Lists */
 /* ===== */
 
-/* Definition Lists */
+/* Separate list entries in compound lists */
+dl > dd, ol > li,
 
-/* lists nested in definition lists */
-/* (:only-child is new in CSS 3) */
+/* Definition Lists */
+/* Indent lists nested in definition lists */
+/* (:only-child is new in CSS 3)           */
 dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
 
 /* Description Lists */
@@ -416,28 +392,16 @@ div.dedication p.topic-title {
   font-style: normal;
 }
 
-/* Citations */
-dl.citation dt.label {
-  font-weight: bold;
-}
-span.fn-backref {
-  font-weight: normal;
-}
-
 /* Text Blocks */
 /* =========== */
 
 /* Literal Blocks */
-
-pre.literal-block,
-pre.doctest-block,
-pre.math,
-pre.code {
+pre.literal-block, pre.doctest-block,
+pre.math, pre.code {
   font-family: monospace;
 }
 
 /* Block Quotes */
-
 blockquote > table,
 div.topic > table {
   margin-top: 0;
@@ -499,32 +463,45 @@ dl.footnote {
 /* Images and Figures */
 
 /* let content flow to the side of aligned images and figures */
-.figure.align-left,
 figure.align-left,
 img.align-left,
+video.align-left,
 object.align-left {
-  display: block;
   clear: left;
   float: left;
   margin-right: 1em;
 }
-.figure.align-right,
 figure.align-right,
 img.align-right,
+video.align-right,
 object.align-right {
-  display: block;
   clear: right;
   float: right;
   margin-left: 1em;
 }
-/* Stop floating sidebars, images and figures at section level 1,2,3 */
-h1, h2, h3 { clear: both; }
+/* Stop floating sidebars, images and figures */
+h1, h2, h3, h4, footer, header { clear: both; }
+
+/* Numbered figures */
+figure.numbered > figcaption > p:before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ": ";
+  font-weight: bold;
+}
+
+/* Admonitions and System Messages */
+.caution p.admonition-title,
+.attention p.admonition-title,
+.danger p.admonition-title,
+.error p.admonition-title,
+.warning p.admonition-title,
+div.error {
+  color: red;
+}
 
 /* Sidebar */
-
 /* Move right. In a layout with fixed margins, */
-/* it can be moved into the margin.   	       */
-div.sidebar,
+/* it can be moved into the margin.            */
 aside.sidebar {
   width: 30%;
   max-width: 26em;
@@ -534,10 +511,8 @@ aside.sidebar {
 }
 
 /* Code */
-
 pre.code { padding: 0.7ex }
 pre.code, code { background-color: #eeeeee }
-pre.code .ln { color: gray; } /* line numbers */
 /* basic highlighting: for a complete scheme, see */
 /* http://docutils.sourceforge.net/sandbox/stylesheets/ */
 pre.code .comment, code .comment { color: #5C6576 }
@@ -556,30 +531,8 @@ pre.code .inserted, code .inserted { background-color: #A3D289}
 /* Compound Paragraph */
 /* Container          */
 
-/* can be styled in a custom stylesheet */
-
-/* Document Header and Footer */
-
-footer, header,
-div.footer, div.header {
-  font-size: smaller;
-  clear: both;
-  padding: 0.5em 2%;
-  background-color: #ebebee;
-  border: none;
-}
-
 /* Inline Markup */
 /* ============= */
-
-/* Emphasis           */
-/*   em               */
-/* Strong Emphasis    */
-/*   strong	      */
-/* Interpreted Text   */
-/*   span.interpreted */
-/* Title Reference    */
-/*   cite	      */
 
 /* Inline Literals                                          */
 /* possible values: normal, nowrap, pre, pre-wrap, pre-line */
@@ -590,7 +543,7 @@ a { text-decoration: none; }
 
 /* External Targets       */
 /*   span.target.external */
-/* Internal Targets  	  */
+/* Internal Targets       */
 /*   span.target.internal */
 /* Footnote References    */
 /*   a.footnote-reference */
@@ -599,8 +552,8 @@ a { text-decoration: none; }
 
 </style>
 </head>
-<body>
-<div class="document" id="portability-of-tar-features">
+<body class="with-toc">
+<main id="portability-of-tar-features">
 <h1 class="title">Portability of tar features</h1>
 <dl class="docinfo simple">
 <dt class="author">Author</dt>
@@ -644,8 +597,8 @@ a { text-decoration: none; }
 <li><p><a class="reference internal" href="#references" id="id32">References</a></p></li>
 </ul>
 </div>
-<div class="section" id="preface">
-<h1><a class="toc-backref" href="#id12">Preface</a></h1>
+<section id="preface">
+<h2><a class="toc-backref" href="#id12">Preface</a></h2>
 <p>The tar format is one of the oldest archive formats in use.  It comes
 as no surprise that it is ugly — built as layers of hacks on the older
 format versions to overcome their limitations.  However, given
@@ -672,9 +625,9 @@ be written in order to achieve best probability that it will be read
 correctly afterwards.  It does not investigate what formats the listed
 tools can write and whether they can correctly create archives using
 specific features.</p>
-</div>
-<div class="section" id="implementations-tested">
-<h1><a class="toc-backref" href="#id13">Implementations tested</a></h1>
+</section>
+<section id="implementations-tested">
+<h2><a class="toc-backref" href="#id13">Implementations tested</a></h2>
 <p>For the purpose of the experiment, the following implementations were
 tested:</p>
 <ul class="simple">
@@ -690,9 +643,9 @@ modifications to build on Linux)  <a class="footnote-reference brackets" href="#
 <li><p><strong>7-Zip</strong> 18.05 (using wine)  <a class="footnote-reference brackets" href="#zip" id="id8">8</a></p></li>
 <li><p><strong>WinRAR</strong> 5.61 (proprietary, using wine)  <a class="footnote-reference brackets" href="#winrar" id="id9">9</a></p></li>
 </ul>
-</div>
-<div class="section" id="test-inputs">
-<h1><a class="toc-backref" href="#id14">Test inputs</a></h1>
+</section>
+<section id="test-inputs">
+<h2><a class="toc-backref" href="#id14">Test inputs</a></h2>
 <p>All the test inputs are uploaded to tar-test-inputs repository
 <a class="footnote-reference brackets" href="#tar-test-inputs" id="id10">10</a>.  They are mostly tarballs produced by either GNU
 tar or libarchive bsdtar, with a few manually hacked to achieve desired
@@ -702,9 +655,9 @@ The inner compression is <span class="docutils literal">gzip <span class="pre">-
 from 8 GiB to 36 MiB while maintaining reasonable performance (warning!
 it's a zipbomb!).  The outer compression is <span class="docutils literal">gzip <span class="pre">-9</span></span>, used to reduce
 the file size further for the git checkout.</p>
-</div>
-<div class="section" id="common-tar-formats">
-<h1><a class="toc-backref" href="#id15">Common tar formats</a></h1>
+</section>
+<section id="common-tar-formats">
+<h2><a class="toc-backref" href="#id15">Common tar formats</a></h2>
 <p>A good reference on different tar formats is the <span class="docutils literal">tar(5)</span> manpage
 from libarchive <a class="footnote-reference brackets" href="#tar-5" id="id11">11</a>.  Of particular interest are four standards
 supported by GNU tar:</p>
@@ -753,11 +706,11 @@ compatible xstar and xustar formats.</p>
 It seems roughly equivalent to pax, except that uppercase <span class="docutils literal">X</span> file
 flag is used in place of lowercase <span class="docutils literal">x</span>, and that additional member
 type is provided for ACLs.</p>
-</div>
-<div class="section" id="portability-test-results">
-<h1><a class="toc-backref" href="#id16">Portability test results</a></h1>
-<div class="section" id="tar-format-acceptance">
-<h2><a class="toc-backref" href="#id17">Tar format acceptance</a></h2>
+</section>
+<section id="portability-test-results">
+<h2><a class="toc-backref" href="#id16">Portability test results</a></h2>
+<section id="tar-format-acceptance">
+<h3><a class="toc-backref" href="#id17">Tar format acceptance</a></h3>
 <p>The goal of the first test is to verify whether the tar implementations
 accept a trivial archive of given type.  The archive contains a single
 regular file and does not use any extensions other than additional
@@ -911,9 +864,9 @@ by GNU tar.  The star format is accepted by most interpretations (taken
 as v7 tar); only busybox explicitly rejects it.</p>
 <p>The pax format causes extended headers to be extracted
 as files by a few implementations.</p>
-</div>
-<div class="section" id="long-pathnames">
-<h2><a class="toc-backref" href="#id18">Long pathnames</a></h2>
+</section>
+<section id="long-pathnames">
+<h3><a class="toc-backref" href="#id18">Long pathnames</a></h3>
 <p>The v7 tar format stores pathnames in a fixed field 100 octets long.
 Since the string is null-terminated, this sets maximum filepath length
 at 99 octets.  Newer tar formats support long pathnames in different
@@ -1022,9 +975,9 @@ The pax format metadata is extracted to text files by the other
 implementations, making some degree of manual recovery possible.
 The star format long paths are supported only by the original
 implementation and Python tarfile module.</p>
-</div>
-<div class="section" id="large-file-sizes">
-<h2><a class="toc-backref" href="#id19">Large file sizes</a></h2>
+</section>
+<section id="large-file-sizes">
+<h3><a class="toc-backref" href="#id19">Large file sizes</a></h3>
 <p>The v7 format stores file size as octal number in a 12-octet field.
 The strict format uses 11 octets, with the 12th being a terminator.
 This results in a maximum file size of 8 GiB.</p>
@@ -1117,9 +1070,9 @@ on correctly determining the data block size, unsupported large size
 effectively makes the archive unusable.  The pax format may result
 in the correct size being written to a text file but the user has
 no trivial recovery means.</p>
-</div>
-<div class="section" id="user-and-group-information">
-<h2><a class="toc-backref" href="#id20">User and group information</a></h2>
+</section>
+<section id="user-and-group-information">
+<h3><a class="toc-backref" href="#id20">User and group information</a></h3>
 <p>In the v7 format, file ownership information is stored as numeric user
 and group identifiers.  They are stored as 8-octet fields, therefore
 being limited to 7 octal digits (which are equivalent to 21-bit
@@ -1231,9 +1184,9 @@ truncates the name at 31 octets when writing the archive.</p>
 <p>Windows implementations were skipped from the test since they do not
 seem to provide access to user/group information (7-Zip technical list
 mode provides user/group names but it's no different from p7zip).</p>
-</div>
-<div class="section" id="timestamps">
-<h2><a class="toc-backref" href="#id21">Timestamps</a></h2>
+</section>
+<section id="timestamps">
+<h3><a class="toc-backref" href="#id21">Timestamps</a></h3>
 <p>Out of timestamps, the v7 format provides only for storing mtime.  It is
 stored in 12-octet field, permitting 11 octal digits which
 are sufficient for 33-bit timestamps.</p>
@@ -1387,11 +1340,11 @@ atime from GNU format archive.  It also required explicit <span class="docutils 
 to restore it from the pax format.</p>
 <p>Python tarfile, p7zip and Windows archivers do not provide any way
 to obtain atime or ctime (other than reading raw pax attributes).</p>
-</div>
-<div class="section" id="extended-file-metadata">
-<h2><a class="toc-backref" href="#id22">Extended file metadata</a></h2>
-<div class="section" id="acls">
-<h3><a class="toc-backref" href="#id23">ACLs</a></h3>
+</section>
+<section id="extended-file-metadata">
+<h3><a class="toc-backref" href="#id22">Extended file metadata</a></h3>
+<section id="acls">
+<h4><a class="toc-backref" href="#id23">ACLs</a></h4>
 <p>The pax format permits storing file ACLs in the <span class="docutils literal">SCHILY.acl.*</span> family
 of attributes.  While the entries have apparent star origins, they seem
 to have become the de facto standard for ACLs.</p>
@@ -1399,25 +1352,25 @@ to have become the de facto standard for ACLs.</p>
 entry type for ACL storage, and MacOS tar uses additional binary blob
 for extended attributes.  Neither of those formats seem to be supported
 by GNU tar, libarchive or star, so they are not tested here.</p>
-</div>
-<div class="section" id="file-flags">
-<h3><a class="toc-backref" href="#id24">File flags</a></h3>
+</section>
+<section id="file-flags">
+<h4><a class="toc-backref" href="#id24">File flags</a></h4>
 <p>Extended file flags (e.g. used by chflags(1) on BSD or lsattr(1)
 and chattr(1) on Linux) can be stored in the <span class="docutils literal">SCHILY.fflags</span> field.
 However, support for this standard seems to be rather limited.
 Furthermore, different implementations seem to be using different flag
 names.</p>
-</div>
-<div class="section" id="generic-extended-attributes">
-<h3><a class="toc-backref" href="#id25">Generic extended attributes</a></h3>
+</section>
+<section id="generic-extended-attributes">
+<h4><a class="toc-backref" href="#id25">Generic extended attributes</a></h4>
 <p>Generic extended attributes (xattr) are stored in pax archives in two
 notations: <span class="docutils literal">SCHILY.xattr.*</span> notation encoding attribute values inline
 and <span class="docutils literal">LIBARCHIVE.xattr.*</span> notation using base64 encoding of values.
 GNU tar and star are using the former, while libarchive is using both
 by default.</p>
-</div>
-<div class="section" id="attribute-support-test">
-<h3><a class="toc-backref" href="#id26">Attribute support test</a></h3>
+</section>
+<section id="attribute-support-test">
+<h4><a class="toc-backref" href="#id26">Attribute support test</a></h4>
 <blockquote>
 <table>
 <colgroup>
@@ -1498,10 +1451,10 @@ archives are not fully compatible.</p>
 However, no other implementations seems to support it and libarchive
 additionally stores more widely supported <span class="docutils literal">SCHILY.*</span> variant for
 compatibility.</p>
-</div>
-</div>
-<div class="section" id="sparse-files">
-<h2><a class="toc-backref" href="#id27">Sparse files</a></h2>
+</section>
+</section>
+<section id="sparse-files">
+<h3><a class="toc-backref" href="#id27">Sparse files</a></h3>
 <p>The support for archiving sparse files is entirely non-standarized.
 In regular tar archives, the sparse areas are filled up with zeros.</p>
 <p>The GNU tar format provides support for sparse fragments in custom
@@ -1650,9 +1603,9 @@ as regular (zero-padded) files.</p>
 The xstar formats maintains some binary compatibility with the old GNU
 format, and works with GNU tar.  However, other implementations
 supporting the GNU tar format do not seem that lenient.</p>
-</div>
-<div class="section" id="volume-label">
-<h2><a class="toc-backref" href="#id28">Volume label</a></h2>
+</section>
+<section id="volume-label">
+<h3><a class="toc-backref" href="#id28">Volume label</a></h3>
 <p>The volume label is a GNU tar extension.  It is supported in GNU tar,
 star and pax formats.</p>
 <p>In GNU tar and star formats, the volume label is added as a special
@@ -1748,9 +1701,9 @@ in the GNU format causes multiple archivers to reject the archive
 altogether.  The exact behavior of pax format is hard to determine since
 the label is normally not extracted; the I/P flags determined
 by examining the source code.</p>
-</div>
-<div class="section" id="multi-volume-archives">
-<h2><a class="toc-backref" href="#id29">Multi-volume archives</a></h2>
+</section>
+<section id="multi-volume-archives">
+<h3><a class="toc-backref" href="#id29">Multi-volume archives</a></h3>
 <p>GNU tar and star support creating multi-volume archives.  However,
 the multi-volume format is mostly intended for tape drives, and is
 inconvenient (requiring manually typing filenames) for regular files.
@@ -1880,9 +1833,9 @@ Furthermore, some tools reject the second and further volumes (e.g. GNU
 tar on star formats).</p>
 <p>Curious enough, the NetBSD pax tool seems to support split(1)-made
 multi-volume archives explicitly (i.e. request further volumes).</p>
-</div>
-<div class="section" id="feature-matrix">
-<h2><a class="toc-backref" href="#id30">Feature matrix</a></h2>
+</section>
+<section id="feature-matrix">
+<h3><a class="toc-backref" href="#id30">Feature matrix</a></h3>
 <p>The following table summarizes the support for most useful formats
 and their features.  Some of the earlier results are skipped because
 of their unlikely usefulness, e.g. long octet fields since no common
@@ -2195,10 +2148,10 @@ restored.</p>
 <p>v: multi-volume archives</p>
 <p>y: (pax) does not create stray files for pax attributes</p>
 </blockquote>
-</div>
-</div>
-<div class="section" id="summary">
-<h1><a class="toc-backref" href="#id31">Summary</a></h1>
+</section>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id31">Summary</a></h2>
 <p>The ustar format (both in POSIX and pre-POSIX/GNU variant) is widely
 supported.  Only few of the tested implementations can distinguish
 pre-POSIX ustar archives from GNU archives; modern versions of GNU tar
@@ -2257,9 +2210,9 @@ and user/group identifiers,</p></li>
 <p>However, whether such a profile could be reliably used would require
 further testing, e.g. for interoperability between pax headers
 and GNU-style long paths.</p>
-</div>
-<div class="section" id="references">
-<h1><a class="toc-backref" href="#id32">References</a></h1>
+</section>
+<section id="references">
+<h2><a class="toc-backref" href="#id32">References</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="gnutar"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>GNU Tar
@@ -2307,7 +2260,7 @@ check
 (<a class="reference external" href="https://github.com/libarchive/libarchive/wiki/ManPageTar5">https://github.com/libarchive/libarchive/wiki/ManPageTar5</a>)</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</main>
 </body>
 </html>

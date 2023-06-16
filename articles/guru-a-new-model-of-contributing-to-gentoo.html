@@ -2,18 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <title>GURU: a new model of contributing to Gentoo (WIP)</title>
 <meta name="author" content="Michał Górny" />
 <meta name="dcterms.date" content="2019-02-08" />
 <meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
-<link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/"/>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: minimal.css 8642 2021-03-26 13:51:14Z milde $               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -32,81 +33,67 @@
 /* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
 /* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
 
-/* alignment of text and inline objects inside block objects*/
-.align-left   { text-align: left; }
-.align-right  { text-align: right; }
-.align-center { clear: both; text-align: center; }
-.align-top    { vertical-align: top; }
-.align-middle { vertical-align: middle; }
-.align-bottom { vertical-align: bottom; }
-
 /* titles */
-h1.title, p.subtitle {
-  text-align: center;
-}
 p.topic-title,
-p.sidebar-title,
-p.rubric,
 p.admonition-title,
 p.system-message-title {
   font-weight: bold;
 }
-h1 + p.subtitle,
-h1 + p.section-subtitle {
-  font-size: 1.6em;
+p.sidebar-title,
+p.rubric {
+  font-weight: bold;
+  font-size: larger;
 }
-h2 + p.section-subtitle { font-size: 1.28em; }
+p.rubric {
+  color: maroon;
+}
 p.subtitle,
 p.section-subtitle,
 p.sidebar-subtitle {
   font-weight: bold;
   margin-top: -0.5em;
 }
-p.sidebar-title,
-p.rubric {
-  font-size: larger;
+h1 + p.subtitle {
+  font-size: 1.6em;
 }
-p.rubric { color: maroon; }
-a.toc-backref {
+h2 + p.section-subtitle, a.toc-backref {
   color: black;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 /* Warnings, Errors */
-div.caution p.admonition-title,
-div.attention p.admonition-title,
-div.danger p.admonition-title,
-div.error p.admonition-title,
-div.warning p.admonition-title,
-div.system-messages h1,
-div.error,
-span.problematic,
-p.system-message-title {
+.system-messages h2,
+.system-message-title,
+span.problematic {
   color: red;
 }
 
-/* inline literals */
-span.docutils.literal {
+/* Inline Literals */
+.docutils.literal {
   font-family: monospace;
   white-space: pre-wrap;
 }
-/* do not wraph at hyphens and similar: */
+/* do not wrap at hyphens and similar: */
 .literal > span.pre { white-space: nowrap; }
 
 /* Lists */
 
 /* compact and simple lists: no margin between items */
-.simple  li, .compact li,
-.simple  ul, .compact ul,
-.simple  ol, .compact ol,
-.simple > li p, .compact > li p,
-dl.simple > dd, dl.compact > dd {
+.simple  li, .simple  ul, .simple  ol,
+.compact li, .compact ul, .compact ol,
+.simple  > li p, dl.simple  > dd,
+.compact > li p, dl.compact > dd {
   margin-top: 0;
   margin-bottom: 0;
 }
+/* Nested Paragraphs */
+p:first-child { margin-top: 0; }
+p:last-child { margin-bottom: 0; }
+td > p, th > p { margin-bottom: 0; }
 
 /* Table of Contents */
-div.topic.contents { margin: 0.5em 0; }
-div.topic.contents ul {
+.topic.contents { margin: 0.5em 0; }
+.topic.contents ul.auto-toc {
   list-style-type: none;
   padding-left: 1.5em;
 }
@@ -118,14 +105,14 @@ ol.upperalpha { list-style: upper-alpha }
 ol.lowerroman { list-style: lower-roman }
 ol.upperroman { list-style: upper-roman }
 
-dt span.classifier { font-style: italic }
-dt span.classifier:before {
+/* Definition Lists and Derivatives */
+dt .classifier { font-style: italic }
+dt .classifier:before {
   font-style: normal;
   margin: 0.5em;
   content: ":";
 }
-
-/* Field Lists and drivatives */
+/* Field Lists and similar */
 /* bold field name, content starts on the same line */
 dl.field-list > dt,
 dl.option-list > dt,
@@ -143,7 +130,7 @@ dl.citation > dt {
 dl.field-list > dd,
 dl.option-list > dd,
 dl.docinfo > dd {
-  margin-left:  9em; /* ca. 14 chars in the test examples */
+  margin-left:  9em; /* ca. 14 chars in the test examples, fit all Docinfo fields */
 }
 /* start field-body on a new line after long field names */
 dl.field-list > dd > *:first-child,
@@ -160,18 +147,20 @@ dl.docinfo > dt:after {
 }
 
 /* Bibliographic Fields (docinfo) */
-pre.address { font: inherit; }
-dd.authors > p { margin: 0; }
+dl.docinfo pre.address {
+  font: inherit;
+  margin: 0.5em 0;
+}
+dl.docinfo > dd.authors > p { margin: 0; }
 
 /* Option Lists */
-dl.option-list { margin-left: 1.5em; }
 dl.option-list > dt { font-weight: normal; }
 span.option { white-space: nowrap; }
 
 /* Footnotes and Citations  */
-dl.footnote.superscript > dd {margin-left: 1em; }
-dl.footnote.brackets > dd {margin-left: 2em; }
-dl > dt.label { font-weight: normal; }
+dl.footnote.superscript > dd { margin-left: 1em; }
+dl.footnote.brackets > dd { margin-left: 2em; }
+dl.footnote > dt { font-weight: normal; }
 a.footnote-reference.brackets:before,
 dt.label > span.brackets:before { content: "["; }
 a.footnote-reference.brackets:after,
@@ -179,130 +168,113 @@ dt.label > span.brackets:after { content: "]"; }
 a.footnote-reference.superscript,
 dl.footnote.superscript > dt.label {
   vertical-align: super;
-  font-size: smaller;
+  font-size: small;
 }
-dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref {
+  margin-left: 0.2em;
+  font-weight: normal;
+}
 dt.label > span.fn-backref > a { font-style: italic; }
 
-/* Line Blocks */
-div.line-block { display: block; }
-div.line-block div.line-block {
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 40px;
+/* Alignment */
+.align-left   {
+  text-align: left;
+  margin-right: auto;
 }
+.align-center {
+  clear: both;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.align-right  {
+  text-align: right;
+  margin-left: auto;
+}
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
 
-/* Figures, Images, and Tables */
-.figure.align-left,
-figure.align-left,
-img.align-left,
-object.align-left,
-table.align-left {
-  margin-right: auto;
-}
-.figure.align-center,
-figure.align-center,
-img.align-center,
-object.align-center,
-table.align-center {
-  margin-left: auto;
-  margin-right: auto;
-}
-.figure.align-right,
-figure.align-right,
-img.align-right,
-object.align-right,
-table.align-right {
-  margin-left: auto;
-}
-.figure.align-center, .figure.align-right,
-figure.align-center, figure.align-right,
-img.align-center, img.align-right,
-object.align-center, object.align-right {
-  display: block;
-}
 /* reset inner alignment in figures and tables */
-.figure.align-left, .figure.align-right,
 figure.align-left, figure.align-right,
 table.align-left, table.align-center, table.align-right {
   text-align: inherit;
 }
 
-/* Admonitions and System Messages */
-div.admonition,
-div.system-message,
-div.sidebar,
-aside.sidebar {
-  margin: 1em 1.5em;
-  border: medium outset;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  padding-right: 1em;
-  padding-left: 1em;
+/* Text Blocks */
+blockquote,
+div.topic,
+aside.topic {
+  margin: 1em 2em;
 }
-
-/* Sidebar */
-div.sidebar,
-aside.sidebar {
+.sidebar,
+.admonition,
+.system-message {
+  border: thin solid;
+  margin: 1em 2em;
+  padding: 0.5em 1em;
+}
+.sidebar {
   width: 30%;
   max-width: 26em;
   float: right;
   clear: right;
 }
+div.line-block { display: block; }
+div.line-block div.line-block, pre { margin-left: 2em; }
 
-/* Text Blocks */
-blockquote,
-div.topic,
-pre.literal-block,
-pre.doctest-block,
-pre.math,
-pre.code {
-  margin-left: 1.5em;
-  margin-right: 1.5em;
+/* Code line numbers: dropped when copying text from the page */
+pre.code .ln { display: none; }
+pre.code code:before {
+  content: attr(data-lineno); /* …, none) fallback not supported by any browser */
+  color: gray;
 }
-pre.code .ln { color: gray; } /* line numbers */
 
 /* Tables */
-table { border-collapse: collapse; }
+table {
+  border-collapse: collapse;
+}
 td, th {
-  border-style: solid;
-  border-color: silver;
+  border: thin solid silver;
   padding: 0 1ex;
-  border-width: thin;
 }
-td > p:first-child, th > p:first-child { margin-top: 0; }
-td > p, th > p { margin-bottom: 0; }
-
-table > caption {
-  text-align: left;
-  margin-bottom: 0.25em
-}
-
-table.borderless td, table.borderless th {
+.borderless td, .borderless th {
   border: 0;
   padding: 0;
   padding-right: 0.5em /* separate table cells */
 }
 
-/* Document Header and Footer */
-/* div.header,				      */
-/* header { border-bottom: 1px solid black; } */
-/* div.footer,				      */
-/* footer { border-top: 1px solid black; }    */
+table > caption {
+  text-align: left;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+table.captionbelow {
+  caption-side: bottom;
+}
 
-/* new HTML5 block elements: set display for older browsers */
-header, section, footer, aside, nav, main, article, figure {
+/* Document Header and Footer */
+header { border-bottom: 1px solid black; }
+footer { border-top: 1px solid black; }
+
+/* Images are block-level by default in Docutils */
+/* New HTML5 block elements: set display for older browsers */
+img, header, section, footer, aside, nav, main, article, figure, video {
   display: block;
+}
+/* inline images */
+p img, p video, figure img, figure video {
+  display: inline;
 }
 
 </style>
 <style type="text/css">
 
 /* CSS31_ style sheet for the output of Docutils HTML writers.             */
-/* Rules for easy reading and pre-defined style variants.		   */
+/* Rules for easy reading and pre-defined style variants.                  */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: plain.css 8636 2021-03-19 00:23:33Z milde $                                                               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -310,11 +282,11 @@ header, section, footer, aside, nav, main, article, figure {
 /*    Copying and distribution of this file, with or without modification, */
 /*    are permitted in any medium without royalty provided the copyright   */
 /*    notice and this notice are preserved.                                */
-/*    	     	      	     	 					   */
+/*                                                                         */
 /*    This file is offered as-is, without any warranty.                    */
 /*                                                                         */
 /* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
-/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+/* .. _CSS3: http://www.w3.org/TR/CSS3                                     */
 
 
 /* Document Structure */
@@ -325,23 +297,26 @@ body {
   margin: 0;
   background-color: #dbdbdb;
 }
-div.document,
-main {
+main, footer, header {
   line-height:1.3;
-  counter-reset: table;
-  /* counter-reset: figure; */
   /* avoid long lines --> better reading */
+  /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */
   /* OTOH: lines should not be too short because of missing hyphenation, */
-  max-width: 50em;
+  max-width: 50rem;
   padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
   margin: auto;
+}
+main {
+  counter-reset: table figure;
   background-color: white;
 }
-
-/* Sections */
+footer, header {
+  font-size: smaller;
+  padding: 0.5em 2%;
+  border: none;
+}
 
 /* Transitions */
-
 hr.docutils {
   width: 80%;
   margin-top: 1em;
@@ -350,10 +325,9 @@ hr.docutils {
 }
 
 /* Paragraphs */
-/* ========== */
 
 /* vertical space (parskip) */
-p, ol, ul, dl,
+p, ol, ul, dl, li, dd,
 div.line-block,
 div.topic,
 table {
@@ -372,10 +346,12 @@ dl > dd {
 /* Lists */
 /* ===== */
 
-/* Definition Lists */
+/* Separate list entries in compound lists */
+dl > dd, ol > li,
 
-/* lists nested in definition lists */
-/* (:only-child is new in CSS 3) */
+/* Definition Lists */
+/* Indent lists nested in definition lists */
+/* (:only-child is new in CSS 3)           */
 dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
 
 /* Description Lists */
@@ -416,28 +392,16 @@ div.dedication p.topic-title {
   font-style: normal;
 }
 
-/* Citations */
-dl.citation dt.label {
-  font-weight: bold;
-}
-span.fn-backref {
-  font-weight: normal;
-}
-
 /* Text Blocks */
 /* =========== */
 
 /* Literal Blocks */
-
-pre.literal-block,
-pre.doctest-block,
-pre.math,
-pre.code {
+pre.literal-block, pre.doctest-block,
+pre.math, pre.code {
   font-family: monospace;
 }
 
 /* Block Quotes */
-
 blockquote > table,
 div.topic > table {
   margin-top: 0;
@@ -499,32 +463,45 @@ dl.footnote {
 /* Images and Figures */
 
 /* let content flow to the side of aligned images and figures */
-.figure.align-left,
 figure.align-left,
 img.align-left,
+video.align-left,
 object.align-left {
-  display: block;
   clear: left;
   float: left;
   margin-right: 1em;
 }
-.figure.align-right,
 figure.align-right,
 img.align-right,
+video.align-right,
 object.align-right {
-  display: block;
   clear: right;
   float: right;
   margin-left: 1em;
 }
-/* Stop floating sidebars, images and figures at section level 1,2,3 */
-h1, h2, h3 { clear: both; }
+/* Stop floating sidebars, images and figures */
+h1, h2, h3, h4, footer, header { clear: both; }
+
+/* Numbered figures */
+figure.numbered > figcaption > p:before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ": ";
+  font-weight: bold;
+}
+
+/* Admonitions and System Messages */
+.caution p.admonition-title,
+.attention p.admonition-title,
+.danger p.admonition-title,
+.error p.admonition-title,
+.warning p.admonition-title,
+div.error {
+  color: red;
+}
 
 /* Sidebar */
-
 /* Move right. In a layout with fixed margins, */
-/* it can be moved into the margin.   	       */
-div.sidebar,
+/* it can be moved into the margin.            */
 aside.sidebar {
   width: 30%;
   max-width: 26em;
@@ -534,10 +511,8 @@ aside.sidebar {
 }
 
 /* Code */
-
 pre.code { padding: 0.7ex }
 pre.code, code { background-color: #eeeeee }
-pre.code .ln { color: gray; } /* line numbers */
 /* basic highlighting: for a complete scheme, see */
 /* http://docutils.sourceforge.net/sandbox/stylesheets/ */
 pre.code .comment, code .comment { color: #5C6576 }
@@ -556,30 +531,8 @@ pre.code .inserted, code .inserted { background-color: #A3D289}
 /* Compound Paragraph */
 /* Container          */
 
-/* can be styled in a custom stylesheet */
-
-/* Document Header and Footer */
-
-footer, header,
-div.footer, div.header {
-  font-size: smaller;
-  clear: both;
-  padding: 0.5em 2%;
-  background-color: #ebebee;
-  border: none;
-}
-
 /* Inline Markup */
 /* ============= */
-
-/* Emphasis           */
-/*   em               */
-/* Strong Emphasis    */
-/*   strong	      */
-/* Interpreted Text   */
-/*   span.interpreted */
-/* Title Reference    */
-/*   cite	      */
 
 /* Inline Literals                                          */
 /* possible values: normal, nowrap, pre, pre-wrap, pre-line */
@@ -590,7 +543,7 @@ a { text-decoration: none; }
 
 /* External Targets       */
 /*   span.target.external */
-/* Internal Targets  	  */
+/* Internal Targets       */
 /*   span.target.internal */
 /* Footnote References    */
 /*   a.footnote-reference */
@@ -599,8 +552,8 @@ a { text-decoration: none; }
 
 </style>
 </head>
-<body>
-<div class="document" id="guru-a-new-model-of-contributing-to-gentoo-wip">
+<body class="with-toc">
+<main id="guru-a-new-model-of-contributing-to-gentoo-wip">
 <h1 class="title">GURU: a new model of contributing to Gentoo (WIP)</h1>
 <dl class="docinfo simple">
 <dt class="author">Author</dt>
@@ -675,8 +628,8 @@ a { text-decoration: none; }
 <li><p><a class="reference internal" href="#references" id="id39">References</a></p></li>
 </ul>
 </div>
-<div class="section" id="preface">
-<h1><a class="toc-backref" href="#id7">Preface</a></h1>
+<section id="preface">
+<h2><a class="toc-backref" href="#id7">Preface</a></h2>
 <p>Gentoo accepts user contributions via a number of venues.  Bugzilla,
 the most traditional of them is suitable for helping developers fix
 their packages but is strictly developer-oriented.  Proxy maintenance
@@ -696,11 +649,11 @@ Users who already gained reputation use it to review packages, merge
 them for public consumption and at the same time raise reputation
 of the users submitting them.  This creates self-sustainable community
 where Gentoo developer intervention is rarely necessary.</p>
-</div>
-<div class="section" id="existing-and-historical-contribution-models">
-<h1><a class="toc-backref" href="#id8">Existing and historical contribution models</a></h1>
-<div class="section" id="bugzilla-and-e-mail-submissions">
-<h2><a class="toc-backref" href="#id9">Bugzilla and e-mail submissions</a></h2>
+</section>
+<section id="existing-and-historical-contribution-models">
+<h2><a class="toc-backref" href="#id8">Existing and historical contribution models</a></h2>
+<section id="bugzilla-and-e-mail-submissions">
+<h3><a class="toc-backref" href="#id9">Bugzilla and e-mail submissions</a></h3>
 <p>Over the history of Gentoo, I think Bugzilla can clearly be classified
 as the primary venue of interaction between users and developers.  Be it
 bug reports, enhancement suggestions or new package requests, all
@@ -713,9 +666,9 @@ a new package, he can't make it happen without finding an interested
 developer.</p>
 <p>Bugzilla is presented as a canonical example of this contribution model.
 The same model is expressed e.g. by e-mail submissions, IRC pastes, etc.</p>
-</div>
-<div class="section" id="the-sunrise-project-historical">
-<h2><a class="toc-backref" href="#id10">The Sunrise project (historical)</a></h2>
+</section>
+<section id="the-sunrise-project-historical">
+<h3><a class="toc-backref" href="#id10">The Sunrise project (historical)</a></h3>
 <p>The Sunrise project was a historical Gentoo project built around
 user-maintained, developer-reviewed package repository.  At the time
 when I joined Gentoo, it was the primary venue for users to work on new
@@ -731,9 +684,9 @@ review late commits (again) and merge them to the reviewed branch.</p>
 <p>Sunrise eventually become defunct due to loss of interest both
 on developer and user side.  Eventually, it has been discontinued
 in June 2016.  <a class="footnote-reference brackets" href="#sunrise" id="id2">2</a></p>
-</div>
-<div class="section" id="proxied-maintainers">
-<h2><a class="toc-backref" href="#id11">Proxied maintainers</a></h2>
+</section>
+<section id="proxied-maintainers">
+<h3><a class="toc-backref" href="#id11">Proxied maintainers</a></h3>
 <p>The downfall of Sunrise was paralleled by rise of proxy-maintenance.
 In this model, users are allowed to maintain packages straight
 in the Gentoo repository, with one or more developers proxying
@@ -754,9 +707,9 @@ the official repository.  However, applying those contributions requires
 significant effort both from users and developers, and so far
 the proxy-maint team is continuously overwhelmed and unable to process
 contributions in satisfactory time.</p>
-</div>
-<div class="section" id="user-repositories-overlays">
-<h2><a class="toc-backref" href="#id12">User repositories (overlays)</a></h2>
+</section>
+<section id="user-repositories-overlays">
+<h3><a class="toc-backref" href="#id12">User repositories (overlays)</a></h3>
 <p>Finally, another possibility for users to publish their work is to
 create their own repositories, historically called ‘overlays’.  There
 is a great multitude of kinds of repositories and their uses.  We have
@@ -780,9 +733,9 @@ which may serve your purpose better.  If you add a particular overlay,
 you may discover it actually overrides other packages you did not want
 replaced.  Finally, since there's no real supervision of what happens
 in all those repositories, it is trivial to inject malware.</p>
-</div>
-<div class="section" id="project-repositories">
-<h2><a class="toc-backref" href="#id13">Project repositories</a></h2>
+</section>
+<section id="project-repositories">
+<h3><a class="toc-backref" href="#id13">Project repositories</a></h3>
 <p>I believe it is worthwhile to isolate a special case of third-party
 repositories — project overlays.  Besides aforementioned Sunrise
 project, some examples of long-lived Gentoo project overlays are
@@ -796,14 +749,16 @@ preventing non-developer project members).</p>
 <p>Furthermore, those project overlays frequently serve as staging ground
 for Gentoo repository ebuilds.  Therefore, the work of users eventually
 makes it to the official repository.</p>
-</div>
-<div class="section" id="effort-reach-comparison">
-<h2><a class="toc-backref" href="#id14">Effort-reach comparison</a></h2>
-<div class="figure align-center">
+</section>
+<section id="effort-reach-comparison">
+<h3><a class="toc-backref" href="#id14">Effort-reach comparison</a></h3>
+<figure class="align-center">
 <img alt="guru-a-new-model-of-contributing-to-gentoo/contrib-method-chart.svg" src="guru-a-new-model-of-contributing-to-gentoo/contrib-method-chart.svg" />
-<p class="caption">Chart presenting effort-to-user-reach for different contribution
+<figcaption>
+<p>Chart presenting effort-to-user-reach for different contribution
 venues</p>
-</div>
+</figcaption>
+</figure>
 <p>The above chart attempts to describe where GURU fits graphically.
 The vertical axis represents the <em>effort</em>, i.e. how much time and work
 adding a package takes.  The horizontal axis represents <em>user reach</em>,
@@ -823,12 +778,12 @@ requiring significant effort and good popularity.</p>
 with lower cumulative effort.  On one hand, some users will take
 the extra effort to review packages.  On the other, it also provides for
 one-time package submitters.</p>
-</div>
-</div>
-<div class="section" id="the-proposed-guru-model">
-<h1><a class="toc-backref" href="#id15">The proposed GURU model</a></h1>
-<div class="section" id="repository-layout">
-<h2><a class="toc-backref" href="#id16">Repository layout</a></h2>
+</section>
+</section>
+<section id="the-proposed-guru-model">
+<h2><a class="toc-backref" href="#id15">The proposed GURU model</a></h2>
+<section id="repository-layout">
+<h3><a class="toc-backref" href="#id16">Repository layout</a></h3>
 <p>GURU uses a layout similar to the one historically used by the Sunrise
 project.  There are two branches: the development branch maintained
 directly by users, and the reviewed branch intended for public
@@ -842,11 +797,11 @@ development efforts (i.e. even they should not add it to
 <p>The reviewed branch is entirely maintained by scripts.  The commits
 from development branch are merged into reviewed branch as soon as they
 are reviewed, through automated scripts.</p>
-</div>
-<div class="section" id="user-access-and-workflow">
-<h2><a class="toc-backref" href="#id17">User access and workflow</a></h2>
-<div class="section" id="classes-of-users">
-<h3><a class="toc-backref" href="#id18">Classes of users</a></h3>
+</section>
+<section id="user-access-and-workflow">
+<h3><a class="toc-backref" href="#id17">User access and workflow</a></h3>
+<section id="classes-of-users">
+<h4><a class="toc-backref" href="#id18">Classes of users</a></h4>
 <p>Initially, three user classes are defined:</p>
 <ol class="arabic simple">
 <li><p><em>Regular users</em> — all new users belong to this class.  Regular users
@@ -875,9 +830,9 @@ and secondly, as initial group needed to bootstrap the trusted user
 model.  Once initial developer reviews elect first trusted users, those
 users can take most of the reviewing over and the repository becomes
 self-sustainable.</p>
-</div>
-<div class="section" id="commit-reviews-and-merging">
-<h3><a class="toc-backref" href="#id19">Commit reviews and merging</a></h3>
+</section>
+<section id="commit-reviews-and-merging">
+<h4><a class="toc-backref" href="#id19">Commit reviews and merging</a></h4>
 <p>The commit reviews are also based on scoring system.  Reviews are
 normally performed on commit ranges, and each approval gives all commits
 in the range specific score:</p>
@@ -889,9 +844,9 @@ in the range specific score:</p>
 the reviewed branch.  This implies that normally the reviewed branch
 is merged either if a developer reviews commits, or 3 distinct trusted
 users do.</p>
-</div>
-<div class="section" id="flag-mechanism">
-<h3><a class="toc-backref" href="#id20">Flag mechanism</a></h3>
+</section>
+<section id="flag-mechanism">
+<h4><a class="toc-backref" href="#id20">Flag mechanism</a></h4>
 <p>The flag mechanism is added in order to provide stronger protection
 against malicious or otherwise harmful actions.  Any user (including
 untrusted users) can flag a commit as either <em>malicious</em>, <em>vandalising</em>
@@ -902,12 +857,12 @@ score.</p>
 the developer confirms that the danger is resolved, the flag is removed
 and merging can proceed again.  The developer can also issue bans
 and other measures against the individual responsible for the commit.</p>
-</div>
-</div>
-<div class="section" id="package-maintenance">
-<h2><a class="toc-backref" href="#id21">Package maintenance</a></h2>
-<div class="section" id="classes-of-packages">
-<h3><a class="toc-backref" href="#id22">Classes of packages</a></h3>
+</section>
+</section>
+<section id="package-maintenance">
+<h3><a class="toc-backref" href="#id21">Package maintenance</a></h3>
+<section id="classes-of-packages">
+<h4><a class="toc-backref" href="#id22">Classes of packages</a></h4>
 <p>The GURU repository is primarily meant for new packages, that is
 packages that are not present in the Gentoo repository.  Additionally,
 it is acceptable to provide new versions of packages that are
@@ -917,9 +872,9 @@ accordingly and not interfere with the Gentoo original.</p>
 <p>Accordingly, if a GURU package is adapted (or independently added)
 into the Gentoo repository, it should be afterwards removed from GURU.
 This removal can be done by anyone.</p>
-</div>
-<div class="section" id="maintainers">
-<h3><a class="toc-backref" href="#id23">Maintainers</a></h3>
+</section>
+<section id="maintainers">
+<h4><a class="toc-backref" href="#id23">Maintainers</a></h4>
 <p>GURU allows for both community-maintained and individual-maintained
 packages.  However, it enforces no technical access restrictions nor
 strong maintainer boundaries.  The former class of packages is
@@ -931,20 +886,20 @@ for bugs reported against the package in question.  If other users wish
 to contribute to the package, it is a good practice to contact
 the listed maintainer first.  However, there is no punishment planned
 for non-destructive cases of non-maintainer commits.</p>
-</div>
-<div class="section" id="bug-reporting">
-<h3><a class="toc-backref" href="#id24">Bug reporting</a></h3>
+</section>
+<section id="bug-reporting">
+<h4><a class="toc-backref" href="#id24">Bug reporting</a></h4>
 <p>All bugs reported to GURU packages will be reported both to specific
 package maintainers and a GURU mailing list including all users.  All
 users are responsible for keeping GURU in good shape, and therefore all
 users are asked to process bug reports.</p>
-</div>
-</div>
-</div>
-<div class="section" id="implementation-choices">
-<h1><a class="toc-backref" href="#id25">Implementation choices</a></h1>
-<div class="section" id="implementation-requirements">
-<h2><a class="toc-backref" href="#id26">Implementation requirements</a></h2>
+</section>
+</section>
+</section>
+<section id="implementation-choices">
+<h2><a class="toc-backref" href="#id25">Implementation choices</a></h2>
+<section id="implementation-requirements">
+<h3><a class="toc-backref" href="#id26">Implementation requirements</a></h3>
 <p>The GURU project requires a git hosting and a review system.
 The cumulative requirements for both are:</p>
 <ul class="simple">
@@ -962,11 +917,11 @@ and flag control,</p></li>
 or more complementary pieces.  Notably, the review system will most
 likely require some custom coding; though it would be desirable to reuse
 as much of existing systems as possible.</p>
-</div>
-<div class="section" id="git-hosting-solutions">
-<h2><a class="toc-backref" href="#id27">Git hosting solutions</a></h2>
-<div class="section" id="gitolite-cgit-setup-used-by-gentoo">
-<h3><a class="toc-backref" href="#id28">gitolite + cgit setup used by Gentoo</a></h3>
+</section>
+<section id="git-hosting-solutions">
+<h3><a class="toc-backref" href="#id27">Git hosting solutions</a></h3>
+<section id="gitolite-cgit-setup-used-by-gentoo">
+<h4><a class="toc-backref" href="#id28">gitolite + cgit setup used by Gentoo</a></h4>
 <p>Gitolite is a git hosting backend focused on SSH access, and featuring
 configuration via git repository.  It is pretty powerful, allowing
 for a lot of customization, including per-branch access control and any
@@ -984,9 +939,9 @@ deployed.  Therefore, taking advantage of them might both reduce
 the amount of extra work necessary and avoid the discontent proprietary
 alternatives would cause.  However, there are many areas (reviews, CI
 integration) that would need to be implemented separately.</p>
-</div>
-<div class="section" id="github-and-similar-saas-solutions">
-<h3><a class="toc-backref" href="#id29">GitHub (and similar SaaS solutions)</a></h3>
+</section>
+<section id="github-and-similar-saas-solutions">
+<h4><a class="toc-backref" href="#id29">GitHub (and similar SaaS solutions)</a></h4>
 <p>GitHub is presented here as an example of a SaaS solution.  There are
 multiple alternatives, more or less with the same functionality,
 therefore I do not find it necessary to consider them separately.</p>
@@ -1012,16 +967,16 @@ the full goal set.</p>
 <p>Finally, since the service is proprietary some users are vehemently
 opposed to using it.  This problem could possibly be lessened by using
 open source SaaS such as GitLab but not eliminated entirely.</p>
-</div>
-<div class="section" id="gitlab-and-similar-platforms-infra-deployment">
-<h3><a class="toc-backref" href="#id30">GitLab and similar platforms (Infra deployment)</a></h3>
+</section>
+<section id="gitlab-and-similar-platforms-infra-deployment">
+<h4><a class="toc-backref" href="#id30">GitLab and similar platforms (Infra deployment)</a></h4>
 <p>TODO</p>
-</div>
-</div>
-<div class="section" id="custom-review-front-end-design">
-<h2><a class="toc-backref" href="#id31">Custom review front-end design</a></h2>
-<div class="section" id="web-based-front-end">
-<h3><a class="toc-backref" href="#id32">Web-based front-end</a></h3>
+</section>
+</section>
+<section id="custom-review-front-end-design">
+<h3><a class="toc-backref" href="#id31">Custom review front-end design</a></h3>
+<section id="web-based-front-end">
+<h4><a class="toc-backref" href="#id32">Web-based front-end</a></h4>
 <p>Common project design practices suggest that the review front-end should
 be built as web application.  Such an application would have to provide
 a user-friendly review UI with clean diff view, easy access to common
@@ -1033,9 +988,9 @@ authentication, it requires a duplicate account system with a different
 authentication mechanism.  This is technically doable, especially that
 all the common frameworks provide such a system.  However, it increases
 account maintenance overhead.</p>
-</div>
-<div class="section" id="git-based-front-end">
-<h3><a class="toc-backref" href="#id33">Git-based front-end</a></h3>
+</section>
+<section id="git-based-front-end">
+<h4><a class="toc-backref" href="#id33">Git-based front-end</a></h4>
 <p>One particularly interesting alternative is to use git as database
 directly, rather than requiring a separate web front-end.  In this
 model, the reviewing is done via a dedicated CLI or GUI application
@@ -1054,13 +1009,13 @@ reevaluate user's reputation, verify whether he is allowed to submit
 the review, apply appropriate commit reputation updates and finally
 reevaluate the resulting reputation of individual commits and possibly
 merge them to the reviewed branch.</p>
-</div>
-</div>
-</div>
-<div class="section" id="questions-answers">
-<h1><a class="toc-backref" href="#id34">Questions &amp; answers</a></h1>
-<div class="section" id="guru-vs-other-projects">
-<h2><a class="toc-backref" href="#id35">GURU vs other projects</a></h2>
+</section>
+</section>
+</section>
+<section id="questions-answers">
+<h2><a class="toc-backref" href="#id34">Questions &amp; answers</a></h2>
+<section id="guru-vs-other-projects">
+<h3><a class="toc-backref" href="#id35">GURU vs other projects</a></h3>
 <dl class="simple">
 <dt>Will GURU replace proxy-maint (/ some other project)?</dt>
 <dd><p>No, GURU is meant to be an entirely new project, aiming to fill
@@ -1082,9 +1037,9 @@ no reason to believe that it would meet the same end soon enough.
 Therefore, I think it is better to try something else.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="guru-for-users">
-<h2><a class="toc-backref" href="#id36">GURU for users</a></h2>
+</section>
+<section id="guru-for-users">
+<h3><a class="toc-backref" href="#id36">GURU for users</a></h3>
 <dl>
 <dt>Will GURU repository by enabled by default?</dt>
 <dd><p>There are no such plans at the moment, and I honestly doubt it will
@@ -1111,9 +1066,9 @@ manually, technically restricting the ability of quickly creating
 multiple accounts.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="the-acronym">
-<h2><a class="toc-backref" href="#id37">The acronym</a></h2>
+</section>
+<section id="the-acronym">
+<h3><a class="toc-backref" href="#id37">The acronym</a></h3>
 <dl class="simple">
 <dt>What does GURU stand for?</dt>
 <dd><p>It's a secret known only to the most trusted GURU users.  However,
@@ -1140,9 +1095,9 @@ in the first place and didn't want it to go to waste?  I don't think
 so.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="the-logo">
-<h2><a class="toc-backref" href="#id38">The logo</a></h2>
+</section>
+<section id="the-logo">
+<h3><a class="toc-backref" href="#id38">The logo</a></h3>
 <dl class="simple">
 <dt>What's with the 9… I mean, G?</dt>
 <dd><p>It was supposed to resemble the Gentoo ‘g’.  Except after four
@@ -1184,10 +1139,10 @@ by mad СССР scientists.  Don't ask him about the spots.</p>
 <dd><p>Nope.</p>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="references">
-<h1><a class="toc-backref" href="#id39">References</a></h1>
+</section>
+</section>
+<section id="references">
+<h2><a class="toc-backref" href="#id39">References</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="aur"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Arch User Repository - ArchWiki
@@ -1215,7 +1170,7 @@ in C
 (<a class="reference external" href="https://github.com">https://github.com</a>)</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</main>
 </body>
 </html>
