@@ -5,7 +5,7 @@
 <meta name="generator" content="Docutils 0.20.1: https://docutils.sourceforge.io/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="author" content="Michał Górny" />
-<meta name="dcterms.date" content="2023-06-16" />
+<meta name="dcterms.date" content="2023-06-17" />
 <meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
 <title>Problems faced when downstream testing Python packages</title>
 <link rel="schema.dcterms" href="http://purl.org/dc/terms/"/>
@@ -614,7 +614,7 @@ a { text-decoration: none; }
 <dt class="author">Author<span class="colon">:</span></dt>
 <dd class="author"><p>Michał Górny</p></dd>
 <dt class="date">Date<span class="colon">:</span></dt>
-<dd class="date">2023-06-16</dd>
+<dd class="date">2023-06-17</dd>
 <dt class="version">Version<span class="colon">:</span></dt>
 <dd class="version">draft</dd>
 <dt class="copyright">Copyright<span class="colon">:</span></dt>
@@ -639,7 +639,8 @@ a { text-decoration: none; }
 <li><p><a class="reference internal" href="#requiring-specific-locales" id="toc-entry-14">Requiring specific locales</a></p></li>
 <li><p><a class="reference internal" href="#fuzzing-as-a-part-of-the-test-suite" id="toc-entry-15">Fuzzing as a part of the test suite</a></p></li>
 <li><p><a class="reference internal" href="#installing-tests-and-test-related-artifacts" id="toc-entry-16">Installing tests and test-related artifacts</a></p></li>
-<li><p><a class="reference internal" href="#references" id="toc-entry-17">References</a></p></li>
+<li><p><a class="reference internal" href="#summary" id="toc-entry-17">Summary</a></p></li>
+<li><p><a class="reference internal" href="#references" id="toc-entry-18">References</a></p></li>
 </ul>
 </nav>
 <section id="preamble">
@@ -1121,8 +1122,26 @@ as well, and that the test suite can find them.  Finally, make sure that
 running it doesn't attempt to write into the installed package and
 doesn't result in any leftover files.</p>
 </section>
+<section id="summary">
+<h2><a class="toc-backref" href="#toc-entry-17" role="doc-backlink">Summary</a></h2>
+<p>In this article, I have listed a fair number of problems and potential
+pitfalls regarding test suites.  Nevertheless, most of it could be
+summarized in a few sentences.</p>
+<p>Please consider your test suite not only as a tool for the project
+developers to test their work but also as a versatile tool for your
+users to use in order to ensure that the package is working correctly
+on as many systems as possible.  It is simply technically not possible
+to cover all possible scenarios with a continuous integration system,
+and users can provide valuable results from their test runs.</p>
+<p>Good support for downstream testing primarily falls into the topic
+of portability.  Make as few assumptions as possible, consider
+the possible limitations and provide means to customization.  Most
+importantly, be friendly and helpful when receiving bug reports.  We all
+share the common goal of delivering software that works as well
+as possible!</p>
+</section>
 <section id="references">
-<h2><a class="toc-backref" href="#toc-entry-17" role="doc-backlink">References</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-18" role="doc-backlink">References</a></h2>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="mkdocstrings" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-1">1</a><span class="fn-bracket">]</span></span>
