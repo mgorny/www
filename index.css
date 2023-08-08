@@ -98,6 +98,11 @@ p {
 pre {
   margin: 1em 1ch;
 }
+pre.snippet {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
 .filters a {
   color: #bbb;
 }
