@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8" />
+<meta name="generator" content="Docutils 0.20.1: https://docutils.sourceforge.io/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<title>The ultimate guide to EAPI 8</title>
 <meta name="author" content="Michał Górny" />
 <meta name="dcterms.date" content="2021-06-17" />
 <meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
+<title>The ultimate guide to EAPI 8</title>
 <link rel="schema.dcterms" href="http://purl.org/dc/terms/"/>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: minimal.css 8642 2021-03-26 13:51:14Z milde $               */
-/* :Copyright: © 2015 Günter Milde.                                        */
+/* :Id: $Id: minimal.css 9079 2022-06-19 14:00:56Z milde $                                                               */
+/* :Copyright: © 2015, 2021 Günter Milde.                                  */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
 /*                                                                         */
@@ -27,11 +27,10 @@
 /*                                                                         */
 /* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
 
-/* This CSS2.1_ stylesheet defines rules for Docutils elements without    */
-/* HTML equivalent. It is required to make the document semantic visible. */
-/*                                                                        */
-/* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
-/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
+/* This CSS3 stylesheet defines rules for Docutils elements without        */
+/* HTML equivalent. It is required to make the document semantics visible. */
+/*                                                                         */
+/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link        */
 
 /* titles */
 p.topic-title,
@@ -56,8 +55,8 @@ p.sidebar-subtitle {
 h1 + p.subtitle {
   font-size: 1.6em;
 }
-h2 + p.section-subtitle, a.toc-backref {
-  color: black;
+a.toc-backref {
+  color: inherit;
   text-decoration: none;
 }
 
@@ -89,13 +88,11 @@ span.problematic {
 /* Nested Paragraphs */
 p:first-child { margin-top: 0; }
 p:last-child { margin-bottom: 0; }
-td > p, th > p { margin-bottom: 0; }
+details > p:last-child { margin-bottom: 1em; }
 
 /* Table of Contents */
-.topic.contents { margin: 0.5em 0; }
-.topic.contents ul.auto-toc {
+.contents ul.auto-toc { /* section numbers present */
   list-style-type: none;
-  padding-left: 1.5em;
 }
 
 /* Enumerated Lists */
@@ -114,23 +111,32 @@ dt .classifier:before {
 }
 /* Field Lists and similar */
 /* bold field name, content starts on the same line */
+dl.field-list,
+dl.option-list,
+dl.docinfo {
+  display: flow-root;
+}
 dl.field-list > dt,
 dl.option-list > dt,
-dl.docinfo > dt,
-dl.footnote > dt,
-dl.citation > dt {
+dl.docinfo > dt {
   font-weight: bold;
   clear: left;
   float: left;
   margin: 0;
   padding: 0;
-  padding-right: 0.5em;
+  padding-right: 0.2em;
 }
 /* Offset for field content (corresponds to the --field-name-limit option) */
 dl.field-list > dd,
 dl.option-list > dd,
 dl.docinfo > dd {
   margin-left:  9em; /* ca. 14 chars in the test examples, fit all Docinfo fields */
+}
+/* start nested lists on new line */
+dd > dl:first-child,
+dd > ul:first-child,
+dd > ol:first-child {
+  clear: left;
 }
 /* start field-body on a new line after long field names */
 dl.field-list > dd > *:first-child,
@@ -139,11 +145,6 @@ dl.option-list > dd > *:first-child
   display: inline-block;
   width: 100%;
   margin: 0;
-}
-/* field names followed by a colon */
-dl.field-list > dt:after,
-dl.docinfo > dt:after {
-  content: ":";
 }
 
 /* Bibliographic Fields (docinfo) */
@@ -158,23 +159,54 @@ dl.option-list > dt { font-weight: normal; }
 span.option { white-space: nowrap; }
 
 /* Footnotes and Citations  */
-dl.footnote.superscript > dd { margin-left: 1em; }
-dl.footnote.brackets > dd { margin-left: 2em; }
-dl.footnote > dt { font-weight: normal; }
-a.footnote-reference.brackets:before,
-dt.label > span.brackets:before { content: "["; }
-a.footnote-reference.brackets:after,
-dt.label > span.brackets:after { content: "]"; }
-a.footnote-reference.superscript,
-dl.footnote.superscript > dt.label {
+
+.footnote, .citation { margin: 1em 0; } /* default paragraph skip (Firefox) */
+/* hanging indent */
+.citation { padding-left: 2em; }
+.footnote { padding-left: 1.7em; }
+.footnote.superscript { padding-left: 1.0em; }
+.citation > .label { margin-left: -2em; }
+.footnote > .label { margin-left: -1.7em; }
+.footnote.superscript > .label { margin-left: -1.0em; }
+
+.footnote > .label + *,
+.citation > .label + * {
+  display: inline-block;
+  margin-top: 0;
+  vertical-align: top;
+}
+.footnote > .backrefs + *,
+.citation > .backrefs + * {
+  margin-top: 0;
+}
+.footnote > .label + p, .footnote > .backrefs + p,
+.citation > .label + p, .citation > .backrefs + p {
+  display: inline;
+  vertical-align: inherit;
+}
+
+.backrefs { user-select: none; }
+.backrefs > a { font-style: italic; }
+
+/* superscript footnotes */
+a[role="doc-noteref"].superscript,
+.footnote.superscript > .label,
+.footnote.superscript > .backrefs {
   vertical-align: super;
-  font-size: small;
+  font-size: smaller;
+  line-height: 1;
 }
-dt.label > span.fn-backref {
-  margin-left: 0.2em;
-  font-weight: normal;
+a[role="doc-noteref"].superscript > .fn-bracket,
+.footnote.superscript > .label > .fn-bracket {
+  /* hide brackets in display but leave for copy/paste */
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
 }
-dt.label > span.fn-backref > a { font-style: italic; }
+[role="doc-noteref"].superscript + [role="doc-noteref"].superscript {
+  padding-left: 0.15em; /* separate consecutive footnote references */
+  /* TODO: unfortunately, "+" also selects with text between the references. */
+}
 
 /* Alignment */
 .align-left   {
@@ -182,7 +214,6 @@ dt.label > span.fn-backref > a { font-style: italic; }
   margin-right: auto;
 }
 .align-center {
-  clear: both;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -202,23 +233,13 @@ table.align-left, table.align-center, table.align-right {
 }
 
 /* Text Blocks */
-blockquote,
-div.topic,
-aside.topic {
-  margin: 1em 2em;
-}
+.topic { margin: 1em 2em; }
 .sidebar,
 .admonition,
 .system-message {
-  border: thin solid;
   margin: 1em 2em;
+  border: thin solid;
   padding: 0.5em 1em;
-}
-.sidebar {
-  width: 30%;
-  max-width: 26em;
-  float: right;
-  clear: right;
 }
 div.line-block { display: block; }
 div.line-block div.line-block, pre { margin-left: 2em; }
@@ -259,7 +280,7 @@ footer { border-top: 1px solid black; }
 
 /* Images are block-level by default in Docutils */
 /* New HTML5 block elements: set display for older browsers */
-img, header, section, footer, aside, nav, main, article, figure, video {
+img, header, footer, main, aside, nav, section, figure, video, details {
   display: block;
 }
 /* inline images */
@@ -274,7 +295,7 @@ p img, p video, figure img, figure video {
 /* Rules for easy reading and pre-defined style variants.                  */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: plain.css 8636 2021-03-19 00:23:33Z milde $                                                               */
+/* :Id: $Id: plain.css 9338 2023-04-08 21:08:47Z milde $                                                               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -286,7 +307,7 @@ p img, p video, figure img, figure video {
 /*    This file is offered as-is, without any warranty.                    */
 /*                                                                         */
 /* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
-/* .. _CSS3: http://www.w3.org/TR/CSS3                                     */
+/* .. _CSS3: https://www.w3.org/Style/CSS/                                 */
 
 
 /* Document Structure */
@@ -296,9 +317,10 @@ p img, p video, figure img, figure video {
 body {
   margin: 0;
   background-color: #dbdbdb;
+  --field-indent: 9em; /* default indent of fields in field lists */
 }
 main, footer, header {
-  line-height:1.3;
+  line-height:1.6;
   /* avoid long lines --> better reading */
   /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */
   /* OTOH: lines should not be too short because of missing hyphenation, */
@@ -316,6 +338,21 @@ footer, header {
   border: none;
 }
 
+/* Table of Contents */
+ul.auto-toc > li > p {
+  padding-left: 1em;
+  text-indent: -1em;
+}
+nav.contents ul {
+  padding-left: 1em;
+}
+main > nav.contents ul ul ul ul:not(.auto-toc) {
+  list-style-type: '\2B29\ ';
+}
+main > nav.contents ul ul ul ul ul:not(.auto-toc) {
+  list-style-type: '\2B1D\ ';
+}
+
 /* Transitions */
 hr.docutils {
   width: 80%;
@@ -327,49 +364,56 @@ hr.docutils {
 /* Paragraphs */
 
 /* vertical space (parskip) */
-p, ol, ul, dl, li, dd,
+p, ol, ul, dl, li,
 div.line-block,
-div.topic,
+.footnote, .citation,
+div > math,
 table {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
-p:first-child { margin-top: 0; }
-/* (:last-child is new in CSS 3) */
-p:last-child  { margin-bottom: 0; }
 
 h1, h2, h3, h4, h5, h6,
-dl > dd {
+dd, details > p:last-child {
   margin-bottom: 0.5em;
 }
 
 /* Lists */
 /* ===== */
 
-/* Separate list entries in compound lists */
-dl > dd, ol > li,
-
 /* Definition Lists */
 /* Indent lists nested in definition lists */
-/* (:only-child is new in CSS 3)           */
 dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
 
 /* Description Lists */
 /* styled like in most dictionaries, encyclopedias etc. */
+dl.description {
+  display: flow-root;
+}
 dl.description > dt {
   font-weight: bold;
   clear: left;
   float: left;
   margin: 0;
   padding: 0;
-  padding-right: 0.5em;
+  padding-right: 0.3em;
+}
+dl.description > dd:after {
+  display: table;
+  content: "";
+  clear: left; /* clearfix for empty descriptions */
 }
 
 /* Field Lists */
 
+dl.field-list > dd,
+dl.docinfo > dd {
+  margin-left: var(--field-indent); /* adapted in media queries or HTML */
+}
+
 /* example for custom field-name width */
 dl.field-list.narrow > dd {
-  margin-left: 5em;
+  --field-indent: 5em;
 }
 /* run-in: start field-body on same line after long field names */
 dl.field-list.run-in > dd p {
@@ -378,8 +422,8 @@ dl.field-list.run-in > dd p {
 
 /* Bibliographic Fields */
 
-/* generally, bibliographic fields use special definition list dl.docinfo */
-/* but dedication and abstract are placed into "topic" divs */
+/* generally, bibliographic fields use dl.docinfo */
+/* but dedication and abstract are placed into divs */
 div.abstract p.topic-title {
   text-align: center;
 }
@@ -392,6 +436,10 @@ div.dedication p.topic-title {
   font-style: normal;
 }
 
+/* disclosures */
+details { padding-left: 1em; }
+summary { margin-left: -1em; }
+
 /* Text Blocks */
 /* =========== */
 
@@ -401,14 +449,10 @@ pre.math, pre.code {
   font-family: monospace;
 }
 
-/* Block Quotes */
-blockquote > table,
-div.topic > table {
-  margin-top: 0;
-  margin-bottom: 0;
-}
+/* Block Quotes and Topics */
+bockquote { margin: 1em 2em; }
 blockquote p.attribution,
-div.topic p.attribution {
+.topic p.attribution {
   text-align: right;
   margin-left: 20%;
 }
@@ -448,10 +492,9 @@ table.numbered > caption:before {
 /* ----------------------- */
 
 /* line on the left */
-dl.footnote {
-  padding-left: 1ex;
-  border-left: solid;
-  border-left-width: thin;
+.footnote-list {
+  border-left: solid thin;
+  padding-left: 0.25em;
 }
 
 /* Directives */
@@ -505,16 +548,19 @@ div.error {
 aside.sidebar {
   width: 30%;
   max-width: 26em;
+  float: right;
+  clear: right;
   margin-left: 1em;
-  margin-right: -2%;
-  background-color: #ffffee;
+  margin-right: -1%;
+  background-color: #fffffa;
 }
+
 
 /* Code */
 pre.code { padding: 0.7ex }
 pre.code, code { background-color: #eeeeee }
 /* basic highlighting: for a complete scheme, see */
-/* http://docutils.sourceforge.net/sandbox/stylesheets/ */
+/* https://docutils.sourceforge.io/sandbox/stylesheets/ */
 pre.code .comment, code .comment { color: #5C6576 }
 pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
 pre.code .literal.string, code .literal.string { color: #0C5404 }
@@ -523,7 +569,14 @@ pre.code .deleted, code .deleted { background-color: #DEB0A1}
 pre.code .inserted, code .inserted { background-color: #A3D289}
 
 /* Math */
-/* styled separately (see math.css for math-output=HTML) */
+/* for math-output=MathML (for math-output=HTML, see math.css) */
+math .boldsymbol {
+  font-weight: bold;
+}
+mstyle.mathscr, mi.mathscr {
+  font-family: STIX, XITSMathJax_Script, rsfs10,
+               "Asana Math", Garamond, cursive;
+}
 
 /* Epigraph           */
 /* Highlights         */
@@ -533,6 +586,8 @@ pre.code .inserted, code .inserted { background-color: #A3D289}
 
 /* Inline Markup */
 /* ============= */
+
+sup, sub { line-height: 0.8; } /* do not add leading for lines with sup/sub */
 
 /* Inline Literals                                          */
 /* possible values: normal, nowrap, pre, pre-wrap, pre-line */
@@ -546,7 +601,7 @@ a { text-decoration: none; }
 /* Internal Targets       */
 /*   span.target.internal */
 /* Footnote References    */
-/*   a.footnote-reference */
+/*   a[role="doc-noteref"] */
 /* Citation References    */
 /*   a.citation-reference */
 
@@ -556,62 +611,62 @@ a { text-decoration: none; }
 <main id="the-ultimate-guide-to-eapi-8">
 <h1 class="title">The ultimate guide to EAPI 8</h1>
 <dl class="docinfo simple">
-<dt class="author">Author</dt>
+<dt class="author">Author<span class="colon">:</span></dt>
 <dd class="author"><p>Michał Górny</p></dd>
-<dt class="date">Date</dt>
+<dt class="date">Date<span class="colon">:</span></dt>
 <dd class="date">2021-06-17</dd>
-<dt class="version">Version</dt>
+<dt class="version">Version<span class="colon">:</span></dt>
 <dd class="version">1.1</dd>
-<dt class="copyright">Copyright</dt>
+<dt class="copyright">Copyright<span class="colon">:</span></dt>
 <dd class="copyright"><a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</a></dd>
-<dt class="specification">Specification</dt>
+<dt class="specification">Specification<span class="colon">:</span></dt>
 <dd class="specification"><p><a class="reference external" href="https://projects.gentoo.org/pms/8/pms.html">https://projects.gentoo.org/pms/8/pms.html</a></p>
 </dd>
 </dl>
-<div class="contents topic" id="contents">
+<nav class="contents" id="contents" role="doc-toc">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#preamble" id="id5">Preamble</a></p></li>
-<li><p><a class="reference internal" href="#killer-features" id="id6">Killer features</a></p>
+<li><p><a class="reference internal" href="#preamble" id="toc-entry-1">Preamble</a></p></li>
+<li><p><a class="reference internal" href="#killer-features" id="toc-entry-2">Killer features</a></p>
 <ul>
-<li><p><a class="reference internal" href="#install-time-dependencies-idepend" id="id7">Install-time dependencies (IDEPEND)</a></p></li>
-<li><p><a class="reference internal" href="#selective-fetch-mirror-restriction" id="id8">Selective fetch/mirror restriction</a></p></li>
+<li><p><a class="reference internal" href="#install-time-dependencies-idepend" id="toc-entry-3">Install-time dependencies (IDEPEND)</a></p></li>
+<li><p><a class="reference internal" href="#selective-fetch-mirror-restriction" id="toc-entry-4">Selective fetch/mirror restriction</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#minor-features" id="id9">Minor features</a></p>
+<li><p><a class="reference internal" href="#minor-features" id="toc-entry-5">Minor features</a></p>
 <ul>
-<li><p><a class="reference internal" href="#new-econf-passed-options" id="id10">New econf-passed options</a></p></li>
-<li><p><a class="reference internal" href="#properties-and-restrict-are-now-accumulated-across-eclasses" id="id11">PROPERTIES and RESTRICT are now accumulated across eclasses</a></p></li>
-<li><p><a class="reference internal" href="#dosym-r-to-create-relative-symlinks" id="id12">dosym -r to create relative symlinks</a></p></li>
-<li><p><a class="reference internal" href="#usev-now-accepts-a-second-argument" id="id13">usev now accepts a second argument</a></p></li>
+<li><p><a class="reference internal" href="#new-econf-passed-options" id="toc-entry-6">New econf-passed options</a></p></li>
+<li><p><a class="reference internal" href="#properties-and-restrict-are-now-accumulated-across-eclasses" id="toc-entry-7">PROPERTIES and RESTRICT are now accumulated across eclasses</a></p></li>
+<li><p><a class="reference internal" href="#dosym-r-to-create-relative-symlinks" id="toc-entry-8">dosym -r to create relative symlinks</a></p></li>
+<li><p><a class="reference internal" href="#usev-now-accepts-a-second-argument" id="toc-entry-9">usev now accepts a second argument</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#other-changes" id="id14">Other changes</a></p>
+<li><p><a class="reference internal" href="#other-changes" id="toc-entry-10">Other changes</a></p>
 <ul>
-<li><p><a class="reference internal" href="#less-strict-naming-rules-for-updates-directory" id="id15">Less strict naming rules for updates directory</a></p></li>
-<li><p><a class="reference internal" href="#bash-5-0-is-now-sanctioned" id="id16">Bash 5.0 is now sanctioned</a></p></li>
-<li><p><a class="reference internal" href="#patches-src-prepare-variable-no-longer-permits-options" id="id17">PATCHES (src_prepare) variable no longer permits options</a></p></li>
-<li><p><a class="reference internal" href="#insopts-and-exeopts-now-apply-to-doins-and-doexe-only" id="id18">insopts and exeopts now apply to doins and doexe only</a></p></li>
-<li><p><a class="reference internal" href="#pkg-phases-now-run-in-a-dedicated-empty-directory" id="id19">pkg_* phases now run in a dedicated empty directory</a></p></li>
+<li><p><a class="reference internal" href="#less-strict-naming-rules-for-updates-directory" id="toc-entry-11">Less strict naming rules for updates directory</a></p></li>
+<li><p><a class="reference internal" href="#bash-5-0-is-now-sanctioned" id="toc-entry-12">Bash 5.0 is now sanctioned</a></p></li>
+<li><p><a class="reference internal" href="#patches-src-prepare-variable-no-longer-permits-options" id="toc-entry-13">PATCHES (src_prepare) variable no longer permits options</a></p></li>
+<li><p><a class="reference internal" href="#insopts-and-exeopts-now-apply-to-doins-and-doexe-only" id="toc-entry-14">insopts and exeopts now apply to doins and doexe only</a></p></li>
+<li><p><a class="reference internal" href="#pkg-phases-now-run-in-a-dedicated-empty-directory" id="toc-entry-15">pkg_* phases now run in a dedicated empty directory</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#bans-and-removals" id="id20">Bans and removals</a></p>
+<li><p><a class="reference internal" href="#bans-and-removals" id="toc-entry-16">Bans and removals</a></p>
 <ul>
-<li><p><a class="reference internal" href="#hasq-hasv-and-useq-functions-have-been-banned" id="id21">hasq, hasv and useq functions have been banned</a></p></li>
-<li><p><a class="reference internal" href="#unpack-removes-support-for-7-zip-lha-and-rar-formats" id="id22">unpack removes support for 7-Zip, LHA and RAR formats</a></p></li>
+<li><p><a class="reference internal" href="#hasq-hasv-and-useq-functions-have-been-banned" id="toc-entry-17">hasq, hasv and useq functions have been banned</a></p></li>
+<li><p><a class="reference internal" href="#unpack-removes-support-for-7-zip-lha-and-rar-formats" id="toc-entry-18">unpack removes support for 7-Zip, LHA and RAR formats</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#retroactive-changes" id="id23">Retroactive changes</a></p>
+<li><p><a class="reference internal" href="#retroactive-changes" id="toc-entry-19">Retroactive changes</a></p>
 <ul>
-<li><p><a class="reference internal" href="#properties-test-network-to-ease-reenabling-tests-requiring-internet" id="id24">PROPERTIES=test_network to ease reenabling tests requiring Internet</a></p></li>
+<li><p><a class="reference internal" href="#properties-test-network-to-ease-reenabling-tests-requiring-internet" id="toc-entry-20">PROPERTIES=test_network to ease reenabling tests requiring Internet</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#cheat-sheet-index" id="id25">Cheat sheet / index</a></p></li>
-<li><p><a class="reference internal" href="#references" id="id26">References</a></p></li>
+<li><p><a class="reference internal" href="#cheat-sheet-index" id="toc-entry-21">Cheat sheet / index</a></p></li>
+<li><p><a class="reference internal" href="#references" id="toc-entry-22">References</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="preamble">
-<h2><a class="toc-backref" href="#id5">Preamble</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1" role="doc-backlink">Preamble</a></h2>
 <p>Three years ago, I had the pleasure of announcing EAPI 7 as a major step
 forward in our ebuild language.  It introduced preliminary support for
 cross-compilation, it finally provided good replacements for the last
@@ -639,26 +694,26 @@ symlinks</a> conveniently from dynamic paths.  Plus bunch of other
 improvements, updates and cleanups.</p>
 </section>
 <section id="killer-features">
-<h2><a class="toc-backref" href="#id6">Killer features</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2" role="doc-backlink">Killer features</a></h2>
 <section id="install-time-dependencies-idepend">
-<span id="idepend"></span><h3><a class="toc-backref" href="#id7">Install-time dependencies (IDEPEND)</a></h3>
-<pre class="code bash literal-block"><code><span class="name variable">EAPI</span><span class="operator">=</span><span class="literal number">8</span>
-inherit xdg-utils
+<span id="idepend"></span><h3><a class="toc-backref" href="#toc-entry-3" role="doc-backlink">Install-time dependencies (IDEPEND)</a></h3>
+<pre class="code bash literal-block"><code><span class="name variable">EAPI</span><span class="operator">=</span><span class="literal number">8</span><span class="whitespace">
+</span>inherit<span class="whitespace"> </span>xdg-utils<span class="whitespace">
 
-<span class="name variable">IDEPEND</span><span class="operator">=</span><span class="literal string double">&quot;dev-util/desktop-file-utils&quot;</span>
+</span><span class="name variable">IDEPEND</span><span class="operator">=</span><span class="literal string double">&quot;dev-util/desktop-file-utils&quot;</span><span class="whitespace">
 
-pkg_postinst<span class="operator">()</span> <span class="operator">{</span>
-    xdg_desktop_database_update
-<span class="operator">}</span>
+</span>pkg_postinst<span class="operator">()</span><span class="whitespace"> </span><span class="operator">{</span><span class="whitespace">
+    </span>xdg_desktop_database_update<span class="whitespace">
+</span><span class="operator">}</span><span class="whitespace">
 
-pkg_postrm<span class="operator">()</span> <span class="operator">{</span>
-    xdg_desktop_database_update
-<span class="operator">}</span></code></pre>
-<div class="admonition note">
+</span>pkg_postrm<span class="operator">()</span><span class="whitespace"> </span><span class="operator">{</span><span class="whitespace">
+    </span>xdg_desktop_database_update<span class="whitespace">
+</span><span class="operator">}</span></code></pre>
+<aside class="admonition note">
 <p class="admonition-title">Note</p>
 <p>TL;DR: <span class="docutils literal">IDEPEND</span> specifies programs that you execute during
 <span class="docutils literal">pkg_preinst</span>, <span class="docutils literal">pkg_postinst</span>, <span class="docutils literal">pkg_prerm</span> and <span class="docutils literal">pkg_postrm</span>.</p>
-</div>
+</aside>
 <p>Install-time dependencies are not a new idea.  It has been on the board
 for quite some time already but we never had a compelling reason
 to implement it.  The primary use case was to specify dependencies that
@@ -690,14 +745,6 @@ for <span class="docutils literal">CBUILD</span> and therefore directly executab
 <p>The dependency types table for EAPI 8 is presented below.</p>
 <blockquote>
 <table>
-<colgroup>
-<col style="width: 41%" />
-<col style="width: 11%" />
-<col style="width: 11%" />
-<col style="width: 13%" />
-<col style="width: 11%" />
-<col style="width: 11%" />
-</colgroup>
 <thead>
 <tr><th class="head"><p>Dependency type</p></th>
 <th class="head"><p>BDEPEND</p></th>
@@ -747,20 +794,20 @@ of <span class="docutils literal">ROOT</span> and <span class="docutils literal"
 Guide.</p>
 </section>
 <section id="selective-fetch-mirror-restriction">
-<span id="mirror"></span><span id="fetch"></span><h3><a class="toc-backref" href="#id8">Selective fetch/mirror restriction</a></h3>
-<pre class="code bash literal-block"><code><span class="name variable">EAPI</span><span class="operator">=</span><span class="literal number">8</span>
+<span id="mirror"></span><span id="fetch"></span><h3><a class="toc-backref" href="#toc-entry-4" role="doc-backlink">Selective fetch/mirror restriction</a></h3>
+<pre class="code bash literal-block"><code><span class="name variable">EAPI</span><span class="operator">=</span><span class="literal number">8</span><span class="whitespace">
 
-<span class="name variable">SRC_URI</span><span class="operator">=</span><span class="literal string double">&quot;
+</span><span class="name variable">SRC_URI</span><span class="operator">=</span><span class="literal string double">&quot;
     </span><span class="literal string interpol">${</span><span class="name variable">P</span><span class="literal string interpol">}</span><span class="literal string double">.tgz
     fetch+https://example.com/</span><span class="literal string interpol">${</span><span class="name variable">P</span><span class="literal string interpol">}</span><span class="literal string double">-patch-1.tgz
-    mirror+https://example.com/</span><span class="literal string interpol">${</span><span class="name variable">P</span><span class="literal string interpol">}</span><span class="literal string double">-fanstuff.tgz&quot;</span>
+    mirror+https://example.com/</span><span class="literal string interpol">${</span><span class="name variable">P</span><span class="literal string interpol">}</span><span class="literal string double">-fanstuff.tgz&quot;</span><span class="whitespace">
 
-<span class="name variable">RESTRICT</span><span class="operator">=</span><span class="literal string double">&quot;fetch&quot;</span></code></pre>
-<div class="admonition note">
+</span><span class="name variable">RESTRICT</span><span class="operator">=</span><span class="literal string double">&quot;fetch&quot;</span></code></pre>
+<aside class="admonition note">
 <p class="admonition-title">Note</p>
 <p>TL;DR: <span class="docutils literal">fetch+</span> and <span class="docutils literal">mirror+</span> prefixes can now be used
 in <span class="docutils literal">SRC_URI</span> to lift respective restrictions.</p>
-</div>
+</aside>
 <p>Before EAPI 8, fetch and mirror restrictions applied globally.  That is,
 if you needed to apply the respective restriction to at least one
 distfile, you had to apply it to them all.  However, sometimes packages
@@ -778,12 +825,6 @@ confusing at first but when you think about it, it's perfectly logical.</p>
 <p>The following table summarizes it.</p>
 <blockquote>
 <table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 33%" />
-<col style="width: 24%" />
-<col style="width: 24%" />
-</colgroup>
 <thead>
 <tr><th class="head"><p>RESTRICT</p></th>
 <th class="head"><p>URI prefix</p></th>
@@ -825,9 +866,9 @@ confusing at first but when you think about it, it's perfectly logical.</p>
 </section>
 </section>
 <section id="minor-features">
-<h2><a class="toc-backref" href="#id9">Minor features</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5" role="doc-backlink">Minor features</a></h2>
 <section id="new-econf-passed-options">
-<span id="disable-static"></span><span id="datarootdir"></span><h3><a class="toc-backref" href="#id10">New econf-passed options</a></h3>
+<span id="disable-static"></span><span id="datarootdir"></span><h3><a class="toc-backref" href="#toc-entry-6" role="doc-backlink">New econf-passed options</a></h3>
 <p>The <span class="docutils literal">econf</span> helper has been modified to pass two more options
 to the configure script if the <span class="docutils literal"><span class="pre">--help</span></span> text indicates that they are
 supported.  These are:</p>
@@ -841,29 +882,29 @@ and various kinds of documentation.  This is necessary for ebuilds that
 override <span class="docutils literal"><span class="pre">--prefix</span></span>, as the default path is relative to it.</p>
 <p>The latter option disables building static libraries by default.  This
 is part of the ongoing effort to disable unconditional install of static
-libraries.  <a class="footnote-reference brackets" href="#qa-policy-static" id="id1">1</a></p>
+libraries.  <a class="footnote-reference brackets" href="#qa-policy-static" id="footnote-reference-1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
 </section>
 <section id="properties-and-restrict-are-now-accumulated-across-eclasses">
-<span id="restrict"></span><span id="properties"></span><h3><a class="toc-backref" href="#id11">PROPERTIES and RESTRICT are now accumulated across eclasses</a></h3>
+<span id="restrict"></span><span id="properties"></span><h3><a class="toc-backref" href="#toc-entry-7" role="doc-backlink">PROPERTIES and RESTRICT are now accumulated across eclasses</a></h3>
 <p>Up to EAPI 7, <span class="docutils literal">PROPERTIES</span> and <span class="docutils literal">RESTRICT</span> were treated like regular
 bash variables when sourcing eclasses.  This meant that if an eclass
 or an ebuild wanted to modify them, they had to explicitly append
 to them, e.g.  via <span class="docutils literal">+=</span>.  This was inconsistent with how some other
 variables (but not all) were handled, and confusing to developers.
 For example, consider the following snippet:</p>
-<pre class="code bash literal-block"><code><span class="name variable">EAPI</span><span class="operator">=</span><span class="literal number">7</span>
+<pre class="code bash literal-block"><code><span class="name variable">EAPI</span><span class="operator">=</span><span class="literal number">7</span><span class="whitespace">
 
-inherit git-r3
+</span>inherit<span class="whitespace"> </span>git-r3<span class="whitespace">
 
-<span class="name variable">PROPERTIES</span><span class="operator">+=</span><span class="literal string double">&quot; interactive&quot;</span></code></pre>
+</span><span class="name variable">PROPERTIES</span><span class="operator">+=</span><span class="literal string double">&quot; interactive&quot;</span></code></pre>
 <p>Note how you needed to append to <span class="docutils literal">PROPERTIES</span> set by git-r3 eclass,
 otherwise the ebuild would have overwritten it.  In EAPI 8, you can
 finally do the following instead:</p>
-<pre class="code bash literal-block"><code><span class="name variable">EAPI</span><span class="operator">=</span><span class="literal number">8</span>
+<pre class="code bash literal-block"><code><span class="name variable">EAPI</span><span class="operator">=</span><span class="literal number">8</span><span class="whitespace">
 
-inherit git-r3
+</span>inherit<span class="whitespace"> </span>git-r3<span class="whitespace">
 
-<span class="name variable">PROPERTIES</span><span class="operator">=</span><span class="literal string double">&quot;interactive&quot;</span></code></pre>
+</span><span class="name variable">PROPERTIES</span><span class="operator">=</span><span class="literal string double">&quot;interactive&quot;</span></code></pre>
 <p>Now the complete list of metadata variables accumulated across eclasses
 and ebuilds includes: <span class="docutils literal">IUSE</span>, <span class="docutils literal">REQUIRED_USE</span>, <span class="docutils literal">*DEPEND</span>,
 <span class="docutils literal">PROPERTIES</span>, <span class="docutils literal">RESTRICT</span>.  Variables that are not treated this way
@@ -873,16 +914,16 @@ the others, we have decided that there is a valid use case for eclasses
 providing default values and the ebuilds being able to override them.</p>
 </section>
 <section id="dosym-r-to-create-relative-symlinks">
-<span id="dosym-r"></span><h3><a class="toc-backref" href="#id12">dosym -r to create relative symlinks</a></h3>
-<div class="admonition note">
+<span id="dosym-r"></span><h3><a class="toc-backref" href="#toc-entry-8" role="doc-backlink">dosym -r to create relative symlinks</a></h3>
+<aside class="admonition note">
 <p class="admonition-title">Note</p>
 <p>TL;DR: <span class="docutils literal"><span class="pre">-r</span></span> now can be used to have dosym figure out the correct
 relative path from symlink to target.</p>
-</div>
+</aside>
 <p>We have been pushing for relative symlink targets for some time now,
 as they are more reliable.  Consider the two following examples:</p>
-<pre class="code bash literal-block"><code>dosym <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">EPREFIX</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>/usr/lib/frobnicate/frobnicate /usr/bin/frobnicate
-dosym ../lib/frobnicate/frobnicate /usr/bin/frobnicate</code></pre>
+<pre class="code bash literal-block"><code>dosym<span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">EPREFIX</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>/usr/lib/frobnicate/frobnicate<span class="whitespace"> </span>/usr/bin/frobnicate<span class="whitespace">
+</span>dosym<span class="whitespace"> </span>../lib/frobnicate/frobnicate<span class="whitespace"> </span>/usr/bin/frobnicate</code></pre>
 <p>The first line creates a symlink using absolute path.  The big deal with
 that is if you mount your Gentoo system in a subdirectory of your root
 filesystem (e.g. for recovery), the symlink will point at the wrong
@@ -901,7 +942,7 @@ or inconvenient.  This is especially the case if one (or both)
 of the paths comes from an external tool.  To make it easier, EAPI 8
 adds a new <span class="docutils literal"><span class="pre">-r</span></span> option that makes <span class="docutils literal">dosym</span> create a relative symlink
 to the specified path (similarly to <span class="docutils literal">ln <span class="pre">-r</span></span>):</p>
-<pre class="code bash literal-block"><code>dosym -r /usr/lib/frobnicate/frobnicate /usr/bin/frobnicate</code></pre>
+<pre class="code bash literal-block"><code>dosym<span class="whitespace"> </span>-r<span class="whitespace"> </span>/usr/lib/frobnicate/frobnicate<span class="whitespace"> </span>/usr/bin/frobnicate</code></pre>
 <p>Note that in this case, you do not pass <span class="docutils literal">${EPREFIX}</span>.  The helper
 determines the <em>logical</em> relative path to the first argument and creates
 the appropriate relative symlink.  It is very important here to
@@ -909,18 +950,18 @@ understand that this function does not handle physical paths, i.e. it
 will work only if there are no directory symlinks along the way that
 would result in <span class="docutils literal">..</span> resolving to a different path.  For example,
 the following will not work:</p>
-<pre class="code bash literal-block"><code>dosym bar/foo /usr/lib/foo
-dosym -r /usr/lib/zomg /usr/lib/foo/zomg</code></pre>
+<pre class="code bash literal-block"><code>dosym<span class="whitespace"> </span>bar/foo<span class="whitespace"> </span>/usr/lib/foo<span class="whitespace">
+</span>dosym<span class="whitespace"> </span>-r<span class="whitespace"> </span>/usr/lib/zomg<span class="whitespace"> </span>/usr/lib/foo/zomg</code></pre>
 <p>The logical path from <span class="docutils literal">/usr/lib/foo/zomg</span> to <span class="docutils literal">/usr/lib/zomg</span>
 is <span class="docutils literal"><span class="pre">../zomg</span></span>.  However, since <span class="docutils literal">/usr/lib/foo</span> is actually a symlink
 to <span class="docutils literal">/usr/lib/bar/foo</span>, <span class="docutils literal"><span class="pre">/usr/lib/foo/..</span></span> resolves
 to <span class="docutils literal">/usr/lib/bar</span>.  If you need to account for such directory
 symlinks, you need to specify the correct path explicitly:</p>
-<pre class="code bash literal-block"><code>dosym bar/foo /usr/lib/foo
-dosym ../../zomg /usr/lib/foo/zomg</code></pre>
+<pre class="code bash literal-block"><code>dosym<span class="whitespace"> </span>bar/foo<span class="whitespace"> </span>/usr/lib/foo<span class="whitespace">
+</span>dosym<span class="whitespace"> </span>../../zomg<span class="whitespace"> </span>/usr/lib/foo/zomg</code></pre>
 </section>
 <section id="usev-now-accepts-a-second-argument">
-<span id="usev"></span><h3><a class="toc-backref" href="#id13">usev now accepts a second argument</a></h3>
+<span id="usev"></span><h3><a class="toc-backref" href="#toc-entry-9" role="doc-backlink">usev now accepts a second argument</a></h3>
 <p>The <span class="docutils literal">usev</span> helper has been introduced to provide the historical
 Portage behavior of outputting the USE flag name on match.  In EAPI 8,
 we have decided to extend it, in order to provide an alternative
@@ -928,8 +969,8 @@ to three-argument <span class="docutils literal">usex</span> with an empty third
 (the two-argument variant uses a default of <span class="docutils literal">no</span> for the false
 branch).</p>
 <p>In other words, the following two calls are now equivalent:</p>
-<pre class="code bash literal-block"><code><span class="keyword">$(</span>usex foo --enable-foo <span class="literal string single">''</span><span class="keyword">)</span>
-<span class="keyword">$(</span>usev foo --enable-foo<span class="keyword">)</span></code></pre>
+<pre class="code bash literal-block"><code><span class="keyword">$(</span>usex<span class="whitespace"> </span>foo<span class="whitespace"> </span>--enable-foo<span class="whitespace"> </span><span class="literal string single">''</span><span class="keyword">)</span><span class="whitespace">
+</span><span class="keyword">$(</span>usev<span class="whitespace"> </span>foo<span class="whitespace"> </span>--enable-foo<span class="keyword">)</span></code></pre>
 <p>This is particularly useful with custom build systems that accept
 individual <span class="docutils literal"><span class="pre">--enable</span></span> or <span class="docutils literal"><span class="pre">--disable</span></span> options but not their
 counterparts.</p>
@@ -938,11 +979,6 @@ the common (and less common) output needs as summarized in the following
 table.</p>
 <blockquote>
 <table>
-<colgroup>
-<col style="width: 65%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-</colgroup>
 <thead>
 <tr><th class="head"><p>Variant</p></th>
 <th class="head"><p>True</p></th>
@@ -976,9 +1012,9 @@ table.</p>
 </section>
 </section>
 <section id="other-changes">
-<h2><a class="toc-backref" href="#id14">Other changes</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-10" role="doc-backlink">Other changes</a></h2>
 <section id="less-strict-naming-rules-for-updates-directory">
-<span id="updates"></span><h3><a class="toc-backref" href="#id15">Less strict naming rules for updates directory</a></h3>
+<span id="updates"></span><h3><a class="toc-backref" href="#toc-entry-11" role="doc-backlink">Less strict naming rules for updates directory</a></h3>
 <p>Up to EAPI 7, the files in <span class="docutils literal">profiles/updates</span> directory had to follow
 the naming scheme of <span class="docutils literal"><span class="pre">nQ-yyyy</span></span>, indicating the quarter and the year
 when they were added.  Such a choice of name had the side effect that
@@ -992,7 +1028,7 @@ see fit.</p>
 the next two years.</p>
 </section>
 <section id="bash-5-0-is-now-sanctioned">
-<span id="bash"></span><h3><a class="toc-backref" href="#id16">Bash 5.0 is now sanctioned</a></h3>
+<span id="bash"></span><h3><a class="toc-backref" href="#toc-entry-12" role="doc-backlink">Bash 5.0 is now sanctioned</a></h3>
 <p>As of EAPI 8, the bash version used for ebuilds is changed from 4.2
 to 5.0.  This means not only that ebuilds are now permitted to use
 features provided by the new bash version but also the <span class="docutils literal">BASH_COMPAT</span>
@@ -1002,8 +1038,8 @@ behavior.</p>
 <ul>
 <li><p>Quotes are now removed from RHS argument of <span class="docutils literal"><span class="pre">&quot;${var/.../&quot;...&quot;}&quot;</span></span>
 substitution:</p>
-<pre class="code bash literal-block"><code><span class="name variable">var</span><span class="operator">=</span>foo
-<span class="name builtin">echo</span> <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">var</span><span class="punctuation">/foo/</span><span class="literal string double">&quot;bar&quot;</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span></code></pre>
+<pre class="code bash literal-block"><code><span class="name variable">var</span><span class="operator">=</span>foo<span class="whitespace">
+</span><span class="name builtin">echo</span><span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">var</span><span class="punctuation">/foo/</span><span class="literal string double">&quot;bar&quot;</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span></code></pre>
 <p>The above snippet yields <span class="docutils literal">&quot;bar&quot;</span> in bash 4.2 but just <span class="docutils literal">bar</span>
 in 4.3+.</p>
 </li>
@@ -1012,97 +1048,97 @@ in 4.3+.</p>
 <ul>
 <li><p>Negative subscripts can now be used to set and unset array elements
 (bash 4.3+):</p>
-<pre class="code bash literal-block"><code>$ <span class="name variable">foo</span><span class="operator">=(</span> <span class="literal number">1</span> <span class="literal number">2</span> <span class="literal number">3</span> <span class="operator">)</span>
-$ foo<span class="operator">[</span>-1<span class="operator">]=</span><span class="literal number">4</span>
-$ <span class="name builtin">unset</span> <span class="literal string single">'foo[-2]'</span>
-$ <span class="name builtin">declare</span> -p foo
-<span class="name builtin">declare</span> -a <span class="name variable">foo</span><span class="operator">=([</span><span class="literal number">0</span><span class="operator">]=</span><span class="literal string double">&quot;1&quot;</span> <span class="operator">[</span><span class="literal number">2</span><span class="operator">]=</span><span class="literal string double">&quot;4&quot;</span><span class="operator">)</span></code></pre>
+<pre class="code bash literal-block"><code>$<span class="whitespace"> </span><span class="name variable">foo</span><span class="operator">=(</span><span class="whitespace"> </span><span class="literal number">1</span><span class="whitespace"> </span><span class="literal number">2</span><span class="whitespace"> </span><span class="literal number">3</span><span class="whitespace"> </span><span class="operator">)</span><span class="whitespace">
+</span>$<span class="whitespace"> </span>foo<span class="operator">[</span>-1<span class="operator">]=</span><span class="literal number">4</span><span class="whitespace">
+</span>$<span class="whitespace"> </span><span class="name builtin">unset</span><span class="whitespace"> </span><span class="literal string single">'foo[-2]'</span><span class="whitespace">
+</span>$<span class="whitespace"> </span><span class="name builtin">declare</span><span class="whitespace"> </span>-p<span class="whitespace"> </span>foo<span class="whitespace">
+</span><span class="name builtin">declare</span><span class="whitespace"> </span>-a<span class="whitespace"> </span><span class="name variable">foo</span><span class="operator">=([</span><span class="literal number">0</span><span class="operator">]=</span><span class="literal string double">&quot;1&quot;</span><span class="whitespace"> </span><span class="operator">[</span><span class="literal number">2</span><span class="operator">]=</span><span class="literal string double">&quot;4&quot;</span><span class="operator">)</span></code></pre>
 </li>
 <li><p>Nameref variables are introduced that work as references to other
 variables (4.3+):</p>
-<pre class="code bash literal-block"><code>$ <span class="name variable">foo</span><span class="operator">=(</span> <span class="literal number">1</span> <span class="literal number">2</span> <span class="literal number">3</span> <span class="operator">)</span>
-$ <span class="name builtin">declare</span> -n <span class="name variable">bar</span><span class="operator">=</span>foo
-$ <span class="name builtin">echo</span> <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">bar</span><span class="punctuation">[&#64;]</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>
-<span class="literal number">1</span> <span class="literal number">2</span> <span class="literal number">3</span>
-$ bar<span class="operator">[</span><span class="literal number">0</span><span class="operator">]=</span><span class="literal number">4</span>
-$ <span class="name builtin">echo</span> <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">foo</span><span class="punctuation">[&#64;]</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>
-<span class="literal number">4</span> <span class="literal number">2</span> <span class="literal number">3</span>
-$ <span class="name builtin">declare</span> -n <span class="name variable">baz</span><span class="operator">=</span>foo<span class="operator">[</span><span class="literal number">1</span><span class="operator">]</span>
-$ <span class="name builtin">echo</span> <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">baz</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>
-<span class="literal number">2</span>
-$ <span class="name variable">baz</span><span class="operator">=</span><span class="literal number">100</span>
-$ <span class="name builtin">echo</span> <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">bar</span><span class="punctuation">[&#64;]</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>
-<span class="literal number">4</span> <span class="literal number">100</span> <span class="literal number">3</span></code></pre>
+<pre class="code bash literal-block"><code>$<span class="whitespace"> </span><span class="name variable">foo</span><span class="operator">=(</span><span class="whitespace"> </span><span class="literal number">1</span><span class="whitespace"> </span><span class="literal number">2</span><span class="whitespace"> </span><span class="literal number">3</span><span class="whitespace"> </span><span class="operator">)</span><span class="whitespace">
+</span>$<span class="whitespace"> </span><span class="name builtin">declare</span><span class="whitespace"> </span>-n<span class="whitespace"> </span><span class="name variable">bar</span><span class="operator">=</span>foo<span class="whitespace">
+</span>$<span class="whitespace"> </span><span class="name builtin">echo</span><span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">bar</span><span class="punctuation">[&#64;]</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span><span class="whitespace">
+</span><span class="literal number">1</span><span class="whitespace"> </span><span class="literal number">2</span><span class="whitespace"> </span><span class="literal number">3</span><span class="whitespace">
+</span>$<span class="whitespace"> </span>bar<span class="operator">[</span><span class="literal number">0</span><span class="operator">]=</span><span class="literal number">4</span><span class="whitespace">
+</span>$<span class="whitespace"> </span><span class="name builtin">echo</span><span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">foo</span><span class="punctuation">[&#64;]</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span><span class="whitespace">
+</span><span class="literal number">4</span><span class="whitespace"> </span><span class="literal number">2</span><span class="whitespace"> </span><span class="literal number">3</span><span class="whitespace">
+</span>$<span class="whitespace"> </span><span class="name builtin">declare</span><span class="whitespace"> </span>-n<span class="whitespace"> </span><span class="name variable">baz</span><span class="operator">=</span>foo<span class="operator">[</span><span class="literal number">1</span><span class="operator">]</span><span class="whitespace">
+</span>$<span class="whitespace"> </span><span class="name builtin">echo</span><span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">baz</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span><span class="whitespace">
+</span><span class="literal number">2</span><span class="whitespace">
+</span>$<span class="whitespace"> </span><span class="name variable">baz</span><span class="operator">=</span><span class="literal number">100</span><span class="whitespace">
+</span>$<span class="whitespace"> </span><span class="name builtin">echo</span><span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">bar</span><span class="punctuation">[&#64;]</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span><span class="whitespace">
+</span><span class="literal number">4</span><span class="whitespace"> </span><span class="literal number">100</span><span class="whitespace"> </span><span class="literal number">3</span></code></pre>
 </li>
 <li><p><span class="docutils literal">[[ <span class="pre">-v</span> ... ]]</span> test operator can be used with array indices to test
 for array elements being set (4.3+).  The two following lines are now
 equivalent:</p>
-<pre class="code bash literal-block"><code><span class="operator">[[</span> -n <span class="literal string interpol">${</span><span class="name variable">foo</span><span class="punctuation">[3]+1</span><span class="literal string interpol">}</span> <span class="operator">]]</span>
-<span class="operator">[[</span> -v foo<span class="operator">[</span><span class="literal number">3</span><span class="operator">]</span> <span class="operator">]]</span></code></pre>
+<pre class="code bash literal-block"><code><span class="operator">[[</span><span class="whitespace"> </span>-n<span class="whitespace"> </span><span class="literal string interpol">${</span><span class="name variable">foo</span><span class="punctuation">[3]+1</span><span class="literal string interpol">}</span><span class="whitespace"> </span><span class="operator">]]</span><span class="whitespace">
+</span><span class="operator">[[</span><span class="whitespace"> </span>-v<span class="whitespace"> </span>foo<span class="operator">[</span><span class="literal number">3</span><span class="operator">]</span><span class="whitespace"> </span><span class="operator">]]</span></code></pre>
 </li>
 <li><p><span class="docutils literal">mapfile</span> (AKA <span class="docutils literal">readarray</span>) now accepts a delimiter via <span class="docutils literal"><span class="pre">-d</span></span>,
 with a <span class="docutils literal"><span class="pre">-t</span></span> option to strip it from read data (bash 4.4+).  The two
 following solutions to grab output from <span class="docutils literal">find(1)</span> are now
 equivalent:</p>
 <pre class="code bash literal-block"><code><span class="comment single"># old solution
-</span><span class="name builtin">local</span> x <span class="name variable">files</span><span class="operator">=()</span>
-<span class="keyword">while</span> <span class="name builtin">read</span> -d <span class="literal string single">''</span> -r x<span class="punctuation">;</span> <span class="keyword">do</span>
-    <span class="name variable">files</span><span class="operator">+=(</span> <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">x</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span> <span class="operator">)</span>
-<span class="keyword">done</span> &lt; &lt;<span class="operator">(</span>find -print0<span class="operator">)</span>
+</span><span class="name builtin">local</span><span class="whitespace"> </span>x<span class="whitespace"> </span><span class="name variable">files</span><span class="operator">=()</span><span class="whitespace">
+</span><span class="keyword">while</span><span class="whitespace"> </span><span class="name builtin">read</span><span class="whitespace"> </span>-d<span class="whitespace"> </span><span class="literal string single">''</span><span class="whitespace"> </span>-r<span class="whitespace"> </span>x<span class="punctuation">;</span><span class="whitespace"> </span><span class="keyword">do</span><span class="whitespace">
+    </span><span class="name variable">files</span><span class="operator">+=(</span><span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">x</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span><span class="whitespace"> </span><span class="operator">)</span><span class="whitespace">
+</span><span class="keyword">done</span><span class="whitespace"> </span>&lt;<span class="whitespace"> </span>&lt;<span class="operator">(</span>find<span class="whitespace"> </span>-print0<span class="operator">)</span><span class="whitespace">
 
-<span class="comment single"># new solution
-</span><span class="name builtin">local</span> <span class="name variable">files</span><span class="operator">=()</span>
-mapfile -d <span class="literal string single">''</span> -t files &lt; &lt;<span class="operator">(</span>find -print0<span class="operator">)</span></code></pre>
+</span><span class="comment single"># new solution
+</span><span class="name builtin">local</span><span class="whitespace"> </span><span class="name variable">files</span><span class="operator">=()</span><span class="whitespace">
+</span>mapfile<span class="whitespace"> </span>-d<span class="whitespace"> </span><span class="literal string single">''</span><span class="whitespace"> </span>-t<span class="whitespace"> </span>files<span class="whitespace"> </span>&lt;<span class="whitespace"> </span>&lt;<span class="operator">(</span>find<span class="whitespace"> </span>-print0<span class="operator">)</span></code></pre>
 </li>
 <li><p>A new set of transformations is available via <span class="docutils literal"><span class="pre">${foo&#64;...}</span></span> parameter
 expansion (4.4+), e.g. to print a value with necessary quoting:</p>
-<pre class="code bash literal-block"><code>$ <span class="name variable">var</span><span class="operator">=</span><span class="literal string double">&quot;foo 'bar' baz&quot;</span>
-$ <span class="name builtin">echo</span> <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">var</span><span class="punctuation">&#64;Q</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>
-<span class="literal string single">'foo '</span><span class="literal string escape">\'</span><span class="literal string single">'bar'</span><span class="literal string escape">\'</span><span class="literal string single">' baz'</span></code></pre>
-<p>For more details, see: <span class="docutils literal">info bash</span> <a class="footnote-reference brackets" href="#bash-expansion" id="id2">2</a>.</p>
+<pre class="code bash literal-block"><code>$<span class="whitespace"> </span><span class="name variable">var</span><span class="operator">=</span><span class="literal string double">&quot;foo 'bar' baz&quot;</span><span class="whitespace">
+</span>$<span class="whitespace"> </span><span class="name builtin">echo</span><span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">var</span><span class="punctuation">&#64;Q</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span><span class="whitespace">
+</span><span class="literal string single">'foo '</span><span class="literal string escape">\'</span><span class="literal string single">'bar'</span><span class="literal string escape">\'</span><span class="literal string single">' baz'</span></code></pre>
+<p>For more details, see: <span class="docutils literal">info bash</span> <a class="footnote-reference brackets" href="#bash-expansion" id="footnote-reference-2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 </li>
 <li><p><span class="docutils literal">local -</span> can be used to limit single-letter (mangled via <span class="docutils literal">set</span>)
 shell option changes to the scope of the function, and restore them
 upon returning from it (4.4+).  The following two functions are now
 equivalent:</p>
 <pre class="code bash literal-block"><code><span class="comment single"># old solution
-</span>func<span class="operator">()</span> <span class="operator">{</span>
-    <span class="name builtin">local</span> <span class="name variable">prev_shopt</span><span class="operator">=</span><span class="keyword">$(</span><span class="name builtin">shopt</span> -p -o noglob<span class="keyword">)</span>
-    <span class="name builtin">set</span> -o noglob
-    <span class="literal string interpol">${</span><span class="name variable">prev_shopt</span><span class="literal string interpol">}</span>
-<span class="operator">}</span>
+</span>func<span class="operator">()</span><span class="whitespace"> </span><span class="operator">{</span><span class="whitespace">
+    </span><span class="name builtin">local</span><span class="whitespace"> </span><span class="name variable">prev_shopt</span><span class="operator">=</span><span class="keyword">$(</span><span class="name builtin">shopt</span><span class="whitespace"> </span>-p<span class="whitespace"> </span>-o<span class="whitespace"> </span>noglob<span class="keyword">)</span><span class="whitespace">
+    </span><span class="name builtin">set</span><span class="whitespace"> </span>-o<span class="whitespace"> </span>noglob<span class="whitespace">
+    </span><span class="literal string interpol">${</span><span class="name variable">prev_shopt</span><span class="literal string interpol">}</span><span class="whitespace">
+</span><span class="operator">}</span><span class="whitespace">
 
-<span class="comment single"># new solution
-</span>func<span class="operator">()</span> <span class="operator">{</span>
-    <span class="name builtin">local</span> -
-    <span class="name builtin">set</span> -o noglob
-<span class="operator">}</span></code></pre>
+</span><span class="comment single"># new solution
+</span>func<span class="operator">()</span><span class="whitespace"> </span><span class="operator">{</span><span class="whitespace">
+    </span><span class="name builtin">local</span><span class="whitespace"> </span>-<span class="whitespace">
+    </span><span class="name builtin">set</span><span class="whitespace"> </span>-o<span class="whitespace"> </span>noglob<span class="whitespace">
+</span><span class="operator">}</span></code></pre>
 </li>
 </ul>
 <p>The complete information on all changes and new features can be found
-in the release notes <a class="footnote-reference brackets" href="#bash-news" id="id3">3</a>.</p>
+in the release notes <a class="footnote-reference brackets" href="#bash-news" id="footnote-reference-3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
 </section>
 <section id="patches-src-prepare-variable-no-longer-permits-options">
-<span id="patches"></span><h3><a class="toc-backref" href="#id17">PATCHES (src_prepare) variable no longer permits options</a></h3>
+<span id="patches"></span><h3><a class="toc-backref" href="#toc-entry-13" role="doc-backlink">PATCHES (src_prepare) variable no longer permits options</a></h3>
 <p>The <span class="docutils literal">eapply</span> invocation in the default <span class="docutils literal">src_prepare</span> implementation
 has been changed from the equivalent of:</p>
-<pre class="code bash literal-block"><code>eapply <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">PATCHES</span><span class="punctuation">[&#64;]</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span></code></pre>
+<pre class="code bash literal-block"><code>eapply<span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">PATCHES</span><span class="punctuation">[&#64;]</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span></code></pre>
 <p>to:</p>
-<pre class="code bash literal-block"><code>eapply -- <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">PATCHES</span><span class="punctuation">[&#64;]</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span></code></pre>
+<pre class="code bash literal-block"><code>eapply<span class="whitespace"> </span>--<span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">PATCHES</span><span class="punctuation">[&#64;]</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span></code></pre>
 <p>This ensures that all items in the <span class="docutils literal">PATCHES</span> variable are treated
 as path names.  As a side effect, it is no longer possible to specify
 <span class="docutils literal">patch</span> options via the <span class="docutils literal">PATCHES</span> variable.  Such hacks were never
 used in ::gentoo but they have been spotted in user-contributed ebuilds.
 The following will no longer work:</p>
-<pre class="code bash literal-block"><code><span class="name variable">PATCHES</span><span class="operator">=(</span> -p0 <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">FILESDIR</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>/<span class="literal string interpol">${</span><span class="name variable">P</span><span class="literal string interpol">}</span>-foo.patch <span class="operator">)</span></code></pre>
+<pre class="code bash literal-block"><code><span class="name variable">PATCHES</span><span class="operator">=(</span><span class="whitespace"> </span>-p0<span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">FILESDIR</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>/<span class="literal string interpol">${</span><span class="name variable">P</span><span class="literal string interpol">}</span>-foo.patch<span class="whitespace"> </span><span class="operator">)</span></code></pre>
 <p>Instead, you will need to invoke <span class="docutils literal">eapply</span> explicitly, i.e.:</p>
-<pre class="code bash literal-block"><code>src_prepare<span class="operator">()</span> <span class="operator">{</span>
-    eapply -p0 <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">FILESDIR</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>/<span class="literal string interpol">${</span><span class="name variable">P</span><span class="literal string interpol">}</span>-foo.patch
-    eapply_user
-<span class="operator">}</span></code></pre>
+<pre class="code bash literal-block"><code>src_prepare<span class="operator">()</span><span class="whitespace"> </span><span class="operator">{</span><span class="whitespace">
+    </span>eapply<span class="whitespace"> </span>-p0<span class="whitespace"> </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">FILESDIR</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span>/<span class="literal string interpol">${</span><span class="name variable">P</span><span class="literal string interpol">}</span>-foo.patch<span class="whitespace">
+    </span>eapply_user<span class="whitespace">
+</span><span class="operator">}</span></code></pre>
 </section>
 <section id="insopts-and-exeopts-now-apply-to-doins-and-doexe-only">
-<span id="doinitd"></span><span id="doheader"></span><span id="doenvd"></span><span id="doconfd"></span><h3><a class="toc-backref" href="#id18">insopts and exeopts now apply to doins and doexe only</a></h3>
+<span id="doinitd"></span><span id="doheader"></span><span id="doenvd"></span><span id="doconfd"></span><h3><a class="toc-backref" href="#toc-entry-14" role="doc-backlink">insopts and exeopts now apply to doins and doexe only</a></h3>
 <p>We have noticed some inconsistency in how <span class="docutils literal">insopts</span> and <span class="docutils literal">exeopts</span>
 apply to various helpers in EAPI 7.  In particular, the majority
 of helpers (e.g. <span class="docutils literal">dobin</span>, <span class="docutils literal">dodoc</span> and so on) ignored the options
@@ -1121,7 +1157,7 @@ affects <span class="docutils literal">doexe</span>/<span class="docutils litera
 the directories implicitly created by these helpers.</p>
 </section>
 <section id="pkg-phases-now-run-in-a-dedicated-empty-directory">
-<span id="working-directory"></span><h3><a class="toc-backref" href="#id19">pkg_* phases now run in a dedicated empty directory</a></h3>
+<span id="working-directory"></span><h3><a class="toc-backref" href="#toc-entry-15" role="doc-backlink">pkg_* phases now run in a dedicated empty directory</a></h3>
 <p>Before EAPI 8, the initial working directory was specified for <span class="docutils literal">src_*</span>
 phases only.  For other phases (i.e. <span class="docutils literal">pkg_*</span> phases), ebuilds were not
 supposed to assume any particular directory.  In EAPI 8, these phases
@@ -1139,7 +1175,7 @@ in <span class="docutils literal"><span class="pre">dev-python/packaging</span><
 using Python 2.7 as the system Python.  When the preinst phase run code
 using Python 3, it mistakenly ended up loading packages from
 the site-packages directory of Python 2.7, and this particular package
-did not like it.  <a class="footnote-reference brackets" href="#packaging-preinst-fail" id="id4">4</a></p>
+did not like it.  <a class="footnote-reference brackets" href="#packaging-preinst-fail" id="footnote-reference-4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p>
 <p>Now, technically the fault was in the ebuild.  After all, PMS specified
 that ebuilds must not rely upon any particular directory.  However,
 it is rather unpractical to try to predict all the possible interactions
@@ -1155,17 +1191,17 @@ but it should be good enough.</p>
 </section>
 </section>
 <section id="bans-and-removals">
-<h2><a class="toc-backref" href="#id20">Bans and removals</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-16" role="doc-backlink">Bans and removals</a></h2>
 <section id="hasq-hasv-and-useq-functions-have-been-banned">
-<span id="useq"></span><span id="hasv"></span><span id="hasq"></span><h3><a class="toc-backref" href="#id21">hasq, hasv and useq functions have been banned</a></h3>
+<span id="useq"></span><span id="hasv"></span><span id="hasq"></span><h3><a class="toc-backref" href="#toc-entry-17" role="doc-backlink">hasq, hasv and useq functions have been banned</a></h3>
 <p>If you look at some early Gentoo ebuilds, you can find little monsters
 like the following:</p>
-<pre class="code bash literal-block"><code><span class="keyword">if</span> <span class="operator">[</span> -n <span class="literal string double">&quot;`use gnome`&quot;</span> <span class="operator">]</span>
-<span class="keyword">then</span>
-    ./configure --host<span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">CHOST</span><span class="literal string interpol">}</span> --enable-gnome --disable perl --prefix<span class="operator">=</span>/opt/gnome --with-catgets
-<span class="keyword">else</span>
-    ./configure --host<span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">CHOST</span><span class="literal string interpol">}</span> --disable-gnome --disable-perl --prefix<span class="operator">=</span>/usr/X11R6 --with-catgets
-<span class="keyword">fi</span></code></pre>
+<pre class="code bash literal-block"><code><span class="keyword">if</span><span class="whitespace"> </span><span class="operator">[</span><span class="whitespace"> </span>-n<span class="whitespace"> </span><span class="literal string double">&quot;`use gnome`&quot;</span><span class="whitespace"> </span><span class="operator">]</span><span class="whitespace">
+</span><span class="keyword">then</span><span class="whitespace">
+    </span>./configure<span class="whitespace"> </span>--host<span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">CHOST</span><span class="literal string interpol">}</span><span class="whitespace"> </span>--enable-gnome<span class="whitespace"> </span>--disable<span class="whitespace"> </span>perl<span class="whitespace"> </span>--prefix<span class="operator">=</span>/opt/gnome<span class="whitespace"> </span>--with-catgets<span class="whitespace">
+</span><span class="keyword">else</span><span class="whitespace">
+    </span>./configure<span class="whitespace"> </span>--host<span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">CHOST</span><span class="literal string interpol">}</span><span class="whitespace"> </span>--disable-gnome<span class="whitespace"> </span>--disable-perl<span class="whitespace"> </span>--prefix<span class="operator">=</span>/usr/X11R6<span class="whitespace"> </span>--with-catgets<span class="whitespace">
+</span><span class="keyword">fi</span></code></pre>
 <p>This is because in its early days, the <span class="docutils literal">use</span> helper did not return
 a boolean value as exit status.  Instead, it printed the USE flag name
 if it matched, and did not print anything if it did not.  So checking
@@ -1188,7 +1224,7 @@ decided to remove it and have picked up <span class="docutils literal">hasq</spa
 it.</p>
 </section>
 <section id="unpack-removes-support-for-7-zip-lha-and-rar-formats">
-<span id="unpack"></span><h3><a class="toc-backref" href="#id22">unpack removes support for 7-Zip, LHA and RAR formats</a></h3>
+<span id="unpack"></span><h3><a class="toc-backref" href="#toc-entry-18" role="doc-backlink">unpack removes support for 7-Zip, LHA and RAR formats</a></h3>
 <p>In EAPI 8, we have decided to remove the support for the least commonly
 used archive formats from <span class="docutils literal">unpack</span>.  This meant:</p>
 <ul class="simple">
@@ -1206,21 +1242,21 @@ unpackers (e.g. we could use 7-Zip to unpack RAR archives).</p>
 </section>
 </section>
 <section id="retroactive-changes">
-<h2><a class="toc-backref" href="#id23">Retroactive changes</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-19" role="doc-backlink">Retroactive changes</a></h2>
 <section id="properties-test-network-to-ease-reenabling-tests-requiring-internet">
-<span id="test-network"></span><h3><a class="toc-backref" href="#id24">PROPERTIES=test_network to ease reenabling tests requiring Internet</a></h3>
+<span id="test-network"></span><h3><a class="toc-backref" href="#toc-entry-20" role="doc-backlink">PROPERTIES=test_network to ease reenabling tests requiring Internet</a></h3>
 <pre class="code bash literal-block"><code><span class="comment single"># Tests fail with network-sandbox, since they try to resolve google.com
-</span><span class="name variable">PROPERTIES</span><span class="operator">=</span><span class="literal string double">&quot;test_network&quot;</span>
-<span class="name variable">RESTRICT</span><span class="operator">=</span><span class="literal string double">&quot;test&quot;</span>
+</span><span class="name variable">PROPERTIES</span><span class="operator">=</span><span class="literal string double">&quot;test_network&quot;</span><span class="whitespace">
+</span><span class="name variable">RESTRICT</span><span class="operator">=</span><span class="literal string double">&quot;test&quot;</span><span class="whitespace">
 
-python_test<span class="operator">()</span> <span class="operator">{</span>
-    <span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">EPYTHON</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span> tests/tests.py -v <span class="operator">||</span> die
-<span class="operator">}</span></code></pre>
-<div class="admonition note">
+</span>python_test<span class="operator">()</span><span class="whitespace"> </span><span class="operator">{</span><span class="whitespace">
+    </span><span class="literal string double">&quot;</span><span class="literal string interpol">${</span><span class="name variable">EPYTHON</span><span class="literal string interpol">}</span><span class="literal string double">&quot;</span><span class="whitespace"> </span>tests/tests.py<span class="whitespace"> </span>-v<span class="whitespace"> </span><span class="operator">||</span><span class="whitespace"> </span>die<span class="whitespace">
+</span><span class="operator">}</span></code></pre>
+<aside class="admonition note">
 <p class="admonition-title">Note</p>
 <p>TL;DR: <span class="docutils literal">PROPERTIES=test_network</span> can now be used when it is really
 impossible to provide meaningful testing without Internet access.</p>
-</div>
+</aside>
 <p>Ideally, we'd want all tests to work just fine without accessing
 the Internet, either via mocks or spawning local servers.
 Unfortunately, not all packages do that and in the end,
@@ -1240,7 +1276,7 @@ of the test restriction.  However, the recent versions of Portage
 include a new <span class="docutils literal">ALLOW_TEST</span> configuration variable (for <span class="docutils literal">make.conf</span>)
 that can be used to elide test restriction.  If its value is set to
 <span class="docutils literal">network</span>, then test restriction will be ignored and the tests will
-be run on packages indicating <span class="docutils literal"><span class="pre">network-test</span></span>.  This makes it
+be run on packages indicating <span class="docutils literal">test_network</span>.  This makes it
 an invaluable tool both for developers and arch testers.</p>
 <p>This feature was originally proposed for EAPI 8 as a new <span class="docutils literal">RESTRICT</span>
 value.  However, we have decided that it will be cleaner and more
@@ -1254,15 +1290,11 @@ the test restriction in the first place.</p>
 </section>
 </section>
 <section id="cheat-sheet-index">
-<h2><a class="toc-backref" href="#id25">Cheat sheet / index</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-21" role="doc-backlink">Cheat sheet / index</a></h2>
 <p>The table following lists all the changes in a grep-for form that could
 be used as a reference when upgrading ebuilds from EAPI 7 to EAPI 8.</p>
 <blockquote>
 <table>
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 73%" />
-</colgroup>
 <thead>
 <tr><th class="head"><p>Search term</p></th>
 <th class="head"><p>Change</p></th>
@@ -1340,28 +1372,32 @@ be used as a reference when upgrading ebuilds from EAPI 7 to EAPI 8.</p>
 </blockquote>
 </section>
 <section id="references">
-<h2><a class="toc-backref" href="#id26">References</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="qa-policy-static"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Gentoo Policy Guide, Installation of static
+<h2><a class="toc-backref" href="#toc-entry-22" role="doc-backlink">References</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="qa-policy-static" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-1">1</a><span class="fn-bracket">]</span></span>
+<p>Gentoo Policy Guide, Installation of static
 libraries
 (<a class="reference external" href="https://projects.gentoo.org/qa/policy-guide/installed-files.html#pg0302">https://projects.gentoo.org/qa/policy-guide/installed-files.html#pg0302</a>)</p>
-</dd>
-<dt class="label" id="bash-expansion"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Bash Reference Manual: Shell Parameter Expansion
+</aside>
+<aside class="footnote brackets" id="bash-expansion" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-2">2</a><span class="fn-bracket">]</span></span>
+<p>Bash Reference Manual: Shell Parameter Expansion
 (<a class="reference external" href="https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html">https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html</a>)</p>
-</dd>
-<dt class="label" id="bash-news"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p>bash 5.0 (and earlier) release notes
+</aside>
+<aside class="footnote brackets" id="bash-news" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-3">3</a><span class="fn-bracket">]</span></span>
+<p>bash 5.0 (and earlier) release notes
 (<a class="reference external" href="https://git.savannah.gnu.org/cgit/bash.git/tree/NEWS?h=bash-5.0">https://git.savannah.gnu.org/cgit/bash.git/tree/NEWS?h=bash-5.0</a>)</p>
-</dd>
-<dt class="label" id="packaging-preinst-fail"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
-<dd><p>dev-python/packaging with dev-python/future
+</aside>
+<aside class="footnote brackets" id="packaging-preinst-fail" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-4">4</a><span class="fn-bracket">]</span></span>
+<p>dev-python/packaging with dev-python/future
 - pkg_preinst(): ImportError: This package should not be accessible
 on Python 3.
 (<a class="reference external" href="https://bugs.gentoo.org/574002">https://bugs.gentoo.org/574002</a>)</p>
-</dd>
-</dl>
+</aside>
+</aside>
 </section>
 </main>
 </body>

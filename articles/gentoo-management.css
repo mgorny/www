@@ -7,8 +7,10 @@
 .term-start { border-top: 2px solid #aaa; }
 
 .agriffis { background: yellow; }
+.ajak { background: darkorchid; color: white; }
 .alicef { background: aliceblue; color: green; }
 .amne { }
+.anarchy { }
 .antarus { background: mediumslateblue; color: white; }
 .avenj { }
 .azarah { background: indigo; color: white; }
@@ -68,10 +70,11 @@
 .ramereth { background: mediumvioletred; color: white; }
 .rich0 { background: brown; color: white; }
 .robbat2 { background: lightblue; }
-.sam { }
+.sam { background: forestgreen; color: white; }
 .scarabeus { background: coral; }
 .seemant { background: lavender; }
 .slyfox { background: mediumorchid; color: white; }
+.soap { background: cornsilk; }
 .solar { background: darkorange; color: white; }
 .swift { background: khaki; }
 .tamiko { }
