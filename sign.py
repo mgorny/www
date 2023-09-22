@@ -7,7 +7,7 @@ def main():
     with open('index.html', 'r') as f:
         data = f.read()
 
-    pre_elem = '<pre aria-hidden="true">'
+    pre_elem = '<pre aria-hidden="true" class="snippet">'
     first_pre = data.find(pre_elem)
     first_pre_end = data.find('</pre>')
     last_pre = data.rfind(pre_elem)
