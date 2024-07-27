@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8" />
+<meta name="generator" content="Docutils 0.21.2: https://docutils.sourceforge.io/" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<title>New Gentoo copyright policy explained (draft)</title>
 <meta name="author" content="Michał Górny" />
 <meta name="dcterms.date" content="2018-10-25" />
 <meta name="dcterms.rights" content="https://creativecommons.org/licenses/by/3.0/" />
+<title>New Gentoo copyright policy explained (draft)</title>
 <link rel="schema.dcterms" href="http://purl.org/dc/terms/"/>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: minimal.css 8642 2021-03-26 13:51:14Z milde $               */
-/* :Copyright: © 2015 Günter Milde.                                        */
+/* :Id: $Id: minimal.css 9545 2024-02-17 10:37:56Z milde $                                                               */
+/* :Copyright: © 2015, 2021 Günter Milde.                                  */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
 /*                                                                         */
@@ -27,11 +27,10 @@
 /*                                                                         */
 /* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
 
-/* This CSS2.1_ stylesheet defines rules for Docutils elements without    */
-/* HTML equivalent. It is required to make the document semantic visible. */
-/*                                                                        */
-/* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
-/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
+/* This CSS3 stylesheet defines rules for Docutils elements without        */
+/* HTML equivalent. It is required to make the document semantics visible. */
+/*                                                                         */
+/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link        */
 
 /* titles */
 p.topic-title,
@@ -56,14 +55,15 @@ p.sidebar-subtitle {
 h1 + p.subtitle {
   font-size: 1.6em;
 }
-h2 + p.section-subtitle, a.toc-backref {
-  color: black;
+a.toc-backref {
+  color: inherit;
   text-decoration: none;
 }
 
 /* Warnings, Errors */
 .system-messages h2,
 .system-message-title,
+pre.problematic,
 span.problematic {
   color: red;
 }
@@ -75,6 +75,9 @@ span.problematic {
 }
 /* do not wrap at hyphens and similar: */
 .literal > span.pre { white-space: nowrap; }
+
+/* keep line-breaks (\n) visible */
+.pre-wrap { white-space: pre-wrap; }
 
 /* Lists */
 
@@ -89,13 +92,11 @@ span.problematic {
 /* Nested Paragraphs */
 p:first-child { margin-top: 0; }
 p:last-child { margin-bottom: 0; }
-td > p, th > p { margin-bottom: 0; }
+details > p:last-child { margin-bottom: 1em; }
 
 /* Table of Contents */
-.topic.contents { margin: 0.5em 0; }
-.topic.contents ul.auto-toc {
+.contents ul.auto-toc { /* section numbers present */
   list-style-type: none;
-  padding-left: 1.5em;
 }
 
 /* Enumerated Lists */
@@ -114,23 +115,32 @@ dt .classifier:before {
 }
 /* Field Lists and similar */
 /* bold field name, content starts on the same line */
+dl.field-list,
+dl.option-list,
+dl.docinfo {
+  display: flow-root;
+}
 dl.field-list > dt,
 dl.option-list > dt,
-dl.docinfo > dt,
-dl.footnote > dt,
-dl.citation > dt {
+dl.docinfo > dt {
   font-weight: bold;
   clear: left;
   float: left;
   margin: 0;
   padding: 0;
-  padding-right: 0.5em;
+  padding-right: 0.25em;
 }
 /* Offset for field content (corresponds to the --field-name-limit option) */
 dl.field-list > dd,
 dl.option-list > dd,
 dl.docinfo > dd {
   margin-left:  9em; /* ca. 14 chars in the test examples, fit all Docinfo fields */
+}
+/* start nested lists on new line */
+dd > dl:first-child,
+dd > ul:first-child,
+dd > ol:first-child {
+  clear: left;
 }
 /* start field-body on a new line after long field names */
 dl.field-list > dd > *:first-child,
@@ -139,11 +149,6 @@ dl.option-list > dd > *:first-child
   display: inline-block;
   width: 100%;
   margin: 0;
-}
-/* field names followed by a colon */
-dl.field-list > dt:after,
-dl.docinfo > dt:after {
-  content: ":";
 }
 
 /* Bibliographic Fields (docinfo) */
@@ -158,23 +163,54 @@ dl.option-list > dt { font-weight: normal; }
 span.option { white-space: nowrap; }
 
 /* Footnotes and Citations  */
-dl.footnote.superscript > dd { margin-left: 1em; }
-dl.footnote.brackets > dd { margin-left: 2em; }
-dl.footnote > dt { font-weight: normal; }
-a.footnote-reference.brackets:before,
-dt.label > span.brackets:before { content: "["; }
-a.footnote-reference.brackets:after,
-dt.label > span.brackets:after { content: "]"; }
-a.footnote-reference.superscript,
-dl.footnote.superscript > dt.label {
+
+.footnote, .citation { margin: 1em 0; } /* default paragraph skip (Firefox) */
+/* hanging indent */
+.citation { padding-left: 2em; }
+.footnote { padding-left: 1.7em; }
+.footnote.superscript { padding-left: 1.0em; }
+.citation > .label { margin-left: -2em; }
+.footnote > .label { margin-left: -1.7em; }
+.footnote.superscript > .label { margin-left: -1.0em; }
+
+.footnote > .label + *,
+.citation > .label + * {
+  display: inline-block;
+  margin-top: 0;
+  vertical-align: top;
+}
+.footnote > .backrefs + *,
+.citation > .backrefs + * {
+  margin-top: 0;
+}
+.footnote > .label + p, .footnote > .backrefs + p,
+.citation > .label + p, .citation > .backrefs + p {
+  display: inline;
+  vertical-align: inherit;
+}
+
+.backrefs { user-select: none; }
+.backrefs > a { font-style: italic; }
+
+/* superscript footnotes */
+a[role="doc-noteref"].superscript,
+.footnote.superscript > .label,
+.footnote.superscript > .backrefs {
   vertical-align: super;
-  font-size: small;
+  font-size: smaller;
+  line-height: 1;
 }
-dt.label > span.fn-backref {
-  margin-left: 0.2em;
-  font-weight: normal;
+a[role="doc-noteref"].superscript > .fn-bracket,
+.footnote.superscript > .label > .fn-bracket {
+  /* hide brackets in display but leave for copy/paste */
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
 }
-dt.label > span.fn-backref > a { font-style: italic; }
+[role="doc-noteref"].superscript + [role="doc-noteref"].superscript {
+  padding-left: 0.15em; /* separate consecutive footnote references */
+  /* TODO: unfortunately, "+" also selects with text between the references. */
+}
 
 /* Alignment */
 .align-left   {
@@ -182,7 +218,6 @@ dt.label > span.fn-backref > a { font-style: italic; }
   margin-right: auto;
 }
 .align-center {
-  clear: both;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -202,23 +237,13 @@ table.align-left, table.align-center, table.align-right {
 }
 
 /* Text Blocks */
-blockquote,
-div.topic,
-aside.topic {
-  margin: 1em 2em;
-}
+.topic { margin: 1em 2em; }
 .sidebar,
 .admonition,
 .system-message {
-  border: thin solid;
   margin: 1em 2em;
+  border: thin solid;
   padding: 0.5em 1em;
-}
-.sidebar {
-  width: 30%;
-  max-width: 26em;
-  float: right;
-  clear: right;
 }
 div.line-block { display: block; }
 div.line-block div.line-block, pre { margin-left: 2em; }
@@ -244,7 +269,7 @@ td, th {
   padding-right: 0.5em /* separate table cells */
 }
 
-table > caption {
+table > caption, figcaption {
   text-align: left;
   margin-top: 0.2em;
   margin-bottom: 0.2em;
@@ -253,19 +278,32 @@ table.captionbelow {
   caption-side: bottom;
 }
 
+/* MathML (see "math.css" for --math-output=HTML) */
+math .boldsymbol { font-weight: bold; }
+math.boxed, math .boxed {padding: 0.25em; border: thin solid; }
+/* style table similar to AMS "align" or "aligned" environment: */
+mtable.cases > mtr > mtd { text-align: left; }
+mtable.ams-align > mtr > mtd { padding-left: 0; padding-right: 0; }
+mtable.ams-align > mtr > mtd:nth-child(2n) { text-align: left; }
+mtable.ams-align > mtr > mtd:nth-child(2n+1) { text-align: right; }
+mtable.ams-align > mtr > mtd:nth-child(2n+3) { padding-left: 2em; }
+.mathscr mi, mi.mathscr {
+  font-family: STIX, XITSMathJax_Script, rsfs10,
+               "Asana Math", Garamond, cursive;
+}
+
 /* Document Header and Footer */
 header { border-bottom: 1px solid black; }
 footer { border-top: 1px solid black; }
 
 /* Images are block-level by default in Docutils */
 /* New HTML5 block elements: set display for older browsers */
-img, header, section, footer, aside, nav, main, article, figure, video {
+img, svg, header, footer, main, aside, nav, section, figure, video, details {
   display: block;
 }
+svg { width: auto; height: auto; }  /* enable scaling of SVG images */
 /* inline images */
-p img, p video, figure img, figure video {
-  display: inline;
-}
+p img, p svg, p video { display: inline; }
 
 </style>
 <style type="text/css">
@@ -274,7 +312,7 @@ p img, p video, figure img, figure video {
 /* Rules for easy reading and pre-defined style variants.                  */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: plain.css 8636 2021-03-19 00:23:33Z milde $                                                               */
+/* :Id: $Id: plain.css 9615 2024-04-06 13:28:15Z milde $                                                               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -286,7 +324,7 @@ p img, p video, figure img, figure video {
 /*    This file is offered as-is, without any warranty.                    */
 /*                                                                         */
 /* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
-/* .. _CSS3: http://www.w3.org/TR/CSS3                                     */
+/* .. _CSS3: https://www.w3.org/Style/CSS/                                 */
 
 
 /* Document Structure */
@@ -296,9 +334,10 @@ p img, p video, figure img, figure video {
 body {
   margin: 0;
   background-color: #dbdbdb;
+  --field-indent: 9em; /* default indent of fields in field lists */
 }
 main, footer, header {
-  line-height:1.3;
+  line-height:1.6;
   /* avoid long lines --> better reading */
   /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */
   /* OTOH: lines should not be too short because of missing hyphenation, */
@@ -316,6 +355,21 @@ footer, header {
   border: none;
 }
 
+/* Table of Contents */
+ul.auto-toc > li > p {
+  padding-left: 1em;
+  text-indent: -1em;
+}
+nav.contents ul {
+  padding-left: 1em;
+}
+main > nav.contents ul ul ul ul:not(.auto-toc) {
+  list-style-type: '\2B29\ ';
+}
+main > nav.contents ul ul ul ul ul:not(.auto-toc) {
+  list-style-type: '\2B1D\ ';
+}
+
 /* Transitions */
 hr.docutils {
   width: 80%;
@@ -327,49 +381,55 @@ hr.docutils {
 /* Paragraphs */
 
 /* vertical space (parskip) */
-p, ol, ul, dl, li, dd,
-div.line-block,
-div.topic,
+p, ol, ul, dl, li,
+.footnote, .citation,
+div > math,
 table {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
-p:first-child { margin-top: 0; }
-/* (:last-child is new in CSS 3) */
-p:last-child  { margin-bottom: 0; }
 
 h1, h2, h3, h4, h5, h6,
-dl > dd {
+dd, details > p:last-child {
   margin-bottom: 0.5em;
 }
 
 /* Lists */
 /* ===== */
 
-/* Separate list entries in compound lists */
-dl > dd, ol > li,
-
 /* Definition Lists */
 /* Indent lists nested in definition lists */
-/* (:only-child is new in CSS 3)           */
 dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
 
 /* Description Lists */
 /* styled like in most dictionaries, encyclopedias etc. */
+dl.description {
+  display: flow-root;
+}
 dl.description > dt {
   font-weight: bold;
   clear: left;
   float: left;
   margin: 0;
   padding: 0;
-  padding-right: 0.5em;
+  padding-right: 0.3em;
+}
+dl.description > dd:after {
+  display: table;
+  content: "";
+  clear: left; /* clearfix for empty descriptions */
 }
 
 /* Field Lists */
 
+dl.field-list > dd,
+dl.docinfo > dd {
+  margin-left: var(--field-indent); /* adapted in media queries or HTML */
+}
+
 /* example for custom field-name width */
 dl.field-list.narrow > dd {
-  margin-left: 5em;
+  --field-indent: 5em;
 }
 /* run-in: start field-body on same line after long field names */
 dl.field-list.run-in > dd p {
@@ -378,8 +438,8 @@ dl.field-list.run-in > dd p {
 
 /* Bibliographic Fields */
 
-/* generally, bibliographic fields use special definition list dl.docinfo */
-/* but dedication and abstract are placed into "topic" divs */
+/* generally, bibliographic fields use dl.docinfo */
+/* but dedication and abstract are placed into divs */
 div.abstract p.topic-title {
   text-align: center;
 }
@@ -392,6 +452,10 @@ div.dedication p.topic-title {
   font-style: normal;
 }
 
+/* disclosures */
+details { padding-left: 1em; }
+summary { margin-left: -1em; }
+
 /* Text Blocks */
 /* =========== */
 
@@ -401,14 +465,10 @@ pre.math, pre.code {
   font-family: monospace;
 }
 
-/* Block Quotes */
-blockquote > table,
-div.topic > table {
-  margin-top: 0;
-  margin-bottom: 0;
-}
+/* Block Quotes and Topics */
+bockquote { margin: 1em 2em; }
 blockquote p.attribution,
-div.topic p.attribution {
+.topic p.attribution {
   text-align: right;
   margin-left: 20%;
 }
@@ -448,10 +508,9 @@ table.numbered > caption:before {
 /* ----------------------- */
 
 /* line on the left */
-dl.footnote {
-  padding-left: 1ex;
-  border-left: solid;
-  border-left-width: thin;
+.footnote-list {
+  border-left: solid thin;
+  padding-left: 0.25em;
 }
 
 /* Directives */
@@ -465,7 +524,9 @@ dl.footnote {
 /* let content flow to the side of aligned images and figures */
 figure.align-left,
 img.align-left,
+svg.align-left,
 video.align-left,
+div.align-left,
 object.align-left {
   clear: left;
   float: left;
@@ -473,7 +534,9 @@ object.align-left {
 }
 figure.align-right,
 img.align-right,
+svg.align-right,
 video.align-right,
+div.align-right,
 object.align-right {
   clear: right;
   float: right;
@@ -505,16 +568,19 @@ div.error {
 aside.sidebar {
   width: 30%;
   max-width: 26em;
+  float: right;
+  clear: right;
   margin-left: 1em;
-  margin-right: -2%;
-  background-color: #ffffee;
+  margin-right: -1%;
+  background-color: #fffffa;
 }
+
 
 /* Code */
 pre.code { padding: 0.7ex }
 pre.code, code { background-color: #eeeeee }
 /* basic highlighting: for a complete scheme, see */
-/* http://docutils.sourceforge.net/sandbox/stylesheets/ */
+/* https://docutils.sourceforge.io/sandbox/stylesheets/ */
 pre.code .comment, code .comment { color: #5C6576 }
 pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
 pre.code .literal.string, code .literal.string { color: #0C5404 }
@@ -522,8 +588,6 @@ pre.code .name.builtin, code .name.builtin { color: #352B84 }
 pre.code .deleted, code .deleted { background-color: #DEB0A1}
 pre.code .inserted, code .inserted { background-color: #A3D289}
 
-/* Math */
-/* styled separately (see math.css for math-output=HTML) */
 
 /* Epigraph           */
 /* Highlights         */
@@ -533,6 +597,8 @@ pre.code .inserted, code .inserted { background-color: #A3D289}
 
 /* Inline Markup */
 /* ============= */
+
+sup, sub { line-height: 0.8; } /* do not add leading for lines with sup/sub */
 
 /* Inline Literals                                          */
 /* possible values: normal, nowrap, pre, pre-wrap, pre-line */
@@ -546,7 +612,7 @@ a { text-decoration: none; }
 /* Internal Targets       */
 /*   span.target.internal */
 /* Footnote References    */
-/*   a.footnote-reference */
+/*   a[role="doc-noteref"] */
 /* Citation References    */
 /*   a.citation-reference */
 
@@ -556,32 +622,33 @@ a { text-decoration: none; }
 <main id="new-gentoo-copyright-policy-explained-draft">
 <h1 class="title">New Gentoo copyright policy explained (draft)</h1>
 <dl class="docinfo simple">
-<dt class="author">Author</dt>
+<dt class="author">Author<span class="colon">:</span></dt>
 <dd class="author"><p>Michał Górny</p></dd>
-<dt class="date">Date</dt>
+<dt class="date">Date<span class="colon">:</span></dt>
 <dd class="date">2018-10-25</dd>
-<dt class="version">Version</dt>
-<dd class="version">1.1</dd>
-<dt class="copyright">Copyright</dt>
+<dt class="version">Version<span class="colon">:</span></dt>
+<dd class="version">1.2</dd>
+<dt class="copyright">Copyright<span class="colon">:</span></dt>
 <dd class="copyright"><a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</a></dd>
 </dl>
-<div class="contents topic" id="contents">
-<p class="topic-title">Contents</p>
+<nav class="contents" id="contents" role="doc-toc">
+<p class="topic-title"><a class="reference internal" href="#top">Contents</a></p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#preamble" id="id13">Preamble</a></p></li>
-<li><p><a class="reference internal" href="#why-do-we-need-a-new-policy" id="id14">Why do we need a new policy?</a></p></li>
-<li><p><a class="reference internal" href="#whom-does-the-new-policy-apply-to" id="id15">Whom does the new policy apply to?</a></p></li>
-<li><p><a class="reference internal" href="#licensing-of-gentoo-projects" id="id16">Licensing of Gentoo projects</a></p></li>
-<li><p><a class="reference internal" href="#certificate-of-origin-approval" id="id17">Certificate of origin approval</a></p></li>
-<li><p><a class="reference internal" href="#copyright-ownership" id="id18">Copyright ownership</a></p></li>
-<li><p><a class="reference internal" href="#references" id="id19">References</a></p></li>
+<li><p><a class="reference internal" href="#preamble" id="toc-entry-1">Preamble</a></p></li>
+<li><p><a class="reference internal" href="#why-do-we-need-a-new-policy" id="toc-entry-2">Why do we need a new policy?</a></p></li>
+<li><p><a class="reference internal" href="#whom-does-the-new-policy-apply-to" id="toc-entry-3">Whom does the new policy apply to?</a></p></li>
+<li><p><a class="reference internal" href="#licensing-of-gentoo-projects" id="toc-entry-4">Licensing of Gentoo projects</a></p></li>
+<li><p><a class="reference internal" href="#certificate-of-origin-approval" id="toc-entry-5">Certificate of origin approval</a></p></li>
+<li><p><a class="reference internal" href="#copyright-ownership" id="toc-entry-6">Copyright ownership</a></p></li>
+<li><p><a class="reference internal" href="#changelog" id="toc-entry-7">Changelog</a></p></li>
+<li><p><a class="reference internal" href="#references" id="toc-entry-8">References</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="preamble">
-<h2><a class="toc-backref" href="#id13">Preamble</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1" role="doc-backlink">Preamble</a></h2>
 <p>On 2018-09-15 meeting, the Trustees have given the final stamp
 of approval to the new Gentoo copyright policy outlined in GLEP 76
-<a class="footnote-reference brackets" href="#glep76" id="id1">1</a>.  This policy is the result of work that has been slowly
+<a class="brackets" href="#glep76" id="footnote-reference-1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.  This policy is the result of work that has been slowly
 progressing since 2005, and that has taken considerable speed by the end
 of 2017.  It is a major step forward from the status quo that has been
 used since the forming of Gentoo Foundation, and that mostly has been
@@ -597,13 +664,13 @@ in the new copyright policy, and provide a detailed guide on following
 it in Q&amp;A form.</p>
 </section>
 <section id="why-do-we-need-a-new-policy">
-<h2><a class="toc-backref" href="#id14">Why do we need a new policy?</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2" role="doc-backlink">Why do we need a new policy?</a></h2>
 <p>Gentoo never really had much of a copyright policy.  According to Daniel
 Robbins:</p>
 <blockquote>
 <p>What we are doing now began way back when we figured out that slapping
 a &quot;Copyright 2000 Gentoo Technologies, Inc.&quot; allowed us to comply with
-the GPL and get back to coding.  [...]  <a class="footnote-reference brackets" href="#robbins-20030821" id="id2">2</a></p>
+the GPL and get back to coding.  [...]  <a class="brackets" href="#robbins-20030821" id="footnote-reference-2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
 </blockquote>
 <p>The flaws of this concept were already noticed in late 2003.  Having
 a potential copyright pursuit in view, Gentoo Technologies created
@@ -636,10 +703,10 @@ followed the same rules as the Gentoo ebuild repository.  Some others
 had their own policies, some did not have any defined policy.</p>
 <p>A more complete view of the history of copyright in Gentoo, along with
 detailed evidence, can be found in my earlier article ‘A short history
-of Gentoo copyright’ <a class="footnote-reference brackets" href="#gentoo-copyright-history" id="id3">3</a>.</p>
+of Gentoo copyright’ <a class="brackets" href="#gentoo-copyright-history" id="footnote-reference-3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
 </section>
 <section id="whom-does-the-new-policy-apply-to">
-<h2><a class="toc-backref" href="#id15">Whom does the new policy apply to?</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-3" role="doc-backlink">Whom does the new policy apply to?</a></h2>
 <p>The first important thing about the new policy is that it <em>uniformly
 applies to all Gentoo projects</em>.  More specifically, all official Gentoo
 projects are required to follow it, as well as all projects hosted
@@ -681,22 +748,22 @@ your report, please escalate the issue to the Council.</p>
 </dl>
 </section>
 <section id="licensing-of-gentoo-projects">
-<h2><a class="toc-backref" href="#id16">Licensing of Gentoo projects</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-4" role="doc-backlink">Licensing of Gentoo projects</a></h2>
 <p>The first part of the new policy specifies the licenses allowed for use
 in Gentoo projects.  The policy specifically provides for:</p>
 <blockquote>
 <ol class="loweralpha simple">
 <li><p>The GNU General Public License, version 2 or later (GPL-2+)
-<a class="footnote-reference brackets" href="#gpl-2" id="id4">4</a>.</p></li>
+<a class="brackets" href="#gpl-2" id="footnote-reference-4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p></li>
 <li><p>The Creative Commons Attribution-ShareAlike 4.0 License
-(CC-BY-SA-4.0, only for documentation) <a class="footnote-reference brackets" href="#cc-by-sa-4-0" id="id5">6</a>.
-Existing projects may also stay with CC-BY-SA-3.0 <a class="footnote-reference brackets" href="#cc-by-sa-3-0" id="id6">5</a>.</p></li>
+(CC-BY-SA-4.0, only for documentation) <a class="brackets" href="#cc-by-sa-4-0" id="footnote-reference-5" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>.
+Existing projects may also stay with CC-BY-SA-3.0 <a class="brackets" href="#cc-by-sa-3-0" id="footnote-reference-6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p></li>
 <li><p>A license approved as GPL compatible by the Free Software
-Foundation <a class="footnote-reference brackets" href="#gpl-compat" id="id7">7</a>.</p></li>
+Foundation <a class="brackets" href="#gpl-compat" id="footnote-reference-7" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>.</p></li>
 </ol>
 </blockquote>
 <p>The license restrictions are mostly an extension of the Gentoo Social
-Contract <a class="footnote-reference brackets" href="#social-contract" id="id8">8</a>.  The choice of allowed licenses meant to
+Contract <a class="brackets" href="#social-contract" id="footnote-reference-8" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>.  The choice of allowed licenses meant to
 cover a wide set of free software (documentation, …) licenses that our
 official and unofficial projects may want to use, while on the other
 hand limiting the ‘default’ set to licenses compatible with the GPL.</p>
@@ -705,18 +772,18 @@ to maintain our own list.</p>
 <p>Please make sure not to accidentally violate copyright law while making
 your project adhere to the new policy.  For information on baseline
 problems such as common license misconceptions, combining licenses
-and relicensing software, you can read my ‘copyright 101’ <a class="footnote-reference brackets" href="#copy-101" id="id9">9</a>.</p>
+and relicensing software, you can read my ‘copyright 101’ <a class="brackets" href="#copy-101" id="footnote-reference-9" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>.</p>
 <dl class="simple">
 <dt><strong>What about licenses approved by Open Software Initiative?</strong></dt>
 <dd><p>Many of the OSI-approved licenses are also approved as GPL compatible
-by the FSF <a class="footnote-reference brackets" href="#gpl-compat" id="id10">7</a>.  If you would like to use one that isn't,
+by the FSF <a class="brackets" href="#gpl-compat" id="footnote-reference-10" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>.  If you would like to use one that isn't,
 please follow the procedure for other open source licenses below.</p>
 </dd>
 <dt><strong>What about other open source licenses?</strong></dt>
 <dd><p>If you would like to use an open source license that is not explicitly
 permitted by this policy, please file a request to the Gentoo
 Foundation.  If the request is justified and the license in question
-does not violate the Gentoo Social Contract, the Trustees will grant
+does not violate the Gentoo Social Contract, the Council will grant
 you the possibility of using it.</p>
 </dd>
 <dt><strong>What about non-free licenses?</strong></dt>
@@ -731,7 +798,7 @@ to hosting it, please request explicit license exception.</p>
 <dd><p>The concept of public domain is quite diverse across different
 jurisdictions, and it is not necessarily clear that you actually can
 release software into public domain.  Please consider using CC0
-license instead (which is FSF-approved) <a class="footnote-reference brackets" href="#cc0" id="id11">10</a>.</p>
+license instead (which is FSF-approved) <a class="brackets" href="#cc0" id="footnote-reference-11" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a>.</p>
 </dd>
 <dt><strong>Will Gentoo no longer provide ebuilds for non-free software?</strong></dt>
 <dd><p>Gentoo will continue to provide ebuilds for non-free software.  This
@@ -742,7 +809,7 @@ packaged for Gentoo.</p>
 <dt><strong>Will existing projects need to be relicensed?</strong></dt>
 <dd><p>If any Gentoo projects use free software licenses that aren't
 explicitly permitted by the policy, they will have to request
-an explicit license exception from the Trustees.  If you choose
+an explicit license exception from the Council.  If you choose
 to relicense your project instead, <em>please make sure to obtain
 permission from all copyright holders.</em></p>
 </dd>
@@ -761,7 +828,7 @@ policy.</p>
 </dl>
 </section>
 <section id="certificate-of-origin-approval">
-<h2><a class="toc-backref" href="#id17">Certificate of origin approval</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5" role="doc-backlink">Certificate of origin approval</a></h2>
 <p>The next part of the policy introduces a Gentoo Certificate of Origin
 alike the document used in Linux Kernel.  The goal is that all
 committers acknowledge that their work can be legally integrated
@@ -795,8 +862,8 @@ this project or the free software license(s) involved.</pre>
 <p>In order to commit to any Gentoo project, you need to acknowledge
 the GCO by adding a <em>Signed-off-by</em> line to the footer of your commit
 (<span class="docutils literal">git commit <span class="pre">-s</span></span> does that for you).  Since you're effectively making
-a legal statement, it is important that this line contains your real
-name and working e-mail address.</p>
+a legal statement, it is important that this line contains your name
+and working e-mail address.</p>
 <p>To enable automatic sign-off addition in repoman, set the following
 variable in make.conf:</p>
 <pre class="literal-block">DCO_SIGNED_OFF_BY=&quot;Your Real Name &lt;email&#64;gentoo.org&gt;&quot;</pre>
@@ -808,7 +875,7 @@ can acknowledge it via option (4).  Each GCO approval in this pipeline
 creates an additional <em>Signed-off-by</em> line, making it possible to trace
 the contribution to its root.</p>
 <p>The policy additionally permits using the original Linux DCO 1.1
-<a class="footnote-reference brackets" href="#dco-1-1" id="id12">11</a> when contributors do not wish to use our GCO.  This needs
+<a class="brackets" href="#dco-1-1" id="footnote-reference-12" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> when contributors do not wish to use our GCO.  This needs
 to be explicitly noted via appending <span class="docutils literal"><span class="pre">(DCO-1.1)</span></span>
 to the <em>Signed-off-by</em> line.  Please note that you aren't legally
 allowed to commit licenses this way!</p>
@@ -839,17 +906,13 @@ top-to-bottom.  Therefore, we assume that the last person listed
 verified the signoff of the person above him, etc.</p>
 </dd>
 <dt><strong>Do I have to use my real name?</strong></dt>
-<dd><p>Yes, using real legal name (i.e. the name you use in officially signed
-documents) is required.</p>
+<dd><p>No.  Starting with the version 1.3, the policy allows using a known
+identity that can be a pseudonym, provided it's well established
+online.</p>
 </dd>
 <dt><strong>Do I have to use my primary e-mail address?</strong></dt>
 <dd><p>You need to use a working e-mail address that can be used to contact
 you.  It does not have to be your primary address.</p>
-</dd>
-<dt><strong>Will Gentoo verify my real name?</strong></dt>
-<dd><p>At the moment, there are no plans to request any evidence of your
-real name.  However, we reserve the right to reject a contribution
-when there is evidence that it was submitted under a pseudonym.</p>
 </dd>
 <dt><strong>Why does Gentoo need a custom Certificate of Origin?</strong></dt>
 <dd><p>The Linux Kernel DCO fails to account for license files.  Those files
@@ -869,7 +932,7 @@ will not be able to commit additional licenses this way.</p>
 </dl>
 </section>
 <section id="copyright-ownership">
-<h2><a class="toc-backref" href="#id18">Copyright ownership</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-6" role="doc-backlink">Copyright ownership</a></h2>
 <p>An important difference from the status quo is that the new policy does
 not require you to assign the copyright to the Gentoo Foundation.
 An option for FLA-style assignment might be added in the future
@@ -945,7 +1008,7 @@ for ebuilds.</p>
 <dd><p>If you believe that the copyright in some file is not attributed
 correctly, please file a bug to the project.  If the maintainer does
 not reply or disagrees with you, you can escalate the issue to
-the Trustees, providing evidence to your claims.</p>
+the Council, providing evidence to your claims.</p>
 </dd>
 <dt><strong>Can multiple copyright holders be listed explicitly?</strong></dt>
 <dd><p>The policy technically allows listing multiple copyright holders
@@ -953,58 +1016,79 @@ but it is discouraged.</p>
 </dd>
 </dl>
 </section>
-<section id="references">
-<h2><a class="toc-backref" href="#id19">References</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="glep76"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>GLEP 76: Copyright Policy
-(<a class="reference external" href="https://www.gentoo.org/glep/glep-0076.html">https://www.gentoo.org/glep/glep-0076.html</a>)</p>
-</dd>
-<dt class="label" id="robbins-20030821"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Daniel Robbins, Re: [gentoo-dev] Why should
-copyright assignment be a requirement?
-(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/60630a3e1b5ba40c49fa65daadd45fbd">https://archives.gentoo.org/gentoo-dev/message/60630a3e1b5ba40c49fa65daadd45fbd</a>)</p>
-</dd>
-<dt class="label" id="gentoo-copyright-history"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p>Michał Górny, A short history of Gentoo
-copyright
-(<a class="reference external" href="https://dev.gentoo.org/~mgorny/articles/a-short-history-of-gentoo-copyright.html">https://dev.gentoo.org/~mgorny/articles/a-short-history-of-gentoo-copyright.html</a>)</p>
-</dd>
-<dt class="label" id="gpl-2"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
-<dd><p>GNU General Public License, version 2 or later
-(<a class="reference external" href="http://www.gnu.org/licenses/gpl-2.0.html">http://www.gnu.org/licenses/gpl-2.0.html</a>)</p>
-</dd>
-<dt class="label" id="cc-by-sa-3-0"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
-<dd><p>Creative Commons Attribution-ShareAlike 3.0
-Unported License
-(<a class="reference external" href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</a>)</p>
-</dd>
-<dt class="label" id="cc-by-sa-4-0"><span class="brackets"><a class="fn-backref" href="#id5">6</a></span></dt>
-<dd><p>Creative Commons Attribution-ShareAlike 4.0
-International License
-(<a class="reference external" href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a>)</p>
-</dd>
-<dt class="label" id="gpl-compat"><span class="brackets">7</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id10">2</a>)</span></dt>
-<dd><p>GPL-compatible free software licenses
-(<a class="reference external" href="https://www.gnu.org/licenses/license-list.en.html#GPLCompatibleLicenses">https://www.gnu.org/licenses/license-list.en.html#GPLCompatibleLicenses</a>)</p>
-</dd>
-<dt class="label" id="social-contract"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
-<dd><p>Gentoo Social Contract
-(<a class="reference external" href="https://www.gentoo.org/get-started/philosophy/social-contract.html">https://www.gentoo.org/get-started/philosophy/social-contract.html</a>)</p>
-</dd>
-<dt class="label" id="copy-101"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
-<dd><p>Michał Górny, Copyright 101 for Gentoo contributors
-(<a class="reference external" href="https://blogs.gentoo.org/mgorny/2018/05/08/copyright-101-for-gentoo-contributors/">https://blogs.gentoo.org/mgorny/2018/05/08/copyright-101-for-gentoo-contributors/</a>)</p>
-</dd>
-<dt class="label" id="cc0"><span class="brackets"><a class="fn-backref" href="#id11">10</a></span></dt>
-<dd><p>Creative Commons, CC0
-(<a class="reference external" href="https://creativecommons.org/share-your-work/public-domain/cc0/">https://creativecommons.org/share-your-work/public-domain/cc0/</a>)</p>
-</dd>
-<dt class="label" id="dco-1-1"><span class="brackets"><a class="fn-backref" href="#id12">11</a></span></dt>
-<dd><p>Developer's Certificate of Origin 1.1
-(<a class="reference external" href="https://developercertificate.org/">https://developercertificate.org/</a>)</p>
+<section id="changelog">
+<h2><a class="toc-backref" href="#toc-entry-7" role="doc-backlink">Changelog</a></h2>
+<dl class="simple">
+<dt>v1.2 (2024-07-27)</dt>
+<dd><p>Updates following the name policy change and responsibility shift
+from Trustees to the Council.</p>
 </dd>
 </dl>
+</section>
+<section id="references">
+<h2><a class="toc-backref" href="#toc-entry-8" role="doc-backlink">References</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="glep76" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-1">1</a><span class="fn-bracket">]</span></span>
+<p>GLEP 76: Copyright Policy
+(<a class="reference external" href="https://www.gentoo.org/glep/glep-0076.html">https://www.gentoo.org/glep/glep-0076.html</a>)</p>
+</aside>
+<aside class="footnote brackets" id="robbins-20030821" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-2">2</a><span class="fn-bracket">]</span></span>
+<p>Daniel Robbins, Re: [gentoo-dev] Why should
+copyright assignment be a requirement?
+(<a class="reference external" href="https://archives.gentoo.org/gentoo-dev/message/60630a3e1b5ba40c49fa65daadd45fbd">https://archives.gentoo.org/gentoo-dev/message/60630a3e1b5ba40c49fa65daadd45fbd</a>)</p>
+</aside>
+<aside class="footnote brackets" id="gentoo-copyright-history" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-3">3</a><span class="fn-bracket">]</span></span>
+<p>Michał Górny, A short history of Gentoo
+copyright
+(<a class="reference external" href="https://dev.gentoo.org/~mgorny/articles/a-short-history-of-gentoo-copyright.html">https://dev.gentoo.org/~mgorny/articles/a-short-history-of-gentoo-copyright.html</a>)</p>
+</aside>
+<aside class="footnote brackets" id="gpl-2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-4">4</a><span class="fn-bracket">]</span></span>
+<p>GNU General Public License, version 2 or later
+(<a class="reference external" href="http://www.gnu.org/licenses/gpl-2.0.html">http://www.gnu.org/licenses/gpl-2.0.html</a>)</p>
+</aside>
+<aside class="footnote brackets" id="cc-by-sa-3-0" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-6">5</a><span class="fn-bracket">]</span></span>
+<p>Creative Commons Attribution-ShareAlike 3.0
+Unported License
+(<a class="reference external" href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</a>)</p>
+</aside>
+<aside class="footnote brackets" id="cc-by-sa-4-0" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-5">6</a><span class="fn-bracket">]</span></span>
+<p>Creative Commons Attribution-ShareAlike 4.0
+International License
+(<a class="reference external" href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a>)</p>
+</aside>
+<aside class="footnote brackets" id="gpl-compat" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#footnote-reference-7">1</a>,<a role="doc-backlink" href="#footnote-reference-10">2</a>)</span>
+<p>GPL-compatible free software licenses
+(<a class="reference external" href="https://www.gnu.org/licenses/license-list.en.html#GPLCompatibleLicenses">https://www.gnu.org/licenses/license-list.en.html#GPLCompatibleLicenses</a>)</p>
+</aside>
+<aside class="footnote brackets" id="social-contract" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-8">8</a><span class="fn-bracket">]</span></span>
+<p>Gentoo Social Contract
+(<a class="reference external" href="https://www.gentoo.org/get-started/philosophy/social-contract.html">https://www.gentoo.org/get-started/philosophy/social-contract.html</a>)</p>
+</aside>
+<aside class="footnote brackets" id="copy-101" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-9">9</a><span class="fn-bracket">]</span></span>
+<p>Michał Górny, Copyright 101 for Gentoo contributors
+(<a class="reference external" href="https://blogs.gentoo.org/mgorny/2018/05/08/copyright-101-for-gentoo-contributors/">https://blogs.gentoo.org/mgorny/2018/05/08/copyright-101-for-gentoo-contributors/</a>)</p>
+</aside>
+<aside class="footnote brackets" id="cc0" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-11">10</a><span class="fn-bracket">]</span></span>
+<p>Creative Commons, CC0
+(<a class="reference external" href="https://creativecommons.org/share-your-work/public-domain/cc0/">https://creativecommons.org/share-your-work/public-domain/cc0/</a>)</p>
+</aside>
+<aside class="footnote brackets" id="dco-1-1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-12">11</a><span class="fn-bracket">]</span></span>
+<p>Developer's Certificate of Origin 1.1
+(<a class="reference external" href="https://developercertificate.org/">https://developercertificate.org/</a>)</p>
+</aside>
+</aside>
 </section>
 </main>
 </body>
