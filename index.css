@@ -143,3 +143,21 @@ sup::before {
 div {
   transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
+.lightblue {
+  color: #5555ff;
+}
+.brown {
+  color: #aa5500;
+}
+.green {
+  color: #00aa00;
+}
+.red {
+  color: #aa0000;
+}
+.blue {
+  color: #0000aa;
+}
+.cyan {
+  color: #00aaaa;
+}
