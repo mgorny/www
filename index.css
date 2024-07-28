@@ -7,7 +7,7 @@
   font-display: block;
 }
 html {
-  background: #080808;
+  background: #555555;
 }
 html,
 pre {
@@ -22,12 +22,12 @@ a:focus::after {
   left: 0;
   right: 0;
   margin: 0 auto;
-  color: #000;
-  background: #bbb;
+  color: #000000;
+  background: #aaaaaa;
 }
 body {
-  background: #000;
-  color: #bbb;
+  background: #000000;
+  color: #aaaaaa;
   margin: 0 auto;
   padding: 1ch 0;
   max-width: 80ch;
@@ -55,27 +55,27 @@ h2 {
   font-size: 100%;
 }
 h1 {
-  color: #eee;
+  color: #ffffff;
   font-weight: bold;
   text-align: center;
 }
 em {
   font-weight: normal;
   font-style: normal;
-  color: #0cc;
+  color: #00aaaa;
 }
 a {
   display: inline-block;
-  color: #99d;
+  color: #5555ff;
   text-decoration: underline transparent;
   transition: text-decoration 0.3s ease;
 }
 a:visited {
-  color: #ee8;
+  color: #ffff55;
 }
 a:focus {
-  color: #000;
-  background: #99d;
+  color: #000000;
+  background: #5555ff;
 }
 a:focus::after {
   bottom: 0;
@@ -87,7 +87,7 @@ a:focus::after {
   z-index: 1;
 }
 a:focus::first-letter {
-  background: #bbb;
+  background: #aaaaaa;
 }
 a:hover {
   text-decoration: underline currentcolor;
@@ -104,22 +104,22 @@ pre.snippet {
   word-break: break-all;
 }
 .filters a {
-  color: #bbb;
+  color: #aaaaaa;
 }
 .filters a.tag-pop5 {
-  color: #eeeeee;
+  color: #ffffff;
 }
 .filters a.tag-pop4 {
-  color: #d4d4d4;
+  color: #ffffff;
 }
 .filters a.tag-pop2 {
-  color: #a2a2a2;
+  color: #aaaaaa;
 }
 .filters a.tag-pop1 {
-  color: #888888;
+  color: #555555;
 }
 .filters a em {
-  color: #99d;
+  color: #5555ff;
   font-weight: bold;
 }
 .filters a em::before {
@@ -131,10 +131,11 @@ pre.snippet {
 .filters a:focus::after {
   content: 'Checkbox, value on';
 }
+.filters a:focus em,
 .filters a:focus em::before,
 .filters a:focus em::after {
-  color: #000;
-  background: #99d;
+  color: #ffffff;
+  background: #5555ff;
 }
 sup::before {
   content: '^';
