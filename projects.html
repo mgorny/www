@@ -20,10 +20,79 @@
 			Most of my work is focused around small do-one-thing-well
 			projects.  This page aims to list at least the most useful
 			of them.  The projects are ordered by initial commit date.
-			Please note that this is a best effort only, and I rarely
-			find time to update it.
+			Please note that this is a best effort only.  Also, much of
+			my effort goes into existing projects, creating seemingly
+			large gaps here.
 		</p>
 
+		
+		<div>
+			<h2>
+				pytest-import-check <sup>[2024-07]</sup>
+				
+			</h2>
+			
+			<p>tags:
+				<em class="tags">
+					gentoo python
+				</em>
+			</p>
+
+			
+
+			
+			<p>github:
+				
+				<a rel="external"
+					href="https://github.com/projg2/pytest-import-check">projg2/pytest-import-check</a>
+				
+			</p>
+			
+
+			
+
+			<p>A pytest plugin to quickly check whether all Python modules
+and extensions in specified directory tree can be imported
+successfully.  This includes compiled C/Rust that are not normally
+supported by pytest.  The plugin serves a double purpose: it is used
+in Gentoo to provide absolutely minimal testing of Python packages
+that come without a test suite, and it can also be used inside
+third-party project to supplement existing test suites that do not
+cover all modules.</p>
+
+		</div>
+		
+		<div>
+			<h2>
+				Gentoo AI policy <sup>[2024-04]</sup>
+				
+			</h2>
+			
+			<p>tags:
+				<em class="tags">
+					gentoo ai policy
+				</em>
+			</p>
+
+			
+			<p>www:
+				
+				<a rel="external"
+					href="https://wiki.gentoo.org/wiki/Project:Council/AI_policy">https://wiki.gentoo.org/wiki/Project:Council/AI_policy</a>
+				
+			</p>
+			
+
+			
+
+			
+
+			<p>Working on a policy that forbade the use of Natural Language
+Processing artificial intelligence tools to create contributions
+to Gentoo.  The rationale focused on copyright, ethical and quality
+concerns.</p>
+
+		</div>
 		
 		<div>
 			<h2>
@@ -82,6 +151,31 @@ a dependency on a specific implementation.</p>
 Featuring proper <span class="docutils literal">LICENSE</span> support, in-place ebuild updates,
 merging multiple Cargo packages and most importantly, not requiring
 Rust.</p>
+
+		</div>
+		
+		<div>
+			<h2>
+				default clang configs in Gentoo <sup>[2022-09]</sup>
+				
+			</h2>
+			
+			<p>tags:
+				<em class="tags">
+					gentoo llvm
+				</em>
+			</p>
+
+			
+
+			
+
+			
+
+			<p>Working to provide support for configuring defaults in the clang
+compiler at runtime, rather than having to provide them at build time.
+This made it possible to switch runtimes and hardening options
+without having to rebuild clang on Gentoo.</p>
 
 		</div>
 		

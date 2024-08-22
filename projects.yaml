@@ -1,4 +1,28 @@
 ---
+name: pytest-import-check
+date: 2024-07-13
+tags: gentoo python
+github: projg2/pytest-import-check
+desc: |
+  A pytest plugin to quickly check whether all Python modules
+  and extensions in specified directory tree can be imported
+  successfully.  This includes compiled C/Rust that are not normally
+  supported by pytest.  The plugin serves a double purpose: it is used
+  in Gentoo to provide absolutely minimal testing of Python packages
+  that come without a test suite, and it can also be used inside
+  third-party project to supplement existing test suites that do not
+  cover all modules.
+---
+name: Gentoo AI policy
+date: 2024-04-14
+tags: gentoo ai policy
+www: https://wiki.gentoo.org/wiki/Project:Council/AI_policy
+desc: |
+  Working on a policy that forbade the use of Natural Language
+  Processing artificial intelligence tools to create contributions
+  to Gentoo.  The rationale focused on copyright, ethical and quality
+  concerns.
+---
 name: app-alternatives
 date: 2022-11-28
 tags: gentoo package-management
@@ -20,6 +44,16 @@ desc: |
   Featuring proper ``LICENSE`` support, in-place ebuild updates,
   merging multiple Cargo packages and most importantly, not requiring
   Rust.
+---
+name: default clang configs in Gentoo
+date: 2022-09-30
+tags: gentoo llvm
+url: https://blogs.gentoo.org/mgorny/2022/10/07/clang-in-gentoo-now-sets-default-runtimes-via-config-file/
+desc: |
+  Working to provide support for configuring defaults in the clang
+  compiler at runtime, rather than having to provide them at build time.
+  This made it possible to switch runtimes and hardening options
+  without having to rebuild clang on Gentoo.
 ---
 name: gpep517
 date: 2022-04-04
